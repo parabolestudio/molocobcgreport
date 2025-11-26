@@ -1,0 +1,33 @@
+.nav-link {
+  padding-top: 32px;
+  padding-bottom: 32px;
+
+  font-size: 100%;
+  line-height: 1.214;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 991px) {
+  .nav-link {
+    display: block;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    border-bottom: 2px solid var(--white-2556bf0f);
+    color: var(--blueDark-7dc5601b);
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .nav-link.text-block-16 {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .text-block-16 {
+    text-transform: capitalize;
+  }
+}

@@ -1,0 +1,39 @@
+.button-yellow-border {
+  padding: 16px 32px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: hsla(48, 92.59%, 62.94%, 1.00);
+  background-color: hsla(48, 92.59%, 62.94%, 0.00);
+}
+
+.button-yellow-border.text-blue {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 479px) {
+  .button-yellow-border.text-blue {
+    text-align: right;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .button-yellow-border.text-blue:hover {
+    border-color: var(--yellowDark-2bf003ba);
+  }
+}
+
+.text-blue {
+  color: var(--blueDark-7dc5601b);
+}
+
+.text-block-4 {
+  font-size: 1.25em;
+  line-height: 1.2;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.text-bold-700 {
+  font-family: var(--font);
+  font-weight: 700;
+}

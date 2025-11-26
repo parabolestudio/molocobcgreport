@@ -1,0 +1,282 @@
+.solutions-hero {
+  min-height: 620px;
+  background-clip: padding-box;
+  -webkit-text-fill-color: inherit;
+}
+
+.div-block-7 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.div-block-7.relative {
+  display: flex;
+  min-height: 620px;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: stretch;
+}
+
+.relative {
+  position: relative;
+}
+
+.container {
+  display: block;
+  overflow: visible;
+  max-width: 1100px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0px 1rem;
+  align-items: center;
+  flex: 0 auto;
+
+  color: var(--black-ee558e2a);
+}
+
+@media screen and (min-width: 1920px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+.container:lang(ko) {
+  font-size: 120%;
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    object-fit: none;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+.px-0 {
+  display: flex;
+  padding-right: 0px;
+  padding-left: 0px;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: auto;
+  order: 0;
+  flex: 0 auto;
+}
+
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.py-32 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.container.py-32.yellow-border {
+  border-top-color: hsla(240, 5.26%, 96.27%, 1.00);
+}
+
+.yellow-border {
+  border-top: 5px solid var(--yellowMedium-02744336);
+}
+
+.container.relative {
+  z-index: 4;
+}
+
+.centered-container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+}
+
+@media screen and (max-width: 479px) {
+  .centered-container {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+  }
+}
+
+.space-top-48px {
+  margin-top: 48px;
+}
+
+.container.py-60 {
+  padding-top: 3.75rem;
+  padding-bottom: 3.75rem;
+}
+
+@media screen and (max-width: 767px) {
+  .container.py-60.mobile-positioning {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}
+
+.text-white {
+  color: var(--white-2556bf0f);
+  font-size: var(--paragraph);
+  text-decoration: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-48 {
+  margin-bottom: 3rem;
+}
+
+.text-white.text-center.mb-48.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media screen and (max-width: 479px) {
+  .mt-10 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.text-24 {
+  font-size: 1.5rem;
+}
+
+.text-blue-dark {
+  color: var(--blueDark-7dc5601b);
+  text-decoration: none;
+}
+
+.mb-64 {
+  margin-bottom: 64px;
+}
+
+@media screen and (max-width: 767px) {
+  .mb-64 {
+    margin-bottom: 40px;
+  }
+}
+
+.mb-32 {
+  margin-bottom: 32px;
+}
+
+.mt-0 {
+  margin-top: 0px;
+}
+
+.my-4 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.text-white.my-8 {
+  font-size: var(--h5);
+}
+
+.my-8 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
+@media screen and (min-width: 1920px) {
+  .text-decoration-none {
+    font-family: var(--font);
+  }
+}
+
+.text-white.mb-48 {
+  margin-top: 0px;
+  font-weight: 700;
+}
+
+.line-height-1-2 {
+  line-height: 1.2;
+}
+
+.text-20 {
+  font-size: 1.25rem;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
+}
+
+.text-white.text-blue-dark.mt-0:lang(ko) {
+  min-width: 200px;
+  font-size: 3.5rem;
+}
+
+.text-white.mb-8 {
+  margin-bottom: 0.5rem;
+}
+
+.text-white.mb-8.h5 {
+  font-size: var(--h5);
+}
+
+@media screen and (max-width: 991px) {
+  .left-arrow {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .left-arrow {
+    display: none;
+  }
+}
+
+.is-blue {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: var(--blue-medium);
+}
+
+@media screen and (max-width: 991px) {
+  .right-arrow {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .right-arrow {
+    display: none;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.hide {
+  display: none;
+}

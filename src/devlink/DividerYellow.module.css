@@ -1,0 +1,20 @@
+.divider-yellow {
+  height: 6px;
+  background-color: var(--yellowMedium-02744336);
+}
+
+@media screen and (max-width: 767px) {
+  .divider-yellow.my-32 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.my-32 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.bg-soft-gray {
+  background-color: hsla(240, 5.26%, 96.27%, 1.00);
+}

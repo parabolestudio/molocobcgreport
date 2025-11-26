@@ -1,0 +1,14 @@
+.contact-en {
+  display: block;
+  width: 900px;
+}
+
+@media screen and (max-width: 991px) {
+  .contact-en {
+    width: 100%;
+  }
+}
+
+.width-100 {
+  width: 100%;
+}

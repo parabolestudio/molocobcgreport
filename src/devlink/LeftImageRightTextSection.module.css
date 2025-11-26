@@ -1,0 +1,270 @@
+.d-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  object-fit: fill;
+}
+
+@media screen and (max-width: 767px) {
+  .d-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .d-flex.reverse {
+    flex-wrap: wrap-reverse;
+  }
+}
+
+.d-flex.align-center {
+  flex-direction: row;
+  align-items: center;
+}
+
+@media screen and (max-width: 991px) {
+  .d-flex.align-center {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.align-center {
+  display: flex;
+  max-width: 1150px;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+
+  text-align: center;
+}
+
+@media screen and (max-width: 991px) {
+  .align-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .d-flex.align-center.mt-32 {
+    flex-wrap: nowrap;
+  }
+}
+
+.mt-32 {
+  margin-top: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-rows: auto auto;
+}
+
+@media screen and (max-width: 767px) {
+  .mt-32 {
+    margin-top: 2rem;
+  }
+}
+
+.d-flex.align-center.space-between {
+  justify-content: space-between;
+}
+
+.mb-40 {
+  margin-bottom: 2.5rem;
+}
+
+.pt-40 {
+  padding-top: 40px;
+}
+
+.d-flex.align-center.two-col-reverse-on-mobile {
+  flex-wrap: nowrap;
+}
+
+.two-col-reverse-on-mobile {
+  grid-column-gap: 40px;
+  grid-row-gap: 40px;
+}
+
+@media screen and (max-width: 991px) {
+  .two-col-reverse-on-mobile {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    grid-auto-columns: 1fr;
+    grid-column-gap: 40px;
+    grid-row-gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .two-col-reverse-on-mobile {
+    display: flex;
+    flex-direction: column-reverse;
+    grid-column-gap: 24px;
+    grid-row-gap: 24px;
+  }
+}
+
+.d-flex.justify-center {
+  justify-content: center;
+}
+
+.d-flex.flex-direction-column {
+  flex-direction: column;
+}
+
+.bg-gray-15 {
+  background-color: var(--gray20-b78e1b77);
+}
+
+.box-shadow {
+  box-shadow: 2px 0 12px 0 hsla(0, 0.00%, 0.00%, 0.15);
+}
+
+.d-flex.gap-20 {
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.d-flex.align-top {
+  align-items: flex-start;
+}
+
+.align-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media screen and (max-width: 991px) {
+  .align-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.d-flex.align-top.three-col-reverse-on-mobile-copy {
+  flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 767px) {
+  .d-flex.align-top.three-col-reverse-on-mobile-copy {
+    flex-direction: column;
+  }
+}
+
+.d-flex.align-top.align-horizontal {
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+@media screen and (max-width: 767px) {
+  .d-flex.align-top.align-horizontal {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
+
+.d-flex.left-col {
+  flex: 1;
+}
+
+.p-20 {
+  padding: 1.25rem;
+}
+
+.space-bottom-24px {
+  margin-bottom: 24px;
+}
+
+.d-flex.align-side-by-side {
+  align-items: flex-start;
+}
+
+.d-flex.align-side-by-side.three-col-reverse-on-mobile-copy {
+  flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 767px) {
+  .d-flex.align-side-by-side.three-col-reverse-on-mobile-copy {
+    flex-direction: column;
+  }
+}
+
+.text-blue {
+  color: var(--blueDark-7dc5601b);
+}
+
+.text-blue {
+  color: var(--blueDark-7dc5601b);
+}
+
+.text-blue.text-center-2 {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.mt-0 {
+  margin-top: 0px;
+}
+
+.text-blue.text-center-2.mt-0.mb-48 {
+  font-weight: 700;
+  text-align: center;
+}
+
+.mb-48 {
+  margin-bottom: 3rem;
+}
+
+.text-blue.text-center-2.mt-0.mb-24 {
+  font-weight: 700;
+  text-align: center;
+}
+
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.letter-spacing-1 {
+  letter-spacing: 1px;
+}
+
+.line-height-1-2 {
+  line-height: 1.2;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-blue.heading-h4-size {
+  font-family: var(--font);
+}
+
+.heading-h4-size {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: var(--h4);
+  font-weight: 600;
+  letter-spacing: 0px;
+}
+
+@media screen and (min-width: 1920px) {
+  .heading-h4-size {
+    font-family: var(--font);
+    font-size: var(--h4);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .heading-h4-size {
+    line-height: 1.35;
+  }
+}

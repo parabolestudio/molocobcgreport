@@ -1,0 +1,19 @@
+.subnav-link {
+  font-size: 1.125em;
+  font-weight: 700;
+}
+
+.text-blue {
+  color: var(--blueDark-7dc5601b);
+}
+
+@media screen and (max-width: 991px) {
+  .subnav-link.text-blue.py-4 {
+    font-size: 1.25rem;
+  }
+}
+
+.py-4 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}

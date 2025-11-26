@@ -1,0 +1,139 @@
+.scroll-form-contact {
+  overflow: scroll;
+  width: 60vw;
+  min-height: 100vh;
+  margin-top: 0vh;
+}
+
+@media screen and (max-width: 767px) {
+  .scroll-form-contact {
+    overflow: visible;
+    width: 100%;
+    height: 100%;
+    min-height: auto;
+  }
+}
+
+.flex-block-11-copy {
+  min-height: 1300px;
+  margin-top: 5vh;
+  margin-right: 5vw;
+  margin-left: 5vw;
+  padding-right: 0vw;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+@media screen and (min-width: 1440px) {
+  .flex-block-11-copy {
+    max-width: 700px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .flex-block-11-copy {
+    margin-top: 5vh;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .flex-block-11-copy {
+    min-height: auto;
+    margin-top: 3vh;
+    margin-right: 3vw;
+    margin-left: 3vw;
+  }
+}
+
+.space-bottom-40px {
+  margin-bottom: 40px;
+}
+
+.is-dark-blue {
+  font-family: var(--font);
+  color: var(--blue-dark);
+}
+
+@media screen and (max-width: 991px) {
+  .is-dark-blue {
+    width: 100%;
+  }
+}
+
+.px-16 {
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.large-h1 {
+  font-size: var(--large-h1);
+  font-weight: 600;
+}
+
+@media screen and (max-width: 991px) {
+  .large-h1 {
+    font-size: 2.8rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .large-h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .large-h1 {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .space-bottom-40px.mobile-spacing-opt {
+    margin-bottom: 0px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mobile-spacing-opt {
+    margin-bottom: 40px;
+  }
+}
+
+.hide-element {
+  display: none;
+}
+
+@media screen and (min-width: 1280px) {
+  .div-block-160 {
+    width: 100%;
+  }
+}
+
+.global-styles {
+  position: fixed;
+  left: 0%;
+  top: auto;
+  right: auto;
+  bottom: 0%;
+  z-index: 10;
+
+  display: none;
+  padding: 0.5rem;
+
+  background-color: hsla(0, 0.00%, 0.00%, 1.00);
+
+  color: hsla(0, 0.00%, 100.00%, 1.00);
+}
+
+.div-block-158-2 {
+  display: none;
+  width: 600px;
+  height: 100%;
+  margin-left: 100px;
+
+  background-color: hsla(0, 51.52%, 37.84%, 1.00);
+  background-image: linear-gradient(180deg, black, white);
+}

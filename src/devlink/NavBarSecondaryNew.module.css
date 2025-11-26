@@ -1,0 +1,202 @@
+.nav-bar---secondary---new {
+  position: fixed;
+  bottom: 0vh;
+  z-index: 8;
+
+  width: 100%;
+  height: 60px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 16px;
+  padding-left: 16px;
+
+  border-bottom: 1px none #e6f2ff;
+
+  background-color: var(--gray-20);
+
+  box-shadow: 0 2px 8px -6px var(--partner-tooltip);
+}
+
+@media screen and (min-width: 1280px) {
+  .nav-bar---secondary---new {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .nav-bar---secondary---new {
+    position: fixed;
+    top: auto;
+    z-index: 7;
+  }
+}
+
+.nav-sec-container-new {
+  position: static;
+
+  display: flex;
+  max-width: 1150px;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
+}
+
+@media screen and (max-width: 991px) {
+  .nav-sec-container-new {
+    overflow: auto;
+    padding-right: 12px;
+    padding-left: 12px;
+    justify-content: flex-start;
+    grid-column-gap: 32px;
+    grid-row-gap: 32px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .nav-sec-container-new {
+    position: sticky;
+    top: 120px;
+    z-index: 2;
+  }
+}
+
+.nav-sec-link-new {
+  display: flex;
+  height: 60px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+
+  border-style: none;
+  border-width: 1px 1px 3px;
+  border-color: var(--blue-dark);
+
+  background-color: hsla(0, 0.00%, 86.67%, 0.00);
+
+  transition: color 200ms ease;
+
+  font-family: var(--font);
+  color: var(--blue-dark);
+  font-size: var(--h6);
+  line-height: 17px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: 1920px) {
+  .nav-sec-link-new:global(.w--current) {
+    border-bottom-width: 3px;
+    border-bottom-color: var(--blue-dark);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .nav-sec-link-new {
+    background-color: hsla(0, 0.00%, 86.67%, 0.00);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .nav-sec-link-new:active {
+    border-style: none none solid;
+    border-width: 1px 1px 3px;
+    border-color: black black var(--blue-dark);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .nav-sec-link-new:global(.w--current) {
+    border-bottom-width: 1.5px;
+    border-bottom-color: var(--blue-medium);
+    background-color: hsla(0, 0.00%, 86.67%, 0.00);
+    color: var(--blue-dark);
+  }
+}
+
+.nav-sec-link-new:hover {
+  border-bottom: 3px solid var(--blue-dark);
+  color: var(--blue-dark);
+  font-weight: 600;
+}
+
+.nav-sec-link-new:active {
+  border-style: none none solid;
+  border-width: 1px 1px 3px 10px;
+  border-color: var(--navy) var(--navy) var(--blue-dark);
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+
+.nav-sec-link-new:global(.w--current) {
+  margin-right: auto;
+  margin-left: auto;
+
+  border-bottom-style: solid;
+  border-bottom-color: var(--blue-dark);
+
+  background-color: hsla(0, 0.00%, 78.43%, 0.00);
+
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+
+.nav-sec-link-new:global(.w--current):hover {
+  border-bottom-color: var(--blue-dark);
+  color: var(--blue-dark);
+}
+
+.nav-sec-link-new:global(.w--current):active {
+  border-bottom-color: var(--blue-medium);
+  color: var(--blue-medium);
+}
+
+@media screen and (max-width: 991px) {
+  .nav-sec-link-new {
+    flex: 0 0 auto;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .nav-sec-link-new:active {
+    border-bottom-color: var(--blue-medium);
+    color: var(--blue-medium);
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .nav-sec-link-new.hide-mobile {
+    display: none;
+  }
+}
+
+.nav-sec-link-new.english-only:lang(zh) {
+  display: none;
+}
+
+.nav-sec-link-new.english-only:lang(ja) {
+  display: none;
+}
+
+.nav-sec-link-new.english-only:lang(ko) {
+  display: none;
+}
+
+.nav-sec-link-new.english-only:lang(vi) {
+  display: none;
+}
+
+.nav-sec-link-new.english-only:lang(id) {
+  display: none;
+}
+
+.nav-sec-link-new.english-only:lang(de) {
+  display: none;
+}
+
+.nav-sec-link-new.english-only:lang(fr) {
+  display: none;
+}

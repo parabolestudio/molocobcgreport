@@ -1,0 +1,52 @@
+.custom-selectbox {
+  color: var(--blue-medium);
+}
+
+.filter-select {
+  margin-bottom: 20px;
+  padding-right: 2rem;
+  padding-left: 1rem;
+
+  border: 1px solid var(--blueMedium-239dc91f);
+
+  background-color: var(--white-2556bf0f);
+  background-image: url("https://cdn.prod.website-files.com/68d3fbd55d90bfdc11a99444/68d3fbd55d90bfdc11a99571_ARROW.svg");
+  background-position: 100% 50%;
+  background-size: auto;
+  background-repeat: no-repeat;
+
+  font-size: 1rem;
+
+  cursor: pointer;
+}
+
+.text-12 {
+  font-size: 0.75rem;
+}
+
+.text-bold-700 {
+  font-family: var(--font);
+  font-weight: 700;
+}
+
+.letter-spacing-1 {
+  letter-spacing: 1px;
+}
+
+.filter-select.text-12.text-bold-700.letter-spacing-1.text-blue-medium {
+  background-position: 96% 50%;
+}
+
+.text-blue-medium {
+  color: var(--blueMedium-239dc91f);
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 767px) {
+  .filter-select.text-12.text-bold-700.letter-spacing-1.text-blue-medium.uppercase.ml-0 {
+    margin-left: 0px;
+  }
+}

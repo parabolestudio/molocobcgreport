@@ -1,0 +1,37 @@
+.language-link {
+  font-size: 1.125em;
+  font-weight: 500;
+}
+
+.language-link.language-en {
+  font-family: var(--font);
+  color: var(--blue-dark);
+  font-size: var(--h5);
+}
+
+.language-link.language-en:hover {
+  color: var(--blue-medium);
+  font-weight: 700;
+}
+
+.language-link.language-en {
+  font-family: Montserrat, sans-serif;
+  color: #000a73;
+  font-size: 1rem;
+}
+
+.language-link.language-en:hover {
+  color: #3381f3;
+  font-weight: 700;
+}
+
+.language-link.language-en {
+  font-family: Montserrat, sans-serif;
+  color: #000a73;
+  font-size: 1rem;
+}
+
+.language-link.language-en:hover {
+  color: #3381f3;
+  font-weight: 700;
+}
