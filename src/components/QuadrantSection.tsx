@@ -18,31 +18,64 @@ export default function QuadrantSection() {
 
     if (!section || !text1 || !text2) return;
 
-    // Create a timeline for the section
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        end: "+=200%",
-        pin: true,
-        scrub: 1,
-        markers: false, // Set to true for debugging
+    // Initial state - all text hidden except first
+    gsap.set(text2, { autoAlpha: 0, y: 30 });
+    gsap.set(text1, { autoAlpha: 1, y: 0 });
+
+    let currentIndex = 0;
+    const texts = [text1, text2];
+
+    const showText = (index: number) => {
+      if (currentIndex === index) return;
+
+      const oldText = texts[currentIndex];
+      const newText = texts[index];
+
+      // Fade out and move up the old text
+      gsap.to(oldText, {
+        autoAlpha: 0,
+        y: -30,
+        duration: 0.4,
+        ease: "power2.in",
+      });
+
+      // Fade in and move up the new text
+      gsap.fromTo(
+        newText,
+        { autoAlpha: 0, y: 30 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "power2.out",
+          delay: 0.4,
+        }
+      );
+
+      currentIndex = index;
+    };
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top top",
+      end: "+=200%",
+      pin: true,
+      snap: {
+        snapTo: [0, 0.5, 1],
+        duration: 0.3,
+        ease: "power1.inOut",
+      },
+      onUpdate: (self) => {
+        const progress = self.progress;
+        if (progress < 0.4) {
+          if (currentIndex !== 0) showText(0);
+        } else {
+          if (currentIndex !== 1) showText(1);
+        }
       },
     });
 
-    // Initial state - text1 visible, text2 hidden
-    gsap.set(text2, { opacity: 0, y: 50 });
-    gsap.set(text1, { opacity: 1, y: 0 });
-
-    // Animation sequence
-    tl.to(text1, { opacity: 0, y: -50, duration: 1 }, 0).to(
-      text2,
-      { opacity: 1, y: 0, duration: 1 },
-      1
-    );
-
     return () => {
-      tl.kill();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
