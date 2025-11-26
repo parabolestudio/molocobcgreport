@@ -39,6 +39,12 @@ export default function Home() {
           <Block tag="p" className="margin-bottom-24px">
             This is a simple test using Basic components with enhanced styling.
           </Block>
+          <Block
+            tag="p"
+            className="font-(family-name:--font-museo-moderno) margin-bottom-24px"
+          >
+            This is a simple test for the new font.
+          </Block>
           <div style={{ marginTop: "12px" }}>
             <Link
               button={true}
