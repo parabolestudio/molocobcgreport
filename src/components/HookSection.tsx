@@ -85,85 +85,58 @@ export default function HookSection() {
   }, []);
 
   return (
-    <div
-      ref={sectionRef}
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          position: "relative",
-          maxWidth: "1200px",
-          width: "100%",
-          padding: "0 2rem",
-          textAlign: "center",
-        }}
-      >
+    <div ref={sectionRef} className="relative w-full h-screen">
+      <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={text1Ref}
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            minWidth: "300px",
-            padding: "0 2rem",
-          }}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center"
         >
-          <p style={{ fontSize: "1.25rem", color: "#e0e7ff" }}>
-            Consumers are turning to AI for nearly everything—from research to
-            recipes to shopping. The use cases and time spent will only continue
-            to accelerate.
+          <p className="hook-p">
+            <span className="text-[var(--bright-green)] font-bold">
+              Consumers are turning to AI
+            </span>{" "}
+            for nearly everything— from research to recipes to shopping. The use
+            cases and time spent will only continue to accelerate.
           </p>
         </div>
 
         <div
           ref={text2Ref}
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            minWidth: "300px",
-            padding: "0 2rem",
-          }}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[900px] px-8 text-center"
         >
-          <p style={{ fontSize: "1.25rem", color: "#e0e7ff" }}>
+          <p className="hook-p">
             How can brands find and connect with customers? How do they adapt
             and grow? 
-            <br /> New research on LLM disruption, done in partnership with BCG,
-            dives deep into the current state of play for marketers – and where
-            we go from here.
+          </p>
+          <p className="hook-p">
+            New research on LLM disruption, done in partnership with BCG, dives
+            deep into the{" "}
+            <span className="text-[var(--bright-green)] font-bold">
+              current state of play for marketers
+            </span>{" "}
+            – and where we go from here.
           </p>
         </div>
 
         <div
           ref={text3Ref}
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            minWidth: "300px",
-            padding: "0 2rem",
-          }}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 text-center flex flex-col items-center justify-center gap-[128px]"
         >
-          <h2
-            style={{
-              fontSize: "3rem",
-              fontWeight: 700,
-              color: "#ffffff",
-              marginBottom: "1rem",
-            }}
-          >
-            The AI Disruption Index
-          </h2>
+          <h1 className="text-[128px] text-[var(--bright-green)] font-(family-name:--font-museo-moderno) uppercase leading-[0.99]">
+            <span className="font-extralight">The</span>{" "}
+            <span className="font-bold">
+              AI
+              <br />
+              Disruption Index
+            </span>
+          </h1>
+          <div>
+            <p className="hook-p">Story by</p>
+            <div className="flex gap-5">
+              <p>Moloco</p>
+              <p>BCG</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -83,47 +83,17 @@ export default function QuadrantSection() {
   return (
     <div
       ref={sectionRef}
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100vh",
-        backgroundColor: "#047857", // Green background
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+      className="relative w-full h-screen bg-emerald-700 flex items-center justify-center"
     >
-      <div
-        style={{
-          position: "relative",
-          maxWidth: "1200px",
-          width: "100%",
-          padding: "0 2rem",
-          textAlign: "center",
-        }}
-      >
+      <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={text1Ref}
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            minWidth: "300px",
-            padding: "0 2rem",
-          }}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-8 text-center"
         >
-          <h2
-            style={{
-              fontSize: "3rem",
-              fontWeight: 700,
-              color: "#ffffff",
-              marginBottom: "1rem",
-            }}
-          >
+          <h2 className="text-5xl font-bold text-white mb-4">
             Quadrant Section - Part 1
           </h2>
-          <p style={{ fontSize: "1.25rem", color: "#d1fae5" }}>
+          <p className="text-xl text-emerald-100">
             This is the first text part of the Quadrant Section. Scroll down to
             see the final part.
           </p>
@@ -131,26 +101,12 @@ export default function QuadrantSection() {
 
         <div
           ref={text2Ref}
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            minWidth: "300px",
-            padding: "0 2rem",
-          }}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-8 text-center"
         >
-          <h2
-            style={{
-              fontSize: "3rem",
-              fontWeight: 700,
-              color: "#ffffff",
-              marginBottom: "1rem",
-            }}
-          >
+          <h2 className="text-5xl font-bold text-white mb-4">
             Quadrant Section - Part 2
           </h2>
-          <p style={{ fontSize: "1.25rem", color: "#d1fae5" }}>
+          <p className="text-xl text-emerald-100">
             This is the final text part of the Quadrant Section. You've reached
             the end!
           </p>

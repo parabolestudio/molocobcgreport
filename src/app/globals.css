@@ -22,3 +22,9 @@ body {
 p {
   color: var(--foreground);
 }
+
+.hook-p {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 125%;
+}
