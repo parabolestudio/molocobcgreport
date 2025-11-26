@@ -1,0 +1,15 @@
+.code-line-clamp {
+  position: fixed;
+  left: 0%;
+  top: auto;
+  right: auto;
+  bottom: 0%;
+  z-index: 10;
+
+  display: none;
+  padding: 0rem 0.5rem;
+
+  background-color: hsla(0, 0.00%, 0.00%, 1.00);
+
+  color: hsla(0, 0.00%, 100.00%, 1.00);
+}
