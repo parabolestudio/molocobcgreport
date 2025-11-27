@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Chart from "./Chart";
 import ChartPanel from "./ChartPanel";
 import type { ChartMode } from "@/types/chart";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function QuadrantSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -110,12 +111,37 @@ export default function QuadrantSection() {
     };
   }, []);
 
-  const scrollNext = () => {
-    // scroll to next chart mode
+  const scrollToSnapPoint = (direction: "next" | "prev") => {
+    const allTriggers = ScrollTrigger.getAll();
+    const ourTrigger = allTriggers.find(
+      (t) => t.trigger === sectionRef.current
+    );
+
+    if (!ourTrigger) return;
+
+    const currentProgress = ourTrigger.progress;
+    const snapPoints = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
+
+    const targetSnapPoint =
+      direction === "next"
+        ? snapPoints.find((point) => point > currentProgress + 0.01)
+        : snapPoints
+            .slice()
+            .reverse()
+            .find((point) => point < currentProgress - 0.01);
+
+    if (targetSnapPoint !== undefined) {
+      const scrollPosition =
+        ourTrigger.start +
+        (ourTrigger.end - ourTrigger.start) * targetSnapPoint;
+      gsap.to(window, {
+        scrollTo: scrollPosition,
+        duration: 0.6,
+        ease: "power2.inOut",
+      });
+    }
   };
-  const scrollBack = () => {
-    // scroll to previous chart mode
-  };
+
   const scrollToDataMode = () => {
     // scroll to chart mode "data-filled"
   };
@@ -138,8 +164,8 @@ export default function QuadrantSection() {
         >
           <ChartPanel
             mode={chartMode}
-            scrollNext={scrollNext}
-            scrollBack={scrollBack}
+            scrollNext={() => scrollToSnapPoint("next")}
+            scrollBack={() => scrollToSnapPoint("prev")}
             scrollToDataMode={scrollToDataMode}
           />
           <Chart mode={chartMode} />
