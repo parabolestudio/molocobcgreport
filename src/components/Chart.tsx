@@ -1,45 +1,77 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { csv } from "d3-fetch";
+import { scaleLinear } from "d3-scale";
 import type { ChartMode } from "@/types/chart";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+interface VerticalData {
+  vertical: string;
+  consumerStrength: number;
+  aiDisruption: number;
+}
+
+const quadrantData = [
+  {
+    number: 1,
+    title: "Battle for the interface",
+    titleAnchor: "end" as const,
+    colorQuadrant: "#308267",
+    colorQuadrantActiveText: "var(--grey-text)",
+  },
+  {
+    number: 2,
+    title: "Loyalty challenged",
+    titleAnchor: "end" as const,
+    colorQuadrant: "#60E2B7",
+    colorQuadrantActiveText: "var(--black-blue)",
+  },
+  {
+    number: 3,
+    title: "Secured anchors",
+    titleAnchor: "start" as const,
+    colorQuadrant: "#A0EED4",
+    colorQuadrantActiveText: "var(--black-blue)",
+  },
+  {
+    number: 4,
+    title: "Embedded Ecosystems",
+    titleAnchor: "start" as const,
+    colorQuadrant: "#3D5F53",
+    colorQuadrantActiveText: "var(--grey-text)",
+  },
+];
+
 export default function Chart({ mode }: { mode: ChartMode }) {
-  console.log("Rendering Chart with mode:", mode);
+  const [verticalsData, setVerticalsData] = useState<VerticalData[]>([]);
+
+  useEffect(() => {
+    csv(`${basePath}/data/verticalsData.csv`).then((data) => {
+      const processedData = data.map((d) => ({
+        // ...d,
+        vertical: d["Vertical"],
+        consumerStrength: d["Customer Relationship Strength"]
+          ? +d["Customer Relationship Strength"]
+          : 0,
+        aiDisruption: d["AI/LLM-Driven Disruption"]
+          ? +d["AI/LLM-Driven Disruption"]
+          : 0,
+      }));
+      setVerticalsData(processedData as VerticalData[]);
+    });
+  }, []);
+
+  console.log("Rendering Chart", mode, verticalsData);
 
   const length = 860;
   const margin = { top: 20, right: 60, bottom: 60, left: 20 };
   const innerWidth = length - margin.left - margin.right;
   const innerHeight = length - margin.top - margin.bottom;
 
-  const quadrantData = [
-    {
-      number: 1,
-      title: "Battle for the interface",
-      titleAnchor: "end" as const,
-      colorQuadrant: "#308267",
-      colorQuadrantActiveText: "var(--grey-text)",
-    },
-    {
-      number: 2,
-      title: "Loyalty challenged",
-      titleAnchor: "end" as const,
-      colorQuadrant: "#60E2B7",
-      colorQuadrantActiveText: "var(--black-blue)",
-    },
-    {
-      number: 3,
-      title: "Secured anchors",
-      titleAnchor: "start" as const,
-      colorQuadrant: "#A0EED4",
-      colorQuadrantActiveText: "var(--black-blue)",
-    },
-    {
-      number: 4,
-      title: "Embedded Ecosystems",
-      titleAnchor: "start" as const,
-      colorQuadrant: "#3D5F53",
-      colorQuadrantActiveText: "var(--grey-text)",
-    },
-  ];
+  const xScale = scaleLinear().domain([0, 10]).range([0, innerWidth]);
+  const yScale = scaleLinear().domain([0, 10]).range([innerHeight, 0]);
 
   return (
     <div className="w-full h-full">
@@ -206,6 +238,22 @@ export default function Chart({ mode }: { mode: ChartMode }) {
                     {quadrant.number}
                   </text>
                 </g>
+              );
+            })}
+          </g>
+
+          <g>
+            {verticalsData.map((d, i) => {
+              const x = xScale(d.consumerStrength || 0);
+              const y = yScale(d.aiDisruption || 0);
+              return (
+                <circle
+                  key={i}
+                  cx={x}
+                  cy={y}
+                  r={6}
+                  fill="var(--bright-green)"
+                />
               );
             })}
           </g>
