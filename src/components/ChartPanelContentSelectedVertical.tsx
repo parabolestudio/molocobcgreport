@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import { basePath } from "@/helpers/general";
 
 export default function ChartPanelContentSelectedVertical({
   selectedVertical,
+  shownSide,
+  onShownSideChange,
 }: {
   selectedVertical: string | null;
+  shownSide: "summary" | "details";
+  onShownSideChange: (side: "summary" | "details") => void;
 }) {
-  const [shownSide, setShownSide] = useState<"summary" | "details">("summary");
-
   if (!selectedVertical) {
     return (
       <div>
@@ -48,7 +49,7 @@ export default function ChartPanelContentSelectedVertical({
             shownSide === "summary" ? "bg-bright-green" : "bg-medium-blue"
           } transition flex items-center justify-center gap-2`}
           onClick={() =>
-            setShownSide(shownSide === "summary" ? "details" : "summary")
+            onShownSideChange(shownSide === "summary" ? "details" : "summary")
           }
         >
           <span className="text-black-blue">

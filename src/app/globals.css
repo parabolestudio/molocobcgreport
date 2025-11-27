@@ -12,6 +12,7 @@
   --grey-blue: #5a5a7d;
   --grey-background: #2d3a48;
   --medium-blue: var(--blue-2, #0280fb);
+  --forest-green: #308267;
 
   --background: var(--black-blue);
   --foreground: var(--grey-text);
@@ -23,14 +24,22 @@
   --color-bright-green: var(--teal);
   --color-grey-blue: #5a5a7d;
   --color-grey-background: #2d3a48;
+  --color-forest-green: #308267;
   --color-panel-background-grey: color-mix(
     in srgb,
     var(--color-grey-background) 80%,
     transparent
   );
   --color-panel-background-blue: color-mix(in srgb, #0b3766 80%, transparent);
+  --color-panel-background-green: color-mix(
+    in srgb,
+    var(--color-forest-green) 50%,
+    transparent
+  );
   --color-medium-blue: var(--blue-2, #0280fb);
   --font-museo-moderno: var(--font-museo-moderno);
+
+  --default-transition-duration: 300ms;
 }
 
 body {

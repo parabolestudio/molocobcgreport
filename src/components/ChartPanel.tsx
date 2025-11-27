@@ -2,7 +2,7 @@
 
 import type { ChartMode } from "@/helpers/chart";
 import { isChartModeExplanation } from "@/helpers/chart";
-import { JSX } from "react";
+import { JSX, useState } from "react";
 import ChartPanelContentSelectedVertical from "./ChartPanelContentSelectedVertical";
 import { basePath } from "@/helpers/general";
 
@@ -19,15 +19,18 @@ export default function ChartPanel({
   scrollBack: Function;
   scrollToDataMode: Function;
 }) {
+  const [shownSide, setShownSide] = useState<"summary" | "details">("summary");
   const isExplanation = isChartModeExplanation(mode);
   const backgroundColor = isExplanation
     ? "bg-panel-background-grey"
+    : shownSide === "details"
+    ? "bg-panel-background-green"
     : "bg-panel-background-blue";
-  const contentMap = getContentMap(selectedVertical);
+  const contentMap = getContentMap(selectedVertical, shownSide, setShownSide);
 
   return (
     <div
-      className={`${backgroundColor} rounded-[20px] flex flex-col h-full justify-between`}
+      className={`${backgroundColor} transition rounded-[20px] flex flex-col h-full justify-between`}
     >
       <div className="p-6 flex flex-col h-full justify-between">
         <div className="panel-content h-full">{contentMap[mode]}</div>
@@ -247,7 +250,9 @@ const ContentQuadrant4 = () => {
 };
 
 const getContentMap = (
-  selectedVertical: string | null
+  selectedVertical: string | null,
+  shownSide: "summary" | "details",
+  onShownSideChange: (side: "summary" | "details") => void
 ): Record<ChartMode, JSX.Element> => ({
   "expl-y-axis": <ContentYAxis />,
   "expl-x-axis": (
@@ -261,7 +266,11 @@ const getContentMap = (
   "expl-quadrant-3": <ContentQuadrant3 />,
   "expl-quadrant-4": <ContentQuadrant4 />,
   "data-filled": (
-    <ChartPanelContentSelectedVertical selectedVertical={selectedVertical} />
+    <ChartPanelContentSelectedVertical
+      selectedVertical={selectedVertical}
+      shownSide={shownSide}
+      onShownSideChange={onShownSideChange}
+    />
   ),
 });
 
