@@ -45,13 +45,18 @@ const quadrantData = [
   },
 ];
 
-export default function Chart({ mode }: { mode: ChartMode }) {
+export default function Chart({
+  mode,
+  selectVertical,
+}: {
+  mode: ChartMode;
+  selectVertical: (vertical: string) => void;
+}) {
   const [verticalsData, setVerticalsData] = useState<VerticalData[]>([]);
 
   useEffect(() => {
     csv(`${basePath}/data/verticalsData.csv`).then((data) => {
       const processedData = data.map((d) => ({
-        // ...d,
         vertical: d["Vertical"],
         consumerStrength: d["Customer Relationship Strength"]
           ? +d["Customer Relationship Strength"]
@@ -243,7 +248,7 @@ export default function Chart({ mode }: { mode: ChartMode }) {
             })}
           </g>
 
-          <g>
+          <g opacity={mode === "data-filled" ? 1 : 0}>
             {verticalsData.map((d, i) => {
               const x = xScale(d.consumerStrength || 0);
               const y = yScale(d.aiDisruption || 0);
@@ -266,7 +271,12 @@ export default function Chart({ mode }: { mode: ChartMode }) {
               }
 
               return (
-                <g key={i} transform={`translate(${x},${y})`}>
+                <g
+                  key={i}
+                  transform={`translate(${x},${y})`}
+                  onClick={() => selectVertical(d.vertical)}
+                  style={{ cursor: "pointer" }}
+                >
                   <image
                     href={`${basePath}/verticals/${
                       (verticalInfo as any).icon

@@ -15,9 +15,11 @@ export default function QuadrantSection() {
   const screen1Ref = useRef<HTMLDivElement>(null);
   const screen2Ref = useRef<HTMLDivElement>(null);
   const [chartMode, setChartMode] = useState<ChartMode>("expl-y-axis");
+  const [selectedVertical, setSelectedVertical] = useState<string | null>(null);
+
+  console.log("Selected Vertical:", selectedVertical);
 
   const snapPoints = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
-
   useEffect(() => {
     const section = sectionRef.current;
     const screen1 = screen1Ref.current;
@@ -148,8 +150,6 @@ export default function QuadrantSection() {
     }
   };
 
-  const scrollToDataMode = () => scrollToSnapPoint(1);
-
   return (
     <div ref={sectionRef} className="w-full h-screen">
       <div className="relative w-full h-full flex items-center justify-center">
@@ -168,11 +168,15 @@ export default function QuadrantSection() {
         >
           <ChartPanel
             mode={chartMode}
+            selectedVertical={selectedVertical}
             scrollNext={() => scrollToSnapPoint("next")}
             scrollBack={() => scrollToSnapPoint("prev")}
-            scrollToDataMode={scrollToDataMode}
+            scrollToDataMode={() => scrollToSnapPoint(1)}
           />
-          <Chart mode={chartMode} />
+          <Chart
+            mode={chartMode}
+            selectVertical={(vertical) => setSelectedVertical(vertical)}
+          />
         </div>
       </div>
     </div>
