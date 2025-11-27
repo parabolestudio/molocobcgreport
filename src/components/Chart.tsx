@@ -15,25 +15,29 @@ export default function Chart({ mode }: { mode: ChartMode }) {
       number: 1,
       title: "Battle for the interface",
       titleAnchor: "end" as const,
-      color: "#308267",
+      colorQuadrant: "#308267",
+      colorQuadrantActiveText: "var(--grey-text)",
     },
     {
       number: 2,
       title: "Loyalty challenged",
       titleAnchor: "end" as const,
-      color: "#60E2B7",
+      colorQuadrant: "#60E2B7",
+      colorQuadrantActiveText: "var(--black-blue)",
     },
     {
       number: 3,
       title: "Secured anchors",
       titleAnchor: "start" as const,
-      color: "#A0EED4",
+      colorQuadrant: "#A0EED4",
+      colorQuadrantActiveText: "var(--black-blue)",
     },
     {
       number: 4,
       title: "Embedded Ecosystems",
       titleAnchor: "start" as const,
-      color: "#3D5F53",
+      colorQuadrant: "#3D5F53",
+      colorQuadrantActiveText: "var(--grey-text)",
     },
   ];
 
@@ -127,27 +131,69 @@ export default function Chart({ mode }: { mode: ChartMode }) {
             />
           </g>
           {quadrantData.map((quadrant, index) => {
+            const radius = innerWidth / 2;
+            const centerX = innerWidth / 2;
+            const centerY = innerHeight / 2;
+
+            // Calculate start and end angles for each quadrant
+            // Quadrant 1: bottom-left (90° to 180°)
+            // Quadrant 2: top-left (180° to 270°)
+            // Quadrant 3: top-right (270° to 360°/0°)
+            // Quadrant 4: bottom-right (0° to 90°)
+            const angleMap = {
+              1: { start: Math.PI / 2, end: Math.PI },
+              2: { start: Math.PI, end: (3 * Math.PI) / 2 },
+              3: { start: (3 * Math.PI) / 2, end: 2 * Math.PI },
+              4: { start: 0, end: Math.PI / 2 },
+            };
+
+            const angles = angleMap[quadrant.number as keyof typeof angleMap];
+            const startX = centerX + radius * Math.cos(angles.start);
+            const startY = centerY + radius * Math.sin(angles.start);
+            const endX = centerX + radius * Math.cos(angles.end);
+            const endY = centerY + radius * Math.sin(angles.end);
+
+            const slicePath = `M ${centerX} ${centerY} L ${startX} ${startY} A ${radius} ${radius} 0 0 1 ${endX} ${endY} Z`;
+            const isQuadrantActive =
+              mode === `expl-quadrant-${quadrant.number}`;
+
             return (
               <g key={index}>
+                <path
+                  d={slicePath}
+                  fill={quadrant.colorQuadrant}
+                  opacity={isQuadrantActive ? 1 : 0}
+                  className="transition duration-300"
+                />
                 <text
-                  className="chart-text-base font-medium"
+                  className="chart-text-base font-medium transition duration-300"
                   x={innerWidth / 2}
                   dx={quadrant.number === 1 || quadrant.number === 2 ? -36 : 36}
                   y={innerHeight / 2}
                   dy={quadrant.number === 1 || quadrant.number === 4 ? 30 : -30}
                   dominantBaseline="middle"
                   textAnchor={quadrant.titleAnchor}
+                  style={{
+                    fill: isQuadrantActive
+                      ? quadrant.colorQuadrantActiveText
+                      : "var(--grey-blue)",
+                  }}
                 >
                   {quadrant.title}
                 </text>
                 <text
-                  className="chart-text-base font-extrabold text-[24px] uppercase "
+                  className="chart-text-base font-extrabold text-[24px] uppercase transition duration-300"
                   x={innerWidth / 2}
                   dx={quadrant.number === 1 || quadrant.number === 2 ? -18 : 18}
                   y={innerHeight / 2}
                   dy={quadrant.number === 1 || quadrant.number === 4 ? 30 : -30}
                   dominantBaseline="middle"
                   textAnchor="middle"
+                  style={{
+                    fill: isQuadrantActive
+                      ? quadrant.colorQuadrantActiveText
+                      : "var(--grey-blue)",
+                  }}
                 >
                   {quadrant.number}
                 </text>

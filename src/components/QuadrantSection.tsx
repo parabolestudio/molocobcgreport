@@ -142,7 +142,7 @@ export default function QuadrantSection() {
         (ourTrigger.end - ourTrigger.start) * targetSnapPoint;
       gsap.to(window, {
         scrollTo: scrollPosition,
-        duration: 0.6,
+        duration: 0.4,
         ease: "power2.inOut",
       });
     }
