@@ -69,27 +69,44 @@ export default function Chart({ mode }: { mode: ChartMode }) {
           />
           <g className="x-axis">
             <line
+              className="transition"
               x1={0}
               y1={innerHeight}
               x2={innerWidth}
               y2={innerHeight}
-              stroke="var(--grey-blue)"
               strokeWidth={1.5}
               strokeDasharray="10,10"
+              stroke={
+                mode === "expl-x-axis"
+                  ? "var(--bright-green)"
+                  : "var(--grey-blue)"
+              }
             />
             <text
-              className="chart-text-bold uppercase"
+              className="chart-text-bold uppercase transition"
               y={innerHeight + margin.bottom / 2}
               dominantBaseline="middle"
+              style={{
+                fill:
+                  mode === "expl-x-axis"
+                    ? "var(--bright-green)"
+                    : "var(--grey-blue)",
+              }}
             >
               low
             </text>
             <text
-              className="chart-text-bold uppercase"
+              className="chart-text-bold uppercase transition"
               x={innerWidth}
               y={innerHeight + margin.bottom / 2}
               dominantBaseline="middle"
               textAnchor="end"
+              style={{
+                fill:
+                  mode === "expl-x-axis"
+                    ? "var(--bright-green)"
+                    : "var(--grey-blue)",
+              }}
             >
               high
             </text>
@@ -100,7 +117,11 @@ export default function Chart({ mode }: { mode: ChartMode }) {
               y1={0}
               x2={innerWidth}
               y2={innerHeight}
-              stroke="var(--grey-blue)"
+              stroke={
+                mode === "expl-y-axis"
+                  ? "var(--bright-green)"
+                  : "var(--grey-blue)"
+              }
               strokeWidth={1.5}
               strokeDasharray="10,10"
             />
