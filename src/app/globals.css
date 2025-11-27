@@ -15,6 +15,13 @@
   --foreground: var(--grey-text);
 }
 
+@theme {
+  --color-black-blue: #04033a;
+  --color-grey-text: #f2f2f2;
+  --color-bright-green: var(--teal);
+  --color-grey-blue: #5a5a7d;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -28,4 +35,28 @@ p {
   font-size: 32px;
   font-weight: 400;
   line-height: 125%;
+}
+
+.chart-text {
+  font-weight: 400;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 108%;
+  color: var(--grey-blue);
+  fill: var(--grey-blue);
+}
+
+.chart-text-bold {
+  font-weight: 700;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 108%;
+  color: var(--grey-blue);
+  fill: var(--grey-blue);
+}
+
+.chart-text-base {
+  font-family: "Montserrat", Helvetica, sans-serif;
+  color: var(--grey-blue);
+  fill: var(--grey-blue);
 }
