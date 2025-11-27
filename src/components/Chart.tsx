@@ -45,7 +45,7 @@ export default function Chart({ mode }: { mode: ChartMode }) {
   ];
 
   return (
-    <div>
+    <div className="w-full h-full">
       <svg viewBox={`0 0 ${length} ${length}`}>
         <g transform={`translate(${margin.left},${margin.top})`}>
           <circle
