@@ -1,16 +1,26 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Chart from "./Chart";
 
 gsap.registerPlugin(ScrollTrigger);
 
+type ChartMode =
+  | "y-axis"
+  | "x-axis"
+  | "quadrant-1"
+  | "quadrant-2"
+  | "quadrant-3"
+  | "quadrant-4"
+  | "data-filled";
+
 export default function QuadrantSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const text1Ref = useRef<HTMLDivElement>(null);
   const text2Ref = useRef<HTMLDivElement>(null);
+  const [chartMode, setChartMode] = useState<ChartMode>("y-axis");
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -25,6 +35,16 @@ export default function QuadrantSection() {
 
     let currentIndex = 0;
     const texts = [text1, text2];
+
+    const chartModes: ChartMode[] = [
+      "y-axis",
+      "x-axis",
+      "quadrant-1",
+      "quadrant-2",
+      "quadrant-3",
+      "quadrant-4",
+      "data-filled",
+    ];
 
     const showText = (index: number) => {
       if (currentIndex === index) return;
@@ -69,19 +89,25 @@ export default function QuadrantSection() {
     ScrollTrigger.create({
       trigger: section,
       start: "top top",
-      end: "+=200%",
+      end: "+=800%", // Increased scroll distance for slower transitions
       pin: true,
       snap: {
-        snapTo: [0, 0.5, 1],
+        snapTo: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1], // Snap point for each mode
         duration: 0.3,
         ease: "power1.inOut",
       },
       onUpdate: (self) => {
         const progress = self.progress;
-        if (progress < 0.4) {
+        if (progress < 0.125) {
           if (currentIndex !== 0) showText(0);
         } else {
           if (currentIndex !== 1) showText(1);
+
+          // Loop through chart modes during text2 phase (0.125 to 1.0)
+          const text2Progress = (progress - 0.125) / 0.875; // Normalize to 0-1 for text2 phase
+          const modeIndex = Math.floor(text2Progress * chartModes.length);
+          const clampedIndex = Math.min(modeIndex, chartModes.length - 1);
+          setChartMode(chartModes[clampedIndex]);
         }
       },
     });
@@ -119,7 +145,7 @@ export default function QuadrantSection() {
               The <span className="font-bold">AI Disruption Index</span>
             </h3>
           </div>
-          <Chart mode="y-axis" />
+          <Chart mode={chartMode} />
         </div>
       </div>
     </div>

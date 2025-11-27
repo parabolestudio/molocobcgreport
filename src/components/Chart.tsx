@@ -140,6 +140,14 @@ export default function Chart({ mode }: { mode: ChartMode }) {
               </g>
             );
           })}
+
+          <text
+            x={innerWidth / 2}
+            y={innerHeight / 2 + 80}
+            className="fill-red-900 font-extrabold"
+          >
+            {mode}
+          </text>
         </g>
       </svg>
     </div>
