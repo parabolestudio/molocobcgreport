@@ -97,3 +97,22 @@ button {
 .panel-content li {
   font-size: 18px;
 }
+
+.verticals .selected text,
+.verticals .verticalGroup:hover text {
+  fill: white;
+  font-weight: 700;
+}
+.verticals .selected rect,
+.verticals .verticalGroup:hover rect {
+  fill: white;
+}
+.verticals .selected path,
+.verticals .verticalGroup:hover path {
+  fill: #308267;
+}
+.verticals rect,
+.verticals text,
+.verticals path {
+  transition: fill 0.3s, color 0.3s;
+}

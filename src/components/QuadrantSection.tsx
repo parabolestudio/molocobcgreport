@@ -175,6 +175,7 @@ export default function QuadrantSection() {
           />
           <Chart
             mode={chartMode}
+            selectedVertical={selectedVertical}
             selectVertical={(vertical) => setSelectedVertical(vertical)}
           />
         </div>

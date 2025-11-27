@@ -14,6 +14,10 @@ interface VerticalData {
   aiDisruption: number;
 }
 
+interface SVGCache {
+  [key: string]: string;
+}
+
 const quadrantData = [
   {
     number: 1,
@@ -47,12 +51,15 @@ const quadrantData = [
 
 export default function Chart({
   mode,
+  selectedVertical,
   selectVertical,
 }: {
   mode: ChartMode;
+  selectedVertical: string | null;
   selectVertical: (vertical: string) => void;
 }) {
   const [verticalsData, setVerticalsData] = useState<VerticalData[]>([]);
+  const [svgCache, setSvgCache] = useState<SVGCache>({});
 
   useEffect(() => {
     csv(`${basePath}/data/verticalsData.csv`).then((data) => {
@@ -67,6 +74,36 @@ export default function Chart({
       }));
       setVerticalsData(processedData as VerticalData[]);
     });
+  }, []);
+
+  useEffect(() => {
+    // Load all SVG files
+    const loadSVGs = async () => {
+      const svgPromises = Object.entries(verticalsMap).map(
+        async ([key, value]) => {
+          const iconName = (value as any).icon;
+          try {
+            const response = await fetch(
+              `${basePath}/verticals/${iconName}.svg`
+            );
+            const svgText = await response.text();
+            return [iconName, svgText];
+          } catch (error) {
+            console.error(`Failed to load SVG for ${iconName}:`, error);
+            return [iconName, ""];
+          }
+        }
+      );
+
+      const results = await Promise.all(svgPromises);
+      const cache: SVGCache = {};
+      results.forEach(([iconName, svgText]) => {
+        cache[iconName as string] = svgText as string;
+      });
+      setSvgCache(cache);
+    };
+
+    loadSVGs();
   }, []);
 
   console.log("Rendering Chart", mode, verticalsData);
@@ -248,7 +285,7 @@ export default function Chart({
             })}
           </g>
 
-          <g opacity={mode === "data-filled" ? 1 : 0}>
+          <g className="verticals" opacity={mode === "data-filled" ? 1 : 0}>
             {verticalsData.map((d, i) => {
               const x = xScale(d.consumerStrength || 0);
               const y = yScale(d.aiDisruption || 0);
@@ -270,22 +307,35 @@ export default function Chart({
                 );
               }
 
+              const iconName = (verticalInfo as any).icon;
+              const svgContent = svgCache[iconName];
+
               return (
                 <g
                   key={i}
                   transform={`translate(${x},${y})`}
                   onClick={() => selectVertical(d.vertical)}
                   style={{ cursor: "pointer" }}
+                  className={
+                    selectedVertical === d.vertical
+                      ? "verticalGroup selected"
+                      : "verticalGroup"
+                  }
                 >
-                  <image
-                    href={`${basePath}/verticals/${
-                      (verticalInfo as any).icon
-                    }.svg`}
-                    x={-16}
-                    y={-16}
-                    width={32}
-                    height={32}
-                  />
+                  {svgContent ? (
+                    <g
+                      transform="translate(-16, -16)"
+                      dangerouslySetInnerHTML={{
+                        __html: svgContent
+                          .replace(/<svg[^>]*>/, "<g>")
+                          .replace(/<\/svg>/, "</g>")
+                          .replace(/width="[^"]*"/, 'width="32"')
+                          .replace(/height="[^"]*"/, 'height="32"'),
+                      }}
+                    />
+                  ) : (
+                    <circle r={16} fill="#9494AA" />
+                  )}
                   <text
                     className="chart-text"
                     fill="#9494AA"
