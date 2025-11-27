@@ -9,6 +9,7 @@
   --black-blue: #04033a;
   --grey-text: #f2f2f2;
   --bright-green: var(--teal);
+  --grey-blue: #5a5a7d;
 
   --background: var(--black-blue);
   --foreground: var(--grey-text);

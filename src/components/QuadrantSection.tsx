@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Chart from "./Chart";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -93,7 +94,7 @@ export default function QuadrantSection() {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full h-screen bg-emerald-700 flex items-center justify-center"
+      className="relative w-full h-screen flex items-center justify-center"
     >
       <div className="relative w-full h-full flex items-center justify-center">
         <div
@@ -116,10 +117,7 @@ export default function QuadrantSection() {
           <h2 className="text-5xl font-bold text-white mb-4">
             Quadrant Section - Part 2
           </h2>
-          <p className="text-xl text-emerald-100">
-            This is the final text part of the Quadrant Section. You've reached
-            the end!
-          </p>
+          <Chart />
         </div>
       </div>
     </div>
