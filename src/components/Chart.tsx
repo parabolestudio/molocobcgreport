@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { csv } from "d3-fetch";
 import { scaleLinear } from "d3-scale";
-import type { ChartMode } from "@/types/chart";
+import type { ChartMode } from "@/helpers/chart";
+import { verticalsMap } from "@/helpers/chart";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -246,14 +247,44 @@ export default function Chart({ mode }: { mode: ChartMode }) {
             {verticalsData.map((d, i) => {
               const x = xScale(d.consumerStrength || 0);
               const y = yScale(d.aiDisruption || 0);
+
+              const verticalInfo = verticalsMap[d.vertical];
+              if (!verticalInfo) {
+                return (
+                  <g key={i} transform={`translate(${x},${y})`}>
+                    <circle key={i} r={6} fill="var(--bright-green)" />
+                    <text
+                      className="chart-text"
+                      fill="#9494AA"
+                      y={32}
+                      textAnchor="middle"
+                    >
+                      {d.vertical}
+                    </text>
+                  </g>
+                );
+              }
+
               return (
-                <circle
-                  key={i}
-                  cx={x}
-                  cy={y}
-                  r={6}
-                  fill="var(--bright-green)"
-                />
+                <g key={i} transform={`translate(${x},${y})`}>
+                  <image
+                    href={`${basePath}/verticals/${
+                      (verticalInfo as any).icon
+                    }.svg`}
+                    x={-16}
+                    y={-16}
+                    width={32}
+                    height={32}
+                  />
+                  <text
+                    className="chart-text"
+                    fill="#9494AA"
+                    y={32}
+                    textAnchor="middle"
+                  >
+                    {(verticalInfo as any).label}
+                  </text>
+                </g>
               );
             })}
           </g>

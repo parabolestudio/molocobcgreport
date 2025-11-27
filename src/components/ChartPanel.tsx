@@ -1,7 +1,7 @@
 "use client";
 
-import type { ChartMode } from "@/types/chart";
-import { isChartModeExplanation } from "@/types/chart";
+import type { ChartMode } from "@/helpers/chart";
+import { isChartModeExplanation } from "@/helpers/chart";
 import { JSX } from "react";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";

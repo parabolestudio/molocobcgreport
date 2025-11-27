@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Chart from "./Chart";
 import ChartPanel from "./ChartPanel";
-import type { ChartMode } from "@/types/chart";
+import type { ChartMode } from "@/helpers/chart";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
