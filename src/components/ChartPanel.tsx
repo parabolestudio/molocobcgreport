@@ -3,8 +3,8 @@
 import type { ChartMode } from "@/helpers/chart";
 import { isChartModeExplanation } from "@/helpers/chart";
 import { JSX } from "react";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import ChartPanelContentSelectedVertical from "./ChartPanelContentSelectedVertical";
+import { basePath } from "@/helpers/general";
 
 export default function ChartPanel({
   mode,
@@ -30,9 +30,7 @@ export default function ChartPanel({
       className={`${backgroundColor} rounded-[20px] flex flex-col h-full justify-between`}
     >
       <div className="p-6 flex flex-col h-full justify-between">
-        <div>
-          <div className="panel-content">{contentMap[mode]}</div>
-        </div>
+        <div className="panel-content h-full">{contentMap[mode]}</div>
         {isExplanation && (
           <div className="flex gap-4">
             <button
@@ -42,8 +40,8 @@ export default function ChartPanel({
               <img
                 src={`${basePath}/icons/arrow.svg`}
                 alt="arrow"
-                width={16}
-                height={13}
+                width={8}
+                height={83}
               />
               <span>Back</span>
             </button>
@@ -83,23 +81,6 @@ export default function ChartPanel({
     </div>
   );
 }
-
-const noteTexts: Record<ChartMode, string> = {
-  "expl-y-axis":
-    "Scroll down or use the buttons to explore how the index is constructed.",
-  "expl-x-axis":
-    "Scroll down or use the buttons to explore how the index is constructed.",
-  "expl-quadrant-1":
-    "Scroll down or use the buttons to explore how the index is constructed.",
-  "expl-quadrant-2":
-    "Scroll down or use the buttons to explore how the index is constructed.",
-  "expl-quadrant-3":
-    "Scroll down or use the buttons to explore how the index is constructed.",
-  "expl-quadrant-4":
-    "Scroll down or use the buttons to explore how the index is constructed.",
-  "data-filled":
-    "Click on a vertical to explore details. Hover over the quadrant name for definitions.",
-};
 
 const ContentYAxis = () => {
   return (
@@ -265,40 +246,6 @@ const ContentQuadrant4 = () => {
   );
 };
 
-const ContentDataFilled = ({
-  selectedVertical,
-}: {
-  selectedVertical: string | null;
-}) => {
-  if (!selectedVertical) {
-    return (
-      <div>
-        <h3 className="text-grey-text font-museo-moderno mb-8 text-[40px]">
-          <span>
-            The <span className="font-bold">AI Disruption Index</span>
-          </span>
-        </h3>
-        <div className="flex gap-3">
-          <img
-            src={`${basePath}/icons/mouse.svg`}
-            alt="Mouse icon"
-            width={24}
-            height={24}
-          />
-          <p className="italic">Select a vertical to explore details.</p>
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div>
-      <h3 className="text-grey-text font-museo-moderno mb-8 text-[40px]">
-        {selectedVertical}
-      </h3>
-      <p>vertical info todo</p>
-    </div>
-  );
-};
 const getContentMap = (
   selectedVertical: string | null
 ): Record<ChartMode, JSX.Element> => ({
@@ -313,5 +260,24 @@ const getContentMap = (
   "expl-quadrant-2": <ContentQuadrant2 />,
   "expl-quadrant-3": <ContentQuadrant3 />,
   "expl-quadrant-4": <ContentQuadrant4 />,
-  "data-filled": <ContentDataFilled selectedVertical={selectedVertical} />,
+  "data-filled": (
+    <ChartPanelContentSelectedVertical selectedVertical={selectedVertical} />
+  ),
 });
+
+const noteTexts: Record<ChartMode, string> = {
+  "expl-y-axis":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "expl-x-axis":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "expl-quadrant-1":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "expl-quadrant-2":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "expl-quadrant-3":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "expl-quadrant-4":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "data-filled":
+    "Click on a vertical to explore details. Hover over the quadrant name for definitions.",
+};

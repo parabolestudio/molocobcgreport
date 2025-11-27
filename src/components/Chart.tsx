@@ -5,8 +5,7 @@ import { csv } from "d3-fetch";
 import { scaleLinear } from "d3-scale";
 import type { ChartMode } from "@/helpers/chart";
 import { verticalsMap } from "@/helpers/chart";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { basePath } from "@/helpers/general";
 
 interface VerticalData {
   vertical: string;
