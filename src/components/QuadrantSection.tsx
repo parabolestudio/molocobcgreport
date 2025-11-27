@@ -16,6 +16,8 @@ export default function QuadrantSection() {
   const screen2Ref = useRef<HTMLDivElement>(null);
   const [chartMode, setChartMode] = useState<ChartMode>("expl-y-axis");
 
+  const snapPoints = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
+
   useEffect(() => {
     const section = sectionRef.current;
     const screen1 = screen1Ref.current;
@@ -86,7 +88,7 @@ export default function QuadrantSection() {
       end: "+=800%", // 8 screens (1 intro + 7 chart modes)
       pin: true,
       snap: {
-        snapTo: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1], // Snap point for each mode
+        snapTo: snapPoints, // Snap point for each mode
         duration: 0.3,
         ease: "power1.inOut",
       },
@@ -111,7 +113,7 @@ export default function QuadrantSection() {
     };
   }, []);
 
-  const scrollToSnapPoint = (direction: "next" | "prev") => {
+  const scrollToSnapPoint = (direction: "next" | "prev" | number) => {
     const allTriggers = ScrollTrigger.getAll();
     const ourTrigger = allTriggers.find(
       (t) => t.trigger === sectionRef.current
@@ -119,16 +121,20 @@ export default function QuadrantSection() {
 
     if (!ourTrigger) return;
 
-    const currentProgress = ourTrigger.progress;
-    const snapPoints = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
+    let targetSnapPoint: number | undefined;
 
-    const targetSnapPoint =
-      direction === "next"
-        ? snapPoints.find((point) => point > currentProgress + 0.01)
-        : snapPoints
-            .slice()
-            .reverse()
-            .find((point) => point < currentProgress - 0.01);
+    if (typeof direction === "number") {
+      targetSnapPoint = direction;
+    } else {
+      const currentProgress = ourTrigger.progress;
+      targetSnapPoint =
+        direction === "next"
+          ? snapPoints.find((point) => point > currentProgress + 0.01)
+          : snapPoints
+              .slice()
+              .reverse()
+              .find((point) => point < currentProgress - 0.01);
+    }
 
     if (targetSnapPoint !== undefined) {
       const scrollPosition =
@@ -142,9 +148,7 @@ export default function QuadrantSection() {
     }
   };
 
-  const scrollToDataMode = () => {
-    // scroll to chart mode "data-filled"
-  };
+  const scrollToDataMode = () => scrollToSnapPoint(1);
 
   return (
     <div ref={sectionRef} className="w-full h-screen">
