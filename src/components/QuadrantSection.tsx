@@ -28,8 +28,18 @@ export default function QuadrantSection() {
     const showText = (index: number) => {
       if (currentIndex === index) return;
 
+      // Kill all ongoing animations first
+      texts.forEach((text) => gsap.killTweensOf(text));
+
       const oldText = texts[currentIndex];
       const newText = texts[index];
+
+      // Hide all texts immediately except the ones transitioning
+      texts.forEach((text, i) => {
+        if (i !== currentIndex && i !== index) {
+          gsap.set(text, { autoAlpha: 0 });
+        }
+      });
 
       // Fade out and move up the old text
       gsap.to(oldText, {
@@ -88,7 +98,7 @@ export default function QuadrantSection() {
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={text1Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-8 text-center"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-8 text-center opacity-0 invisible"
         >
           <h2 className="text-5xl font-bold text-white mb-4">
             Quadrant Section - Part 1
@@ -101,7 +111,7 @@ export default function QuadrantSection() {
 
         <div
           ref={text2Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-8 text-center"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-8 text-center opacity-0 invisible"
         >
           <h2 className="text-5xl font-bold text-white mb-4">
             Quadrant Section - Part 2

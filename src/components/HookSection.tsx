@@ -30,8 +30,18 @@ export default function HookSection() {
     const showText = (index: number) => {
       if (currentIndex === index) return;
 
+      // Kill all ongoing animations first
+      texts.forEach((text) => gsap.killTweensOf(text));
+
       const oldText = texts[currentIndex];
       const newText = texts[index];
+
+      // Hide all texts immediately except the ones transitioning
+      texts.forEach((text, i) => {
+        if (i !== currentIndex && i !== index) {
+          gsap.set(text, { autoAlpha: 0 });
+        }
+      });
 
       // Fade out and move up the old text
       gsap.to(oldText, {
