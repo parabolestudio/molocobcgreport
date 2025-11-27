@@ -1,13 +1,6 @@
 "use client";
 
-type ChartMode =
-  | "y-axis"
-  | "x-axis"
-  | "quadrant-1"
-  | "quadrant-2"
-  | "quadrant-3"
-  | "quadrant-4"
-  | "data-filled";
+import type { ChartMode } from "@/types/chart";
 
 export default function Chart({ mode }: { mode: ChartMode }) {
   console.log("Rendering Chart with mode:", mode);

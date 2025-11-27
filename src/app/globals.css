@@ -22,11 +22,12 @@
   --color-bright-green: var(--teal);
   --color-grey-blue: #5a5a7d;
   --color-grey-background: #2d3a48;
-  --color-panel-background: color-mix(
+  --color-panel-background-grey: color-mix(
     in srgb,
     var(--color-grey-background) 80%,
     transparent
   );
+  --color-panel-background-blue: color-mix(in srgb, #0b3766 80%, transparent);
   --font-museo-moderno: var(--font-museo-moderno);
 }
 
@@ -36,6 +37,19 @@ body {
   font-family: Montserrat, Helvetica, sans-serif;
 }
 p {
+  color: var(--foreground);
+  margin: 0;
+}
+p.text-bright-green {
+  color: var(--bright-green);
+}
+
+ul {
+  list-style: disc;
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+li {
   color: var(--foreground);
 }
 
@@ -67,4 +81,9 @@ p {
   font-family: "Montserrat", Helvetica, sans-serif;
   color: var(--grey-blue);
   fill: var(--grey-blue);
+}
+
+.panel-content p,
+.panel-content li {
+  font-size: 18px;
 }

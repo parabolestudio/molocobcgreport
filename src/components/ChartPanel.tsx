@@ -1,11 +1,243 @@
-export default function ChartPanel() {
+"use client";
+
+import type { ChartMode } from "@/types/chart";
+import { isChartModeExplanation } from "@/types/chart";
+import { JSX } from "react";
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+export default function ChartPanel({ mode }: { mode: ChartMode }) {
+  const isExplanation = isChartModeExplanation(mode);
+  const backgroundColor = isExplanation
+    ? "bg-panel-background-grey"
+    : "bg-panel-background-blue";
+
   return (
-    <div className="bg-panel-background rounded-[20px]">
-      <div>
-        <h3 className="text-grey-text font-museo-moderno">
-          The <span className="font-bold">AI Disruption Index</span>
-        </h3>
+    <div
+      className={`${backgroundColor} rounded-[20px] flex flex-col h-full justify-between`}
+    >
+      <div className="p-6 flex flex-col h-full justify-between">
+        <div>
+          <h3 className="text-grey-text font-museo-moderno mb-8 text-[40px]">
+            {titles[mode]}
+          </h3>
+          <div className="panel-content">{contentMap[mode]}</div>
+        </div>
+        <div className="text-red-300">button section</div>
+      </div>
+      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3">
+        <img
+          src={`${basePath}/icons/info.svg`}
+          alt="Information"
+          width={24}
+          height={24}
+        />
+        <p className="text-[14px] leading-[108%] text-grey-text m-0">
+          {noteTexts[mode]}
+        </p>
       </div>
     </div>
   );
 }
+
+const titles: Record<ChartMode, JSX.Element> = {
+  "expl-y-axis": (
+    <span>
+      The <span className="font-bold">AI Disruption Index</span>
+    </span>
+  ),
+  "expl-x-axis": (
+    <span>
+      The <span className="font-bold">AI Disruption Index</span>
+    </span>
+  ),
+  "expl-quadrant-1": (
+    <span className="font-bold">Battle for the Interface</span>
+  ),
+  "expl-quadrant-2": <span className="font-bold">Loyalty Challenged</span>,
+  "expl-quadrant-3": <span className="font-bold">Secured Anchors</span>,
+  "expl-quadrant-4": <span className="font-bold">Embedded Ecosystems</span>,
+  "data-filled": (
+    <span>
+      The <span className="font-bold">AI Disruption Index</span>
+    </span>
+  ),
+};
+
+const noteTexts: Record<ChartMode, string> = {
+  "expl-y-axis":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "expl-x-axis":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "expl-quadrant-1":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "expl-quadrant-2":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "expl-quadrant-3":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "expl-quadrant-4":
+    "Scroll down or use the buttons to explore how the index is constructed.",
+  "data-filled":
+    "Click on a vertical to explore details. Hover over the quadrant name for definitions.",
+};
+
+const ContentYAxis = () => {
+  return (
+    <div>
+      <p>
+        <b>Chatbot Disruption</b> (y-axis) scores verticals along a range of:
+      </p>
+      <ul>
+        <li>
+          Service disruption: The ability for customers to use AI without having
+          to go directly to the company
+        </li>
+        <li>
+          Discovery disruption: Consumers going more to chatbots for discovery
+          than traditional channels
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+const ContentXAxis = () => {
+  return (
+    <div>
+      <p>
+        <b>Customer Relationship Strength</b> (x-axis) scores strength from high
+        to low based on:
+      </p>
+      <ul>
+        <li>Reliance on paid user acquisition</li>
+        <li>Ability to drive loyalty</li>
+        <li>
+          How much customers engage on platforms like apps (higher engagement)
+          vs. the web (lower)
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+const ContentQuadrant1 = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      <p className="text-bright-green font-bold">
+        AI disruption and weak user relationships leave these verticals highly
+        vulnerable to LLM substitution and interface loss. 
+      </p>
+      <p>
+        They need to fundamentally rebuild the relationship layer, including:
+      </p>
+      <ul>
+        <li>
+          Bringing more of the journey into their owned ecosystems and mobile
+          app through things like loyalty programs, deeper engagement, and
+          personalized experiences 
+        </li>
+        <li>
+          Building LLM-like offerings into their mobile app and other owned
+          experiences to offer greater value,  including  product comparisons,
+          discovery, and customer assistance
+        </li>
+        <li>
+          Making the most of 1P data, closed-loop systems, and trust signals
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+const ContentQuadrant2 = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      <p className="text-bright-green font-bold">
+        Low disruption today, but weak relationships mean these verticals lack
+        long-term defensibility.
+      </p>
+      <p>They need to build future-proof foundations, including: </p>
+      <ul>
+        <li>
+          Building deeper relationships through AI-driven personalization and
+          loyalty ecosystems like mobile apps 
+        </li>
+        <li>
+          Embedding into chatbot ecosystems via partnerships and integrations to
+          ensure visibility in LLM discovery
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+const ContentQuadrant3 = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      <p className="text-bright-green font-bold">
+        AI disruption is already reshaping journeys here, but strong loyalty and
+        user intent keep these verticals durable—for now.
+      </p>
+      <p>These verticals need to defend and differentiate, including:</p>
+      <ul>
+        <li>
+          Shifting from generic loyalty to personalized proactive relationships 
+        </li>
+        <li>
+          Using AI/LLM to amplify data, trust, and regulatory barriers into even
+          stronger differentiators
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+const ContentQuadrant4 = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      <p className="text-bright-green font-bold">
+        Strong user relationships and low AI disruption combine to create high
+        resilience. 
+      </p>
+      <p>These verticals can accelerate their advantage by</p>
+      <ul>
+        <li>
+          Making AI-enhanced services indispensable within their ecosystem
+        </li>
+        <li>
+          Using scale and trust to define how chatbots should operate in their
+          vertical, shaping standards that others follow
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+const ContentDataFilled = () => {
+  return (
+    <div className="flex gap-3">
+      <img
+        src={`${basePath}/icons/mouse.svg`}
+        alt="Mouse icon"
+        width={24}
+        height={24}
+      />
+      <p className="italic">Select a vertical to explore details.</p>
+    </div>
+  );
+};
+
+const contentMap: Record<ChartMode, JSX.Element> = {
+  "expl-y-axis": <ContentYAxis />,
+  "expl-x-axis": (
+    <div className="flex flex-col gap-4">
+      <ContentYAxis />
+      <ContentXAxis />
+    </div>
+  ),
+  "expl-quadrant-1": <ContentQuadrant1 />,
+  "expl-quadrant-2": <ContentQuadrant2 />,
+  "expl-quadrant-3": <ContentQuadrant3 />,
+  "expl-quadrant-4": <ContentQuadrant4 />,
+  "data-filled": <ContentDataFilled />,
+};

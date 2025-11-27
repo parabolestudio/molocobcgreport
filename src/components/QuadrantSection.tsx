@@ -5,23 +5,15 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Chart from "./Chart";
 import ChartPanel from "./ChartPanel";
+import type { ChartMode } from "@/types/chart";
 
 gsap.registerPlugin(ScrollTrigger);
-
-type ChartMode =
-  | "y-axis"
-  | "x-axis"
-  | "quadrant-1"
-  | "quadrant-2"
-  | "quadrant-3"
-  | "quadrant-4"
-  | "data-filled";
 
 export default function QuadrantSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const screen1Ref = useRef<HTMLDivElement>(null);
   const screen2Ref = useRef<HTMLDivElement>(null);
-  const [chartMode, setChartMode] = useState<ChartMode>("y-axis");
+  const [chartMode, setChartMode] = useState<ChartMode>("expl-y-axis");
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -38,12 +30,12 @@ export default function QuadrantSection() {
     const screens = [screen1, screen2];
 
     const chartModes: ChartMode[] = [
-      "y-axis",
-      "x-axis",
-      "quadrant-1",
-      "quadrant-2",
-      "quadrant-3",
-      "quadrant-4",
+      "expl-y-axis",
+      "expl-x-axis",
+      "expl-quadrant-1",
+      "expl-quadrant-2",
+      "expl-quadrant-3",
+      "expl-quadrant-4",
       "data-filled",
     ];
 
@@ -132,9 +124,9 @@ export default function QuadrantSection() {
 
         <div
           ref={screen2Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-20 h-full py-20 opacity-0 invisible grid grid-cols-[0.2fr_0.8fr] gap-8"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-20 h-full py-20 opacity-0 invisible grid grid-cols-[0.3fr_0.7fr] gap-8"
         >
-          <ChartPanel />
+          <ChartPanel mode={chartMode} />
           <Chart mode={chartMode} />
         </div>
       </div>
