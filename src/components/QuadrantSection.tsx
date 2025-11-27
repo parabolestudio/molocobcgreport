@@ -110,6 +110,16 @@ export default function QuadrantSection() {
     };
   }, []);
 
+  const scrollNext = () => {
+    // scroll to next chart mode
+  };
+  const scrollBack = () => {
+    // scroll to previous chart mode
+  };
+  const scrollToDataMode = () => {
+    // scroll to chart mode "data-filled"
+  };
+
   return (
     <div ref={sectionRef} className="w-full h-screen">
       <div className="relative w-full h-full flex items-center justify-center">
@@ -126,7 +136,12 @@ export default function QuadrantSection() {
           ref={screen2Ref}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-20 h-full py-20 opacity-0 invisible grid grid-cols-[0.3fr_0.7fr] gap-8"
         >
-          <ChartPanel mode={chartMode} />
+          <ChartPanel
+            mode={chartMode}
+            scrollNext={scrollNext}
+            scrollBack={scrollBack}
+            scrollToDataMode={scrollToDataMode}
+          />
           <Chart mode={chartMode} />
         </div>
       </div>

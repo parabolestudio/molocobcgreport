@@ -6,7 +6,17 @@ import { JSX } from "react";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export default function ChartPanel({ mode }: { mode: ChartMode }) {
+export default function ChartPanel({
+  mode,
+  scrollNext,
+  scrollBack,
+  scrollToDataMode,
+}: {
+  mode: ChartMode;
+  scrollNext: Function;
+  scrollBack: Function;
+  scrollToDataMode: Function;
+}) {
   const isExplanation = isChartModeExplanation(mode);
   const backgroundColor = isExplanation
     ? "bg-panel-background-grey"
@@ -23,14 +33,43 @@ export default function ChartPanel({ mode }: { mode: ChartMode }) {
           </h3>
           <div className="panel-content">{contentMap[mode]}</div>
         </div>
-        <div className="text-red-300">button section</div>
+        <div className="flex gap-4">
+          <button
+            className="bg-grey-blue flex items-center justify-center gap-2"
+            onClick={() => scrollBack()}
+          >
+            <img
+              src={`${basePath}/icons/arrow.svg`}
+              alt="arrow"
+              width={16}
+              height={13}
+            />
+            <span>Back</span>
+          </button>
+          <button className="bg-medium-blue" onClick={() => scrollToDataMode()}>
+            Skip to index
+          </button>
+          <button
+            className="bg-grey-blue flex items-center justify-center gap-2"
+            onClick={() => scrollNext()}
+          >
+            <span>Next</span>
+            <img
+              src={`${basePath}/icons/arrow.svg`}
+              alt="arrow"
+              width={16}
+              height={13}
+              style={{ transform: "rotate(180deg)" }}
+            />
+          </button>
+        </div>
       </div>
-      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3">
+      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex  gap-3">
         <img
           src={`${basePath}/icons/info.svg`}
           alt="Information"
-          width={24}
-          height={24}
+          width={16}
+          height={13}
         />
         <p className="text-[14px] leading-[108%] text-grey-text m-0">
           {noteTexts[mode]}
