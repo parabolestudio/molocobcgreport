@@ -14,12 +14,47 @@ export default function QuadrantSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const screen1Ref = useRef<HTMLDivElement>(null);
   const screen2Ref = useRef<HTMLDivElement>(null);
+  const chartPanelRef = useRef<HTMLDivElement>(null);
   const [chartMode, setChartMode] = useState<ChartMode>("expl-y-axis");
   const [selectedVertical, setSelectedVertical] = useState<string | null>(null);
 
   console.log("Selected Vertical:", selectedVertical);
 
   const snapPoints = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
+
+  // Handle clicking outside to deselect vertical
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+
+      // Check if click is on a verticalGroup (including SVG elements)
+      let element: HTMLElement | SVGElement | null = target;
+      while (element) {
+        if (element.classList?.contains("verticalGroup")) {
+          return;
+        }
+        element = element.parentElement;
+      }
+
+      // Check if click is on ChartPanel
+      if (chartPanelRef.current?.contains(target)) {
+        return;
+      }
+
+      // Clear selection
+      setSelectedVertical(null);
+    };
+
+    window.addEventListener("click", handleClickOutside);
+    return () => window.removeEventListener("click", handleClickOutside);
+  }, []);
+
+  // Reset selected vertical when mode changes
+  useEffect(() => {
+    setSelectedVertical(null);
+  }, [chartMode]);
+
+  // scroll handling with GSAP ScrollTrigger
   useEffect(() => {
     const section = sectionRef.current;
     const screen1 = screen1Ref.current;
@@ -166,13 +201,15 @@ export default function QuadrantSection() {
           ref={screen2Ref}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-20 h-full py-20 opacity-0 invisible grid grid-cols-[0.3fr_0.7fr] gap-8"
         >
-          <ChartPanel
-            mode={chartMode}
-            selectedVertical={selectedVertical}
-            scrollNext={() => scrollToSnapPoint("next")}
-            scrollBack={() => scrollToSnapPoint("prev")}
-            scrollToDataMode={() => scrollToSnapPoint(1)}
-          />
+          <div ref={chartPanelRef}>
+            <ChartPanel
+              mode={chartMode}
+              selectedVertical={selectedVertical}
+              scrollNext={() => scrollToSnapPoint("next")}
+              scrollBack={() => scrollToSnapPoint("prev")}
+              scrollToDataMode={() => scrollToSnapPoint(1)}
+            />
+          </div>
           <Chart
             mode={chartMode}
             selectedVertical={selectedVertical}

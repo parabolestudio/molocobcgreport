@@ -2,7 +2,7 @@
 
 import type { ChartMode } from "@/helpers/chart";
 import { isChartModeExplanation } from "@/helpers/chart";
-import { JSX, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import ChartPanelContentSelectedVertical from "./ChartPanelContentSelectedVertical";
 import { basePath } from "@/helpers/general";
 
@@ -27,6 +27,18 @@ export default function ChartPanel({
     ? "bg-panel-background-green"
     : "bg-panel-background-blue";
   const contentMap = getContentMap(selectedVertical, shownSide, setShownSide);
+
+  // Reset to summary side when mode changes
+  useEffect(() => {
+    setShownSide("summary");
+  }, [mode]);
+
+  // Reset to summary side when selected vertical changes to null
+  useEffect(() => {
+    if (!selectedVertical) {
+      setShownSide("summary");
+    }
+  }, [selectedVertical]);
 
   return (
     <div

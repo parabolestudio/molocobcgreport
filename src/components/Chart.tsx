@@ -313,7 +313,10 @@ export default function Chart({
                 <g
                   key={i}
                   transform={`translate(${x},${y})`}
-                  onClick={() => selectVertical(d.vertical)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    selectVertical(d.vertical);
+                  }}
                   style={{ cursor: "pointer" }}
                   className={
                     selectedVertical === d.vertical
