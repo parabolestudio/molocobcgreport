@@ -102,7 +102,7 @@ export default function HookSection() {
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center"
         >
           <p className="hook-p">
-            <span className="text-[var(--bright-green)] font-bold">
+            <span className="text-bright-green font-bold">
               Consumers are turning to AI
             </span>{" "}
             for nearly everything— from research to recipes to shopping. The use
@@ -121,7 +121,7 @@ export default function HookSection() {
           <p className="hook-p">
             New research on LLM disruption, done in partnership with BCG, dives
             deep into the{" "}
-            <span className="text-[var(--bright-green)] font-bold">
+            <span className="text-bright-green font-bold">
               current state of play for marketers
             </span>{" "}
             – and where we go from here.
@@ -132,7 +132,7 @@ export default function HookSection() {
           ref={text3Ref}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 text-center flex flex-col items-center justify-center gap-[128px]"
         >
-          <h1 className="text-[128px] text-[var(--bright-green)] font-(family-name:--font-museo-moderno) uppercase leading-[0.99]">
+          <h1 className="text-[128px] text-bright-green font-museo-moderno uppercase leading-[0.99]">
             <span className="font-extralight">The</span>{" "}
             <span className="font-bold">
               AI

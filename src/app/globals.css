@@ -10,6 +10,7 @@
   --grey-text: #f2f2f2;
   --bright-green: var(--teal);
   --grey-blue: #5a5a7d;
+  --grey-background: #2d3a48;
 
   --background: var(--black-blue);
   --foreground: var(--grey-text);
@@ -20,6 +21,13 @@
   --color-grey-text: #f2f2f2;
   --color-bright-green: var(--teal);
   --color-grey-blue: #5a5a7d;
+  --color-grey-background: #2d3a48;
+  --color-panel-background: color-mix(
+    in srgb,
+    var(--color-grey-background) 80%,
+    transparent
+  );
+  --font-museo-moderno: var(--font-museo-moderno);
 }
 
 body {

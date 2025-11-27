@@ -114,10 +114,12 @@ export default function QuadrantSection() {
           ref={text2Ref}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-8 text-center opacity-0 invisible"
         >
-          <h2 className="text-5xl font-bold text-white mb-4">
-            Quadrant Section - Part 2
-          </h2>
-          <Chart />
+          <div className="bg-panel-background rounded-[20px]">
+            <h3 className="text-grey-text font-museo-moderno">
+              The <span className="font-bold">AI Disruption Index</span>
+            </h3>
+          </div>
+          <Chart mode="y-axis" />
         </div>
       </div>
     </div>

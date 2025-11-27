@@ -1,8 +1,18 @@
 "use client";
 
-export default function Chart() {
-  const length = 860;
+type ChartMode =
+  | "y-axis"
+  | "x-axis"
+  | "quadrant-1"
+  | "quadrant-2"
+  | "quadrant-3"
+  | "quadrant-4"
+  | "data-filled";
 
+export default function Chart({ mode }: { mode: ChartMode }) {
+  console.log("Rendering Chart with mode:", mode);
+
+  const length = 860;
   const margin = { top: 20, right: 60, bottom: 60, left: 20 };
   const innerWidth = length - margin.left - margin.right;
   const innerHeight = length - margin.top - margin.bottom;
