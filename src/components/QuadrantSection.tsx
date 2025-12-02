@@ -205,6 +205,7 @@ export default function QuadrantSection() {
             <ChartPanel
               mode={chartMode}
               selectedVertical={selectedVertical}
+              selectVertical={(vertical) => setSelectedVertical(vertical)}
               scrollNext={() => scrollToSnapPoint("next")}
               scrollBack={() => scrollToSnapPoint("prev")}
               scrollToDataMode={() => scrollToSnapPoint(1)}

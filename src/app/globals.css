@@ -125,3 +125,7 @@ button {
 .verticals path {
   transition: fill 0.3s, color 0.3s;
 }
+
+.panel-content .panel-heading {
+  @apply text-grey-text font-museo-moderno mb-8 text-[40px];
+}

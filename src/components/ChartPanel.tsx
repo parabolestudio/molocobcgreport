@@ -9,12 +9,14 @@ import { basePath } from "@/helpers/general";
 export default function ChartPanel({
   mode,
   selectedVertical,
+  selectVertical,
   scrollNext,
   scrollBack,
   scrollToDataMode,
 }: {
   mode: ChartMode;
   selectedVertical: string | null;
+  selectVertical: (vertical: string | null) => void;
   scrollNext: Function;
   scrollBack: Function;
   scrollToDataMode: Function;
@@ -26,7 +28,12 @@ export default function ChartPanel({
     : shownSide === "details"
     ? "bg-panel-background-green"
     : "bg-panel-background-blue";
-  const contentMap = getContentMap(selectedVertical, shownSide, setShownSide);
+  const contentMap = getContentMap(
+    selectedVertical,
+    selectVertical,
+    shownSide,
+    setShownSide
+  );
 
   // Reset to summary side when mode changes
   useEffect(() => {
@@ -42,7 +49,7 @@ export default function ChartPanel({
 
   return (
     <div
-      className={`${backgroundColor} transition rounded-[20px] flex flex-col h-full justify-between`}
+      className={`${backgroundColor} transition rounded-[20px] flex flex-col h-full justify-between relative`}
     >
       <div className="p-6 flex flex-col h-full justify-between">
         <div className="panel-content h-full">{contentMap[mode]}</div>
@@ -100,7 +107,7 @@ export default function ChartPanel({
 const ContentYAxis = () => {
   return (
     <div>
-      <h3 className="text-grey-text font-museo-moderno mb-8 text-[40px]">
+      <h3 className="panel-heading">
         <span>
           The <span className="font-bold">AI Disruption Index</span>
         </span>
@@ -148,7 +155,7 @@ const ContentXAxis = () => {
 const ContentQuadrant1 = () => {
   return (
     <div>
-      <h3 className="text-grey-text font-museo-moderno mb-8 text-[40px]">
+      <h3 className="panel-heading">
         <span className="font-bold">Battle for the Interface</span>
       </h3>
       <div className="flex flex-col gap-4">
@@ -182,7 +189,7 @@ const ContentQuadrant1 = () => {
 const ContentQuadrant2 = () => {
   return (
     <div>
-      <h3 className="text-grey-text font-museo-moderno mb-8 text-[40px]">
+      <h3 className="panel-heading">
         {" "}
         <span className="font-bold">Loyalty Challenged</span>
       </h3>
@@ -210,7 +217,7 @@ const ContentQuadrant2 = () => {
 const ContentQuadrant3 = () => {
   return (
     <div>
-      <h3 className="text-grey-text font-museo-moderno mb-8 text-[40px]">
+      <h3 className="panel-heading">
         {" "}
         <span className="font-bold">Secured Anchors</span>
       </h3>
@@ -238,7 +245,7 @@ const ContentQuadrant3 = () => {
 const ContentQuadrant4 = () => {
   return (
     <div>
-      <h3 className="text-grey-text font-museo-moderno mb-8 text-[40px]">
+      <h3 className="panel-heading">
         <span className="font-bold">Embedded Ecosystems</span>
       </h3>
       <div className="flex flex-col gap-4">
@@ -263,6 +270,7 @@ const ContentQuadrant4 = () => {
 
 const getContentMap = (
   selectedVertical: string | null,
+  selectVertical: (vertical: string | null) => void,
   shownSide: "summary" | "details",
   onShownSideChange: (side: "summary" | "details") => void
 ): Record<ChartMode, JSX.Element> => ({
@@ -280,6 +288,7 @@ const getContentMap = (
   "data-filled": (
     <ChartPanelContentSelectedVertical
       selectedVertical={selectedVertical}
+      selectVertical={selectVertical}
       shownSide={shownSide}
       onShownSideChange={onShownSideChange}
     />
