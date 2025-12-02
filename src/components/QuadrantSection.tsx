@@ -199,23 +199,26 @@ export default function QuadrantSection() {
 
         <div
           ref={screen2Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-20 h-full py-20 opacity-0 invisible grid grid-cols-[0.3fr_0.7fr] gap-8"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-10 opacity-0 invisible"
+          style={{ height: "calc(100% - 80px)", top: "50%", marginTop: "0" }}
         >
-          <div ref={chartPanelRef}>
-            <ChartPanel
+          <div className="h-full grid grid-cols-[0.3fr_0.7fr] gap-8">
+            <div ref={chartPanelRef} className="h-full overflow-hidden">
+              <ChartPanel
+                mode={chartMode}
+                selectedVertical={selectedVertical}
+                selectVertical={(vertical) => setSelectedVertical(vertical)}
+                scrollNext={() => scrollToSnapPoint("next")}
+                scrollBack={() => scrollToSnapPoint("prev")}
+                scrollToDataMode={() => scrollToSnapPoint(1)}
+              />
+            </div>
+            <Chart
               mode={chartMode}
               selectedVertical={selectedVertical}
               selectVertical={(vertical) => setSelectedVertical(vertical)}
-              scrollNext={() => scrollToSnapPoint("next")}
-              scrollBack={() => scrollToSnapPoint("prev")}
-              scrollToDataMode={() => scrollToSnapPoint(1)}
             />
           </div>
-          <Chart
-            mode={chartMode}
-            selectedVertical={selectedVertical}
-            selectVertical={(vertical) => setSelectedVertical(vertical)}
-          />
         </div>
       </div>
     </div>

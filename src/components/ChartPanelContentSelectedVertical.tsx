@@ -34,7 +34,7 @@ export default function ChartPanelContentSelectedVertical({
     );
   }
   return (
-    <div className="flex flex-col h-full justify-between">
+    <div className="flex flex-col justify-between min-h-full">
       <div className="absolute top-8 right-8 cursor-pointer">
         <img
           src={`${basePath}/icons/cross.svg`}

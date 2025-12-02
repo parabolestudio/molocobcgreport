@@ -51,12 +51,17 @@ export default function ChartPanel({
 
   return (
     <div
-      className={`${backgroundColor} transition rounded-[20px] flex flex-col h-full justify-between relative`}
+      className={`${backgroundColor} transition rounded-[20px] flex flex-col h-full relative`}
     >
-      <div className="p-6 flex flex-col h-full justify-between">
-        <div className="panel-content h-full">{contentMap[mode]}</div>
+      <div className="p-6 flex-1 min-h-0 flex flex-col overflow-hidden">
+        <div
+          className="panel-content overflow-y-auto flex-1 pr-2"
+          style={{ scrollbarGutter: "stable" }}
+        >
+          {contentMap[mode]}
+        </div>
         {isExplanation && (
-          <div className="flex gap-4">
+          <div className="flex gap-4 mt-4 shrink-0">
             <button
               className={`bg-grey-blue flex items-center justify-center gap-2 disabled:text-[#9494AA] ${
                 isBackButtonDisabled ? "" : "hover:bg-[#9494AA]"
@@ -107,7 +112,7 @@ export default function ChartPanel({
           </div>
         )}
       </div>
-      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex  gap-3">
+      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3 shrink-0">
         <img
           src={`${basePath}/icons/info.svg`}
           alt="Information"

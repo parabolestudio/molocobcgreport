@@ -106,8 +106,22 @@ export default function Chart({
   }, []);
 
   console.log("Rendering Chart", mode, verticalsData);
+  const [length, setLength] = useState(860);
 
-  const length = 860;
+  useEffect(() => {
+    const visContainer = document.querySelector(
+      `#chart-container`
+    ) as HTMLElement;
+    const w = visContainer?.offsetWidth || 860;
+    const h = visContainer?.offsetHeight || 860;
+    const minDim = Math.min(w, h);
+    if (minDim < 860) {
+      setLength(minDim);
+    } else {
+      setLength(860);
+    }
+  }, []);
+
   const margin = { top: 20, right: 60, bottom: 60, left: 20 };
   const innerWidth = length - margin.left - margin.right;
   const innerHeight = length - margin.top - margin.bottom;
@@ -116,8 +130,11 @@ export default function Chart({
   const yScale = scaleLinear().domain([10, 1.5]).range([0, innerHeight]);
 
   return (
-    <div className="w-full h-full">
-      <svg viewBox={`0 0 ${length} ${length}`}>
+    <div id="chart-container" className="w-full h-full overflow-hidden">
+      <svg
+        viewBox={`0 0 ${length} ${length}`}
+        style={{ width: "100%", height: "100%" }}
+      >
         <g transform={`translate(${margin.left},${margin.top})`}>
           <g className="structure">
             <circle
