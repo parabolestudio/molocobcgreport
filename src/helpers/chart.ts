@@ -36,8 +36,8 @@ export const verticalsMap: Record<string, Object> = {
     label: "Auto Marketplace",
     icon: "auto_marketplace",
   },
-  "Retail/Ecommerce": {
-    label: "Retail/Ecommerce",
+  "Retail & Ecommerce": {
+    label: "Retail & Ecommerce",
     icon: "ecommerce_retail",
   },
   "Health & Fitness": {
@@ -56,15 +56,15 @@ export const verticalsMap: Record<string, Object> = {
     label: "Financial Services",
     icon: "finance",
   },
-  "Media/Streaming": {
-    label: "Media/Streaming",
+  "Media & Streaming": {
+    label: "Media & Streaming",
     icon: "media_streaming",
   },
   Dating: {
     label: "Dating",
     icon: "dating",
   },
-  "Auto OEMs": {
+  "Auto - OEMs": {
     label: "Auto OEMs",
     icon: "auto_oems",
   },
@@ -75,5 +75,9 @@ export const verticalsMap: Record<string, Object> = {
   Productivity: {
     label: "Productivity",
     icon: "productivity",
+  },
+  "Casino & Sports betting (RMG)": {
+    label: "Casino & Sports betting (RMG)",
+    icon: "rmg",
   },
 };

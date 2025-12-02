@@ -64,11 +64,11 @@ export default function Chart({
     csv(`${basePath}/data/verticalsData.csv`).then((data) => {
       const processedData = data.map((d) => ({
         vertical: d["Vertical"],
-        consumerStrength: d["Customer Relationship Strength"]
-          ? +d["Customer Relationship Strength"]
+        consumerStrength: d["Strength of customer relationship"]
+          ? +d["Strength of customer relationship"]
           : 0,
-        aiDisruption: d["AI/LLM-Driven Disruption"]
-          ? +d["AI/LLM-Driven Disruption"]
+        aiDisruption: d["Risk of AI disruption"]
+          ? +d["Risk of AI disruption"]
           : 0,
       }));
       setVerticalsData(processedData as VerticalData[]);
@@ -112,8 +112,8 @@ export default function Chart({
   const innerWidth = length - margin.left - margin.right;
   const innerHeight = length - margin.top - margin.bottom;
 
-  const xScale = scaleLinear().domain([0, 10]).range([0, innerWidth]);
-  const yScale = scaleLinear().domain([0, 10]).range([innerHeight, 0]);
+  const xScale = scaleLinear().domain([4.5, 10.5]).range([0, innerWidth]);
+  const yScale = scaleLinear().domain([10, 1.5]).range([0, innerHeight]);
 
   return (
     <div className="w-full h-full">

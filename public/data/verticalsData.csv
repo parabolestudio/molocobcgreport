@@ -1,19 +1,18 @@
-Vertical,AI/LLM-Driven Disruption,Customer Relationship Strength
-News,7.4,5.5
-Education,6.6,6.8
-Travel,6,5.4
-Auto Marketplaces,5.9,5.3
-Retail/Ecommerce,5.7,7.1
-Health & Fitness,5.6,6.4
-Consumer Software,5.2,7.9
-FinTech,3.7,8.5
-On-Demand Services,2.7,7.6
-Financial Services,2.7,8.4
-Media/Streaming,2.6,8.3
-Gaming,2.1,7.1
-Dating,1.9,7.4
-Casino & Sports Betting,1.8,5.9
-Auto OEMs,1.7,7.6
-Gen AI,1.5,6.5
-Social,1.2,9.6
-Productivity,7.9,7.95
+Vertical,Strength of customer relationship,Risk of AI disruption
+Gaming,7.04,7.84
+Retail & Ecommerce,7.11,4.28
+Media & Streaming,8.31,7.36
+Education,6.79,3.44
+Health & Fitness,6.41,4.36
+News,5.58,2.58
+FinTech,8.49,6.27
+Financial Services,8.42,7.34
+On-Demand Services,7.63,7.3
+Travel,5.36,3.99
+Dating,7.42,8.06
+Social,9.61,8.76
+Productivity,7.95,4.76
+Gen AI,6.51,8.53
+Casino & Sports betting (RMG),5.9,8.21
+Auto - OEMs,7.59,8.3
+Auto Marketplaces,5.28,4.13
