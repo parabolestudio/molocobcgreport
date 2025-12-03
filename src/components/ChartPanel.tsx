@@ -5,6 +5,29 @@ import { isChartModeExplanation } from "@/helpers/chart";
 import { JSX, useEffect, useState } from "react";
 import ChartPanelContentSelectedVertical from "./ChartPanelContentSelectedVertical";
 import { basePath } from "@/helpers/general";
+import { csv } from "d3-fetch";
+
+export interface Copy {
+  vertical: string;
+  intro: string;
+  // details side - AI disruption risk
+  ai_risk_intro: string;
+  ai_discovery_risk_intro: string;
+  ai_discovery_risk_level: string;
+  ai_service_risk_intro: string;
+  ai_service_risk_level: string;
+  ai_data_risk_intro: string;
+  ai_data_risk_level: string;
+
+  // details side - customer relationship strength
+  customer_intro: string;
+  customer_acquisition_intro: string;
+  customer_acquisition_score: number;
+  customer_loyalty_intro: string;
+  customer_loyalty_score: number;
+  customer_engagement_intro: string;
+  customer_engagement_score: number;
+}
 
 export default function ChartPanel({
   mode,
@@ -28,11 +51,52 @@ export default function ChartPanel({
     : shownSide === "details"
     ? "bg-panel-background-green"
     : "bg-panel-background-blue";
+
+  const [verticalsCopy, setVerticalsCopy] = useState<Array<Copy>>([]);
+
+  useEffect(() => {
+    csv(`${basePath}/data/verticalsCopy.csv`).then((data) => {
+      const processedData = data.map((d) => ({
+        vertical: d["Vertical"],
+        intro: d["Vertical Intro"] || "",
+        // details side - AI disruption risk
+        ai_risk_intro: d["AI Disruption Risk Intro"] || "",
+        ai_discovery_risk_intro: d["Discovery Risk (description)"] || "",
+        ai_discovery_risk_level: d["Discovery Risk (score)"] || "",
+        ai_service_risk_intro: d["Service Disruption Risk (description)"] || "",
+        ai_service_risk_level: d["Service Disruption Risk (score)"] || "",
+        ai_data_risk_intro: d["Data Access & Regulatory (description)"] || "",
+        ai_data_risk_level: d["Data Access & Regulatory (score)"] || "",
+
+        // details side - customer relationship strength
+        customer_intro: d["Customer Relationship Intro"] || "",
+        customer_acquisition_intro:
+          d["Acquisition Strength (description)"] || "",
+        customer_acquisition_score: d["Acquisition Strength (score)"]
+          ? +d["Acquisition Strength (score)"]
+          : 0,
+        customer_loyalty_intro: d["Loyalty Strength (description)"] || "",
+        customer_loyalty_score: d["Loyalty Strength (score)"]
+          ? +d["Loyalty Strength (score)"]
+          : 0,
+        customer_engagement_intro:
+          d["Platform Engagement Depth (description)"] || "",
+        customer_engagement_score: d["Platform Engagement Depth (score)"]
+          ? +d["Platform Engagement Depth (score)"]
+          : 0,
+      }));
+      setVerticalsCopy(processedData);
+    });
+  }, []);
+
+  const copy = verticalsCopy.find((v) => v.vertical === selectedVertical);
+
   const contentMap = getContentMap(
     selectedVertical,
     selectVertical,
     shownSide,
-    setShownSide
+    setShownSide,
+    copy
   );
 
   // Reset to summary side when mode changes
@@ -295,7 +359,8 @@ const getContentMap = (
   selectedVertical: string | null,
   selectVertical: (vertical: string | null) => void,
   shownSide: "summary" | "details",
-  onShownSideChange: (side: "summary" | "details") => void
+  onShownSideChange: (side: "summary" | "details") => void,
+  copy: Copy | undefined
 ): Record<ChartMode, JSX.Element> => ({
   "expl-y-axis": <ContentYAxis />,
   "expl-x-axis": (
@@ -314,6 +379,7 @@ const getContentMap = (
       selectVertical={selectVertical}
       shownSide={shownSide}
       onShownSideChange={onShownSideChange}
+      copy={copy}
     />
   ),
 });

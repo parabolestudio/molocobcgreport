@@ -64,7 +64,7 @@ export const verticalsMap: Record<string, Object> = {
     label: "Dating",
     icon: "dating",
   },
-  "Auto - OEMs": {
+  "Auto OEMs": {
     label: "Auto OEMs",
     icon: "auto_oems",
   },

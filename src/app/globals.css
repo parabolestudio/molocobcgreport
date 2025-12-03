@@ -102,7 +102,7 @@ button {
   fill: var(--grey-blue);
 }
 
-.panel-content p,
+.panel-content p:not([class*="text-"]),
 .panel-content li {
   font-size: 18px;
 }
