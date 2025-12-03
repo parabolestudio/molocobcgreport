@@ -105,7 +105,7 @@ export default function Chart({
     loadSVGs();
   }, []);
 
-  console.log("Rendering Chart", mode, verticalsData);
+  // console.log("Rendering Chart", mode, verticalsData);
   const [length, setLength] = useState(860);
 
   useEffect(() => {
@@ -122,7 +122,8 @@ export default function Chart({
     }
   }, []);
 
-  const margin = { top: 20, right: 60, bottom: 60, left: 20 };
+  // margin needs to be equal horizontally and vertically
+  const margin = { top: 5, right: 30, bottom: 30, left: 5 };
   const innerWidth = length - margin.left - margin.right;
   const innerHeight = length - margin.top - margin.bottom;
 
@@ -181,6 +182,21 @@ export default function Chart({
               }
             />
             <text
+              className="chart-text transition"
+              x={innerWidth / 2}
+              y={innerHeight + margin.bottom / 2}
+              dominantBaseline="middle"
+              textAnchor="middle"
+              style={{
+                fill:
+                  mode === "expl-x-axis"
+                    ? "var(--bright-green)"
+                    : "var(--grey-blue)",
+              }}
+            >
+              Strength of customer relationship
+            </text>
+            <text
               className="chart-text-bold uppercase transition"
               y={innerHeight + margin.bottom / 2}
               dominantBaseline="middle"
@@ -223,6 +239,51 @@ export default function Chart({
               strokeWidth={1.5}
               strokeDasharray="10,10"
             />
+            <text
+              className="chart-text transition"
+              x={innerWidth}
+              y={innerHeight / 2 + margin.right / 2}
+              dominantBaseline="middle"
+              textAnchor="middle"
+              style={{
+                transform: `rotate(-90deg)`,
+                transformOrigin: `${innerWidth}px ${innerHeight / 2}px`,
+                fill:
+                  mode === "expl-y-axis"
+                    ? "var(--bright-green)"
+                    : "var(--grey-blue)",
+              }}
+            >
+              Risk of AI disruption
+            </text>
+            <text
+              className="chart-text-bold uppercase transition"
+              x={innerWidth + 10}
+              y={6}
+              dominantBaseline="middle"
+              style={{
+                fill:
+                  mode === "expl-y-axis"
+                    ? "var(--bright-green)"
+                    : "var(--grey-blue)",
+              }}
+            >
+              low
+            </text>
+            <text
+              className="chart-text-bold uppercase transition"
+              x={innerWidth + 10}
+              y={innerHeight - 6}
+              dominantBaseline="middle"
+              style={{
+                fill:
+                  mode === "expl-y-axis"
+                    ? "var(--bright-green)"
+                    : "var(--grey-blue)",
+              }}
+            >
+              high
+            </text>
           </g>
           <g className="quadrants">
             {quadrantData.map((quadrant, index) => {
@@ -368,7 +429,9 @@ export default function Chart({
             })}
           </g>
 
-          <text className="fill-red-900 font-extrabold">{mode}</text>
+          <text className="fill-red-900 font-extrabold" y="20">
+            {mode}
+          </text>
         </g>
       </svg>
     </div>
