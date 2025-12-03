@@ -70,10 +70,10 @@ export default function QuadrantSection() {
     const chartModes: ChartMode[] = [
       "expl-y-axis",
       "expl-x-axis",
-      "expl-quadrant-1",
-      "expl-quadrant-2",
-      "expl-quadrant-3",
-      "expl-quadrant-4",
+      "expl-quadrant-bottom-left",
+      "expl-quadrant-top-left",
+      "expl-quadrant-bottom-right",
+      "expl-quadrant-top-right",
       "data-filled",
     ];
 

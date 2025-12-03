@@ -96,7 +96,8 @@ export default function ChartPanel({
     selectVertical,
     shownSide,
     setShownSide,
-    copy
+    copy,
+    mode
   );
 
   // Reset to summary side when mode changes
@@ -191,7 +192,7 @@ export default function ChartPanel({
   );
 }
 
-const ContentYAxis = () => {
+const ContentYAxis = ({ isModeActive }: { isModeActive: boolean }) => {
   return (
     <div>
       <h3 className="panel-heading">
@@ -201,7 +202,13 @@ const ContentYAxis = () => {
       </h3>
       <div>
         <p>
-          <b>Chatbot Disruption</b> (y-axis) scores verticals along a range of:
+          <b>Chatbot Disruption</b>
+          <span
+            className={`transition ${isModeActive ? "text-bright-green" : ""}`}
+          >
+            (y-axis)
+          </span>{" "}
+          scores verticals along a range of:
         </p>
         <ul>
           <li>
@@ -218,13 +225,18 @@ const ContentYAxis = () => {
   );
 };
 
-const ContentXAxis = () => {
+const ContentXAxis = ({ isModeActive }: { isModeActive: boolean }) => {
   return (
     <div>
       <div>
         <p>
-          <b>Customer Relationship Strength</b> (x-axis) scores strength from
-          high to low based on:
+          <b>Customer Relationship Strength</b>
+          <span
+            className={`transition ${isModeActive ? "text-bright-green" : ""}`}
+          >
+            (x-axis)
+          </span>{" "}
+          scores strength from high to low based on:
         </p>
         <ul>
           <li>Reliance on paid user acquisition</li>
@@ -239,11 +251,11 @@ const ContentXAxis = () => {
   );
 };
 
-const ContentQuadrant1 = () => {
+const ContentQuadrantBottomLeft = () => {
   return (
     <div>
       <h3 className="panel-heading">
-        <span className="font-bold">Battle for the Interface</span>
+        <span className="font-bold">Breached</span>
       </h3>
       <div className="flex flex-col gap-4">
         <p className="text-bright-green font-bold">
@@ -251,7 +263,8 @@ const ContentQuadrant1 = () => {
           vulnerable to LLM substitution and interface loss. 
         </p>
         <p>
-          They need to fundamentally rebuild the relationship layer, including:
+          They need to fundamentally <b>rebuild the relationship layer</b>,
+          including:
         </p>
         <ul>
           <li>
@@ -273,19 +286,21 @@ const ContentQuadrant1 = () => {
   );
 };
 
-const ContentQuadrant2 = () => {
+const ContentQuadrantTopLeft = () => {
   return (
     <div>
       <h3 className="panel-heading">
         {" "}
-        <span className="font-bold">Loyalty Challenged</span>
+        <span className="font-bold">Undefended</span>
       </h3>
       <div className="flex flex-col gap-4">
         <p className="text-bright-green font-bold">
           Low disruption today, but weak relationships mean these verticals lack
           long-term defensibility.
         </p>
-        <p>They need to build future-proof foundations, including: </p>
+        <p>
+          They need to build <b>future-proof foundations</b>, including: 
+        </p>
         <ul>
           <li>
             Building deeper relationships through AI-driven personalization and
@@ -301,19 +316,21 @@ const ContentQuadrant2 = () => {
   );
 };
 
-const ContentQuadrant3 = () => {
+const ContentQuadrantTopRight = () => {
   return (
     <div>
       <h3 className="panel-heading">
         {" "}
-        <span className="font-bold">Secured Anchors</span>
+        <span className="font-bold">Secured</span>
       </h3>
       <div className="flex flex-col gap-4">
         <p className="text-bright-green font-bold">
           AI disruption is already reshaping journeys here, but strong loyalty
           and user intent keep these verticals durable—for now.
         </p>
-        <p>These verticals need to defend and differentiate, including:</p>
+        <p>
+          These verticals need to <b>defend and differentiate</b>, including:
+        </p>
         <ul>
           <li>
             Shifting from generic loyalty to personalized proactive
@@ -329,18 +346,20 @@ const ContentQuadrant3 = () => {
   );
 };
 
-const ContentQuadrant4 = () => {
+const ContentQuadrantBottomRight = () => {
   return (
     <div>
       <h3 className="panel-heading">
-        <span className="font-bold">Embedded Ecosystems</span>
+        <span className="font-bold">Contested</span>
       </h3>
       <div className="flex flex-col gap-4">
         <p className="text-bright-green font-bold">
           Strong user relationships and low AI disruption combine to create high
           resilience. 
         </p>
-        <p>These verticals can accelerate their advantage by</p>
+        <p>
+          These verticals can <b>accelerate their advantage</b> by
+        </p>
         <ul>
           <li>
             Making AI-enhanced services indispensable within their ecosystem
@@ -360,19 +379,20 @@ const getContentMap = (
   selectVertical: (vertical: string | null) => void,
   shownSide: "summary" | "details",
   onShownSideChange: (side: "summary" | "details") => void,
-  copy: Copy | undefined
+  copy: Copy | undefined,
+  mode: ChartMode
 ): Record<ChartMode, JSX.Element> => ({
-  "expl-y-axis": <ContentYAxis />,
+  "expl-y-axis": <ContentYAxis isModeActive={mode === "expl-y-axis"} />,
   "expl-x-axis": (
     <div className="flex flex-col gap-4">
-      <ContentYAxis />
-      <ContentXAxis />
+      <ContentYAxis isModeActive={mode === "expl-y-axis"} />
+      <ContentXAxis isModeActive={mode === "expl-x-axis"} />
     </div>
   ),
-  "expl-quadrant-1": <ContentQuadrant1 />,
-  "expl-quadrant-2": <ContentQuadrant2 />,
-  "expl-quadrant-3": <ContentQuadrant3 />,
-  "expl-quadrant-4": <ContentQuadrant4 />,
+  "expl-quadrant-bottom-left": <ContentQuadrantBottomLeft />,
+  "expl-quadrant-top-left": <ContentQuadrantTopLeft />,
+  "expl-quadrant-top-right": <ContentQuadrantTopRight />,
+  "expl-quadrant-bottom-right": <ContentQuadrantBottomRight />,
   "data-filled": (
     <ChartPanelContentSelectedVertical
       selectedVertical={selectedVertical}
@@ -384,19 +404,15 @@ const getContentMap = (
   ),
 });
 
+const EXPLANATION_ACTION_TEXT =
+  "Scroll down or use the buttons to explore how the index is constructed.";
 const noteTexts: Record<ChartMode, string> = {
-  "expl-y-axis":
-    "Scroll down or use the buttons to explore how the index is constructed.",
-  "expl-x-axis":
-    "Scroll down or use the buttons to explore how the index is constructed.",
-  "expl-quadrant-1":
-    "Scroll down or use the buttons to explore how the index is constructed.",
-  "expl-quadrant-2":
-    "Scroll down or use the buttons to explore how the index is constructed.",
-  "expl-quadrant-3":
-    "Scroll down or use the buttons to explore how the index is constructed.",
-  "expl-quadrant-4":
-    "Scroll down or use the buttons to explore how the index is constructed.",
+  "expl-y-axis": EXPLANATION_ACTION_TEXT,
+  "expl-x-axis": EXPLANATION_ACTION_TEXT,
+  "expl-quadrant-bottom-left": EXPLANATION_ACTION_TEXT,
+  "expl-quadrant-top-left": EXPLANATION_ACTION_TEXT,
+  "expl-quadrant-top-right": EXPLANATION_ACTION_TEXT,
+  "expl-quadrant-bottom-right": EXPLANATION_ACTION_TEXT,
   "data-filled":
     "Click on a vertical to explore details. Hover over the quadrant name for definitions.",
 };

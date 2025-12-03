@@ -19,32 +19,32 @@ interface SVGCache {
 
 const quadrantData = [
   {
-    number: 1,
-    title: "Battle for the interface",
+    position: "bottom-left",
+    title: "Breached",
+    titleAnchor: "end" as const,
+    colorQuadrant: "#3D5F53",
+    colorQuadrantActiveText: "var(--grey-text)",
+  },
+  {
+    position: "top-left",
+    title: "Undefended",
     titleAnchor: "end" as const,
     colorQuadrant: "#308267",
     colorQuadrantActiveText: "var(--grey-text)",
   },
   {
-    number: 2,
-    title: "Loyalty challenged",
-    titleAnchor: "end" as const,
+    position: "bottom-right",
+    title: "Contested",
+    titleAnchor: "start" as const,
     colorQuadrant: "#60E2B7",
     colorQuadrantActiveText: "var(--black-blue)",
   },
   {
-    number: 3,
-    title: "Secured anchors",
+    position: "top-right",
+    title: "Secured",
     titleAnchor: "start" as const,
     colorQuadrant: "#A0EED4",
     colorQuadrantActiveText: "var(--black-blue)",
-  },
-  {
-    number: 4,
-    title: "Embedded Ecosystems",
-    titleAnchor: "start" as const,
-    colorQuadrant: "#3D5F53",
-    colorQuadrantActiveText: "var(--grey-text)",
   },
 ];
 
@@ -293,13 +293,14 @@ export default function Chart({
 
               // Calculate start and end angles for each quadrant
               const angleMap = {
-                1: { start: Math.PI / 2, end: Math.PI }, // Quadrant 1: bottom-left (90° to 180°)
-                2: { start: Math.PI, end: (3 * Math.PI) / 2 }, // Quadrant 2: top-left (180° to 270°)
-                3: { start: (3 * Math.PI) / 2, end: 2 * Math.PI }, // Quadrant 3: top-right (270° to 360°/0°)
-                4: { start: 0, end: Math.PI / 2 }, // Quadrant 4: bottom-right (0° to 90°)
+                "bottom-left": { start: Math.PI / 2, end: Math.PI }, // Quadrant 1: bottom-left (90° to 180°)
+                "top-left": { start: Math.PI, end: (3 * Math.PI) / 2 }, // Quadrant 2: top-left (180° to 270°)
+                "top-right": { start: (3 * Math.PI) / 2, end: 2 * Math.PI }, // Quadrant 3: top-right (270° to 360°/0°)
+                "bottom-right": { start: 0, end: Math.PI / 2 }, // Quadrant 4: bottom-right (0° to 90°)
               };
 
-              const angles = angleMap[quadrant.number as keyof typeof angleMap];
+              const angles =
+                angleMap[quadrant.position as keyof typeof angleMap];
               const startX = centerX + radius * Math.cos(angles.start);
               const startY = centerY + radius * Math.sin(angles.start);
               const endX = centerX + radius * Math.cos(angles.end);
@@ -307,7 +308,7 @@ export default function Chart({
 
               const slicePath = `M ${centerX} ${centerY} L ${startX} ${startY} A ${radius} ${radius} 0 0 1 ${endX} ${endY} Z`;
               const isQuadrantActive =
-                mode === `expl-quadrant-${quadrant.number}`;
+                mode === `expl-quadrant-${quadrant.position}`;
 
               return (
                 <g key={index}>
@@ -315,17 +316,25 @@ export default function Chart({
                     d={slicePath}
                     fill={quadrant.colorQuadrant}
                     opacity={isQuadrantActive ? 1 : 0}
-                    className="transition duration-300"
+                    className="transition"
                   />
                   <text
-                    className="chart-text-base font-medium transition duration-300"
+                    className={`chart-text-base font-medium transition ${
+                      isQuadrantActive ? "text-[18px]" : "text-[14px]"
+                    }`}
                     x={innerWidth / 2}
                     dx={
-                      quadrant.number === 1 || quadrant.number === 2 ? -36 : 36
+                      quadrant.position === "bottom-left" ||
+                      quadrant.position === "top-left"
+                        ? -12
+                        : 12
                     }
                     y={innerHeight / 2}
                     dy={
-                      quadrant.number === 1 || quadrant.number === 4 ? 30 : -30
+                      quadrant.position === "bottom-left" ||
+                      quadrant.position === "bottom-right"
+                        ? 20
+                        : -20
                     }
                     dominantBaseline="middle"
                     textAnchor={quadrant.titleAnchor}
@@ -336,26 +345,6 @@ export default function Chart({
                     }}
                   >
                     {quadrant.title}
-                  </text>
-                  <text
-                    className="chart-text-base font-extrabold text-[24px] uppercase transition duration-300"
-                    x={innerWidth / 2}
-                    dx={
-                      quadrant.number === 1 || quadrant.number === 2 ? -18 : 18
-                    }
-                    y={innerHeight / 2}
-                    dy={
-                      quadrant.number === 1 || quadrant.number === 4 ? 30 : -30
-                    }
-                    dominantBaseline="middle"
-                    textAnchor="middle"
-                    style={{
-                      fill: isQuadrantActive
-                        ? quadrant.colorQuadrantActiveText
-                        : "var(--grey-blue)",
-                    }}
-                  >
-                    {quadrant.number}
                   </text>
                 </g>
               );
