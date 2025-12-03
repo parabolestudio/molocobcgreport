@@ -2,6 +2,8 @@
 
 import { basePath } from "@/helpers/general";
 import { Copy } from "./ChartPanel";
+import { useEffect, useState } from "react";
+import { scaleLinear } from "d3-scale";
 
 export default function ChartPanelContentSelectedVertical({
   selectedVertical,
@@ -169,14 +171,84 @@ function ScoreDisplay({
   score: number;
   description: string;
 }) {
+  const [width, setWidth] = useState(230);
+  const height = 90;
+
+  const id = `chart-container-${title.replace(/\s+/g, "")}`;
+
+  useEffect(() => {
+    const visContainer = document.querySelector(`#${id}`) as HTMLElement;
+    const w = visContainer?.offsetWidth || 230;
+    setWidth(w);
+  }, []);
+
+  const margin = { top: 5, right: 20, bottom: 5, left: 20 };
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
+  const midLine = (innerHeight * 3) / 4;
+
+  const xScale = scaleLinear().domain([5, 10]).range([0, innerWidth]);
+  const ticks = xScale.ticks(5).filter((t) => t >= 5 && t <= 10);
+
   return (
-    <div>
-      <div className="grid grid-cols-[0.35fr_0.65fr] gap-2 w-full">
-        <div>
+    <div className="w-full">
+      <div className="grid grid-cols-[35%_65%] w-full">
+        <div className="min-w-0">
           <p className="font-bold text-[18px]">{title}</p>
           <p className="text-[14px] italic">{note}</p>
         </div>
-        <div className="bg-amber-300 w-full">chart {score}</div>
+        <div className="min-w-0" id={id}>
+          <svg width={width} height={height}>
+            <g transform={`translate(${margin.left},${margin.top})`}>
+              <line
+                x1={0}
+                y1={midLine}
+                x2={innerWidth}
+                y2={midLine}
+                className="stroke-forest-green"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+              />
+              {ticks.map((tickValue) => (
+                <g key={tickValue}>
+                  <line
+                    x1={xScale(tickValue)}
+                    y1={midLine - 10}
+                    x2={xScale(tickValue)}
+                    y2={midLine}
+                    className="stroke-forest-green"
+                    strokeWidth={1.5}
+                  />
+                </g>
+              ))}
+              <line
+                x1={xScale(score)}
+                y1={midLine - 20}
+                x2={xScale(score)}
+                y2={midLine}
+                className="stroke-bright-green"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+              />
+              <circle
+                cx={xScale(score)}
+                cy={midLine - 20 - 19}
+                r={19}
+                className="fill-bright-green"
+              />
+              <text
+                x={xScale(score)}
+                y={midLine - 20 - 19}
+                dy={2}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className="fill-black-blue font-bold text-[18px]"
+              >
+                {score.toFixed(1)}
+              </text>
+            </g>
+          </svg>
+        </div>
       </div>
       <p className="text-[14px] pt-3 w-full">{description}</p>
     </div>
