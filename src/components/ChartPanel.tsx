@@ -117,9 +117,9 @@ export default function ChartPanel({
     <div
       className={`${backgroundColor} transition rounded-[20px] flex flex-col h-full relative`}
     >
-      <div className="p-6 flex-1 min-h-0 flex flex-col overflow-hidden">
+      <div className="p-6 flex-1 min-h-0 flex flex-col">
         <div
-          className="panel-content overflow-y-auto flex-1 pr-2"
+          className="panel-content flex-1 min-h-0 flex flex-col overflow-y-auto pr-2"
           style={{ scrollbarGutter: "stable" }}
         >
           {contentMap[mode]}

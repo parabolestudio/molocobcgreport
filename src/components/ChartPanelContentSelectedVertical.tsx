@@ -37,7 +37,7 @@ export default function ChartPanelContentSelectedVertical({
     );
   }
   return (
-    <div className="flex flex-col justify-between min-h-full">
+    <div className="flex flex-col h-full">
       <div className="absolute top-8 right-8 cursor-pointer">
         <img
           src={`${basePath}/icons/cross.svg`}
@@ -47,10 +47,13 @@ export default function ChartPanelContentSelectedVertical({
           onClick={() => selectVertical(null)}
         />
       </div>
-      <div className="flex flex-col gap-8">
-        <h3 className="text-grey-text font-museo-moderno mb-0 text-[40px] mr-10">
-          {selectedVertical}
-        </h3>
+      <h3 className="text-grey-text font-museo-moderno mb-0 text-[40px] mr-10 shrink-0">
+        {selectedVertical}
+      </h3>
+      <div
+        className="flex-1 overflow-y-auto mt-2 pr-2"
+        style={{ scrollbarGutter: "stable" }}
+      >
         {!copy ? (
           <p>No details for this vertical.</p>
         ) : shownSide === "summary" ? (
@@ -67,7 +70,7 @@ export default function ChartPanelContentSelectedVertical({
           <DetailsCopy copy={copy} />
         )}
       </div>
-      <div>
+      <div className="shrink-0 mt-6">
         <button
           className={`${
             shownSide === "summary" ? "bg-bright-green" : "bg-medium-blue"
