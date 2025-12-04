@@ -45,7 +45,18 @@ export default function ChartPanel({
   scrollToDataMode: Function;
 }) {
   const [shownSide, setShownSide] = useState<"summary" | "details">("summary");
+  const [isFlipping, setIsFlipping] = useState(false);
   const isExplanation = isChartModeExplanation(mode);
+
+  const handleSideChange = (newSide: "summary" | "details") => {
+    if (newSide !== shownSide) {
+      setIsFlipping(true);
+      setTimeout(() => {
+        setShownSide(newSide);
+        setTimeout(() => setIsFlipping(false), 150);
+      }, 150);
+    }
+  };
   const backgroundColor = isExplanation
     ? "bg-panel-background-grey"
     : shownSide === "details"
@@ -97,7 +108,8 @@ export default function ChartPanel({
     shownSide,
     setShownSide,
     copy,
-    mode
+    mode,
+    handleSideChange
   );
 
   // Reset to summary side when mode changes
@@ -117,6 +129,11 @@ export default function ChartPanel({
   return (
     <div
       className={`${backgroundColor} transition rounded-[20px] flex flex-col h-full relative`}
+      style={{
+        transformStyle: "preserve-3d",
+        transition: "transform 0.3s",
+        transform: isFlipping ? "rotateY(90deg)" : "rotateY(0deg)",
+      }}
     >
       <div className="p-6 flex-1 min-h-0 flex flex-col">
         <div
@@ -380,7 +397,8 @@ const getContentMap = (
   shownSide: "summary" | "details",
   onShownSideChange: (side: "summary" | "details") => void,
   copy: Copy | undefined,
-  mode: ChartMode
+  mode: ChartMode,
+  handleSideChange: (side: "summary" | "details") => void
 ): Record<ChartMode, JSX.Element> => ({
   "expl-y-axis": <ContentYAxis isModeActive={mode === "expl-y-axis"} />,
   "expl-x-axis": (
@@ -398,7 +416,7 @@ const getContentMap = (
       selectedVertical={selectedVertical}
       selectVertical={selectVertical}
       shownSide={shownSide}
-      onShownSideChange={onShownSideChange}
+      onShownSideChange={handleSideChange}
       copy={copy}
     />
   ),
