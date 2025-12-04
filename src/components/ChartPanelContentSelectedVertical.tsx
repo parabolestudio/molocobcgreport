@@ -187,8 +187,7 @@ function ScoreDisplay({
   const innerHeight = height - margin.top - margin.bottom;
   const midLine = (innerHeight * 3) / 4;
 
-  const xScale = scaleLinear().domain([5, 10]).range([0, innerWidth]);
-  const ticks = xScale.ticks(5).filter((t) => t >= 5 && t <= 10);
+  const xScale = scaleLinear().domain([0, 10]).range([0, innerWidth]);
 
   return (
     <div className="w-full">
@@ -209,7 +208,7 @@ function ScoreDisplay({
                 strokeWidth={1.5}
                 strokeLinecap="round"
               />
-              {ticks.map((tickValue) => (
+              {xScale.ticks().map((tickValue) => (
                 <g key={tickValue}>
                   <line
                     x1={xScale(tickValue)}
