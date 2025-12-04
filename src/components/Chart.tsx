@@ -24,6 +24,8 @@ const quadrantData = [
     titleAnchor: "end" as const,
     colorQuadrant: "#3D5F53",
     colorQuadrantActiveText: "var(--grey-text)",
+    tooltipText:
+      "AI disruption and weak user relationships leave these verticals highly vulnerable to LLM substitution and interface loss.",
   },
   {
     position: "top-left",
@@ -31,6 +33,8 @@ const quadrantData = [
     titleAnchor: "end" as const,
     colorQuadrant: "#308267",
     colorQuadrantActiveText: "var(--grey-text)",
+    tooltipText:
+      "Low disruption today, but weak relationships mean these verticals lack long-term defensibility.",
   },
   {
     position: "bottom-right",
@@ -38,6 +42,8 @@ const quadrantData = [
     titleAnchor: "start" as const,
     colorQuadrant: "#60E2B7",
     colorQuadrantActiveText: "var(--black-blue)",
+    tooltipText:
+      "Strong user relationships and low AI disruption combine to create high resilience.",
   },
   {
     position: "top-right",
@@ -45,6 +51,8 @@ const quadrantData = [
     titleAnchor: "start" as const,
     colorQuadrant: "#A0EED4",
     colorQuadrantActiveText: "var(--black-blue)",
+    tooltipText:
+      "AI disruption is already reshaping journeys here, but strong loyalty and user intent keep these verticals durable—for now.",
   },
 ];
 
@@ -59,6 +67,9 @@ export default function Chart({
 }) {
   const [verticalsData, setVerticalsData] = useState<VerticalData[]>([]);
   const [svgCache, setSvgCache] = useState<SVGCache>({});
+  const [hoveredQuadrant, setHoveredQuadrant] = useState<{
+    quadrant: string;
+  } | null>(null);
 
   useEffect(() => {
     csv(`${basePath}/data/verticalsData.csv`).then((data) => {
@@ -131,7 +142,10 @@ export default function Chart({
   const yScale = scaleLinear().domain([10, 1.5]).range([0, innerHeight]);
 
   return (
-    <div id="chart-container" className="w-full h-full overflow-hidden">
+    <div
+      id="chart-container"
+      className="w-full h-full overflow-hidden relative"
+    >
       <svg
         viewBox={`0 0 ${length} ${length}`}
         style={{ width: "100%", height: "100%" }}
@@ -310,16 +324,19 @@ export default function Chart({
               const isQuadrantActive =
                 mode === `expl-quadrant-${quadrant.position}`;
 
+              const isQuadrantHovered =
+                hoveredQuadrant?.quadrant === quadrant.position;
+
               return (
                 <g key={index}>
                   <path
                     d={slicePath}
                     fill={quadrant.colorQuadrant}
-                    opacity={isQuadrantActive ? 1 : 0}
+                    opacity={isQuadrantActive || isQuadrantHovered ? 1 : 0}
                     className="transition"
                   />
                   <text
-                    className={`chart-text-base font-medium transition ${
+                    className={`chart-text-base font-medium transition cursor-pointer ${
                       isQuadrantActive ? "text-[18px]" : "text-[14px]"
                     }`}
                     x={innerWidth / 2}
@@ -339,10 +356,15 @@ export default function Chart({
                     dominantBaseline="middle"
                     textAnchor={quadrant.titleAnchor}
                     style={{
-                      fill: isQuadrantActive
-                        ? quadrant.colorQuadrantActiveText
-                        : "var(--grey-blue)",
+                      fill:
+                        isQuadrantActive || isQuadrantHovered
+                          ? quadrant.colorQuadrantActiveText
+                          : "var(--grey-blue)",
                     }}
+                    onMouseEnter={() =>
+                      setHoveredQuadrant({ quadrant: quadrant.position })
+                    }
+                    onMouseLeave={() => setHoveredQuadrant(null)}
                   >
                     {quadrant.title}
                   </text>
@@ -444,6 +466,41 @@ export default function Chart({
           </text>
         </g>
       </svg>
+      <div
+        className="absolute bg-grey-text text-black-blue text-[14px] transition-inset "
+        style={{
+          top:
+            hoveredQuadrant?.quadrant === "top-left" ||
+            hoveredQuadrant?.quadrant === "top-right"
+              ? innerHeight / 2
+              : innerHeight / 2 + 90,
+          left:
+            hoveredQuadrant?.quadrant === "top-left" ||
+            hoveredQuadrant?.quadrant === "bottom-left"
+              ? 80
+              : "unset",
+
+          right:
+            hoveredQuadrant?.quadrant === "top-right" ||
+            hoveredQuadrant?.quadrant === "bottom-right"
+              ? 100
+              : "unset",
+
+          opacity: hoveredQuadrant ? 1 : 0,
+          padding: 10,
+          maxWidth: 320,
+        }}
+      >
+        {
+          quadrantData[
+            hoveredQuadrant
+              ? quadrantData.findIndex(
+                  (q) => q.position === hoveredQuadrant.quadrant
+                )
+              : 0
+          ]?.tooltipText
+        }
+      </div>
     </div>
   );
 }
