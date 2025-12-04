@@ -3,9 +3,10 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { basePath } from "@/helpers/general";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function HookSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -95,19 +96,35 @@ export default function HookSection() {
     };
   }, []);
 
-  function scrollNext() {
-    if (sectionRef.current) {
-      const sectionTop = sectionRef.current.getBoundingClientRect().top;
-      const offset = window.pageYOffset || document.documentElement.scrollTop;
-      const targetScroll = sectionTop + offset + window.innerHeight * 0.1;
+  // function scrollNext() {
+  //   const triggers = ScrollTrigger.getAll();
+  //   const sectionTrigger = triggers.find(
+  //     (t) => t.trigger === sectionRef.current
+  //   );
 
-      gsap.to(window, {
-        scrollTo: targetScroll,
-        duration: 0.3,
-        ease: "power1.inOut",
-      });
-    }
-  }
+  //   if (sectionTrigger) {
+  //     const currentProgress = sectionTrigger.progress;
+  //     let targetProgress = 0.33;
+
+  //     if (currentProgress >= 0.66) {
+  //       // Already at last section, scroll past the pinned section
+  //       targetProgress = 1;
+  //     } else if (currentProgress >= 0.33) {
+  //       targetProgress = 0.66;
+  //     }
+
+  //     const scrollStart = sectionTrigger.start;
+  //     const scrollEnd = sectionTrigger.end;
+  //     const targetScroll =
+  //       scrollStart + (scrollEnd - scrollStart) * targetProgress;
+
+  //     gsap.to(window, {
+  //       scrollTo: targetScroll,
+  //       duration: 0.5,
+  //       ease: "power1.inOut",
+  //     });
+  //   }
+  // }
 
   return (
     <div ref={sectionRef} className="relative w-full h-screen">
@@ -123,7 +140,7 @@ export default function HookSection() {
             for nearly everything— from research to recipes to shopping. The use
             cases and time spent will only continue to accelerate.
           </p>
-          <button
+          {/* <button
             className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
             onClick={() => scrollNext()}
           >
@@ -135,12 +152,13 @@ export default function HookSection() {
               height={13}
               style={{ transform: "rotate(-90deg)" }}
             />
-          </button>
+          </button> */}
         </div>
 
         <div
           ref={text2Ref}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[900px] px-8 text-center"
+          style={{ opacity: 0, visibility: "hidden" }}
         >
           <p className="hook-p">
             How can brands find and connect with customers? How do they adapt
@@ -160,6 +178,7 @@ export default function HookSection() {
         <div
           ref={text3Ref}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 text-center flex flex-col items-center justify-center gap-[128px]"
+          style={{ opacity: 0, visibility: "hidden" }}
         >
           <h1 className="text-[128px] text-bright-green font-museo-moderno uppercase leading-[0.99]">
             <span className="font-extralight">The</span>{" "}
