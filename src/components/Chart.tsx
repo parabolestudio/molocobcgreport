@@ -405,14 +405,35 @@ export default function Chart({
                   ) : (
                     <circle r={16} fill="#9494AA" />
                   )}
-                  <text
-                    className="chart-text"
-                    fill="#9494AA"
-                    y={32}
-                    textAnchor="middle"
-                  >
-                    {(verticalInfo as any).label}
-                  </text>
+
+                  {(verticalInfo as any).labelFormatted ? (
+                    <text
+                      className="text-[14px]"
+                      fill="#9494AA"
+                      y={
+                        (verticalInfo as any).labelFormatted.position === "top"
+                          ? -40
+                          : 32
+                      }
+                      textAnchor="middle"
+                    >
+                      <tspan x="0" dy="0">
+                        {(verticalInfo as any).labelFormatted.firstLine}
+                      </tspan>
+                      <tspan x="0" dy="1.2em">
+                        {(verticalInfo as any).labelFormatted.secondLine}
+                      </tspan>
+                    </text>
+                  ) : (
+                    <text
+                      className="text-[14px]"
+                      fill="#9494AA"
+                      y={32}
+                      textAnchor="middle"
+                    >
+                      {(verticalInfo as any).label}
+                    </text>
+                  )}
                 </g>
               );
             })}

@@ -34,14 +34,27 @@ export const verticalsMap: Record<string, Object> = {
   },
   "Auto Marketplaces": {
     label: "Auto Marketplace",
+    labelFormatted: {
+      firstLine: "Auto",
+      secondLine: "Marketplace",
+      position: "top",
+    },
     icon: "auto_marketplace",
   },
   "Retail & Ecommerce": {
     label: "Retail & Ecommerce",
+    labelFormatted: {
+      firstLine: "Retail &",
+      secondLine: "Ecommerce",
+    },
     icon: "ecommerce_retail",
   },
   "Health & Fitness": {
     label: "Health & Fitness",
+    labelFormatted: {
+      firstLine: "Health &",
+      secondLine: "Fitness",
+    },
     icon: "health_fitness",
   },
   FinTech: {
@@ -50,22 +63,41 @@ export const verticalsMap: Record<string, Object> = {
   },
   "On-Demand Services": {
     label: "On-Demand",
+    labelFormatted: {
+      firstLine: "On-",
+      secondLine: "Demand",
+    },
     icon: "on_demand",
   },
   "Financial Services": {
     label: "Financial Services",
+    labelFormatted: {
+      firstLine: "Financial",
+      secondLine: "Services",
+    },
     icon: "finance",
   },
   "Media & Streaming": {
     label: "Media & Streaming",
+    labelFormatted: {
+      firstLine: "Media &",
+      secondLine: "Streaming",
+      position: "top",
+    },
     icon: "media_streaming",
   },
   Dating: {
     label: "Dating",
+
     icon: "dating",
   },
   "Auto OEMs": {
     label: "Auto OEMs",
+    labelFormatted: {
+      firstLine: "Auto",
+      secondLine: "OEMs",
+      position: "top",
+    },
     icon: "auto_oems",
   },
   Social: {
@@ -78,6 +110,10 @@ export const verticalsMap: Record<string, Object> = {
   },
   "Casino & Sports betting (RMG)": {
     label: "Casino & Sports betting (RMG)",
+    labelFormatted: {
+      firstLine: "Casino & Sports",
+      secondLine: "betting (RMG)",
+    },
     icon: "rmg",
   },
 };
