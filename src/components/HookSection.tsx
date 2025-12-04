@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { basePath } from "@/helpers/general";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,9 +80,9 @@ export default function HookSection() {
       },
       onUpdate: (self) => {
         const progress = self.progress;
-        if (progress < 0.25) {
+        if (progress < 0.33) {
           if (currentIndex !== 0) showText(0);
-        } else if (progress < 0.6) {
+        } else if (progress < 0.66) {
           if (currentIndex !== 1) showText(1);
         } else {
           if (currentIndex !== 2) showText(2);
@@ -94,12 +95,26 @@ export default function HookSection() {
     };
   }, []);
 
+  function scrollNext() {
+    if (sectionRef.current) {
+      const sectionTop = sectionRef.current.getBoundingClientRect().top;
+      const offset = window.pageYOffset || document.documentElement.scrollTop;
+      const targetScroll = sectionTop + offset + window.innerHeight * 0.1;
+
+      gsap.to(window, {
+        scrollTo: targetScroll,
+        duration: 0.3,
+        ease: "power1.inOut",
+      });
+    }
+  }
+
   return (
     <div ref={sectionRef} className="relative w-full h-screen">
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={text1Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center flex flex-col items-center justify-center gap-20"
         >
           <p className="hook-p">
             <span className="text-bright-green font-bold">
@@ -108,6 +123,19 @@ export default function HookSection() {
             for nearly everything— from research to recipes to shopping. The use
             cases and time spent will only continue to accelerate.
           </p>
+          <button
+            className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
+            onClick={() => scrollNext()}
+          >
+            <span>scroll</span>
+            <img
+              src={`${basePath}/icons/arrow.svg`}
+              alt="arrow"
+              width={16}
+              height={13}
+              style={{ transform: "rotate(-90deg)" }}
+            />
+          </button>
         </div>
 
         <div
@@ -118,6 +146,7 @@ export default function HookSection() {
             How can brands find and connect with customers? How do they adapt
             and grow? 
           </p>
+          <br />
           <p className="hook-p">
             New research on LLM disruption, done in partnership with BCG, dives
             deep into the{" "}
@@ -142,9 +171,19 @@ export default function HookSection() {
           </h1>
           <div>
             <p className="hook-p">Story by</p>
-            <div className="flex gap-5">
-              <p>Moloco</p>
-              <p>BCG</p>
+            <div className="flex gap-12 mt-4">
+              <img
+                src={`${basePath}/logos/moloco.svg`}
+                alt="Moloco logo"
+                width={150}
+                height={40}
+              />
+              <img
+                src={`${basePath}/logos/bcg.svg`}
+                alt="BCG logo"
+                width={92}
+                height={40}
+              />
             </div>
           </div>
         </div>

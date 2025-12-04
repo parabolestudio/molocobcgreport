@@ -136,9 +136,23 @@ export default function QuadrantSection() {
 
           // Loop through chart modes during screen2 phase (0.125 to 1.0)
           const screen2Progress = (progress - 0.125) / 0.875; // Normalize to 0-1 for screen2 phase
-          const modeIndex = Math.floor(screen2Progress * chartModes.length);
-          const clampedIndex = Math.min(modeIndex, chartModes.length - 1);
-          setChartMode(chartModes[clampedIndex]);
+
+          // Equal distribution: each mode gets 1/7th of the screen2 phase
+          if (screen2Progress < 1 / 7) {
+            setChartMode(chartModes[0]);
+          } else if (screen2Progress < 2 / 7) {
+            setChartMode(chartModes[1]);
+          } else if (screen2Progress < 3 / 7) {
+            setChartMode(chartModes[2]);
+          } else if (screen2Progress < 4 / 7) {
+            setChartMode(chartModes[3]);
+          } else if (screen2Progress < 5 / 7) {
+            setChartMode(chartModes[4]);
+          } else if (screen2Progress < 6 / 7) {
+            setChartMode(chartModes[5]);
+          } else {
+            setChartMode(chartModes[6]);
+          }
         }
       },
     });
@@ -188,10 +202,25 @@ export default function QuadrantSection() {
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={screen1Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-8 text-center opacity-0 invisible"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 opacity-0 invisible flex flex-col  gap-12"
         >
-          <p className="text-xl text-emerald-100">
-            This is the first intro screen to the quadrant section.
+          <h2 className="font-museo-moderno text-bright-green text-[96px] leading-[100%] ">
+            <span className="font-extralight">
+              Understanding
+              <br />
+              disruption on the{" "}
+            </span>
+            <br />
+            <span className="font-bold">vertical level</span>
+          </h2>
+          <p className="text-[32px] leading-[100%] max-w-[615px] self-end">
+            Brands are already making major bets through strategic integrations,
+            shoring up their tech, and investing in owned platforms. 
+            <br />
+            <br />
+            To explore the risks and opportunities for each vertical, we
+            quantified both the scale of LLM disruption and existing
+            relationship strength.
           </p>
         </div>
 
