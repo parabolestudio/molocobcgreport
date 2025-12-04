@@ -14,23 +14,33 @@ export function isChartModeExplanation(mode: ChartMode): boolean {
 export const verticalsMap: Record<string, Object> = {
   News: {
     label: "News",
+    labelFormatted: {
+      firstLine: "News",
+      secondLine: null,
+      position: "top",
+    },
     icon: "news",
+    quadrant: "bottom-left",
   },
   Gaming: {
     label: "Gaming",
     icon: "gaming",
+    quadrant: "top-left",
   },
   "Gen AI": {
     label: "Gen AI",
     icon: "gen_ai",
+    quadrant: "top-left",
   },
   Education: {
     label: "Education",
     icon: "education",
+    quadrant: "bottom-left",
   },
   Travel: {
     label: "Travel",
     icon: "travel",
+    quadrant: "bottom-left",
   },
   "Auto Marketplaces": {
     label: "Auto Marketplace",
@@ -40,6 +50,7 @@ export const verticalsMap: Record<string, Object> = {
       position: "top",
     },
     icon: "auto_marketplace",
+    quadrant: "bottom-left",
   },
   "Retail & Ecommerce": {
     label: "Retail & Ecommerce",
@@ -48,6 +59,7 @@ export const verticalsMap: Record<string, Object> = {
       secondLine: "Ecommerce",
     },
     icon: "ecommerce_retail",
+    quadrant: "bottom-left",
   },
   "Health & Fitness": {
     label: "Health & Fitness",
@@ -56,10 +68,12 @@ export const verticalsMap: Record<string, Object> = {
       secondLine: "Fitness",
     },
     icon: "health_fitness",
+    quadrant: "bottom-left",
   },
   FinTech: {
     label: "FinTech",
     icon: "fintech",
+    quadrant: "top-right",
   },
   "On-Demand Services": {
     label: "On-Demand",
@@ -68,6 +82,7 @@ export const verticalsMap: Record<string, Object> = {
       secondLine: "Demand",
     },
     icon: "on_demand",
+    quadrant: "top-right",
   },
   "Financial Services": {
     label: "Financial Services",
@@ -76,6 +91,7 @@ export const verticalsMap: Record<string, Object> = {
       secondLine: "Services",
     },
     icon: "finance",
+    quadrant: "top-right",
   },
   "Media & Streaming": {
     label: "Media & Streaming",
@@ -85,11 +101,12 @@ export const verticalsMap: Record<string, Object> = {
       position: "top",
     },
     icon: "media_streaming",
+    quadrant: "top-right",
   },
   Dating: {
     label: "Dating",
-
     icon: "dating",
+    quadrant: "top-left",
   },
   "Auto OEMs": {
     label: "Auto OEMs",
@@ -99,14 +116,17 @@ export const verticalsMap: Record<string, Object> = {
       position: "top",
     },
     icon: "auto_oems",
+    quadrant: "top-right",
   },
   Social: {
     label: "Social",
     icon: "social",
+    quadrant: "top-right",
   },
   Productivity: {
     label: "Productivity",
     icon: "productivity",
+    quadrant: "bottom-right",
   },
   "Casino & Sports betting (RMG)": {
     label: "Casino & Sports betting (RMG)",
@@ -115,5 +135,6 @@ export const verticalsMap: Record<string, Object> = {
       secondLine: "betting (RMG)",
     },
     icon: "rmg",
+    quadrant: "top-left",
   },
 };

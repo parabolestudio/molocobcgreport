@@ -378,7 +378,7 @@ export default function Chart({
               const x = xScale(d.consumerStrength || 0);
               const y = yScale(d.aiDisruption || 0);
 
-              const verticalInfo = verticalsMap[d.vertical];
+              const verticalInfo = verticalsMap[d.vertical] as any;
               if (!verticalInfo) {
                 return (
                   <g key={i} transform={`translate(${x},${y})`}>
@@ -395,7 +395,7 @@ export default function Chart({
                 );
               }
 
-              const iconName = (verticalInfo as any).icon;
+              const iconName = verticalInfo.icon;
               const svgContent = svgCache[iconName];
 
               return (
@@ -407,11 +407,13 @@ export default function Chart({
                     selectVertical(d.vertical);
                   }}
                   style={{ cursor: "pointer" }}
-                  className={
-                    selectedVertical === d.vertical
-                      ? "verticalGroup selected"
-                      : "verticalGroup"
-                  }
+                  className={`verticalGroup ${
+                    selectedVertical === d.vertical ? "selected" : ""
+                  } ${
+                    hoveredQuadrant?.quadrant === verticalInfo.quadrant
+                      ? "quadrantHovered"
+                      : ""
+                  }`}
                 >
                   {svgContent ? (
                     <g
@@ -428,22 +430,24 @@ export default function Chart({
                     <circle r={16} fill="#9494AA" />
                   )}
 
-                  {(verticalInfo as any).labelFormatted ? (
+                  {verticalInfo.labelFormatted ? (
                     <text
                       className="text-[14px]"
                       fill="#9494AA"
                       y={
-                        (verticalInfo as any).labelFormatted.position === "top"
-                          ? -40
+                        verticalInfo.labelFormatted.position === "top"
+                          ? verticalInfo.labelFormatted.secondLine
+                            ? -40
+                            : -24
                           : 32
                       }
                       textAnchor="middle"
                     >
                       <tspan x="0" dy="0">
-                        {(verticalInfo as any).labelFormatted.firstLine}
+                        {verticalInfo.labelFormatted.firstLine}
                       </tspan>
                       <tspan x="0" dy="1.2em">
-                        {(verticalInfo as any).labelFormatted.secondLine}
+                        {verticalInfo.labelFormatted.secondLine}
                       </tspan>
                     </text>
                   ) : (
