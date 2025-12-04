@@ -59,15 +59,7 @@ export default function ChartPanelContentSelectedVertical({
         {!copy ? (
           <p>No details for this vertical.</p>
         ) : shownSide === "summary" ? (
-          <p>
-            {copy.intro.split("\n\n").map((paragraph, index) => (
-              <span key={index}>
-                {paragraph}
-                <br />
-                <br />
-              </span>
-            ))}
-          </p>
+          <SummaryCopy copy={copy} />
         ) : (
           <DetailsCopy copy={copy} />
         )}
@@ -91,6 +83,70 @@ export default function ChartPanelContentSelectedVertical({
             height={18}
           />
         </button>
+      </div>
+    </div>
+  );
+}
+
+function SummaryCopy({ copy }: { copy: Copy }) {
+  const [shownQuoteIndex, setShownQuoteIndex] = useState(0);
+
+  return (
+    <div className="flex flex-col gap-6 justify-between h-full">
+      <div className="flex flex-col gap-6">
+        {/* Example apps */}
+        <div>
+          <p className="text-[14px]">Example apps in category</p>
+          <div
+            className="flex flex-row gap-4 overflow-y-scroll py-2"
+            style={{ scrollbarGutter: "stable" }}
+          >
+            {copy.exampleApps.map((app) => (
+              <span key={app} className="text-[14px] whitespace-nowrap">
+                {app}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Intro */}
+        <p>
+          {copy.intro.split("\n\n").map((paragraph, index) => (
+            <span key={index}>
+              {paragraph}
+              <br />
+              <br />
+            </span>
+          ))}
+        </p>
+      </div>
+
+      {/* Quotes */}
+      <div className="bg-[#05284D] rounded-[20px] p-5 pb-8 text-[18px] relative">
+        <p className="font-bold pb-4">{copy.quotes[shownQuoteIndex]?.text}</p>
+        <p>{copy.quotes[shownQuoteIndex]?.credit}</p>
+        <img
+          className="absolute bottom-0 left-0 cursor-pointer"
+          src={`${basePath}/icons/arrow_pill.svg`}
+          alt="Arrow with background"
+          width={34}
+          height={22}
+          onClick={() => {
+            setShownQuoteIndex((shownQuoteIndex + 1) % copy.quotes.length);
+          }}
+        />
+        <img
+          className="absolute bottom-0 right-0 cursor-pointer rotate-180"
+          src={`${basePath}/icons/arrow_pill.svg`}
+          alt="Arrow with background"
+          width={34}
+          height={22}
+          onClick={() => {
+            setShownQuoteIndex(
+              (shownQuoteIndex - 1 + copy.quotes.length) % copy.quotes.length
+            );
+          }}
+        />
       </div>
     </div>
   );

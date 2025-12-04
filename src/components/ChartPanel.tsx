@@ -10,6 +10,9 @@ import { csv } from "d3-fetch";
 export interface Copy {
   vertical: string;
   intro: string;
+  exampleApps: string[];
+  quotes: Array<{ text: string; credit: string } | null>;
+
   // details side - AI disruption risk
   ai_risk_intro: string;
   ai_discovery_risk_intro: string;
@@ -69,7 +72,30 @@ export default function ChartPanel({
     csv(`${basePath}/data/verticalsCopy.csv`).then((data) => {
       const processedData = data.map((d) => ({
         vertical: d["Vertical"],
+        // summary side
         intro: d["Vertical Intro"] || "",
+        exampleApps: d["Example Apps"] ? d["Example Apps"].split(",") : [],
+        quotes: [
+          d["Quote 1 (text)"] && d["Quote 1 (credit)"]
+            ? {
+                text: d["Quote 1 (text)"] || "",
+                credit: d["Quote 1 (credit)"] || "",
+              }
+            : null,
+          d["Quote 2 (text)"] && d["Quote 2 (credit)"]
+            ? {
+                text: d["Quote 2 (text)"] || "",
+                credit: d["Quote 2 (credit)"] || "",
+              }
+            : null,
+          d["Quote 3 (text)"] && d["Quote 3 (credit)"]
+            ? {
+                text: d["Quote 3 (text)"] || "",
+                credit: d["Quote 3 (credit)"] || "",
+              }
+            : null,
+        ].filter((q) => q !== null) as Array<{ text: string; credit: string }>,
+
         // details side - AI disruption risk
         ai_risk_intro: d["AI Disruption Risk Intro"] || "",
         ai_discovery_risk_intro: d["Discovery Risk (description)"] || "",

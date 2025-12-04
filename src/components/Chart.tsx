@@ -134,7 +134,7 @@ export default function Chart({
   }, []);
 
   // margin needs to be equal horizontally and vertically
-  const margin = { top: 5, right: 30, bottom: 30, left: 5 };
+  const margin = { top: 5, right: 50, bottom: 50, left: 5 };
   const innerWidth = length - margin.left - margin.right;
   const innerHeight = length - margin.top - margin.bottom;
 
@@ -148,7 +148,7 @@ export default function Chart({
     >
       <svg
         viewBox={`0 0 ${length} ${length}`}
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%", overflow: "visible" }}
       >
         <g transform={`translate(${margin.left},${margin.top})`}>
           <g className="structure">
