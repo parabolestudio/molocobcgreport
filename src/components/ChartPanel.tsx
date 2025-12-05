@@ -249,7 +249,7 @@ const getContentMap = (
     <div className="flex flex-col gap-4">
       <h3 className="panel-heading">{useCopy("qu_expl_title")}</h3>
       <p>{useCopy("qu_expl_subline")}</p>
-      <p>{useCopy("qu_expl_y_description")}</p>
+      <div className="text-[18px]">{useCopy("qu_expl_y_description")}</div>
     </div>
   ),
   "expl-x-axis": (

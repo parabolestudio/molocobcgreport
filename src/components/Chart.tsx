@@ -135,7 +135,7 @@ export default function Chart({
   }, []);
 
   // margin needs to be equal horizontally and vertically
-  const margin = { top: 5, right: 50, bottom: 50, left: 5 };
+  const margin = { top: 50, right: 50, bottom: 50, left: 50 };
   const innerWidth = length - margin.left - margin.right;
   const innerHeight = length - margin.top - margin.bottom;
 
@@ -337,8 +337,10 @@ export default function Chart({
                     className="transition"
                   />
                   <text
-                    className={`chart-text-base font-medium transition cursor-pointer ${
-                      isQuadrantActive ? "text-[18px]" : "text-[14px]"
+                    className={`chart-text-base  transition cursor-pointer ${
+                      isQuadrantActive
+                        ? "text-[18px] font-bold"
+                        : "text-[14px] font-medium"
                     }`}
                     x={innerWidth / 2}
                     dx={
@@ -471,6 +473,54 @@ export default function Chart({
           </text>
         </g>
       </svg>
+      {quadrantData
+        .filter((q) => q.position === mode.replace("expl-quadrant-", ""))
+        .map((quadrant) => {
+          console.log("Rendering quadrant text for", mode, quadrant);
+          return (
+            <div
+              className="absolute text-white text-[18px] transition-inset "
+              style={{
+                color: quadrant.colorQuadrantActiveText,
+                top:
+                  mode.replace("expl-quadrant-", "") === "bottom-right" ||
+                  mode.replace("expl-quadrant-", "") === "bottom-left"
+                    ? "calc(50%)"
+                    : "unset",
+                bottom:
+                  mode.replace("expl-quadrant-", "") === "top-right" ||
+                  mode.replace("expl-quadrant-", "") === "top-left"
+                    ? "calc(50%)"
+                    : "unset",
+                right:
+                  mode.replace("expl-quadrant-", "") === "top-left" ||
+                  mode.replace("expl-quadrant-", "") === "bottom-left"
+                    ? "calc(50%)"
+                    : "unset",
+                left:
+                  mode.replace("expl-quadrant-", "") === "top-right" ||
+                  mode.replace("expl-quadrant-", "") === "bottom-right"
+                    ? "calc(50%)"
+                    : "unset",
+                textAlign:
+                  mode.replace("expl-quadrant-", "") === "top-left" ||
+                  mode.replace("expl-quadrant-", "") === "bottom-left"
+                    ? "right"
+                    : "left",
+                paddingTop: 40,
+                paddingBottom: 40,
+                paddingLeft: 10,
+                paddingRight: 10,
+                opacity: mode.startsWith("expl-quadrant") ? 1 : 0,
+                maxWidth: innerWidth / 2 - 20,
+              }}
+            >
+              AI disruption and weak user relationships leave these verticals
+              highly vulnerable to LLM substitution and interface loss.
+            </div>
+          );
+        })}
+
       <div
         className="absolute bg-grey-text text-black-blue text-[14px] transition-inset "
         style={{
@@ -491,7 +541,7 @@ export default function Chart({
               ? 100
               : "unset",
 
-          opacity: hoveredQuadrant ? 1 : 0,
+          opacity: hoveredQuadrant && mode === "data-filled" ? 1 : 0,
           padding: 10,
           maxWidth: 320,
         }}
