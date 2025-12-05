@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "generate:copy": "node scripts/generate-copy.js",
+    "prebuild": "npm run generate:copy",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
