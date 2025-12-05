@@ -164,7 +164,7 @@ function DetailsCopy({ copy }: { copy: Copy }) {
               {copy.ai_discovery_risk_level}
             </span>
           </p>
-          <p>{copy.ai_discovery_risk_intro}</p>
+          <p className="text-[14px]">{copy.ai_discovery_risk_intro}</p>
         </div>
         <div>
           <p className="font-bold">
@@ -173,14 +173,14 @@ function DetailsCopy({ copy }: { copy: Copy }) {
               {copy.ai_service_risk_level}
             </span>
           </p>
-          <p>{copy.ai_service_risk_intro}</p>
+          <p className="text-[14px]">{copy.ai_service_risk_intro}</p>
         </div>
         <div>
           <p className="font-bold">
             Data Access & Regulatory |{" "}
             <span className="text-bright-green">{copy.ai_data_risk_level}</span>
           </p>
-          <p>{copy.ai_data_risk_intro}</p>
+          <p className="text-[14px]">{copy.ai_data_risk_intro}</p>
         </div>
       </div>
       <div className="py-5 border-dashed gap-5 flex flex-col">
