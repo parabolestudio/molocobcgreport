@@ -7,7 +7,7 @@ export const copyData: CopyData = {
   "hooks_1_text": "The biggest shifts in AI today aren’t technological, <b><green>they’re behavioral</green></b>.",
   "hooks_1_button": "scroll",
   "hooks_2_text": "<b><green>Consumers are turning to AI for nearly everything</green></b>, from research to recipes to shopping. \n\nConsumer behavior is shifting faster than marketing budgets can follow, and this will only continue to accelerate.",
-  "hooks_3_text": "How can brands find and connect with customers? How do they adapt and grow? \n\nNew research on LLM disruption, done in partnership with BCG, dives deep into the <b><green>current state of play for marketers<b><green>, and where we go from here.",
+  "hooks_3_text": "How can brands find and connect with customers? How do they adapt and grow? \n\nNew research on LLM disruption, done in partnership with BCG, dives deep into the <green><b>current state of play for marketers</b></green>, and where we go from here.",
   "hooks_title": "<green>The <b>AI Disruption Index</b></green>",
   "hooks_subline": "Story by",
   "climax_1_title": "<green>Understanding disruption on the <b>vertical level</b></green>",

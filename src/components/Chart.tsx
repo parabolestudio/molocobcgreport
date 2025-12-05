@@ -25,8 +25,6 @@ const quadrantData = [
     titleAnchor: "end" as const,
     colorQuadrant: "#3D5F53",
     colorQuadrantActiveText: "var(--grey-text)",
-    tooltipText:
-      "AI disruption and weak user relationships leave these verticals highly vulnerable to LLM substitution and interface loss.",
   },
   {
     position: "top-left",
@@ -34,8 +32,6 @@ const quadrantData = [
     titleAnchor: "end" as const,
     colorQuadrant: "#308267",
     colorQuadrantActiveText: "var(--grey-text)",
-    tooltipText:
-      "Low disruption today, but weak relationships mean these verticals lack long-term defensibility.",
   },
   {
     position: "bottom-right",
@@ -43,8 +39,6 @@ const quadrantData = [
     titleAnchor: "start" as const,
     colorQuadrant: "#60E2B7",
     colorQuadrantActiveText: "var(--black-blue)",
-    tooltipText:
-      "Strong user relationships and low AI disruption combine to create high resilience.",
   },
   {
     position: "top-right",
@@ -52,8 +46,6 @@ const quadrantData = [
     titleAnchor: "start" as const,
     colorQuadrant: "#A0EED4",
     colorQuadrantActiveText: "var(--black-blue)",
-    tooltipText:
-      "AI disruption is already reshaping journeys here, but strong loyalty and user intent keep these verticals durable—for now.",
   },
 ];
 
@@ -71,6 +63,14 @@ export default function Chart({
   const [hoveredQuadrant, setHoveredQuadrant] = useState<{
     quadrant: string;
   } | null>(null);
+
+  // Call all quadrant headline hooks at top level to avoid conditional hook calls
+  const quadrantHeadlines = {
+    "top-left": useCopy("qu_top_left_headline"),
+    "top-right": useCopy("qu_top_right_headline"),
+    "bottom-left": useCopy("qu_bottom_left_headline"),
+    "bottom-right": useCopy("qu_bottom_right_headline"),
+  };
 
   useEffect(() => {
     csv(`${basePath}/data/verticalsData.csv`).then((data) => {
@@ -468,43 +468,39 @@ export default function Chart({
             })}
           </g>
 
-          <text className="fill-red-900 font-light" y="20">
+          {/* <text className="fill-red-900 font-light" y="20">
             {mode}
-          </text>
+          </text> */}
         </g>
       </svg>
       {quadrantData
         .filter((q) => q.position === mode.replace("expl-quadrant-", ""))
-        .map((quadrant) => {
-          console.log("Rendering quadrant text for", mode, quadrant);
+        .map((quadrant, index) => {
+          const position = mode.replace("expl-quadrant-", "");
           return (
             <div
+              key={index}
               className="absolute text-white text-[18px] transition-inset "
               style={{
                 color: quadrant.colorQuadrantActiveText,
                 top:
-                  mode.replace("expl-quadrant-", "") === "bottom-right" ||
-                  mode.replace("expl-quadrant-", "") === "bottom-left"
+                  position === "bottom-right" || position === "bottom-left"
                     ? "calc(50%)"
                     : "unset",
                 bottom:
-                  mode.replace("expl-quadrant-", "") === "top-right" ||
-                  mode.replace("expl-quadrant-", "") === "top-left"
+                  position === "top-right" || position === "top-left"
                     ? "calc(50%)"
                     : "unset",
                 right:
-                  mode.replace("expl-quadrant-", "") === "top-left" ||
-                  mode.replace("expl-quadrant-", "") === "bottom-left"
+                  position === "top-left" || position === "bottom-left"
                     ? "calc(50%)"
                     : "unset",
                 left:
-                  mode.replace("expl-quadrant-", "") === "top-right" ||
-                  mode.replace("expl-quadrant-", "") === "bottom-right"
+                  position === "top-right" || position === "bottom-right"
                     ? "calc(50%)"
                     : "unset",
                 textAlign:
-                  mode.replace("expl-quadrant-", "") === "top-left" ||
-                  mode.replace("expl-quadrant-", "") === "bottom-left"
+                  position === "top-left" || position === "bottom-left"
                     ? "right"
                     : "left",
                 paddingTop: 40,
@@ -515,8 +511,11 @@ export default function Chart({
                 maxWidth: innerWidth / 2 - 20,
               }}
             >
-              AI disruption and weak user relationships leave these verticals
-              highly vulnerable to LLM substitution and interface loss.
+              {
+                quadrantHeadlines[
+                  quadrant.position as keyof typeof quadrantHeadlines
+                ]
+              }
             </div>
           );
         })}
@@ -525,35 +524,44 @@ export default function Chart({
         className="absolute bg-grey-text text-black-blue text-[14px] transition-inset "
         style={{
           top:
-            hoveredQuadrant?.quadrant === "top-left" ||
-            hoveredQuadrant?.quadrant === "top-right"
-              ? innerHeight / 2
-              : innerHeight / 2 + 90,
-          left:
+            hoveredQuadrant?.quadrant === "bottom-right" ||
+            hoveredQuadrant?.quadrant === "bottom-left"
+              ? "calc(50%)"
+              : "unset",
+          bottom:
+            hoveredQuadrant?.quadrant === "top-right" ||
+            hoveredQuadrant?.quadrant === "top-left"
+              ? "calc(50%)"
+              : "unset",
+          right:
             hoveredQuadrant?.quadrant === "top-left" ||
             hoveredQuadrant?.quadrant === "bottom-left"
-              ? 80
+              ? "calc(50%)"
               : "unset",
-
-          right:
+          left:
             hoveredQuadrant?.quadrant === "top-right" ||
             hoveredQuadrant?.quadrant === "bottom-right"
-              ? 100
+              ? "calc(50%)"
               : "unset",
-
-          opacity: hoveredQuadrant && mode === "data-filled" ? 1 : 0,
+          textAlign:
+            hoveredQuadrant?.quadrant === "top-left" ||
+            hoveredQuadrant?.quadrant === "bottom-left"
+              ? "right"
+              : "left",
+          marginTop: 40,
+          marginBottom: 40,
+          marginLeft: 10,
+          marginRight: 10,
           padding: 10,
-          maxWidth: 320,
+          opacity: hoveredQuadrant && mode === "data-filled" ? 1 : 0,
+          maxWidth: innerWidth / 2 - 40,
+          pointerEvents: "none",
         }}
       >
         {
-          quadrantData[
-            hoveredQuadrant
-              ? quadrantData.findIndex(
-                  (q) => q.position === hoveredQuadrant.quadrant
-                )
-              : 0
-          ]?.tooltipText
+          quadrantHeadlines[
+            hoveredQuadrant?.quadrant as keyof typeof quadrantHeadlines
+          ]
         }
       </div>
     </div>
