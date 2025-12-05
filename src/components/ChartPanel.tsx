@@ -6,6 +6,7 @@ import { JSX, useEffect, useState } from "react";
 import ChartPanelContentSelectedVertical from "./ChartPanelContentSelectedVertical";
 import { basePath } from "@/helpers/general";
 import { csv } from "d3-fetch";
+import { useCopy } from "@/contexts/CopyContext";
 
 export interface Copy {
   vertical: string;
@@ -220,202 +221,20 @@ export default function ChartPanel({
           </div>
         )}
       </div>
-      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3 shrink-0">
+      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3 shrink-0 items-start">
         <img
-          src={`${basePath}/icons/info.svg`}
+          src={`${basePath}/icons/moloco_small.svg`}
           alt="Information"
-          width={16}
-          height={13}
+          width={25}
+          height={28}
         />
         <p className="text-[14px] leading-[108%] text-grey-text m-0">
-          {noteTexts[mode]}
+          {useCopy("qu_info")}
         </p>
       </div>
     </div>
   );
 }
-
-const ContentYAxis = ({ isModeActive }: { isModeActive: boolean }) => {
-  return (
-    <div>
-      <h3 className="panel-heading">
-        <span>
-          The <span className="font-bold">AI Disruption Index</span>
-        </span>
-      </h3>
-      <div>
-        <p>
-          <b>Chatbot Disruption</b>
-          <span
-            className={`transition ${isModeActive ? "text-bright-green" : ""}`}
-          >
-            (y-axis)
-          </span>{" "}
-          scores verticals along a range of:
-        </p>
-        <ul>
-          <li>
-            Service disruption: The ability for customers to use AI without
-            having to go directly to the company
-          </li>
-          <li>
-            Discovery disruption: Consumers going more to chatbots for discovery
-            than traditional channels
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const ContentXAxis = ({ isModeActive }: { isModeActive: boolean }) => {
-  return (
-    <div>
-      <div>
-        <p>
-          <b>Customer Relationship Strength</b>
-          <span
-            className={`transition ${isModeActive ? "text-bright-green" : ""}`}
-          >
-            (x-axis)
-          </span>{" "}
-          scores strength from high to low based on:
-        </p>
-        <ul>
-          <li>Reliance on paid user acquisition</li>
-          <li>Ability to drive loyalty</li>
-          <li>
-            How much customers engage on platforms like apps (higher engagement)
-            vs. the web (lower)
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const ContentQuadrantBottomLeft = () => {
-  return (
-    <div>
-      <h3 className="panel-heading">
-        <span className="font-bold">Breached</span>
-      </h3>
-      <div className="flex flex-col gap-4">
-        <p className="text-bright-green font-bold">
-          AI disruption and weak user relationships leave these verticals highly
-          vulnerable to LLM substitution and interface loss. 
-        </p>
-        <p>
-          They need to fundamentally <b>rebuild the relationship layer</b>,
-          including:
-        </p>
-        <ul>
-          <li>
-            Bringing more of the journey into their owned ecosystems and mobile
-            app through things like loyalty programs, deeper engagement, and
-            personalized experiences 
-          </li>
-          <li>
-            Building LLM-like offerings into their mobile app and other owned
-            experiences to offer greater value,  including  product comparisons,
-            discovery, and customer assistance
-          </li>
-          <li>
-            Making the most of 1P data, closed-loop systems, and trust signals
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const ContentQuadrantTopLeft = () => {
-  return (
-    <div>
-      <h3 className="panel-heading">
-        {" "}
-        <span className="font-bold">Undefended</span>
-      </h3>
-      <div className="flex flex-col gap-4">
-        <p className="text-bright-green font-bold">
-          Low disruption today, but weak relationships mean these verticals lack
-          long-term defensibility.
-        </p>
-        <p>
-          They need to build <b>future-proof foundations</b>, including: 
-        </p>
-        <ul>
-          <li>
-            Building deeper relationships through AI-driven personalization and
-            loyalty ecosystems like mobile apps 
-          </li>
-          <li>
-            Embedding into chatbot ecosystems via partnerships and integrations
-            to ensure visibility in LLM discovery
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const ContentQuadrantTopRight = () => {
-  return (
-    <div>
-      <h3 className="panel-heading">
-        {" "}
-        <span className="font-bold">Secured</span>
-      </h3>
-      <div className="flex flex-col gap-4">
-        <p className="text-bright-green font-bold">
-          AI disruption is already reshaping journeys here, but strong loyalty
-          and user intent keep these verticals durable—for now.
-        </p>
-        <p>
-          These verticals need to <b>defend and differentiate</b>, including:
-        </p>
-        <ul>
-          <li>
-            Shifting from generic loyalty to personalized proactive
-            relationships 
-          </li>
-          <li>
-            Using AI/LLM to amplify data, trust, and regulatory barriers into
-            even stronger differentiators
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const ContentQuadrantBottomRight = () => {
-  return (
-    <div>
-      <h3 className="panel-heading">
-        <span className="font-bold">Contested</span>
-      </h3>
-      <div className="flex flex-col gap-4">
-        <p className="text-bright-green font-bold">
-          Strong user relationships and low AI disruption combine to create high
-          resilience. 
-        </p>
-        <p>
-          These verticals can <b>accelerate their advantage</b> by
-        </p>
-        <ul>
-          <li>
-            Making AI-enhanced services indispensable within their ecosystem
-          </li>
-          <li>
-            Using scale and trust to define how chatbots should operate in their
-            vertical, shaping standards that others follow
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
 
 const getContentMap = (
   selectedVertical: string | null,
@@ -426,17 +245,47 @@ const getContentMap = (
   mode: ChartMode,
   handleSideChange: (side: "summary" | "details") => void
 ): Record<ChartMode, JSX.Element> => ({
-  "expl-y-axis": <ContentYAxis isModeActive={mode === "expl-y-axis"} />,
-  "expl-x-axis": (
+  "expl-y-axis": (
     <div className="flex flex-col gap-4">
-      <ContentYAxis isModeActive={mode === "expl-y-axis"} />
-      <ContentXAxis isModeActive={mode === "expl-x-axis"} />
+      <h3 className="panel-heading">{useCopy("qu_expl_title")}</h3>
+      <p>{useCopy("qu_expl_subline")}</p>
+      <p>{useCopy("qu_expl_y_description")}</p>
     </div>
   ),
-  "expl-quadrant-bottom-left": <ContentQuadrantBottomLeft />,
-  "expl-quadrant-top-left": <ContentQuadrantTopLeft />,
-  "expl-quadrant-top-right": <ContentQuadrantTopRight />,
-  "expl-quadrant-bottom-right": <ContentQuadrantBottomRight />,
+  "expl-x-axis": (
+    <div className="flex flex-col gap-4">
+      <h3 className="panel-heading">{useCopy("qu_expl_title")}</h3>
+      <p>{useCopy("qu_expl_subline")}</p>
+      <div className="text-[18px]">{useCopy("qu_expl_y_description")}</div>
+      <div className="text-[18px]">{useCopy("qu_expl_x_description")}</div>
+    </div>
+  ),
+  "expl-quadrant-bottom-left": (
+    <div>
+      <h3 className="panel-heading">{useCopy("qu_bottom_left_title")}</h3>
+      <div className="text-[18px]">{useCopy("qu_bottom_left_description")}</div>
+    </div>
+  ),
+  "expl-quadrant-top-left": (
+    <div>
+      <h3 className="panel-heading">{useCopy("qu_top_left_title")}</h3>
+      <div className="text-[18px]">{useCopy("qu_top_left_description")}</div>
+    </div>
+  ),
+  "expl-quadrant-top-right": (
+    <div>
+      <h3 className="panel-heading">{useCopy("qu_top_right_title")}</h3>
+      <div className="text-[18px]">{useCopy("qu_top_right_description")}</div>
+    </div>
+  ),
+  "expl-quadrant-bottom-right": (
+    <div>
+      <h3 className="panel-heading">{useCopy("qu_bottom_right_title")}</h3>
+      <div className="text-[18px]">
+        {useCopy("qu_bottom_right_description")}
+      </div>
+    </div>
+  ),
   "data-filled": (
     <ChartPanelContentSelectedVertical
       selectedVertical={selectedVertical}
@@ -447,16 +296,3 @@ const getContentMap = (
     />
   ),
 });
-
-const EXPLANATION_ACTION_TEXT =
-  "Scroll down or use the buttons to explore how the index is constructed.";
-const noteTexts: Record<ChartMode, string> = {
-  "expl-y-axis": EXPLANATION_ACTION_TEXT,
-  "expl-x-axis": EXPLANATION_ACTION_TEXT,
-  "expl-quadrant-bottom-left": EXPLANATION_ACTION_TEXT,
-  "expl-quadrant-top-left": EXPLANATION_ACTION_TEXT,
-  "expl-quadrant-top-right": EXPLANATION_ACTION_TEXT,
-  "expl-quadrant-bottom-right": EXPLANATION_ACTION_TEXT,
-  "data-filled":
-    "Click on a vertical to explore details. Hover over the quadrant name for definitions.",
-};

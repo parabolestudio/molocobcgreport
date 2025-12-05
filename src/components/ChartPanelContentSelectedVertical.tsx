@@ -4,6 +4,7 @@ import { basePath } from "@/helpers/general";
 import { Copy } from "./ChartPanel";
 import { useEffect, useState } from "react";
 import { scaleLinear } from "d3-scale";
+import { useCopy } from "@/contexts/CopyContext";
 
 export default function ChartPanelContentSelectedVertical({
   selectedVertical,
@@ -21,11 +22,7 @@ export default function ChartPanelContentSelectedVertical({
   if (!selectedVertical) {
     return (
       <div>
-        <h3 className="panel-heading">
-          <span>
-            The <span className="font-bold">AI Disruption Index</span>
-          </span>
-        </h3>
+        <h3 className="panel-heading">{useCopy("qu_expl_title")}</h3>
         <div className="flex gap-3">
           <img
             src={`${basePath}/icons/mouse.svg`}
@@ -33,7 +30,7 @@ export default function ChartPanelContentSelectedVertical({
             width={24}
             height={24}
           />
-          <p className="italic">Select a vertical to explore details.</p>
+          <p>{useCopy("qu_data_nudge")}</p>
         </div>
       </div>
     );

@@ -6,9 +6,9 @@ import { ReactNode, createElement } from "react";
 const TAG_MAPPINGS: Record<string, { element: string; className?: string }> = {
   green: { element: "span", className: "text-bright-green" },
   b: { element: "b" },
-  //   strong: { element: "strong" },
-  //   i: { element: "i" },
-  //   em: { element: "em" },
+  ul: { element: "ul" },
+  li: { element: "li" },
+  i: { element: "i" },
 };
 
 interface ParsedNode {
@@ -131,6 +131,50 @@ function nodesToReact(nodes: ParsedNode[], key: string = ""): ReactNode {
 export function parseCopy(text: string): ReactNode {
   if (!text) return null;
 
-  const nodes = parseMarkup(text);
+  // First, detect and convert bullet lists to <ul> tags
+  const processedText = convertBulletLists(text);
+
+  const nodes = parseMarkup(processedText);
   return nodesToReact(nodes);
+}
+
+/**
+ * Converts bullet lists (lines starting with "- ") into <ul><li> markup
+ */
+function convertBulletLists(text: string): string {
+  const lines = text.split("\n");
+  let result = "";
+  let inList = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const trimmedLine = line.trim();
+
+    if (trimmedLine.startsWith("- ")) {
+      // This is a bullet point
+      if (!inList) {
+        result += "<ul>";
+        inList = true;
+      }
+      // Remove the "- " prefix and wrap in <li>
+      result += `<li>${trimmedLine.substring(2)}</li>`;
+    } else {
+      // Not a bullet point
+      if (inList) {
+        result += "</ul>";
+        inList = false;
+      }
+      result += line;
+      if (i < lines.length - 1) {
+        result += "\n";
+      }
+    }
+  }
+
+  // Close list if we ended while in a list
+  if (inList) {
+    result += "</ul>";
+  }
+
+  return result;
 }

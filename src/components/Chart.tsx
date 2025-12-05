@@ -6,6 +6,7 @@ import { scaleLinear } from "d3-scale";
 import type { ChartMode } from "@/helpers/chart";
 import { verticalsMap } from "@/helpers/chart";
 import { basePath } from "@/helpers/general";
+import { useCopy } from "@/contexts/CopyContext";
 
 interface VerticalData {
   vertical: string;

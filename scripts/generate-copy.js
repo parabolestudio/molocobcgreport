@@ -1,13 +1,13 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // Hard-coded language
-const LANGUAGE = 'English';
+const LANGUAGE = "English";
 
 function parseCSV(csvContent) {
   const rows = [];
   let currentRow = [];
-  let currentField = '';
+  let currentField = "";
   let insideQuotes = false;
 
   for (let i = 0; i < csvContent.length; i++) {
@@ -21,11 +21,11 @@ function parseCSV(csvContent) {
       } else {
         insideQuotes = !insideQuotes;
       }
-    } else if (char === ',' && !insideQuotes) {
+    } else if (char === "," && !insideQuotes) {
       currentRow.push(currentField);
-      currentField = '';
-    } else if ((char === '\n' || char === '\r') && !insideQuotes) {
-      if (char === '\r' && nextChar === '\n') {
+      currentField = "";
+    } else if ((char === "\n" || char === "\r") && !insideQuotes) {
+      if (char === "\r" && nextChar === "\n") {
         i++;
       }
       currentRow.push(currentField);
@@ -33,7 +33,7 @@ function parseCSV(csvContent) {
         rows.push(currentRow);
       }
       currentRow = [];
-      currentField = '';
+      currentField = "";
     } else {
       currentField += char;
     }
@@ -50,13 +50,13 @@ function parseCSV(csvContent) {
 }
 
 function generateCopyData() {
-  const csvPath = path.join(process.cwd(), 'public/data/mainCopy.csv');
-  const csvContent = fs.readFileSync(csvPath, 'utf-8');
-  
+  const csvPath = path.join(process.cwd(), "public/data/mainCopy.csv");
+  const csvContent = fs.readFileSync(csvPath, "utf-8");
+
   const rows = parseCSV(csvContent);
-  
+
   if (rows.length === 0) {
-    console.error('No rows found in CSV');
+    console.error("No rows found in CSV");
     return;
   }
 
@@ -77,7 +77,7 @@ function generateCopyData() {
     if (row.length > languageColumnIndex) {
       const key = row[0].trim();
       const text = row[languageColumnIndex].trim();
-      
+
       if (key && key.length > 0) {
         copyData[key] = text;
       }
@@ -92,11 +92,13 @@ export type CopyData = Record<string, string>;
 export const copyData: CopyData = ${JSON.stringify(copyData, null, 2)};
 `;
 
-  const outputPath = path.join(process.cwd(), 'src/data/copyData.ts');
+  const outputPath = path.join(process.cwd(), "src/data/copyData.ts");
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  fs.writeFileSync(outputPath, output, 'utf-8');
-  
-  console.log(`✅ Generated copy data: ${Object.keys(copyData).length} entries`);
+  fs.writeFileSync(outputPath, output, "utf-8");
+
+  console.log(
+    `✅ Generated copy data: ${Object.keys(copyData).length} entries`
+  );
 }
 
 generateCopyData();
