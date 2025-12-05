@@ -169,6 +169,8 @@ export default function Chart({
               stroke="var(--grey-blue)"
               strokeWidth={1.5}
               strokeDasharray="5,5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <line
               x1={0}
@@ -178,6 +180,8 @@ export default function Chart({
               stroke="var(--grey-blue)"
               strokeWidth={1.5}
               strokeDasharray="5,5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </g>
 
@@ -190,9 +194,13 @@ export default function Chart({
               y2={innerHeight}
               strokeWidth={1.5}
               strokeDasharray="10,10"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               stroke={
                 mode === "expl-x-axis"
                   ? "var(--bright-green)"
+                  : mode.startsWith("expl-quadrant-")
+                  ? "var(--grey-text)"
                   : "var(--grey-blue)"
               }
             />
@@ -206,6 +214,8 @@ export default function Chart({
                 fill:
                   mode === "expl-x-axis"
                     ? "var(--bright-green)"
+                    : mode.startsWith("expl-quadrant-")
+                    ? "var(--grey-text)"
                     : "var(--grey-blue)",
               }}
             >
@@ -219,6 +229,8 @@ export default function Chart({
                 fill:
                   mode === "expl-x-axis"
                     ? "var(--bright-green)"
+                    : mode.startsWith("expl-quadrant-")
+                    ? "var(--grey-text)"
                     : "var(--grey-blue)",
               }}
             >
@@ -234,6 +246,8 @@ export default function Chart({
                 fill:
                   mode === "expl-x-axis"
                     ? "var(--bright-green)"
+                    : mode.startsWith("expl-quadrant-")
+                    ? "var(--grey-text)"
                     : "var(--grey-blue)",
               }}
             >
@@ -249,10 +263,14 @@ export default function Chart({
               stroke={
                 mode === "expl-y-axis"
                   ? "var(--bright-green)"
+                  : mode.startsWith("expl-quadrant-")
+                  ? "var(--grey-text)"
                   : "var(--grey-blue)"
               }
               strokeWidth={1.5}
               strokeDasharray="10,10"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <text
               className="chart-text transition"
@@ -266,6 +284,8 @@ export default function Chart({
                 fill:
                   mode === "expl-y-axis"
                     ? "var(--bright-green)"
+                    : mode.startsWith("expl-quadrant-")
+                    ? "var(--grey-text)"
                     : "var(--grey-blue)",
               }}
             >
@@ -280,6 +300,8 @@ export default function Chart({
                 fill:
                   mode === "expl-y-axis"
                     ? "var(--bright-green)"
+                    : mode.startsWith("expl-quadrant-")
+                    ? "var(--grey-text)"
                     : "var(--grey-blue)",
               }}
             >
@@ -294,6 +316,8 @@ export default function Chart({
                 fill:
                   mode === "expl-y-axis"
                     ? "var(--bright-green)"
+                    : mode.startsWith("expl-quadrant-")
+                    ? "var(--grey-text)"
                     : "var(--grey-blue)",
               }}
             >
@@ -468,9 +492,9 @@ export default function Chart({
             })}
           </g>
 
-          {/* <text className="fill-red-900 font-light" y="20">
+          <text className="fill-red-900 font-light" y="20">
             {mode}
-          </text> */}
+          </text>
         </g>
       </svg>
       {quadrantData
