@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { MuseoModerno } from "next/font/google";
 import "./globals.css";
 import { DevLinkProvider } from "@/devlink/DevLinkProvider";
+import { CopyProvider } from "@/contexts/CopyContext";
+import { loadCopyData } from "@/helpers/loadCopy";
 
 const museoModerno = MuseoModerno({
   variable: "--font-museo-moderno",
@@ -18,14 +20,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Load copy data server-side
+  const copyData = loadCopyData();
+
   return (
     <html lang="en">
       <body className={`${museoModerno.variable} antialiased`}>
-        <DevLinkProvider>
-          {/* Add here any Navbar or Header you want to be present on all pages */}
-          {children}
-          {/* Add here any Footer you want to be present on all pages */}
-        </DevLinkProvider>
+        <CopyProvider data={copyData}>
+          <DevLinkProvider>
+            {/* Add here any Navbar or Header you want to be present on all pages */}
+            {children}
+            {/* Add here any Footer you want to be present on all pages */}
+          </DevLinkProvider>
+        </CopyProvider>
       </body>
     </html>
   );

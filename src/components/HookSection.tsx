@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { basePath } from "@/helpers/general";
+import { useCopy } from "@/contexts/CopyContext";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -189,7 +190,7 @@ export default function HookSection() {
             </span>
           </h1>
           <div>
-            <p className="hook-p">Story by</p>
+            <p className="hook-p">{useCopy("hooks_subline")}</p>
             <div className="flex gap-12 mt-4">
               <img
                 src={`${basePath}/logos/moloco.svg`}

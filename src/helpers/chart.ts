@@ -46,7 +46,7 @@ export const verticalsMap: Record<string, Object> = {
     label: "Auto Marketplace",
     labelFormatted: {
       firstLine: "Auto",
-      secondLine: "Marketplace",
+      secondLine: "Marketplaces",
       position: "top",
     },
     icon: "auto_marketplace",
@@ -78,8 +78,8 @@ export const verticalsMap: Record<string, Object> = {
   "On-Demand Services": {
     label: "On-Demand",
     labelFormatted: {
-      firstLine: "On-",
-      secondLine: "Demand",
+      firstLine: "On-Demand",
+      secondLine: "Services",
     },
     icon: "on_demand",
     quadrant: "top-right",
