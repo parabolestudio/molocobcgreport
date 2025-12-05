@@ -12,51 +12,56 @@ const LANGUAGE = "English";
  * @returns Object mapping copy keys to their text values in the specified language
  */
 export function loadCopyData(language: string = LANGUAGE): CopyData {
-  const csvPath = path.join(process.cwd(), "public/data/mainCopy.csv");
-  const csvContent = fs.readFileSync(csvPath, "utf-8");
-
   const copyData: CopyData = {};
 
-  // Parse the entire CSV properly, handling quoted fields with newlines
-  const rows = parseCSV(csvContent);
+  try {
+    // Read the CSV file from the public directory
+    const csvPath = path.join(process.cwd(), "public/data/mainCopy.csv");
+    const csvContent = fs.readFileSync(csvPath, "utf-8");
 
-  if (rows.length === 0) return copyData;
+    // Parse the entire CSV properly, handling quoted fields with newlines
+    const rows = parseCSV(csvContent);
 
-  // First row is the header
-  const headers = rows[0];
-  const languageColumnIndex = headers.findIndex(
-    (header) => header.trim() === language
-  );
+    if (rows.length === 0) return copyData;
 
-  if (languageColumnIndex === -1) {
-    console.warn(
-      `Language column "${language}" not found in CSV. Available columns:`,
-      headers
+    // First row is the header
+    const headers = rows[0];
+    const languageColumnIndex = headers.findIndex(
+      (header: string) => header.trim() === language
     );
-    return copyData;
-  }
 
-  // Parse data rows (skip header)
-  for (let i = 1; i < rows.length; i++) {
-    const row = rows[i];
+    if (languageColumnIndex === -1) {
+      console.warn(
+        `Language column "${language}" not found in CSV. Available columns:`,
+        headers
+      );
+      return copyData;
+    }
 
-    if (row.length > languageColumnIndex) {
-      const key = row[0].trim(); // Key column
-      const text = row[languageColumnIndex].trim(); // Language column
+    // Parse data rows (skip header)
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
 
-      // Only add entries that have a non-empty key
-      if (key && key.length > 0) {
-        copyData[key] = text;
+      if (row.length > languageColumnIndex) {
+        const key = row[0].trim(); // Key column
+        const text = row[languageColumnIndex].trim(); // Language column
+
+        // Only add entries that have a non-empty key
+        if (key && key.length > 0) {
+          copyData[key] = text;
+        }
       }
     }
+
+    console.log(
+      `Loaded copy data for language "${language}":`,
+      Object.keys(copyData).length,
+      "entries"
+    );
+  } catch (error) {
+    console.error("Error loading copy data:", error);
   }
 
-  console.log(
-    `Loaded copy data for language "${language}":`,
-    Object.keys(copyData).length,
-    "entries",
-    copyData
-  );
   return copyData;
 }
 

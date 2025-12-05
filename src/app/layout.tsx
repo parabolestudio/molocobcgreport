@@ -5,6 +5,9 @@ import { DevLinkProvider } from "@/devlink/DevLinkProvider";
 import { CopyProvider } from "@/contexts/CopyContext";
 import { loadCopyData } from "@/helpers/loadCopy";
 
+// Force this to use Node.js runtime instead of Edge
+export const runtime = "nodejs";
+
 const museoModerno = MuseoModerno({
   variable: "--font-museo-moderno",
   subsets: ["latin"],

@@ -186,7 +186,7 @@ export default function HookSection() {
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 text-center flex flex-col items-center justify-center gap-[128px]"
           style={{ opacity: 0, visibility: "hidden" }}
         >
-          <h1 className="text-[128px] text-bright-green font-museo-moderno uppercase leading-[0.99]">
+          <h1 className="text-[128px] text-bright-green font-museo-moderno uppercase leading-[0.99] font-extralight text-balance">
             {useCopy("hooks_title")}
           </h1>
           <div>

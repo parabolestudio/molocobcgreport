@@ -7,6 +7,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Chart from "./Chart";
 import ChartPanel from "./ChartPanel";
 import type { ChartMode } from "@/helpers/chart";
+import { useCopy } from "@/contexts/CopyContext";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -204,23 +205,11 @@ export default function QuadrantSection() {
           ref={screen1Ref}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 opacity-0 invisible flex flex-col  gap-12"
         >
-          <h2 className="font-museo-moderno text-bright-green text-[96px] leading-[100%] ">
-            <span className="font-extralight">
-              Understanding
-              <br />
-              disruption on the{" "}
-            </span>
-            <br />
-            <span className="font-bold">vertical level</span>
+          <h2 className="font-museo-moderno text-bright-green text-[96px] leading-[100%] max-w-[800px] font-extralight">
+            {useCopy("climax_1_title")}
           </h2>
           <p className="text-[32px] leading-[100%] max-w-[615px] self-end">
-            Brands are already making major bets through strategic integrations,
-            shoring up their tech, and investing in owned platforms. 
-            <br />
-            <br />
-            To explore the risks and opportunities for each vertical, we
-            quantified both the scale of LLM disruption and existing
-            relationship strength.
+            {useCopy("climax_1_paragraph")}
           </p>
         </div>
 

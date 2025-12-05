@@ -7,7 +7,7 @@ Consumer behavior is shifting faster than marketing budgets can follow, and this
 hooks_3_text,"Hook, screen 3","How can brands find and connect with customers? How do they adapt and grow? 
 
 New research on LLM disruption, done in partnership with BCG, dives deep into the current state of play for marketers, and where we go from here."
-hooks_title,Title,The AI Disruption Index
+hooks_title,Title,"The <b>AI Disruption Index</b>"
 hooks_subline,Title sub-line,Story by
 ,Context paragraph 1,"<green><b>In partnership with BCG, we talked to and surveyed consumers, advertising executives, and consulted our 1P data to understand just how deep the disruption goes.</green></b>"
 ,Context paragraph 2,Starting with the
@@ -45,8 +45,8 @@ This report leverages insights from multiple research methodologies conducted wi
 ,"Consumer journey, step 4 body text",feel comfortable letting AI/LLM make purchases for them
 ,"Consumer journey, step 4 source","Source: Chain Store Age, “Consumer comfort, interest in AI shopping assistants grows”, June 2025. 
 1,000 US Adults surveyed by CouponFollow"
-,Climax intro title,<green>Understanding disruption on the <b>vertical level</b></green>
-,Climax intro paragraph,"To explore the risks and opportunities for each vertical, we quantified how exposed you are to AI-driven discovery and service disruption, and how strong your customer relationships already are."
+"climax_1_title",Climax intro title,<green>Understanding disruption on the <b>vertical level</b></green>
+"climax_1_paragraph",Climax intro paragraph,"To explore the risks and opportunities for each vertical, we quantified how exposed you are to AI-driven discovery and service disruption, and how strong your customer relationships already are."
 ,Quadrant title,The <b>AI Disruption Index</b>
 ,Quadrant intro,AI/LLM Disruption scores verticals on their level of exposure to:
 ,Quadrant X axis description,"<b>AI Disruption</b> <green>(x-axis)</green> scores disruption from high to low based on levels of:
