@@ -23,27 +23,27 @@ This report leverages insights from multiple research methodologies conducted wi
 
 <b>Performance Analysis</b>: App performance data from 3000+ apps with 200B+ downloads, analyzing retention rates, engagement patterns, and acquisition channels (Moloco/Sensor Tower/Semrush)"
 ,Consumer journey title,AI and the new consumer journey
-,"Consumer journey, step 1 title",Inspiration
-,"Consumer journey, step 1 headline",<b>Inspiration now starts with LLMs</b>
-,"Consumer journey, step 1 stat",<green><b>1/3</green></b>
-,"Consumer journey, step 1 body text",<green>U.S. adults now discover brands via personal AI agents</green>
-,"Consumer journey, step 1 source","Source: Cordial, “Brands Battle for Attention as AI Redefines the Funnel” conducted by Dynata, Aug 2025. 1,000 US Adults surveyed by Dynata"
-,"Consumer journey, step 2 title",Discovery
-,"Consumer journey, step 2 headline",<b>Discovery has been disrupted</b>
-,"Consumer journey, step 2 stat",<green><b>80%</green></b>
-,"Consumer journey, step 2 body text",of Google searches now end without a click when AI Overview present
-,"Consumer journey, step 2 source","Source: Similarweb, “Zero-Click Searched And How They Impact Traffic”, May 2025"
-,"Consumer journey, step 3 title",Consideration
-,"Consumer journey, step 3 headline","<b>For shoppers, AI has gone from experimental to essential</b>"
-,"Consumer journey, step 3 stat",<green><b>47%</green></b>
-,"Consumer journey, step 3 body text",of consumers use GenAI to research purchases
-,"Consumer journey, step 3 source","Source: Attest, “2025 Consumer Adoption of AI Report” , July 2025. 
+journey_1_title,"Consumer journey, step 1 title",Inspiration
+journey_1_stat_headline,"Consumer journey, step 1 headline",Inspiration now starts with LLMs
+journey_1_stat_number,"Consumer journey, step 1 stat",1/3
+journey_1_stat_text,"Consumer journey, step 1 body text",U.S. adults now discover brands via personal AI agents
+journey_1_stat_source,"Consumer journey, step 1 source","Source: Cordial, “Brands Battle for Attention as AI Redefines the Funnel” conducted by Dynata, Aug 2025. 1,000 US Adults surveyed by Dynata"
+journey_2_title,"Consumer journey, step 2 title",Discovery
+journey_2_stat_headline,"Consumer journey, step 2 headline",Discovery has been disrupted
+journey_2_stat_number,"Consumer journey, step 2 stat",80%
+journey_2_stat_text,"Consumer journey, step 2 body text",of Google searches now end without a click when AI Overview present
+journey_2_stat_source,"Consumer journey, step 2 source","Source: Similarweb, “Zero-Click Searched And How They Impact Traffic”, May 2025"
+journey_3_title,"Consumer journey, step 3 title",Consideration
+journey_3_stat_headline,"Consumer journey, step 3 headline","For shoppers, AI has gone from experimental to essential"
+journey_3_stat_number,"Consumer journey, step 3 stat",47%
+journey_3_stat_text,"Consumer journey, step 3 body text",of consumers use GenAI to research purchases
+journey_3_stat_source,"Consumer journey, step 3 source","Source: Attest, “2025 Consumer Adoption of AI Report” , July 2025. 
 5,000 Adults in US, UK, Canada and Australia using Attest platform"
-,"Consumer journey, step 4 title",Conversion
-,"Consumer journey, step 4 headline",<b>AI can replace the need to discover a brand at all</b>
-,"Consumer journey, step 4 stat",<green><b>45%</green></b>
-,"Consumer journey, step 4 body text",feel comfortable letting AI/LLM make purchases for them
-,"Consumer journey, step 4 source","Source: Chain Store Age, “Consumer comfort, interest in AI shopping assistants grows”, June 2025. 
+journey_4_title,"Consumer journey, step 4 title",Conversion
+journey_4_stat_headline,"Consumer journey, step 4 headline",AI can replace the need to discover a brand at all
+journey_4_stat_number,"Consumer journey, step 4 stat",45%
+journey_4_stat_text,"Consumer journey, step 4 body text",feel comfortable letting AI/LLM make purchases for them
+journey_4_stat_source,"Consumer journey, step 4 source","Source: Chain Store Age, “Consumer comfort, interest in AI shopping assistants grows”, June 2025. 
 1,000 US Adults surveyed by CouponFollow"
 climax_1_title,Climax intro title,<green>Understanding disruption on the <b>vertical level</b></green>
 climax_1_paragraph,Climax intro paragraph,"To explore the risks and opportunities for each vertical, we quantified how exposed you are to AI-driven discovery and service disruption, and how strong your customer relationships already are."
