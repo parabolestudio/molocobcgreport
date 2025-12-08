@@ -115,8 +115,9 @@ export default function HookSection() {
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={text1Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center flex flex-col items-center justify-center gap-20"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center flex flex-col items-center justify-between gap-20 h-[80vh]"
         >
+          <button className="bg-grey-blue flex items-center justify-center gap-2 opacity-0"></button>
           <p className="hook-p">{useCopy("hooks_1_text")}</p>
           <button
             className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"

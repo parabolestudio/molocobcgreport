@@ -46,7 +46,7 @@ export default function ChartPanelContentSelectedVertical({
           onClick={() => selectVertical(null)}
         />
       </div>
-      <h3 className="text-grey-text font-museo-moderno mb-0 text-[40px] mr-10 shrink-0">
+      <h3 className="text-grey-text font-museo-moderno mb-0 text-[40px] mr-10 shrink-0 font-bold">
         {selectedVertical}
       </h3>
       <div
