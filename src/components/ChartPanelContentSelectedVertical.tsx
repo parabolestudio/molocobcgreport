@@ -94,14 +94,15 @@ function SummaryCopy({ copy }: { copy: Copy }) {
         {/* Example apps */}
         <div>
           <p className="text-[14px]">Example apps in category</p>
-          <div
-            className="flex flex-row gap-4 overflow-y-scroll py-2"
-            style={{ scrollbarGutter: "stable" }}
-          >
+          <div className="flex flex-row gap-8 overflow-y-scroll max-h-[60px] mt-2 pb-3">
             {copy.exampleApps.map((app) => (
-              <span key={app} className="text-[14px] whitespace-nowrap">
-                {app}
-              </span>
+              <img
+                key={app}
+                src={`${basePath}/appLogos/${copy.vertical}/${app
+                  .trim()
+                  .replaceAll(" ", "_")
+                  .replace("'", "_")}.svg`}
+              />
             ))}
           </div>
         </div>
