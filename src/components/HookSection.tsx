@@ -30,7 +30,6 @@ export default function HookSection() {
     let currentIndex = 0;
     const texts = [text1, text2, title];
     const showText = (index: number) => {
-      console.log("Showing text index:", index);
       if (currentIndex === index) return;
 
       // Kill all ongoing animations first
@@ -97,35 +96,19 @@ export default function HookSection() {
     };
   }, []);
 
-  // function scrollNext() {
-  //   const triggers = ScrollTrigger.getAll();
-  //   const sectionTrigger = triggers.find(
-  //     (t) => t.trigger === sectionRef.current
-  //   );
-
-  //   if (sectionTrigger) {
-  //     const currentProgress = sectionTrigger.progress;
-  //     let targetProgress = 0.33;
-
-  //     if (currentProgress >= 0.66) {
-  //       // Already at last section, scroll past the pinned section
-  //       targetProgress = 1;
-  //     } else if (currentProgress >= 0.33) {
-  //       targetProgress = 0.66;
-  //     }
-
-  //     const scrollStart = sectionTrigger.start;
-  //     const scrollEnd = sectionTrigger.end;
-  //     const targetScroll =
-  //       scrollStart + (scrollEnd - scrollStart) * targetProgress;
-
-  //     gsap.to(window, {
-  //       scrollTo: targetScroll,
-  //       duration: 0.5,
-  //       ease: "power1.inOut",
-  //     });
-  //   }
-  // }
+  function scrollToNext() {
+    if (sectionRef.current) {
+      const sectionTop = sectionRef.current.offsetTop;
+      // ScrollTrigger end is "+=300%" which means 3x viewport height
+      // To get to the second section (33% progress), we need to scroll to sectionTop + (3 * vh * 0.33)
+      const scrollTarget = sectionTop + window.innerHeight * 3 * 0.4;
+      gsap.to(window, {
+        duration: 1,
+        scrollTo: { y: scrollTarget },
+        ease: "power2.inOut",
+      });
+    }
+  }
 
   return (
     <div ref={sectionRef} className="relative w-full h-screen">
@@ -135,9 +118,9 @@ export default function HookSection() {
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center flex flex-col items-center justify-center gap-20"
         >
           <p className="hook-p">{useCopy("hooks_1_text")}</p>
-          {/* <button
+          <button
             className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
-            onClick={() => scrollNext()}
+            onClick={scrollToNext}
           >
             <span>scroll</span>
             <img
@@ -147,7 +130,7 @@ export default function HookSection() {
               height={13}
               style={{ transform: "rotate(-90deg)" }}
             />
-          </button> */}
+          </button>
         </div>
         <div
           ref={text2Ref}
