@@ -6,6 +6,12 @@ import QuadrantSection from "@/components/QuadrantSection";
 import ClosureSection from "@/components/ClosureSection";
 import CTASection from "@/components/CTASection";
 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
 export default function Home() {
   return (
     <main>

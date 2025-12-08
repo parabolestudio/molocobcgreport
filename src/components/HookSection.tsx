@@ -1,85 +1,69 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 import {
-  calculateScrollEnd,
-  getSnapConfig,
-  getActiveStep,
-  fadeOut,
-  fadeIn,
-} from "@/helpers/scroll";
+  useScrollTrigger,
+  setInitialVisibility,
+} from "@/hooks/useScrollTrigger";
+import { fadeOut, fadeIn } from "@/helpers/scroll";
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+const STEPS = 3;
 
 export default function HookSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const text1Ref = useRef<HTMLDivElement>(null);
   const text2Ref = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
+  const [currentStep, setCurrentStep] = useState(0);
+  const previousStepRef = useRef(0);
 
+  const textRefs = [text1Ref, text2Ref, titleRef];
+
+  // Set initial visibility
   useEffect(() => {
-    const section = sectionRef.current;
-    const text1 = text1Ref.current;
-    const text2 = text2Ref.current;
-    const title = titleRef.current;
+    setInitialVisibility(textRefs, { visible: [0], hidden: [1, 2] });
+  }, []);
 
-    if (!section || !text1 || !text2 || !title) return;
+  // Handle step transitions
+  useEffect(() => {
+    const texts = textRefs.map((ref) => ref.current).filter(Boolean);
+    if (texts.length === 0 || currentStep < 0) return;
 
-    const STEPS = 3;
-    const texts = [text1, text2, title];
+    const previousStep = previousStepRef.current;
 
-    // Initial state - all text hidden except first
-    gsap.set([text2, title], { autoAlpha: 0, y: 30 });
-    gsap.set(text1, { autoAlpha: 1, y: 0 });
+    // Kill all ongoing animations first
+    texts.forEach((text) => gsap.killTweensOf(text));
 
-    let currentIndex = 0;
-
-    const showText = (index: number) => {
-      if (currentIndex === index) return;
-
-      // Kill all ongoing animations first
-      texts.forEach((text) => gsap.killTweensOf(text));
-
-      const oldText = texts[currentIndex];
-      const newText = texts[index];
-
-      // Hide all texts immediately except the ones transitioning
-      texts.forEach((text, i) => {
-        if (i !== currentIndex && i !== index) {
-          gsap.set(text, { autoAlpha: 0 });
-        }
-      });
-
-      // Use shared animation functions
-      fadeOut(oldText);
-      fadeIn(newText);
-
-      currentIndex = index;
-    };
-
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top top",
-      end: calculateScrollEnd(STEPS),
-      pin: true,
-      snap: getSnapConfig(STEPS),
-      onUpdate: (self) => {
-        const activeStep = getActiveStep(self.progress, STEPS);
-        if (currentIndex !== activeStep) {
-          showText(activeStep);
-        }
-      },
+    // Hide all texts immediately except current and previous
+    texts.forEach((text, i) => {
+      if (i !== currentStep && i !== previousStep) {
+        gsap.set(text, { autoAlpha: 0 });
+      }
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+    // Fade out previous text
+    const previousText = texts[previousStep];
+    if (previousText && previousStep !== currentStep) {
+      fadeOut(previousText);
+    }
+
+    // Fade in current text
+    const currentText = texts[currentStep];
+    if (currentText) fadeIn(currentText);
+
+    previousStepRef.current = currentStep;
+  }, [currentStep]);
+
+  // Set up ScrollTrigger
+  useScrollTrigger({
+    sectionRef,
+    steps: STEPS,
+    onStepChange: setCurrentStep,
+  });
 
   function scrollToNext() {
     if (sectionRef.current) {
@@ -121,6 +105,7 @@ export default function HookSection() {
         <div
           ref={text2Ref}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center flex flex-col items-center justify-center gap-20"
+          style={{ opacity: 0, visibility: "hidden" }}
         >
           <p className="hook-p">{useCopy("hooks_2_text")}</p>
         </div>

@@ -16,8 +16,8 @@ export const SCROLL_CONFIG = {
   FADE_IN_EASE: "power2.out",
 
   // Snap configuration
-  SNAP_DURATION: 0.3,
-  SNAP_EASE: "power1.inOut",
+  SNAP_DURATION: 0.2,
+  SNAP_EASE: "power2.out", //"power1.inOut",
 
   // Animation properties
   FADE_OUT_Y: -30,

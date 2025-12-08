@@ -2,18 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
-import {
-  calculateScrollEnd,
-  getSnapConfig,
-  getActiveStep,
-  ANIMATION_CONFIG,
-} from "@/helpers/scroll";
+import { useScrollTrigger } from "@/hooks/useScrollTrigger";
+import { ANIMATION_CONFIG } from "@/helpers/scroll";
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+const STEPS = 5; // 1 intro + 4 stats
 
 export default function JourneySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -28,16 +22,15 @@ export default function JourneySection() {
 
   const [showMethodTooltip, setShowMethodTooltip] = useState<boolean>(false);
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const previousStepRef = useRef(0);
 
+  // Set initial visibility
   useEffect(() => {
-    const section = sectionRef.current;
     const text1 = text1Ref.current;
     const journeyPath = journeyPathRef.current;
     const stats = statRefs.map((ref) => ref.current);
 
-    if (!section || !text1 || !journeyPath || stats.some((s) => !s)) return;
-
-    const STEPS = 5; // 1 intro + 4 stats
+    if (!text1 || !journeyPath || stats.some((s) => !s)) return;
 
     // Get all children of each stat container
     const allStatChildren = stats.map((stat) =>
@@ -48,32 +41,71 @@ export default function JourneySection() {
     // Initial state - all stats and journey path hidden, intro text visible
     gsap.set([journeyPath, ...flatStatChildren], { autoAlpha: 0, y: 30 });
     gsap.set(text1, { autoAlpha: 1, y: 0 });
+  }, []);
 
-    let currentIndex = 0;
-    const statElements = allStatChildren.map((children, i) => ({
-      index: i + 1,
-      children,
-    }));
+  // Handle step transitions
+  useEffect(() => {
+    const text1 = text1Ref.current;
+    const journeyPath = journeyPathRef.current;
+    const stats = statRefs.map((ref) => ref.current);
 
-    const showElement = (index: number) => {
-      if (currentIndex === index) return;
+    if (!text1 || !journeyPath || stats.some((s) => !s)) return;
 
-      const oldStat = statElements.find((s) => s.index === currentIndex);
-      const newStat = statElements.find((s) => s.index === index);
+    const previousStep = previousStepRef.current;
 
-      // Kill all ongoing animations first
-      gsap.killTweensOf([text1, journeyPath, ...flatStatChildren]);
+    // Kill all ongoing animations first
+    gsap.killTweensOf([text1, journeyPath]);
 
-      // Hide all stat elements immediately except the ones transitioning
-      statElements.forEach((stat) => {
-        if (stat.index !== currentIndex && stat.index !== index) {
-          gsap.set(stat.children, { autoAlpha: 0 });
+    // Handle journey path and visibility based on current step
+    if (currentStep === 0) {
+      // On intro screen
+
+      // Hide journey path
+      gsap.to(journeyPath, {
+        autoAlpha: 0,
+        y: 30,
+        duration: ANIMATION_CONFIG.duration,
+        ease: ANIMATION_CONFIG.fadeOut.ease,
+      });
+
+      // Hide all stats immediately
+      stats.forEach((stat) => {
+        if (stat) {
+          const statContent = stat.querySelectorAll(".stat-content");
+          gsap.killTweensOf(statContent);
+          gsap.set(statContent, { autoAlpha: 0 });
         }
       });
 
-      // Handle journey path visibility
-      if (currentIndex === 0 && index > 0) {
-        // Transitioning from intro to stats - fade in journey path with delay
+      // Show intro text
+      gsap.killTweensOf(text1);
+      gsap.fromTo(
+        text1,
+        { autoAlpha: 0, y: 30 },
+        {
+          autoAlpha: 1,
+          duration: ANIMATION_CONFIG.duration,
+          ...ANIMATION_CONFIG.fadeIn,
+        }
+      );
+    } else {
+      // On a stat screen (steps 1-4)
+
+      // Fade out intro text if coming from intro
+      if (previousStep === 0) {
+        gsap.to(text1, {
+          autoAlpha: 0,
+          duration: ANIMATION_CONFIG.duration,
+          ...ANIMATION_CONFIG.fadeOut,
+        });
+      } else {
+        // Already on stats - hide intro immediately
+        gsap.set(text1, { autoAlpha: 0 });
+      }
+
+      // Ensure journey path is visible
+      if (previousStep === 0) {
+        // Coming from intro - fade in
         gsap.fromTo(
           journeyPath,
           { autoAlpha: 0, y: 30 },
@@ -82,62 +114,47 @@ export default function JourneySection() {
             ...ANIMATION_CONFIG.fadeIn,
           }
         );
-      } else if (index === 0) {
-        // Transitioning to intro - hide journey path
-        gsap.to(journeyPath, {
-          autoAlpha: 0,
-          y: 30,
-          duration: ANIMATION_CONFIG.duration,
-          ease: ANIMATION_CONFIG.fadeOut.ease,
-        });
+      } else {
+        // Already on stats - ensure it's visible immediately
+        gsap.set(journeyPath, { autoAlpha: 1, y: 0 });
       }
 
-      // Fade out old element
-      const oldElement = currentIndex === 0 ? text1 : oldStat?.children;
-      if (oldElement) {
-        gsap.to(oldElement, {
-          autoAlpha: 0,
-          duration: ANIMATION_CONFIG.duration,
-          ...ANIMATION_CONFIG.fadeOut,
-        });
-      }
+      // Hide all stats, then show only the current one
+      stats.forEach((stat, index) => {
+        if (stat) {
+          const statContent = stat.querySelectorAll(".stat-content");
+          gsap.killTweensOf(statContent);
 
-      // Fade in new element
-      const newElement = index === 0 ? text1 : newStat?.children;
-      if (newElement) {
-        gsap.fromTo(
-          newElement,
-          { autoAlpha: 0, y: 30 },
-          {
-            autoAlpha: 1,
-            duration: ANIMATION_CONFIG.duration,
-            ...ANIMATION_CONFIG.fadeIn,
+          const statIndex = index + 1; // Stats are 1-indexed
+
+          if (statIndex === currentStep) {
+            // Current stat - fade it in
+            gsap.fromTo(
+              statContent,
+              { autoAlpha: 0, y: 30 },
+              {
+                autoAlpha: 1,
+                duration: ANIMATION_CONFIG.duration,
+                ...ANIMATION_CONFIG.fadeIn,
+              }
+            );
+          } else {
+            // Other stats - hide immediately
+            gsap.set(statContent, { autoAlpha: 0 });
           }
-        );
-      }
-
-      currentIndex = index;
-      setCurrentStep(index);
-    };
-
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top top",
-      end: calculateScrollEnd(STEPS),
-      pin: true,
-      snap: getSnapConfig(STEPS),
-      onUpdate: (self) => {
-        const activeStep = getActiveStep(self.progress, STEPS);
-        if (currentIndex !== activeStep) {
-          showElement(activeStep);
         }
-      },
-    });
+      });
+    }
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+    previousStepRef.current = currentStep;
+  }, [currentStep]);
+
+  // Set up ScrollTrigger
+  useScrollTrigger({
+    sectionRef,
+    steps: STEPS,
+    onStepChange: setCurrentStep,
+  });
 
   const tooltipText = useCopy("context_button_method_tooltip");
 

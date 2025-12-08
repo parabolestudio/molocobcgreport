@@ -1,19 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { useCopy } from "@/contexts/CopyContext";
 import {
-  calculateScrollEnd,
-  getSnapConfig,
-  getActiveStep,
-  fadeOut,
-  fadeIn,
-} from "@/helpers/scroll";
+  useScrollTrigger,
+  setInitialVisibility,
+} from "@/hooks/useScrollTrigger";
+import { fadeOut, fadeIn } from "@/helpers/scroll";
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+const STEPS = 3;
 
 export default function ClosureSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -27,100 +23,78 @@ export default function ClosureSection() {
   const cardContent2Ref = useRef<HTMLDivElement>(null);
   const cardContent3Ref = useRef<HTMLDivElement>(null);
 
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const roundedDivs = [roundedDiv1Ref, roundedDiv2Ref, roundedDiv3Ref];
+  const cardContents = [cardContent1Ref, cardContent2Ref, cardContent3Ref];
+
+  // Set initial visibility
   useEffect(() => {
-    const section = sectionRef.current;
+    setInitialVisibility([titleRef, paragraph1Ref], {
+      visible: [0, 1],
+      hidden: [],
+    });
+    setInitialVisibility([paragraph2Ref, ...roundedDivs, ...cardContents], {
+      visible: [],
+      hidden: [0, 1, 2, 3, 4, 5],
+    });
+  }, []);
+
+  // Handle step transitions
+  useEffect(() => {
     const title = titleRef.current;
     const paragraph1 = paragraph1Ref.current;
     const paragraph2 = paragraph2Ref.current;
-    const roundedDivs = [
-      roundedDiv1Ref.current,
-      roundedDiv2Ref.current,
-      roundedDiv3Ref.current,
-    ];
-    const cardContents = [
-      cardContent1Ref.current,
-      cardContent2Ref.current,
-      cardContent3Ref.current,
-    ];
+    const roundedDivElements = roundedDivs
+      .map((ref) => ref.current)
+      .filter(Boolean);
+    const cardContentElements = cardContents
+      .map((ref) => ref.current)
+      .filter(Boolean);
 
-    if (
-      !section ||
-      !title ||
-      !paragraph1 ||
-      !paragraph2 ||
-      roundedDivs.some((d) => !d) ||
-      cardContents.some((c) => !c)
-    )
+    if (!title || !paragraph1 || !paragraph2) return;
+    if (roundedDivElements.length === 0 || cardContentElements.length === 0)
       return;
 
-    const STEPS = 3;
+    // Kill all ongoing animations first
+    gsap.killTweensOf([
+      title,
+      paragraph1,
+      paragraph2,
+      ...roundedDivElements,
+      ...cardContentElements,
+    ]);
 
-    // Initial state - only title and paragraph1 visible
-    gsap.set(title, { autoAlpha: 1, y: 0 });
-    gsap.set(paragraph1, { autoAlpha: 1, y: 0 });
-    gsap.set([paragraph2, ...roundedDivs, ...cardContents], {
-      autoAlpha: 0,
-      y: 30,
-    });
+    if (currentStep === 0) {
+      // Step 0: Show title and paragraph1, hide everything else
+      fadeOut([paragraph2, ...roundedDivElements, ...cardContentElements]);
+      fadeIn([title, paragraph1]);
+    } else if (currentStep === 1) {
+      // Step 1: Show paragraph2 and rounded divs, hide everything else
+      fadeOut([title, paragraph1]);
+      fadeOut([...cardContentElements]);
+      fadeIn([paragraph2, ...roundedDivElements]);
+    } else if (currentStep === 2) {
+      // Step 2: Show paragraph2, rounded divs, and card contents
+      fadeOut([title, paragraph1]);
 
-    let currentIndex = 0;
+      // Ensure these are visible
+      gsap.to([paragraph2, ...roundedDivElements], {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.1,
+      });
 
-    const showStep = (index: number) => {
-      if (currentIndex === index) return;
+      fadeIn(cardContentElements);
+    }
+  }, [currentStep]);
 
-      // Kill all ongoing animations first
-      gsap.killTweensOf([
-        title,
-        paragraph1,
-        paragraph2,
-        ...roundedDivs,
-        ...cardContents,
-      ]);
-
-      if (index === 0) {
-        // Step 0: Show title and paragraph1, hide everything else
-        fadeOut([paragraph2, ...roundedDivs, ...cardContents]);
-        fadeIn([title, paragraph1]);
-      } else if (index === 1) {
-        // Step 1: Show paragraph2 and rounded divs, hide everything else
-        fadeOut([title, paragraph1]);
-        fadeOut([...cardContents]);
-        fadeIn([paragraph2, ...roundedDivs]);
-      } else if (index === 2) {
-        // Step 2: Show paragraph2, rounded divs, and card contents
-        fadeOut([title, paragraph1]);
-
-        // Ensure these are visible
-        gsap.to([paragraph2, ...roundedDivs], {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.1,
-        });
-
-        fadeIn(cardContents);
-      }
-
-      currentIndex = index;
-    };
-
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top top",
-      end: calculateScrollEnd(STEPS),
-      pin: true,
-      snap: getSnapConfig(STEPS),
-      onUpdate: (self) => {
-        const activeStep = getActiveStep(self.progress, STEPS);
-        if (currentIndex !== activeStep) {
-          showStep(activeStep);
-        }
-      },
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+  // Set up ScrollTrigger
+  useScrollTrigger({
+    sectionRef,
+    steps: STEPS,
+    onStepChange: setCurrentStep,
+  });
 
   return (
     <div ref={sectionRef} className="relative w-full h-screen bg-forest-green">

@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Chart from "./Chart";
 import ChartPanel from "./ChartPanel";
 import type { ChartMode } from "@/helpers/chart";
@@ -15,8 +14,6 @@ import {
   fadeIn,
   SCROLL_CONFIG,
 } from "@/helpers/scroll";
-
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function QuadrantSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
