@@ -84,21 +84,21 @@ qu_top_right_description,"Quadrant, step 4 body text","These verticals need to <
 - Continue diversifying media spend to reach people where they are"
 qu_data_nudge,Vertical selection nudge,Select a vertical to explore details.
 ,Info message for the next phase,Click on a vertical to explore details. Hover over the quadrant name for definitions.
-,Closure title,<b>Customer relationships</b> are the durable asset of the AI future
-,Closure paragraph 1,"While the implications of the AI future will vary by vertical, there’s one strategic principle that’s consistent. And that’s the need to own more of the customer relationship. Because while journeys shift, relationships endure."
-,Closure paragraph 2,"Many forward-looking CMOs are turning to a hidden gem of their arsenal – their mobile app. At a time when brands are getting disintermediated, surfaces where you own the customer relationship become a primary competitive advantage.
+closure_title,Closure title,<b>Customer relationships</b> are the durable asset of the AI future
+closure_paragraph_1,Closure paragraph 1,"While the implications of the AI future will vary by vertical, there’s one strategic principle that’s consistent. And that’s the need to own more of the customer relationship. Because while journeys shift, relationships endure."
+closure_paragraph_2,Closure paragraph 2,"Many forward-looking CMOs are turning to a hidden gem of their arsenal – their mobile app. At a time when brands are getting disintermediated, surfaces where you own the customer relationship become a primary competitive advantage.
 
 <b>Here are a few of their strategies to own the AI future on mobile apps:</b>"
-,Closure card 1,"<b>Deepening customer relationships on mobile</b>
+closure_card_1,Closure card 1,"<b>Deepening customer relationships on mobile</b>
 
 Brands are finding opportunities to deepen engagement and loyalty with strong mobile apps that offer personalized content and discovery, gamified interactions, community building, and exclusive access/rewards."
-,Closure card 2 title,"<b>Diversifying channel mixes to reach customers where they are</b>
+closure_card_2,Closure card 2 title,"<b>Diversifying channel mixes to reach customers where they are</b>
 
 To grow their app user base and encourage regular app usage, many media teams are reducing reliance on traditional channels. They’re diversifying their media channel mix outside walled gardens to reach users across the independent app ecosystem."
-,Closure card 3 title,"<b>Integrating AI into their mobile apps</b>
+closure_card_3,Closure card 3 title,"<b>Integrating AI into their mobile apps</b>
 
 Brands are investing in everything from direct LLM integrations to LLM-driven browsing, comparison, and assistance. The more you can combine the unique value your brand offers with the LLM experiences customers have come to rely on, the closer the ties you can build."
-,CTA text,<green>Contact us to talk more about <b>your company and vertical</b>.</green>
-,CTA button 1,BCG report
-,CTA button 2,methodology
-,CTA button 3,contact us
+cta_text,CTA text,<green>Contact us to talk more about <b>your company and vertical</b></green>
+cta_text_button_1,CTA button 1,BCG report
+cta_text_button_2,CTA button 2,methodology
+cta_text_button_3,CTA button 3,contact us

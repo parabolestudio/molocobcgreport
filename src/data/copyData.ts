@@ -53,5 +53,15 @@ export const copyData: CopyData = {
   "qu_top_right_title": "<b>Secured</b>",
   "qu_top_right_headline": "Low AI disruption and strong customer relationships combine to create resilience.",
   "qu_top_right_description": "These verticals need to <b>defend and differentiate</b>, including:\n\n- Reimagining customer connection with AI-powered experiences, shifting from generic loyalty to personalized, proactive relationships \n- Continue diversifying media spend to reach people where they are",
-  "qu_data_nudge": "Select a vertical to explore details."
+  "qu_data_nudge": "Select a vertical to explore details.",
+  "closure_title": "<b>Customer relationships</b> are the durable asset of the AI future",
+  "closure_paragraph_1": "While the implications of the AI future will vary by vertical, there’s one strategic principle that’s consistent. And that’s the need to own more of the customer relationship. Because while journeys shift, relationships endure.",
+  "closure_paragraph_2": "Many forward-looking CMOs are turning to a hidden gem of their arsenal – their mobile app. At a time when brands are getting disintermediated, surfaces where you own the customer relationship become a primary competitive advantage.\n\n<b>Here are a few of their strategies to own the AI future on mobile apps:</b>",
+  "closure_card_1": "<b>Deepening customer relationships on mobile</b>\n\nBrands are finding opportunities to deepen engagement and loyalty with strong mobile apps that offer personalized content and discovery, gamified interactions, community building, and exclusive access/rewards.",
+  "closure_card_2": "<b>Diversifying channel mixes to reach customers where they are</b>\n\nTo grow their app user base and encourage regular app usage, many media teams are reducing reliance on traditional channels. They’re diversifying their media channel mix outside walled gardens to reach users across the independent app ecosystem.",
+  "closure_card_3": "<b>Integrating AI into their mobile apps</b>\n\nBrands are investing in everything from direct LLM integrations to LLM-driven browsing, comparison, and assistance. The more you can combine the unique value your brand offers with the LLM experiences customers have come to rely on, the closer the ties you can build.",
+  "cta_text": "<green>Contact us to talk more about <b>your company and vertical</b></green>",
+  "cta_text_button_1": "BCG report",
+  "cta_text_button_2": "methodology",
+  "cta_text_button_3": "contact us"
 };
