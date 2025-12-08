@@ -31,6 +31,10 @@ export interface Copy {
   customer_loyalty_score: number;
   customer_engagement_intro: string;
   customer_engagement_score: number;
+
+  avgAcquisitionScore?: number;
+  avgLoyaltyScore?: number;
+  avgEngagementScore?: number;
 }
 
 export default function ChartPanel({
@@ -123,6 +127,23 @@ export default function ChartPanel({
           ? +d["Platform Engagement Depth (score)"]
           : 0,
       }));
+      // calculate average scores for customer acquisition, loyalty, and engagement across all verticals
+      processedData.forEach((d) => {
+        (d as any).avgAcquisitionScore =
+          processedData.reduce(
+            (sum, d) => sum + d.customer_acquisition_score,
+            0
+          ) / processedData.length;
+        (d as any).avgLoyaltyScore =
+          processedData.reduce((sum, d) => sum + d.customer_loyalty_score, 0) /
+          processedData.length;
+        (d as any).avgEngagementScore =
+          processedData.reduce(
+            (sum, d) => sum + d.customer_engagement_score,
+            0
+          ) / processedData.length;
+      });
+
       setVerticalsCopy(processedData);
     });
   }, []);

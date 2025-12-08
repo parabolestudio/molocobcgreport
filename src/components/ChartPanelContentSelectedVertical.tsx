@@ -196,18 +196,21 @@ function DetailsCopy({ copy }: { copy: Copy }) {
           note="% of non-paid traffic share"
           score={copy.customer_acquisition_score}
           description={copy.customer_acquisition_intro}
+          avgScore={copy.avgAcquisitionScore || null}
         />
         <ScoreDisplay
           title="Loyalty Strength"
           note="d30/d7 retention ratio"
           score={copy.customer_loyalty_score}
           description={copy.customer_loyalty_intro}
+          avgScore={copy.avgLoyaltyScore || null}
         />
         <ScoreDisplay
           title="Platform Engagement"
           note="share of time spent on app vs. web"
           score={copy.customer_engagement_score}
           description={copy.customer_engagement_intro}
+          avgScore={copy.avgEngagementScore || null}
         />
       </div>
     </div>
@@ -219,11 +222,13 @@ function ScoreDisplay({
   note,
   score,
   description,
+  avgScore,
 }: {
   title: string;
   note: string;
   score: number;
   description: string;
+  avgScore: number | null;
 }) {
   const [width, setWidth] = useState(230);
   const height = 90;
@@ -262,18 +267,19 @@ function ScoreDisplay({
                 strokeWidth={1.5}
                 strokeLinecap="round"
               />
-              {xScale.ticks().map((tickValue) => (
-                <g key={tickValue}>
+              <g>
+                {xScale.ticks().map((tickValue) => (
                   <line
+                    key={tickValue}
                     x1={xScale(tickValue)}
                     y1={midLine - 10}
                     x2={xScale(tickValue)}
                     y2={midLine}
                     className="stroke-forest-green"
-                    strokeWidth={1.5}
+                    strokeWidth={0.5}
                   />
-                </g>
-              ))}
+                ))}
+              </g>
               <line
                 x1={xScale(score)}
                 y1={midLine - 20}
@@ -299,6 +305,27 @@ function ScoreDisplay({
               >
                 {score.toFixed(1)}
               </text>
+              {avgScore !== null && (
+                <g transform={`translate(${xScale(avgScore)}, 0)`}>
+                  <line
+                    x1="0"
+                    x2="0"
+                    y1={midLine + 20}
+                    y2={midLine}
+                    className="stroke-forest-green"
+                    strokeWidth={1.5}
+                  />
+                  <text
+                    dx="-3"
+                    y={midLine + 15}
+                    className="fill-forest-green text-[14px]"
+                    textAnchor="end"
+                    dominantBaseline="middle"
+                  >
+                    avg.
+                  </text>
+                </g>
+              )}
             </g>
           </svg>
         </div>
