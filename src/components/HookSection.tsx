@@ -13,26 +13,24 @@ export default function HookSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const text1Ref = useRef<HTMLDivElement>(null);
   const text2Ref = useRef<HTMLDivElement>(null);
-  const text3Ref = useRef<HTMLDivElement>(null);
-  const text4Ref = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
     const text1 = text1Ref.current;
     const text2 = text2Ref.current;
-    const text3 = text3Ref.current;
-    const text4 = text4Ref.current;
+    const title = titleRef.current;
 
-    if (!section || !text1 || !text2 || !text3 || !text4) return;
+    if (!section || !text1 || !text2 || !title) return;
 
     // Initial state - all text hidden except first
-    gsap.set([text2, text3, text4], { autoAlpha: 0, y: 30 });
+    gsap.set([text2, title], { autoAlpha: 0, y: 30 });
     gsap.set(text1, { autoAlpha: 1, y: 0 });
 
     let currentIndex = 0;
-    const texts = [text1, text2, text3, text4];
-
+    const texts = [text1, text2, title];
     const showText = (index: number) => {
+      console.log("Showing text index:", index);
       if (currentIndex === index) return;
 
       // Kill all ongoing animations first
@@ -75,23 +73,21 @@ export default function HookSection() {
     ScrollTrigger.create({
       trigger: section,
       start: "top top",
-      end: "+=400%",
+      end: "+=300%",
       pin: true,
       snap: {
-        snapTo: [0, 0.25, 0.5, 0.75, 1],
+        snapTo: [0, 0.33, 0.66, 1],
         duration: 0.3,
         ease: "power1.inOut",
       },
       onUpdate: (self) => {
         const progress = self.progress;
-        if (progress < 0.25) {
+        if (progress < 0.33) {
           if (currentIndex !== 0) showText(0);
-        } else if (progress < 0.5) {
+        } else if (progress < 0.66) {
           if (currentIndex !== 1) showText(1);
-        } else if (progress < 0.75) {
-          if (currentIndex !== 2) showText(2);
         } else {
-          if (currentIndex !== 3) showText(3);
+          if (currentIndex !== 2) showText(2);
         }
       },
     });
@@ -158,31 +154,10 @@ export default function HookSection() {
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center flex flex-col items-center justify-center gap-20"
         >
           <p className="hook-p">{useCopy("hooks_2_text")}</p>
-          {/* <button
-            className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
-            onClick={() => scrollNext()}
-          >
-            <span>scroll</span>
-            <img
-              src={`${basePath}/icons/arrow.svg`}
-              alt="arrow"
-              width={16}
-              height={13}
-              style={{ transform: "rotate(-90deg)" }}
-            />
-          </button> */}
         </div>
 
         <div
-          ref={text3Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[900px] px-8 text-center"
-          style={{ opacity: 0, visibility: "hidden" }}
-        >
-          <p className="hook-p">{useCopy("hooks_3_text")}</p>
-        </div>
-
-        <div
-          ref={text4Ref}
+          ref={titleRef}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 text-center flex flex-col items-center justify-center gap-[128px]"
           style={{ opacity: 0, visibility: "hidden" }}
         >
