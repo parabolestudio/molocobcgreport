@@ -7,70 +7,111 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
 export default function JourneySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const text1Ref = useRef<HTMLDivElement>(null);
-  const text2Ref = useRef<HTMLDivElement>(null);
-  const text3Ref = useRef<HTMLDivElement>(null);
-  const text4Ref = useRef<HTMLDivElement>(null);
-  const text5Ref = useRef<HTMLDivElement>(null);
+  const journeyPathRef = useRef<HTMLDivElement>(null);
+  const statRefs = [
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+  ];
 
-  const [journeyStep, setJourneyStep] = useState<number>(1);
   const [showMethodTooltip, setShowMethodTooltip] = useState<boolean>(false);
 
   useEffect(() => {
     const section = sectionRef.current;
     const text1 = text1Ref.current;
-    const text2 = text2Ref.current;
-    const text3 = text3Ref.current;
-    const text4 = text4Ref.current;
-    const text5 = text5Ref.current;
+    const journeyPath = journeyPathRef.current;
+    const stats = statRefs.map((ref) => ref.current);
 
-    if (!section || !text1 || !text2 || !text3 || !text4 || !text5) return;
+    if (!section || !text1 || !journeyPath || stats.some((s) => !s)) return;
 
-    // Initial state - all text hidden except first
-    gsap.set([text2, text3, text4, text5], { autoAlpha: 0, y: 30 });
+    // Get all children of each stat container
+    const allStatChildren = stats.map((stat) =>
+      stat!.querySelectorAll(".stat-content")
+    );
+    const flatStatChildren = allStatChildren.flat();
+
+    // Initial state - all stats and journey path hidden, intro text visible
+    gsap.set([journeyPath, ...flatStatChildren], { autoAlpha: 0, y: 30 });
     gsap.set(text1, { autoAlpha: 1, y: 0 });
 
     let currentIndex = 0;
-    const texts = [text1, text2, text3, text4, text5];
+    const statElements = allStatChildren.map((children, i) => ({
+      index: i + 1,
+      children,
+    }));
 
-    const showText = (index: number) => {
+    const animationConfig = {
+      duration: 0.4,
+      fadeOut: { y: -30, ease: "power2.in" },
+      fadeIn: { y: 0, ease: "power2.out", delay: 0.4 },
+    };
+
+    const showElement = (index: number) => {
       if (currentIndex === index) return;
 
+      const oldStat = statElements.find((s) => s.index === currentIndex);
+      const newStat = statElements.find((s) => s.index === index);
+
       // Kill all ongoing animations first
-      texts.forEach((text) => gsap.killTweensOf(text));
+      gsap.killTweensOf([text1, journeyPath, ...flatStatChildren]);
 
-      const oldText = texts[currentIndex];
-      const newText = texts[index];
-
-      // Hide all texts immediately except the ones transitioning
-      texts.forEach((text, i) => {
-        if (i !== currentIndex && i !== index) {
-          gsap.set(text, { autoAlpha: 0 });
+      // Hide all stat elements immediately except the ones transitioning
+      statElements.forEach((stat) => {
+        if (stat.index !== currentIndex && stat.index !== index) {
+          gsap.set(stat.children, { autoAlpha: 0 });
         }
       });
 
-      // Fade out and move up the old text
-      gsap.to(oldText, {
-        autoAlpha: 0,
-        y: -30,
-        duration: 0.4,
-        ease: "power2.in",
-      });
+      // Handle journey path visibility
+      if (currentIndex === 0 && index > 0) {
+        // Transitioning from intro to stats - fade in journey path with delay
+        gsap.fromTo(
+          journeyPath,
+          { autoAlpha: 0, y: 30 },
+          {
+            autoAlpha: 1,
+            ...animationConfig.fadeIn,
+          }
+        );
+      } else if (index === 0) {
+        // Transitioning to intro - hide journey path
+        gsap.to(journeyPath, {
+          autoAlpha: 0,
+          y: 30,
+          duration: animationConfig.duration,
+          ease: animationConfig.fadeOut.ease,
+        });
+      }
 
-      // Fade in and move up the new text
-      gsap.fromTo(
-        newText,
-        { autoAlpha: 0, y: 30 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.4,
-          ease: "power2.out",
-          delay: 0.4,
-        }
-      );
+      // Fade out old element
+      const oldElement = currentIndex === 0 ? text1 : oldStat?.children;
+      if (oldElement) {
+        gsap.to(oldElement, {
+          autoAlpha: 0,
+          duration: animationConfig.duration,
+          ...animationConfig.fadeOut,
+        });
+      }
+
+      // Fade in new element
+      const newElement = index === 0 ? text1 : newStat?.children;
+      if (newElement) {
+        gsap.fromTo(
+          newElement,
+          { autoAlpha: 0, y: 30 },
+          {
+            autoAlpha: 1,
+            duration: animationConfig.duration,
+            ...animationConfig.fadeIn,
+          }
+        );
+      }
 
       currentIndex = index;
     };
@@ -88,15 +129,15 @@ export default function JourneySection() {
       onUpdate: (self) => {
         const progress = self.progress;
         if (progress < 0.2) {
-          if (currentIndex !== 0) showText(0);
+          if (currentIndex !== 0) showElement(0);
         } else if (progress < 0.4) {
-          if (currentIndex !== 1) showText(1);
+          if (currentIndex !== 1) showElement(1);
         } else if (progress < 0.6) {
-          if (currentIndex !== 2) showText(2);
+          if (currentIndex !== 2) showElement(2);
         } else if (progress < 0.8) {
-          if (currentIndex !== 3) showText(3);
+          if (currentIndex !== 3) showElement(3);
         } else {
-          if (currentIndex !== 4) showText(4);
+          if (currentIndex !== 4) showElement(4);
         }
       },
     });
@@ -106,14 +147,12 @@ export default function JourneySection() {
     };
   }, []);
 
-  const screenClasses =
-    "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-10 opacity-0 invisible";
-
   const tooltipText = useCopy("context_button_method_tooltip");
 
   return (
     <div ref={sectionRef} className="relative w-full h-screen">
       <div className="relative w-full h-full flex items-center justify-center">
+        {/* Intro screen */}
         <div
           ref={text1Ref}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full opacity-0 invisible"
@@ -170,32 +209,65 @@ export default function JourneySection() {
             </button>
           </div>
         </div>
-        <div ref={text2Ref} className={screenClasses}>
-          <JourneyContent step={1} />
-        </div>
 
-        <div
-          ref={text3Ref}
-          className={screenClasses}
-          style={{ opacity: 0, visibility: "hidden" }}
-        >
-          <JourneyContent step={2} />
-        </div>
+        {/* Stats screens with grid */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-10 pointer-events-none">
+          <div className="grid grid-cols-[1fr_1.5fr_1fr] grid-rows-[1fr_1.5fr] gap-15">
+            <div
+              ref={journeyPathRef}
+              style={{ gridArea: "1 / 1 / 2 / 4" }}
+              className="opacity-0 invisible"
+            >
+              <JourneyPath />
+            </div>
 
-        <div
-          ref={text4Ref}
-          className={screenClasses}
-          style={{ opacity: 0, visibility: "hidden" }}
-        >
-          <JourneyContent step={3} />
+            {[1, 2, 3, 4].map((step) => (
+              <StatDisplay
+                key={step}
+                step={step}
+                passRef={statRefs[step - 1]}
+              />
+            ))}
+          </div>
         </div>
+      </div>
+    </div>
+  );
+}
 
-        <div
-          ref={text5Ref}
-          className={screenClasses}
-          style={{ opacity: 0, visibility: "hidden" }}
-        >
-          <JourneyContent step={4} />
+function StatDisplay({
+  step,
+  passRef,
+}: {
+  step: number;
+  passRef: React.RefObject<HTMLDivElement | null>;
+}) {
+  return (
+    <div ref={passRef} style={{ display: "contents" }}>
+      <div
+        className="stat-content flex flex-col justify-end opacity-0 invisible"
+        style={{
+          gridArea: "2 / 2 / 3 / 3",
+        }}
+      >
+        <div className="text-grey-text text-[40px] text-center font-bold mb-4">
+          {useCopy(`journey_${step}_stat_headline`)}
+        </div>
+        <div className="text-bright-green text-[260px] text-center font-semibold leading-none">
+          {useCopy(`journey_${step}_stat_number`)}
+        </div>
+        <div className="text-bright-green text-[24px] text-center text-balance">
+          {useCopy(`journey_${step}_stat_text`)}
+        </div>
+      </div>
+      <div
+        className="stat-content flex flex-col justify-end opacity-0 invisible"
+        style={{
+          gridArea: "2 / 3 / 3 / 4",
+        }}
+      >
+        <div className="text-grey-text text-[14px] text-balance">
+          {useCopy(`journey_${step}_stat_source`)}
         </div>
       </div>
     </div>
@@ -239,41 +311,6 @@ function JourneyPath() {
         <circle cx="9.5" cy="126.5" r="9.5" fill="#60E2B7" />
         <circle cx="1491.5" cy="9.5" r="9.5" fill="#60E2B7" />
       </svg>
-    </div>
-  );
-}
-function JourneyContent({ step }: { step: number }) {
-  return (
-    <div className="grid grid-cols-[1fr_1.5fr_1fr] grid-rows-[1fr_1.5fr] gap-15">
-      <div style={{ gridArea: "1 / 1 / 2 / 4" }}>
-        <JourneyPath />
-      </div>
-      <div
-        className="flex flex-col justify-end"
-        style={{
-          gridArea: "2 / 2 / 3 / 3",
-        }}
-      >
-        <div className="text-grey-text text-[40px] text-center font-bold mb-4">
-          {useCopy("journey_" + step + "_stat_headline")}
-        </div>
-        <div className="text-bright-green text-[260px] text-center font-semibold leading-none">
-          {useCopy("journey_" + step + "_stat_number")}
-        </div>
-        <div className="text-bright-green text-[24px] text-center text-balance">
-          {useCopy("journey_" + step + "_stat_text")}
-        </div>
-      </div>
-      <div
-        className="flex flex-col justify-end"
-        style={{
-          gridArea: "2 / 3 / 3 / 4",
-        }}
-      >
-        <div className="text-grey-text text-[14px] text-balance">
-          {useCopy("journey_" + step + "_stat_source")}
-        </div>
-      </div>
     </div>
   );
 }
