@@ -16,6 +16,7 @@ export default function JourneySection() {
   const text5Ref = useRef<HTMLDivElement>(null);
 
   const [journeyStep, setJourneyStep] = useState<number>(1);
+  const [showMethodTooltip, setShowMethodTooltip] = useState<boolean>(false);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -108,14 +109,66 @@ export default function JourneySection() {
   const screenClasses =
     "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-10 opacity-0 invisible";
 
+  const tooltipText = useCopy("context_button_method_tooltip");
+
   return (
     <div ref={sectionRef} className="relative w-full h-screen">
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={text1Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center flex flex-col items-center justify-center gap-20"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full opacity-0 invisible"
         >
-          context screen
+          <div className="max-w-[1728px] px-10 m-auto mb-16">
+            <div className="text-[32px] max-w-[900px]">
+              {useCopy("context_intro")}
+            </div>
+          </div>
+          <img
+            src={`${basePath}/icons/contextPath.svg`}
+            alt="Context Path"
+            className="w-full max-w-[80%] h-auto ml-[-5px]"
+          />
+          <div className="max-w-[1728px] flex justify-between items-end gap-2 px-10 m-auto mt-16">
+            <div className="text-[32px] max-w-[900px]">
+              {useCopy("context_buttons_text")}
+            </div>
+            <button
+              className="relative button-grey-text-hover bg-black-blue border-grey-text border rounded text-grey-text flex items-center justify-center gap-2 hover:bg-grey-text hover:text-black-blue transition"
+              onMouseEnter={() => setShowMethodTooltip(true)}
+              onMouseLeave={() => setShowMethodTooltip(false)}
+            >
+              <span className="">{useCopy("context_button_method")}</span>
+              <svg
+                width="30"
+                height="18"
+                viewBox="0 0 30 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.25 10.25C6.65 -1.75 22.85 -1.75 28.25 10.25"
+                  strokeWidth="2.5"
+                  className="stroke-grey-text no-fill"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M14.749 16.2501C14.1581 16.2501 13.5729 16.1337 13.0269 15.9076C12.481 15.6814 11.9849 15.35 11.567 14.9321C11.1492 14.5142 10.8177 14.0182 10.5916 13.4722C10.3654 12.9262 10.249 12.3411 10.249 11.7501C10.249 11.1592 10.3654 10.574 10.5916 10.028C10.8177 9.48208 11.1492 8.986 11.567 8.56814C11.9849 8.15028 12.481 7.81881 13.0269 7.59266C13.5729 7.36652 14.1581 7.25012 14.749 7.25012C15.9425 7.25012 17.0871 7.72423 17.931 8.56814C18.7749 9.41205 19.249 10.5566 19.249 11.7501C19.249 12.9436 18.7749 14.0882 17.931 14.9321C17.0871 15.776 15.9425 16.2501 14.749 16.2501Z"
+                  className="stroke-grey-text fill-grey-text with-fill"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <div>
+                {showMethodTooltip && (
+                  <div className="absolute bottom-[54px] right-0  text-black-blue bg-grey-text text-[18px] w-[380px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%]">
+                    {tooltipText}
+                  </div>
+                )}
+              </div>
+            </button>
+          </div>
         </div>
         <div ref={text2Ref} className={screenClasses}>
           <JourneyContent step={1} />

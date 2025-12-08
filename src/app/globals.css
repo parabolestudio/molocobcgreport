@@ -71,6 +71,15 @@ button {
   line-height: 108%;
   border-radius: 20px;
 }
+.button-grey-text-hover:hover {
+  path.no-fill {
+    stroke: var(--black-blue);
+  }
+  path.with-fill {
+    stroke: var(--black-blue);
+    fill: var(--black-blue);
+  }
+}
 
 .hook-p {
   font-size: 32px;
