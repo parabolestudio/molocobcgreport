@@ -147,6 +147,16 @@ button {
   @apply text-grey-text font-museo-moderno mb-8 text-[40px];
 }
 
+.panel-content .highlighted-axis .text-bright-green {
+  color: var(--bright-green);
+}
+.panel-content .highlighted-axis .text-bright-green {
+  color: var(--bright-green);
+}
+.panel-content .non-highlighted-axis .text-bright-green {
+  color: var(--grey-text);
+}
+
 /* journey section - journey path, dynamic svg */
 .journey-path {
   .active,
