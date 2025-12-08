@@ -146,3 +146,70 @@ button {
 .panel-content .panel-heading {
   @apply text-grey-text font-museo-moderno mb-8 text-[40px];
 }
+
+/* journey section - journey path, dynamic svg */
+.journey-path {
+  .active,
+  .inactive {
+    transition: opacity 400ms ease-in-out;
+  }
+  .step_1.active,
+  .step_2.active,
+  .step_3.active,
+  .step_4.active {
+    opacity: 0;
+  }
+
+  &.current-step-1 {
+    .step_1.active {
+      opacity: 1;
+    }
+    .step_1.inactive {
+      opacity: 0;
+    }
+    .step_2.active,
+    .step_3.active,
+    .step_4.active {
+      opacity: 0;
+    }
+  }
+  &.current-step-2 {
+    .step_2.active {
+      opacity: 1;
+    }
+    .step_2.inactive {
+      opacity: 0;
+    }
+    .step_1.active,
+    .step_3.active,
+    .step_4.active {
+      opacity: 0;
+    }
+  }
+  &.current-step-3 {
+    .step_3.active {
+      opacity: 1;
+    }
+    .step_3.inactive {
+      opacity: 0;
+    }
+    .step_1.active,
+    .step_2.active,
+    .step_4.active {
+      opacity: 0;
+    }
+  }
+  &.current-step-4 {
+    .step_4.active {
+      opacity: 1;
+    }
+    .step_4.inactive {
+      opacity: 0;
+    }
+    .step_1.active,
+    .step_2.active,
+    .step_3.active {
+      opacity: 0;
+    }
+  }
+}
