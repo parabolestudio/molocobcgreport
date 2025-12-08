@@ -6,6 +6,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
+import {
+  calculateScrollEnd,
+  getSnapConfig,
+  getActiveStep,
+  fadeOut,
+  fadeIn,
+} from "@/helpers/scroll";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -23,12 +30,15 @@ export default function HookSection() {
 
     if (!section || !text1 || !text2 || !title) return;
 
+    const STEPS = 3;
+    const texts = [text1, text2, title];
+
     // Initial state - all text hidden except first
     gsap.set([text2, title], { autoAlpha: 0, y: 30 });
     gsap.set(text1, { autoAlpha: 1, y: 0 });
 
     let currentIndex = 0;
-    const texts = [text1, text2, title];
+
     const showText = (index: number) => {
       if (currentIndex === index) return;
 
@@ -45,26 +55,9 @@ export default function HookSection() {
         }
       });
 
-      // Fade out and move up the old text
-      gsap.to(oldText, {
-        autoAlpha: 0,
-        y: -30,
-        duration: 0.4,
-        ease: "power2.in",
-      });
-
-      // Fade in and move up the new text
-      gsap.fromTo(
-        newText,
-        { autoAlpha: 0, y: 30 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.4,
-          ease: "power2.out",
-          delay: 0.4,
-        }
-      );
+      // Use shared animation functions
+      fadeOut(oldText);
+      fadeIn(newText);
 
       currentIndex = index;
     };
@@ -72,21 +65,13 @@ export default function HookSection() {
     ScrollTrigger.create({
       trigger: section,
       start: "top top",
-      end: "+=300%",
+      end: calculateScrollEnd(STEPS),
       pin: true,
-      snap: {
-        snapTo: [0, 0.33, 0.66, 1],
-        duration: 0.3,
-        ease: "power1.inOut",
-      },
+      snap: getSnapConfig(STEPS),
       onUpdate: (self) => {
-        const progress = self.progress;
-        if (progress < 0.33) {
-          if (currentIndex !== 0) showText(0);
-        } else if (progress < 0.66) {
-          if (currentIndex !== 1) showText(1);
-        } else {
-          if (currentIndex !== 2) showText(2);
+        const activeStep = getActiveStep(self.progress, STEPS);
+        if (currentIndex !== activeStep) {
+          showText(activeStep);
         }
       },
     });

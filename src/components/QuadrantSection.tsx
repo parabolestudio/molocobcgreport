@@ -8,6 +8,13 @@ import Chart from "./Chart";
 import ChartPanel from "./ChartPanel";
 import type { ChartMode } from "@/helpers/chart";
 import { useCopy } from "@/contexts/CopyContext";
+import {
+  calculateScrollEnd,
+  generateSnapPoints,
+  fadeOut,
+  fadeIn,
+  SCROLL_CONFIG,
+} from "@/helpers/scroll";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -19,7 +26,8 @@ export default function QuadrantSection() {
   const [chartMode, setChartMode] = useState<ChartMode>("expl-y-axis");
   const [selectedVertical, setSelectedVertical] = useState<string | null>(null);
 
-  const snapPoints = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
+  const TOTAL_STEPS = 8; // 1 intro + 7 chart modes
+  const snapPoints = generateSnapPoints(TOTAL_STEPS);
 
   // Handle clicking outside to deselect vertical
   useEffect(() => {
@@ -94,26 +102,9 @@ export default function QuadrantSection() {
         }
       });
 
-      // Fade out and move up the old screen
-      gsap.to(oldScreen, {
-        autoAlpha: 0,
-        y: -30,
-        duration: 0.4,
-        ease: "power2.in",
-      });
-
-      // Fade in and move up the new screen
-      gsap.fromTo(
-        newScreen,
-        { autoAlpha: 0, y: 30 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.4,
-          ease: "power2.out",
-          delay: 0.4,
-        }
-      );
+      // Use shared animation functions
+      fadeOut(oldScreen);
+      fadeIn(newScreen);
 
       currentIndex = index;
     };
@@ -121,12 +112,12 @@ export default function QuadrantSection() {
     ScrollTrigger.create({
       trigger: section,
       start: "top top",
-      end: "+=800%", // 8 screens (1 intro + 7 chart modes)
+      end: calculateScrollEnd(TOTAL_STEPS),
       pin: true,
       snap: {
-        snapTo: snapPoints, // Snap point for each mode
-        duration: 0.3,
-        ease: "power1.inOut",
+        snapTo: snapPoints,
+        duration: SCROLL_CONFIG.SNAP_DURATION,
+        ease: SCROLL_CONFIG.SNAP_EASE,
       },
       onUpdate: (self) => {
         const progress = self.progress;

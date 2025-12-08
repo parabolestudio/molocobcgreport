@@ -6,6 +6,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
+import {
+  calculateScrollEnd,
+  getSnapConfig,
+  getActiveStep,
+  ANIMATION_CONFIG,
+} from "@/helpers/scroll";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -31,6 +37,8 @@ export default function JourneySection() {
 
     if (!section || !text1 || !journeyPath || stats.some((s) => !s)) return;
 
+    const STEPS = 5; // 1 intro + 4 stats
+
     // Get all children of each stat container
     const allStatChildren = stats.map((stat) =>
       stat!.querySelectorAll(".stat-content")
@@ -46,12 +54,6 @@ export default function JourneySection() {
       index: i + 1,
       children,
     }));
-
-    const animationConfig = {
-      duration: 0.4,
-      fadeOut: { y: -30, ease: "power2.in" },
-      fadeIn: { y: 0, ease: "power2.out", delay: 0.4 },
-    };
 
     const showElement = (index: number) => {
       if (currentIndex === index) return;
@@ -77,7 +79,7 @@ export default function JourneySection() {
           { autoAlpha: 0, y: 30 },
           {
             autoAlpha: 1,
-            ...animationConfig.fadeIn,
+            ...ANIMATION_CONFIG.fadeIn,
           }
         );
       } else if (index === 0) {
@@ -85,8 +87,8 @@ export default function JourneySection() {
         gsap.to(journeyPath, {
           autoAlpha: 0,
           y: 30,
-          duration: animationConfig.duration,
-          ease: animationConfig.fadeOut.ease,
+          duration: ANIMATION_CONFIG.duration,
+          ease: ANIMATION_CONFIG.fadeOut.ease,
         });
       }
 
@@ -95,8 +97,8 @@ export default function JourneySection() {
       if (oldElement) {
         gsap.to(oldElement, {
           autoAlpha: 0,
-          duration: animationConfig.duration,
-          ...animationConfig.fadeOut,
+          duration: ANIMATION_CONFIG.duration,
+          ...ANIMATION_CONFIG.fadeOut,
         });
       }
 
@@ -108,8 +110,8 @@ export default function JourneySection() {
           { autoAlpha: 0, y: 30 },
           {
             autoAlpha: 1,
-            duration: animationConfig.duration,
-            ...animationConfig.fadeIn,
+            duration: ANIMATION_CONFIG.duration,
+            ...ANIMATION_CONFIG.fadeIn,
           }
         );
       }
@@ -121,25 +123,13 @@ export default function JourneySection() {
     ScrollTrigger.create({
       trigger: section,
       start: "top top",
-      end: "+=500%",
+      end: calculateScrollEnd(STEPS),
       pin: true,
-      snap: {
-        snapTo: [0, 0.2, 0.4, 0.6, 0.8, 1],
-        duration: 0.3,
-        ease: "power1.inOut",
-      },
+      snap: getSnapConfig(STEPS),
       onUpdate: (self) => {
-        const progress = self.progress;
-        if (progress < 0.2) {
-          if (currentIndex !== 0) showElement(0);
-        } else if (progress < 0.4) {
-          if (currentIndex !== 1) showElement(1);
-        } else if (progress < 0.6) {
-          if (currentIndex !== 2) showElement(2);
-        } else if (progress < 0.8) {
-          if (currentIndex !== 3) showElement(3);
-        } else {
-          if (currentIndex !== 4) showElement(4);
+        const activeStep = getActiveStep(self.progress, STEPS);
+        if (currentIndex !== activeStep) {
+          showElement(activeStep);
         }
       },
     });

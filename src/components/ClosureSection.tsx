@@ -5,6 +5,13 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { useCopy } from "@/contexts/CopyContext";
+import {
+  calculateScrollEnd,
+  getSnapConfig,
+  getActiveStep,
+  fadeOut,
+  fadeIn,
+} from "@/helpers/scroll";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -46,6 +53,8 @@ export default function ClosureSection() {
     )
       return;
 
+    const STEPS = 3;
+
     // Initial state - only title and paragraph1 visible
     gsap.set(title, { autoAlpha: 1, y: 0 });
     gsap.set(paragraph1, { autoAlpha: 1, y: 0 });
@@ -55,12 +64,6 @@ export default function ClosureSection() {
     });
 
     let currentIndex = 0;
-
-    const animationConfig = {
-      duration: 0.4,
-      fadeOut: { y: -30, ease: "power2.in" },
-      fadeIn: { y: 0, ease: "power2.out", delay: 0.4 },
-    };
 
     const showStep = (index: number) => {
       if (currentIndex === index) return;
@@ -76,55 +79,16 @@ export default function ClosureSection() {
 
       if (index === 0) {
         // Step 0: Show title and paragraph1, hide everything else
-        // Fade out elements that should be hidden
-        gsap.to([paragraph2, ...roundedDivs, ...cardContents], {
-          autoAlpha: 0,
-          y: 30,
-          duration: animationConfig.duration,
-          ease: "power2.in",
-        });
-
-        // Fade in visible elements
-        gsap.to([title, paragraph1], {
-          autoAlpha: 1,
-          y: 0,
-          duration: animationConfig.duration,
-          ease: "power2.out",
-          delay: 0.2,
-        });
+        fadeOut([paragraph2, ...roundedDivs, ...cardContents]);
+        fadeIn([title, paragraph1]);
       } else if (index === 1) {
         // Step 1: Show paragraph2 and rounded divs, hide everything else
-        // Fade out elements that should be hidden
-        gsap.to([title, paragraph1], {
-          autoAlpha: 0,
-          y: 30,
-          duration: animationConfig.duration,
-          ease: "power2.in",
-        });
-        gsap.to([...cardContents], {
-          autoAlpha: 0,
-          y: 0,
-          duration: animationConfig.duration,
-          ease: "power2.in",
-        });
-
-        // Fade in visible elements
-        gsap.to([paragraph2, ...roundedDivs], {
-          autoAlpha: 1,
-          y: 0,
-          duration: animationConfig.duration,
-          ease: "power2.out",
-          delay: 0.2,
-        });
+        fadeOut([title, paragraph1]);
+        fadeOut([...cardContents]);
+        fadeIn([paragraph2, ...roundedDivs]);
       } else if (index === 2) {
         // Step 2: Show paragraph2, rounded divs, and card contents
-        // Fade out elements that should be hidden
-        gsap.to([title, paragraph1], {
-          autoAlpha: 0,
-          y: 30,
-          duration: animationConfig.duration,
-          ease: "power2.in",
-        });
+        fadeOut([title, paragraph1]);
 
         // Ensure these are visible
         gsap.to([paragraph2, ...roundedDivs], {
@@ -133,14 +97,7 @@ export default function ClosureSection() {
           duration: 0.1,
         });
 
-        // Fade in card contents
-        gsap.to(cardContents, {
-          autoAlpha: 1,
-          y: 0,
-          duration: animationConfig.duration,
-          ease: "power2.out",
-          delay: 0.2,
-        });
+        fadeIn(cardContents);
       }
 
       currentIndex = index;
@@ -149,21 +106,13 @@ export default function ClosureSection() {
     ScrollTrigger.create({
       trigger: section,
       start: "top top",
-      end: "+=300%",
+      end: calculateScrollEnd(STEPS),
       pin: true,
-      snap: {
-        snapTo: [0, 0.33, 0.66, 1],
-        duration: 0.3,
-        ease: "power1.inOut",
-      },
+      snap: getSnapConfig(STEPS),
       onUpdate: (self) => {
-        const progress = self.progress;
-        if (progress < 0.33) {
-          if (currentIndex !== 0) showStep(0);
-        } else if (progress < 0.66) {
-          if (currentIndex !== 1) showStep(1);
-        } else {
-          if (currentIndex !== 2) showStep(2);
+        const activeStep = getActiveStep(self.progress, STEPS);
+        if (currentIndex !== activeStep) {
+          showStep(activeStep);
         }
       },
     });
