@@ -1,7 +1,11 @@
-import { useCopy } from "@/contexts/CopyContext";
+import { useState } from "react";
 import { basePath } from "@/helpers/general";
+import { useCopy } from "@/contexts/CopyContext";
 
 export default function CTASection() {
+  const [showMethodTooltip, setShowMethodTooltip] = useState<boolean>(false);
+  const tooltipText = useCopy("context_button_method_tooltip");
+
   return (
     <div className="relative w-full h-screen">
       <div className="relative w-full h-full flex items-center justify-center">
@@ -27,8 +31,9 @@ export default function CTASection() {
                 />
               </button>
               <button
-                className="bg-grey-text flex items-center justify-center gap-2 hover:bg-grey-text/80 transition text-black-blue"
-                onClick={() => {}}
+                className="bg-grey-text flex items-center justify-center gap-2 hover:bg-grey-text/80 transition text-black-blue relative"
+                onMouseEnter={() => setShowMethodTooltip(true)}
+                onMouseLeave={() => setShowMethodTooltip(false)}
               >
                 <span>{useCopy("cta_text_button_2")}</span>
                 <img
@@ -37,6 +42,13 @@ export default function CTASection() {
                   width={19}
                   height={19}
                 />
+                <div>
+                  {showMethodTooltip && (
+                    <div className="absolute top-[54px] mt-2 left-1/2  -translate-x-1/2 text-black-blue bg-grey-text text-[18px] w-[600px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%]">
+                      {tooltipText}
+                    </div>
+                  )}
+                </div>
               </button>
               <button
                 className="bg-grey-text flex items-center justify-center gap-2 hover:bg-grey-text/80 transition text-black-blue"
