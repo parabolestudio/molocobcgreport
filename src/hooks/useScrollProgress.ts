@@ -91,7 +91,36 @@ export function useScrollProgress() {
         Math.min(1, scrollInSection / sectionHeight)
       );
 
+      // Calculate total progress independently based on absolute scroll position
+      // Get absolute positions of all sections
+      const sectionPositions = sections.map((section) => {
+        const rect = section.getBoundingClientRect();
+        return {
+          top: scrollPos + rect.top,
+          height: rect.height,
+        };
+      });
+
+      const firstSectionTop = sectionPositions[0].top;
+      const lastSectionBottom =
+        sectionPositions[sectionPositions.length - 1].top +
+        sectionPositions[sectionPositions.length - 1].height;
+      const totalHeight = lastSectionBottom - firstSectionTop;
+
+      // Calculate how far we've scrolled from the start of the first section
+      const scrolledFromStart = viewportMiddle - firstSectionTop;
+      const totalProgress = Math.max(
+        0,
+        Math.min(1, scrolledFromStart / totalHeight)
+      );
+
       console.log("Section progress:", sectionProgress.toFixed(3));
+      console.log(
+        "Total progress:",
+        totalProgress.toFixed(3),
+        "Total height:",
+        totalHeight.toFixed(0)
+      );
 
       setProgress((prev) => {
         if (prev.activeSection !== activeIndex) {
@@ -105,6 +134,7 @@ export function useScrollProgress() {
           ...prev,
           activeSection: activeIndex,
           sectionProgress,
+          totalProgress,
         };
       });
     };
