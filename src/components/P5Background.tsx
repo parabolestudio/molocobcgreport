@@ -82,9 +82,13 @@ export default function P5Background() {
     switch (formation) {
       case "grid":
         data.circleGrid.initializeGrid();
+        // Re-enable cluster scaling for grid formation
+        data.circleGrid.setClusterConfig({ enabled: true });
         break;
       case "wave":
         // Wave is continuous, will be applied in draw loop
+        // Re-enable cluster scaling for wave formation
+        data.circleGrid.setClusterConfig({ enabled: true });
         break;
       case "rings":
         data.circleFormation.applyRings(
@@ -92,6 +96,8 @@ export default function P5Background() {
           centerX,
           centerY
         );
+        // Disable cluster scaling for rings formation
+        data.circleGrid.setClusterConfig({ enabled: false });
         break;
       case "quadrants":
         data.circleFormation.applyQuadrants(
@@ -99,6 +105,8 @@ export default function P5Background() {
           p5.width,
           p5.height
         );
+        // Re-enable cluster scaling for quadrants formation
+        data.circleGrid.setClusterConfig({ enabled: true });
         break;
       case "converge":
         data.circleFormation.applyConverge(
@@ -107,6 +115,8 @@ export default function P5Background() {
           centerY,
           100
         );
+        // Re-enable cluster scaling for converge formation
+        data.circleGrid.setClusterConfig({ enabled: true });
         break;
       case "spiral":
         data.circleFormation.applySpiral(
@@ -114,6 +124,8 @@ export default function P5Background() {
           centerX,
           centerY
         );
+        // Re-enable cluster scaling for spiral formation
+        data.circleGrid.setClusterConfig({ enabled: true });
         break;
       case "invisible":
         // Don't apply any formation, dots will be hidden in draw

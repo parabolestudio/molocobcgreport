@@ -25,21 +25,21 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     },
   ],
   journey: [
-    {
-      progressStart: 0,
-      progressEnd: 1,
-      formation: "invisible", // Temporarily invisible
-    },
     // {
     //   progressStart: 0,
-    //   progressEnd: 0.33,
-    //   formation: "rings", // Circle in center for first screen
-    // },
-    // {
-    //   progressStart: 0.33,
     //   progressEnd: 1,
-    //   formation: "wave", // Wave for remaining screens
+    //   formation: "invisible", // Temporarily invisible
     // },
+    {
+      progressStart: 0,
+      progressEnd: 0.2,
+      formation: "invisible", // "rings" Circle in center for first screen
+    },
+    {
+      progressStart: 0.2,
+      progressEnd: 1,
+      formation: "invisible",
+    },
   ],
   quadrant: [
     {

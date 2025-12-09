@@ -102,7 +102,7 @@ export class CircleGrid {
     }
   }
 
-  update(time: number, pulseIntensity: number = 3.0) {
+  update() {
     // Update noise time offset for animated clusters
     if (this.clusterConfig.enabled) {
       this.noiseTimeOffset += this.clusterConfig.animationSpeed;

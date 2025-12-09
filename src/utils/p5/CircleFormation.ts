@@ -18,25 +18,53 @@ export class CircleFormation {
   }
 
   // Arrange circles in concentric rings
-  applyRings(circles: Circle[], centerX: number, centerY: number) {
+  applyRings(
+    circles: Circle[],
+    centerX: number,
+    centerY: number,
+    arcSpacing: number = 30, // Arc length spacing between circles (in pixels)
+    innerRadius: number = 260 // Starting radius for the first ring
+  ) {
     const ringsCount = 5;
-    const circlesPerRing = Math.ceil(circles.length / ringsCount);
-    const radiusStep = 100;
+    const radiusStep = 20;
+    const fixedSize = 6; // Fixed size for all circles in rings formation
 
-    circles.forEach((circle, i) => {
-      const ringIndex = Math.floor(i / circlesPerRing);
-      const positionInRing = i % circlesPerRing;
-      const totalInRing = Math.min(
-        circlesPerRing,
-        circles.length - ringIndex * circlesPerRing
-      );
+    let circleIndex = 0;
 
-      const radius = (ringIndex + 1) * radiusStep;
-      const angle = (positionInRing / totalInRing) * this.p5.TWO_PI;
+    // For each ring, calculate how many circles fit based on arc spacing
+    for (
+      let ringIndex = 0;
+      ringIndex < ringsCount && circleIndex < circles.length;
+      ringIndex++
+    ) {
+      const radius = innerRadius + ringIndex * radiusStep;
+      const circumference = this.p5.TWO_PI * radius;
 
-      circle.targetX = centerX + this.p5.cos(angle) * radius;
-      circle.targetY = centerY + this.p5.sin(angle) * radius;
-    });
+      // Calculate how many circles fit on this ring with the desired arc spacing
+      const maxCirclesOnRing = Math.floor(circumference / arcSpacing);
+      const angleStep = this.p5.TWO_PI / maxCirclesOnRing;
+
+      // Place circles on this ring
+      for (
+        let i = 0;
+        i < maxCirclesOnRing && circleIndex < circles.length;
+        i++
+      ) {
+        const circle = circles[circleIndex];
+        const angle = i * angleStep;
+
+        circle.targetX = centerX + this.p5.cos(angle) * radius;
+        circle.targetY = centerY + this.p5.sin(angle) * radius;
+        circle.targetSize = fixedSize; // Set fixed size for rings
+
+        circleIndex++;
+      }
+    }
+
+    // Hide all unused circles
+    for (let i = circleIndex; i < circles.length; i++) {
+      circles[i].targetSize = 0;
+    }
   }
 
   // Arrange circles in quadrant positions (for quadrant section)
