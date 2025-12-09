@@ -5,7 +5,6 @@ import { gsap } from "gsap";
 
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
-import { setInitialVisibility } from "@/hooks/useScrollTrigger";
 import { fadeOut, fadeIn } from "@/helpers/scroll";
 
 interface HookSectionProps {
@@ -26,7 +25,10 @@ export default function HookSection({
 
   // Set initial visibility
   useEffect(() => {
-    setInitialVisibility(textRefs, { visible: [0], hidden: [1, 2] });
+    // Set step 0 (text1) visible, others hidden
+    gsap.set(text1Ref.current, { autoAlpha: 1 });
+    gsap.set(text2Ref.current, { autoAlpha: 0 });
+    gsap.set(titleRef.current, { autoAlpha: 0 });
   }, []);
 
   // Handle step transitions

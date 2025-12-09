@@ -1,5 +1,5 @@
 import type P5 from "p5";
-import type { SectionName } from "@/hooks/useScrollProgress";
+import type { SectionName } from "@/helpers/scroll";
 
 export interface AnimationConfig {
   pulseIntensity: number;

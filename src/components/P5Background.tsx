@@ -1,6 +1,10 @@
 "use client";
 
-import { type SectionName, SECTION_STEPS } from "@/hooks/useScrollProgress";
+import {
+  type SectionName,
+  SECTION_STEPS,
+  SECTION_NAMES,
+} from "@/helpers/scroll";
 import { useEffect, useRef, useMemo } from "react";
 import type P5 from "p5";
 
@@ -22,15 +26,8 @@ export default function P5Background({
   // Calculate global step
   const globalStep = useMemo(() => {
     let step = 0;
-    const names: SectionName[] = [
-      "hook",
-      "journey",
-      "quadrant",
-      "closure",
-      "cta",
-    ];
     for (let i = 0; i < activeSection; i++) {
-      step += SECTION_STEPS[names[i]];
+      step += SECTION_STEPS[SECTION_NAMES[i]];
     }
     return step + currentStep;
   }, [activeSection, currentStep]);
@@ -304,30 +301,33 @@ export default function P5Background({
         className="fixed top-2 right-2 bg-black/80 text-white p-3 rounded-lg text-[10px] font-mono pointer-events-auto"
         style={{ zIndex: 9999 }}
       >
-        <div className="font-bold mb-2 text-sm">
-          Background Debug (Props from Global ScrollTrigger)
-        </div>
+        <div className="font-bold mb-2 text-sm">Scroll Debug</div>
         <div className="space-y-1">
           <div>
             <span className="text-gray-400">Active Section:</span>{" "}
-            <span className="text-green-400">{activeSection}</span>{" "}
-            <span className="text-blue-400">({sectionName})</span>
+            {/* <span className="text-green-400">{activeSection}</span>{" "} */}
+            <span className="text-blue-400">
+              {sectionName} ({activeSection})
+            </span>
           </div>
           <div>
             <span className="text-gray-400">Current Step:</span>{" "}
-            <span className="text-red-400">{currentStep}</span>
-            <span className="text-gray-500"> / {sectionSteps}</span>
-          </div>
-          <div>
-            <span className="text-gray-400">Global Step:</span>{" "}
-            <span className="text-red-400">{globalStep}</span>
-            <span className="text-gray-500"> / {totalSteps}</span>
+            <span className="text-red-400">{currentStep + 1}</span>
+            <span className="text-gray-500">
+              {" "}
+              / {sectionSteps} (index {currentStep})
+            </span>
           </div>
           <div>
             <span className="text-gray-400">Section Progress:</span>{" "}
             <span className="text-yellow-400">
               {(sectionProgress * 100).toFixed(1)}%
             </span>
+          </div>
+          <div>
+            <span className="text-gray-400">Global Step:</span>{" "}
+            <span className="text-red-400">{globalStep + 1}</span>
+            <span className="text-gray-500"> / {totalSteps}</span>
           </div>
           <div>
             <span className="text-gray-400">Total Progress:</span>{" "}
@@ -337,19 +337,22 @@ export default function P5Background({
           </div>
           {sketchDataRef.current && (
             <>
-              <div className="border-t border-gray-700 my-2 pt-2">
+              <div className="border-t border-gray-700 my-2 pt-2 font-bold mb-2 text-sm">
+                Background Debug
+              </div>
+              <div className="">
+                <span className="text-gray-400">Formation:</span>{" "}
+                <span className="text-cyan-400">
+                  {sketchDataRef.current.currentFormation}
+                </span>
+              </div>
+              <div>
                 <span className="text-gray-400">Subsection:</span>{" "}
                 <span className="text-pink-400">
                   {sketchDataRef.current.getActiveSubsectionIndex(
                     sectionName,
                     sectionProgress
                   )}
-                </span>
-              </div>
-              <div>
-                <span className="text-gray-400">Formation:</span>{" "}
-                <span className="text-cyan-400">
-                  {sketchDataRef.current.currentFormation}
                 </span>
               </div>
               <div>

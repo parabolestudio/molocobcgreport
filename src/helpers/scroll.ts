@@ -1,6 +1,30 @@
 import { gsap } from "gsap";
 
 /**
+ * Section names used throughout the application
+ */
+export const SECTION_NAMES = [
+  "hook",
+  "journey",
+  "quadrant",
+  "closure",
+  "cta",
+] as const;
+
+export type SectionName = (typeof SECTION_NAMES)[number];
+
+/**
+ * Number of scroll steps for each section
+ */
+export const SECTION_STEPS: Record<SectionName, number> = {
+  hook: 3,
+  journey: 5,
+  quadrant: 8,
+  closure: 3,
+  cta: 1,
+};
+
+/**
  * Shared scroll configuration constants for consistent behavior across all sections
  */
 export const SCROLL_CONFIG = {

@@ -11,11 +11,13 @@ import { fadeOut, fadeIn } from "@/helpers/scroll";
 interface QuadrantSectionProps {
   isActive: boolean;
   currentStep: number;
+  scrollToSection: (sectionIndex: number, localStep?: number) => void;
 }
 
 export default function QuadrantSection({
   isActive,
   currentStep,
+  scrollToSection,
 }: QuadrantSectionProps) {
   const introTextRef = useRef<HTMLDivElement>(null);
   const chartContainerRef = useRef<HTMLDivElement>(null);
@@ -144,9 +146,24 @@ export default function QuadrantSection({
                 mode={chartMode}
                 selectedVertical={selectedVertical}
                 selectVertical={(vertical) => setSelectedVertical(vertical)}
-                scrollNext={() => {}}
-                scrollBack={() => {}}
-                scrollToDataMode={() => {}}
+                scrollNext={() => {
+                  // QuadrantSection is section 2, advance to next step
+                  const nextStep = currentStep + 1;
+                  if (nextStep <= 7) {
+                    scrollToSection(2, nextStep);
+                  }
+                }}
+                scrollBack={() => {
+                  // Go to previous step
+                  const prevStep = currentStep - 1;
+                  if (prevStep >= 0) {
+                    scrollToSection(2, prevStep);
+                  }
+                }}
+                scrollToDataMode={() => {
+                  // Jump to data-filled mode (step 7)
+                  scrollToSection(2, 7);
+                }}
               />
             </div>
             <Chart

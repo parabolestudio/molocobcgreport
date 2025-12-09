@@ -13,6 +13,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { basePath } from "@/helpers/general";
 import { useGlobalScrollTrigger } from "@/hooks/useGlobalScrollTrigger";
+import { SECTION_NAMES, SECTION_STEPS } from "@/helpers/scroll";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -21,22 +22,11 @@ export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
 
-  // Define steps for each section
-  const SECTION_STEPS = [
-    3, // HookSection: 3 steps
-    5, // JourneySection: 5 steps (1 intro + 4 stats)
-    8, // QuadrantSection: 8 steps (1 intro + 7 chart modes)
-    3, // ClosureSection: 3 steps
-    1, // CTASection: 1 step (static)
-  ];
-
-  const SECTION_NAMES = ["hook", "journey", "quadrant", "closure", "cta"];
-
   // Single ScrollTrigger for entire page
-  useGlobalScrollTrigger({
+  const { scrollToSection } = useGlobalScrollTrigger({
     containerRef: mainContainerRef,
-    sectionSteps: SECTION_STEPS,
-    sectionNames: SECTION_NAMES,
+    sectionSteps: Object.values(SECTION_STEPS),
+    sectionNames: [...SECTION_NAMES],
     onSectionChange: (sectionIndex, localStep) => {
       console.log("Page: Section changed to", sectionIndex, "step", localStep);
       setCurrentSection(sectionIndex);
@@ -80,6 +70,7 @@ export default function Home() {
         <QuadrantSection
           isActive={currentSection === 2}
           currentStep={currentStep}
+          scrollToSection={scrollToSection}
         />
         <ClosureSection
           isActive={currentSection === 3}

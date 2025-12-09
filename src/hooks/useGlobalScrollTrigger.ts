@@ -81,7 +81,6 @@ export function useGlobalScrollTrigger({
       start: "top top",
       end: calculateScrollEnd(totalSteps),
       pin: true,
-      markers: true, // Debug markers
       scrub: false,
       snap: {
         snapTo: generateSnapPoints(totalSteps),

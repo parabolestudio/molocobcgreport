@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useCopy } from "@/contexts/CopyContext";
-import { setInitialVisibility } from "@/hooks/useScrollTrigger";
 import { fadeOut, fadeIn } from "@/helpers/scroll";
 import { basePath } from "@/helpers/general";
 
@@ -32,14 +31,14 @@ export default function ClosureSection({
 
   // Set initial visibility
   useEffect(() => {
-    setInitialVisibility([titleRef, paragraph1Ref], {
-      visible: [0, 1],
-      hidden: [],
-    });
-    setInitialVisibility([paragraph2Ref, ...roundedDivs, ...cardContents], {
-      visible: [],
-      hidden: [0, 1, 2, 3, 4, 5],
-    });
+    // Step 0: title and paragraph1 visible
+    gsap.set(titleRef.current, { autoAlpha: 1 });
+    gsap.set(paragraph1Ref.current, { autoAlpha: 1 });
+
+    // Everything else hidden
+    gsap.set(paragraph2Ref.current, { autoAlpha: 0 });
+    roundedDivs.forEach((ref) => gsap.set(ref.current, { autoAlpha: 0 }));
+    cardContents.forEach((ref) => gsap.set(ref.current, { autoAlpha: 0 }));
   }, []);
 
   // Handle step transitions

@@ -1,4 +1,4 @@
-import type { SectionName } from "@/hooks/useScrollProgress";
+import type { SectionName } from "@/helpers/scroll";
 
 export type FormationType =
   | "grid"
