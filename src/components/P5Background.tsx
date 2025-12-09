@@ -5,7 +5,9 @@ import { useEffect, useRef } from "react";
 import type P5 from "p5";
 
 export default function P5Background() {
-  const { sectionName, sectionProgress } = useScrollProgress();
+  const scrollProgress = useScrollProgress();
+  const { sectionName, sectionProgress, activeSection, totalProgress } =
+    scrollProgress;
   const canvasRef = useRef<HTMLDivElement>(null);
   const p5InstanceRef = useRef<P5 | null>(null);
   const sketchDataRef = useRef<{
@@ -239,17 +241,62 @@ export default function P5Background() {
   }, []);
 
   return (
-    <div
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none"
-      style={{
-        zIndex: 0,
-        width: "100vw",
-        height: "100vh",
-        top: 0,
-        left: 0,
-        overflow: "hidden",
-      }}
-    />
+    <>
+      <div
+        ref={canvasRef}
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          zIndex: 0,
+          width: "100vw",
+          height: "100vh",
+          top: 0,
+          left: 0,
+          overflow: "hidden",
+        }}
+      />
+
+      {/* Debug Panel */}
+      <div
+        className="fixed top-2 right-2 bg-black/80 text-white p-3 rounded-lg text-[10px] font-mono pointer-events-auto"
+        style={{ zIndex: 9999 }}
+      >
+        <div className="font-bold mb-2 text-sm">Background Debug</div>
+        <div className="space-y-1">
+          <div>
+            <span className="text-gray-400">Active Section:</span>{" "}
+            <span className="text-green-400">{activeSection}</span>{" "}
+            <span className="text-blue-400">({sectionName})</span>
+          </div>
+          <div>
+            <span className="text-gray-400">Section Progress:</span>{" "}
+            <span className="text-yellow-400">
+              {(sectionProgress * 100).toFixed(1)}%
+            </span>
+          </div>
+          <div>
+            <span className="text-gray-400">Total Progress:</span>{" "}
+            <span className="text-purple-400">
+              {(totalProgress * 100).toFixed(1)}%
+            </span>
+          </div>
+          {sketchDataRef.current && (
+            <>
+              <div className="border-t border-gray-700 my-2 pt-2">
+                <span className="text-gray-400">Formation:</span>{" "}
+                <span className="text-cyan-400">
+                  {sketchDataRef.current.currentFormation}
+                </span>
+              </div>
+              <div>
+                <span className="text-gray-400">Transition:</span>{" "}
+                <span className="text-orange-400">
+                  {(sketchDataRef.current.transitionProgress * 100).toFixed(0)}%
+                </span>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </>
   );
 }
