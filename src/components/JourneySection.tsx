@@ -159,7 +159,11 @@ export default function JourneySection() {
   const tooltipText = useCopy("context_button_method_tooltip");
 
   return (
-    <div ref={sectionRef} className="relative w-full h-screen">
+    <div
+      ref={sectionRef}
+      className="relative w-full h-screen"
+      data-section="journey"
+    >
       <div className="relative w-full h-full flex items-center justify-center">
         {/* Intro screen */}
         <div

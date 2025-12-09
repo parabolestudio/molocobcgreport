@@ -98,7 +98,11 @@ export default function ClosureSection() {
   });
 
   return (
-    <div ref={sectionRef} className="relative w-full h-screen bg-forest-green">
+    <div
+      ref={sectionRef}
+      className="relative w-full h-screen bg-forest-green"
+      data-section="closure"
+    >
       <div
         className="fixed top-0 bottom-0 left-0 right-0 "
         style={{

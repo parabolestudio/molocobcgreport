@@ -80,7 +80,11 @@ export default function HookSection() {
   }
 
   return (
-    <div ref={sectionRef} className="relative w-full h-screen">
+    <div
+      ref={sectionRef}
+      className="relative w-full h-screen"
+      data-section="hook"
+    >
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={text1Ref}

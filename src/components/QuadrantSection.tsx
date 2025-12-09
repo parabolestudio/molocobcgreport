@@ -187,16 +187,16 @@ export default function QuadrantSection() {
   };
 
   return (
-    <div ref={sectionRef} className="w-full h-screen">
+    <div ref={sectionRef} className="w-full h-screen" data-section="quadrant">
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={screen1Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 opacity-0 invisible flex flex-col  gap-12"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8  h-full py-12 opacity-0 invisible flex flex-col justify-between gap-12"
         >
           <h2 className="font-museo-moderno text-bright-green text-[96px] leading-[100%] max-w-[800px] font-extralight">
             {useCopy("climax_1_title")}
           </h2>
-          <p className="text-[32px] leading-[100%] max-w-[615px] self-end">
+          <p className="text-[32px] max-w-[615px] self-end">
             {useCopy("climax_1_paragraph")}
           </p>
         </div>

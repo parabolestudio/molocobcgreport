@@ -7,7 +7,7 @@ export default function CTASection() {
   const tooltipText = useCopy("context_button_method_tooltip");
 
   return (
-    <div className="relative w-full h-screen">
+    <div className="relative w-full h-screen" data-section="cta">
       <div className="relative w-full h-full flex items-center justify-center">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-8">
           <div className="w-full h-full  flex flex-col items-center justify-center gap-8">

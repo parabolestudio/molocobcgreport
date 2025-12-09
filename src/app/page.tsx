@@ -5,6 +5,7 @@ import JourneySection from "@/components/JourneySection";
 import QuadrantSection from "@/components/QuadrantSection";
 import ClosureSection from "@/components/ClosureSection";
 import CTASection from "@/components/CTASection";
+import P5Background from "@/components/P5Background";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,6 +17,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 export default function Home() {
   return (
     <main className="relative">
+      <P5Background />
       <div
         className="fixed top-0 bottom-0 left-0 right-0 "
         style={{
@@ -24,13 +26,16 @@ export default function Home() {
           backgroundPosition: "center",
           opacity: 0.3,
           mixBlendMode: "luminosity",
+          zIndex: 1,
         }}
       ></div>
-      <HookSection />
-      <JourneySection />
-      <QuadrantSection />
-      <ClosureSection />
-      <CTASection />
+      <div className="relative" style={{ zIndex: 10 }}>
+        <HookSection />
+        <JourneySection />
+        <QuadrantSection />
+        <ClosureSection />
+        <CTASection />
+      </div>
     </main>
   );
 }
