@@ -7,7 +7,6 @@ export interface Circle {
   targetY: number;
   size: number;
   targetSize: number;
-  pulseOffset: number;
   alpha: number;
 }
 
@@ -16,8 +15,10 @@ export class CircleGrid {
   cols: number;
   rows: number;
   spacing: number;
+  noiseScale: number = 0.15; // Increased to make clusters smaller (about 1/3 screen width)
+  noiseTimeOffset: number = 0;
 
-  constructor(private p5: P5, cols: number = 20, rows: number = 12) {
+  constructor(private p5: P5, cols: number = 60, rows: number = 60) {
     this.cols = cols;
     this.rows = rows;
     // Calculate spacing to fit the grid across the viewport
@@ -53,25 +54,19 @@ export class CircleGrid {
           y,
           targetX: x,
           targetY: y,
-          size: 8,
-          targetSize: 8,
-          pulseOffset: this.p5.random(this.p5.TWO_PI),
+          size: 3,
+          targetSize: 3,
           alpha: 0.6,
         });
       }
     }
   }
 
-  update(time: number, pulseIntensity: number = 0.3) {
+  update(time: number, pulseIntensity: number = 3.0) {
     this.circles.forEach((circle) => {
       // Smooth movement toward target
       circle.x += (circle.targetX - circle.x) * 0.05;
       circle.y += (circle.targetY - circle.y) * 0.05;
-
-      // Pulse animation
-      const pulse =
-        this.p5.sin(time * 0.002 + circle.pulseOffset) * pulseIntensity;
-      circle.size = circle.targetSize * (1 + pulse);
     });
   }
 

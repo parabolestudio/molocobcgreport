@@ -146,7 +146,7 @@ export default function P5Background() {
           p5.frameRate(60);
 
           // Grid with 20 columns and 12 rows - spacing calculated automatically
-          circleGrid = new gridModule.CircleGrid(p5, 20, 12);
+          circleGrid = new gridModule.CircleGrid(p5, 70, 40);
           circleFormation = new formationModule.CircleFormation(p5);
 
           // Store in ref
