@@ -1,13 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { gsap } from "gsap";
+import { useEffect, useState, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  getActiveSectionAndStep,
+  calculateSectionDefinitions,
+  type SectionDefinition,
+} from "@/helpers/scroll";
 
 export interface SectionProgress {
   activeSection: number;
   sectionProgress: number; // 0-1 within current section
   totalProgress: number; // 0-1 for entire page
+  globalStep: number; // Current global step across all sections
 }
 
 export const SECTION_NAMES = [
@@ -29,104 +34,108 @@ export const SECTION_STEPS: Record<SectionName, number> = {
   cta: 1,
 };
 
+const TOTAL_STEPS = Object.values(SECTION_STEPS).reduce((a, b) => a + b, 0);
+
+// Create section definitions using the shared helper
+const SECTION_DEFINITIONS: SectionDefinition[] = calculateSectionDefinitions(
+  Object.values(SECTION_STEPS),
+  [...SECTION_NAMES]
+);
+
+/**
+ * Hook to track scroll progress with the global ScrollTrigger architecture.
+ * Now works by detecting the single global ScrollTrigger instance.
+ */
 export function useScrollProgress() {
   const [progress, setProgress] = useState<SectionProgress>({
     activeSection: 0,
     sectionProgress: 0,
     totalProgress: 0,
+    globalStep: 0,
   });
 
+  const progressRef = useRef(progress);
+
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    progressRef.current = progress;
+  }, [progress]);
 
-    const sections = gsap.utils.toArray<HTMLElement>("[data-section]");
-    if (sections.length === 0) return;
-
-    const initialFirstSectionTop = sections[0].offsetTop;
-    const totalScrollHeight = sections.reduce((sum, section) => {
-      const sectionName = section.getAttribute("data-section") as SectionName;
-      const steps = SECTION_STEPS[sectionName] || 1;
-      return sum + steps * window.innerHeight;
-    }, 0);
-
+  useEffect(() => {
     let rafId: number | null = null;
 
-    const findActiveSectionAndProgress = (
-      scrollPos: number,
-      triggers: gsap.plugins.ScrollTriggerInstance[]
-    ): { activeIndex: number; sectionProgress: number } => {
-      for (let i = 0; i < sections.length; i++) {
-        const trigger = triggers.find((t) => t.trigger === sections[i]);
-        if (!trigger) continue;
-
-        if (trigger.isActive) {
-          return { activeIndex: i, sectionProgress: trigger.progress };
-        }
-
-        if (scrollPos < trigger.start) {
-          const prevIndex = Math.max(0, i - 1);
-          const prevTrigger = triggers.find(
-            (t) => t.trigger === sections[prevIndex]
-          );
-          return {
-            activeIndex: prevIndex,
-            sectionProgress: prevTrigger?.progress ?? 1,
-          };
-        }
-      }
-
-      // Check if past all sections
-      const lastTrigger = triggers.find(
-        (t) => t.trigger === sections[sections.length - 1]
-      );
-      if (lastTrigger && scrollPos >= lastTrigger.end) {
-        return { activeIndex: sections.length - 1, sectionProgress: 1 };
-      }
-
-      return { activeIndex: 0, sectionProgress: 0 };
-    };
-
-    const updateActiveSection = () => {
-      const scrollPos = window.scrollY;
-      const viewportMiddle = scrollPos + window.innerHeight / 2;
+    const updateProgress = () => {
       const triggers = ScrollTrigger.getAll();
 
-      const { activeIndex, sectionProgress } = findActiveSectionAndProgress(
-        scrollPos,
-        triggers
-      );
-
-      const totalProgress = Math.max(
-        0,
-        Math.min(
-          1,
-          (viewportMiddle - initialFirstSectionTop) / totalScrollHeight
-        )
-      );
-
-      setProgress((prev) => {
-        if (prev.activeSection !== activeIndex) {
-          console.log(
-            `✅ Section changed to ${activeIndex}: ${sections[
-              activeIndex
-            ].getAttribute("data-section")}`
-          );
-        }
-        return { activeSection: activeIndex, sectionProgress, totalProgress };
+      // Find the global ScrollTrigger (it should be the one with the most steps)
+      const globalTrigger = triggers.find((t) => {
+        const end = t.vars.end;
+        // The global trigger will have an end like "+=1900%" for 19 steps
+        return (
+          typeof end === "string" && end.includes("+=") && parseInt(end) >= 1000
+        );
       });
+
+      if (globalTrigger) {
+        const totalProgress = globalTrigger.progress;
+
+        // Use the SAME calculation as useGlobalScrollTrigger
+        const { sectionIndex, localStep } = getActiveSectionAndStep(
+          totalProgress,
+          SECTION_DEFINITIONS
+        );
+
+        const sectionSteps = SECTION_STEPS[SECTION_NAMES[sectionIndex]];
+        const sectionProgress = localStep / sectionSteps;
+        const globalStep =
+          SECTION_DEFINITIONS[sectionIndex].startStep + localStep;
+
+        const current = progressRef.current;
+
+        // Always update state, but only log significant changes
+        const changed =
+          current.activeSection !== sectionIndex ||
+          current.globalStep !== globalStep ||
+          Math.abs(current.sectionProgress - sectionProgress) > 0.01;
+
+        if (changed) {
+          console.log(
+            `📊 useScrollProgress: Section ${sectionIndex} (${SECTION_NAMES[sectionIndex]}), ` +
+              `Global step ${globalStep}, Local step ${localStep}/${sectionSteps}, ` +
+              `Section progress ${(sectionProgress * 100).toFixed(1)}%, ` +
+              `Total progress ${(totalProgress * 100).toFixed(1)}%`
+          );
+
+          setProgress({
+            activeSection: sectionIndex,
+            sectionProgress,
+            totalProgress,
+            globalStep,
+          });
+        }
+      }
     };
 
     const handleScroll = () => {
       if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(updateActiveSection);
+      rafId = requestAnimationFrame(updateProgress);
     };
 
-    updateActiveSection();
+    // Initial update with a slight delay to ensure ScrollTrigger is created
+    const initialTimer = setTimeout(updateProgress, 100);
+
+    // Listen for scroll
     window.addEventListener("scroll", handleScroll, { passive: true });
 
+    // Listen for ScrollTrigger updates - this is key for real-time updates
+    ScrollTrigger.addEventListener("refresh", updateProgress);
+    ScrollTrigger.addEventListener("scrollEnd", updateProgress);
+
     return () => {
+      clearTimeout(initialTimer);
       if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
+      ScrollTrigger.removeEventListener("refresh", updateProgress);
+      ScrollTrigger.removeEventListener("scrollEnd", updateProgress);
     };
   }, []);
 

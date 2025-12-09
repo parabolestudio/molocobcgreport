@@ -1,25 +1,26 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
-import {
-  useScrollTrigger,
-  setInitialVisibility,
-} from "@/hooks/useScrollTrigger";
+import { setInitialVisibility } from "@/hooks/useScrollTrigger";
 import { fadeOut, fadeIn } from "@/helpers/scroll";
 
-const STEPS = 3;
+interface HookSectionProps {
+  isActive: boolean;
+  currentStep: number;
+}
 
-export default function HookSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+export default function HookSection({
+  isActive,
+  currentStep,
+}: HookSectionProps) {
   const text1Ref = useRef<HTMLDivElement>(null);
   const text2Ref = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
-  const [currentStep, setCurrentStep] = useState(0);
-  const previousStepRef = useRef(0);
+  const previousStepRef = useRef(-1);
 
   const textRefs = [text1Ref, text2Ref, titleRef];
 
@@ -30,6 +31,9 @@ export default function HookSection() {
 
   // Handle step transitions
   useEffect(() => {
+    if (!isActive) return; // Only animate when this section is active
+    if (currentStep === previousStepRef.current) return;
+
     const texts = textRefs.map((ref) => ref.current).filter(Boolean);
     if (texts.length === 0 || currentStep < 0) return;
 
@@ -46,9 +50,9 @@ export default function HookSection() {
     });
 
     // Fade out previous text
-    const previousText = texts[previousStep];
-    if (previousText && previousStep !== currentStep) {
-      fadeOut(previousText);
+    if (previousStep >= 0 && previousStep !== currentStep) {
+      const previousText = texts[previousStep];
+      if (previousText) fadeOut(previousText);
     }
 
     // Fade in current text
@@ -56,33 +60,15 @@ export default function HookSection() {
     if (currentText) fadeIn(currentText);
 
     previousStepRef.current = currentStep;
-  }, [currentStep]);
-
-  // Set up ScrollTrigger
-  useScrollTrigger({
-    sectionRef,
-    steps: STEPS,
-    onStepChange: setCurrentStep,
-  });
-
-  function scrollToNext() {
-    if (sectionRef.current) {
-      const sectionTop = sectionRef.current.offsetTop;
-      // ScrollTrigger end is "+=300%" which means 3x viewport height
-      // To get to the second section (33% progress), we need to scroll to sectionTop + (3 * vh * 0.33)
-      const scrollTarget = sectionTop + window.innerHeight * 3 * 0.4;
-      gsap.to(window, {
-        duration: 1,
-        scrollTo: { y: scrollTarget },
-        ease: "power2.inOut",
-      });
-    }
-  }
+  }, [isActive, currentStep]);
 
   return (
     <div
-      ref={sectionRef}
-      className="relative w-full h-screen"
+      className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
+        isActive
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
+      }`}
       data-section="hook"
     >
       <div className="relative w-full h-full flex items-center justify-center">
@@ -92,10 +78,7 @@ export default function HookSection() {
         >
           <button className="bg-grey-blue flex items-center justify-center gap-2 opacity-0"></button>
           <p className="hook-p">{useCopy("hooks_1_text")}</p>
-          <button
-            className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
-            onClick={scrollToNext}
-          >
+          <div className="bg-grey-blue flex items-center justify-center gap-2 opacity-50 cursor-not-allowed">
             <span>scroll</span>
             <img
               src={`${basePath}/icons/arrow.svg`}
@@ -104,7 +87,7 @@ export default function HookSection() {
               height={13}
               style={{ transform: "rotate(-90deg)" }}
             />
-          </button>
+          </div>
         </div>
         <div
           ref={text2Ref}

@@ -1,13 +1,43 @@
 "use client";
 
-import { useScrollProgress, type SectionName } from "@/hooks/useScrollProgress";
-import { useEffect, useRef } from "react";
+import { type SectionName, SECTION_STEPS } from "@/hooks/useScrollProgress";
+import { useEffect, useRef, useMemo } from "react";
 import type P5 from "p5";
 
-export default function P5Background() {
-  const scrollProgress = useScrollProgress();
-  const { sectionName, sectionProgress, activeSection, totalProgress } =
-    scrollProgress;
+interface P5BackgroundProps {
+  activeSection: number;
+  currentStep: number;
+  sectionName: SectionName;
+}
+
+export default function P5Background({
+  activeSection,
+  currentStep,
+  sectionName,
+}: P5BackgroundProps) {
+  // Calculate derived values from props
+  const sectionSteps = SECTION_STEPS[sectionName];
+  const sectionProgress = currentStep / sectionSteps;
+
+  // Calculate global step
+  const globalStep = useMemo(() => {
+    let step = 0;
+    const names: SectionName[] = [
+      "hook",
+      "journey",
+      "quadrant",
+      "closure",
+      "cta",
+    ];
+    for (let i = 0; i < activeSection; i++) {
+      step += SECTION_STEPS[names[i]];
+    }
+    return step + currentStep;
+  }, [activeSection, currentStep]);
+
+  // Calculate total progress
+  const totalSteps = Object.values(SECTION_STEPS).reduce((a, b) => a + b, 0);
+  const totalProgress = globalStep / totalSteps;
   const canvasRef = useRef<HTMLDivElement>(null);
   const p5InstanceRef = useRef<P5 | null>(null);
   const sketchDataRef = useRef<{
@@ -274,12 +304,24 @@ export default function P5Background() {
         className="fixed top-2 right-2 bg-black/80 text-white p-3 rounded-lg text-[10px] font-mono pointer-events-auto"
         style={{ zIndex: 9999 }}
       >
-        <div className="font-bold mb-2 text-sm">Background Debug</div>
+        <div className="font-bold mb-2 text-sm">
+          Background Debug (Props from Global ScrollTrigger)
+        </div>
         <div className="space-y-1">
           <div>
             <span className="text-gray-400">Active Section:</span>{" "}
             <span className="text-green-400">{activeSection}</span>{" "}
             <span className="text-blue-400">({sectionName})</span>
+          </div>
+          <div>
+            <span className="text-gray-400">Current Step:</span>{" "}
+            <span className="text-red-400">{currentStep}</span>
+            <span className="text-gray-500"> / {sectionSteps}</span>
+          </div>
+          <div>
+            <span className="text-gray-400">Global Step:</span>{" "}
+            <span className="text-red-400">{globalStep}</span>
+            <span className="text-gray-500"> / {totalSteps}</span>
           </div>
           <div>
             <span className="text-gray-400">Section Progress:</span>{" "}

@@ -1,19 +1,21 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useCopy } from "@/contexts/CopyContext";
-import {
-  useScrollTrigger,
-  setInitialVisibility,
-} from "@/hooks/useScrollTrigger";
+import { setInitialVisibility } from "@/hooks/useScrollTrigger";
 import { fadeOut, fadeIn } from "@/helpers/scroll";
 import { basePath } from "@/helpers/general";
 
-const STEPS = 3;
+interface ClosureSectionProps {
+  isActive: boolean;
+  currentStep: number;
+}
 
-export default function ClosureSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+export default function ClosureSection({
+  isActive,
+  currentStep,
+}: ClosureSectionProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const paragraph1Ref = useRef<HTMLParagraphElement>(null);
   const paragraph2Ref = useRef<HTMLParagraphElement>(null);
@@ -23,8 +25,7 @@ export default function ClosureSection() {
   const cardContent1Ref = useRef<HTMLDivElement>(null);
   const cardContent2Ref = useRef<HTMLDivElement>(null);
   const cardContent3Ref = useRef<HTMLDivElement>(null);
-
-  const [currentStep, setCurrentStep] = useState(0);
+  const previousStepRef = useRef(-1);
 
   const roundedDivs = [roundedDiv1Ref, roundedDiv2Ref, roundedDiv3Ref];
   const cardContents = [cardContent1Ref, cardContent2Ref, cardContent3Ref];
@@ -43,6 +44,9 @@ export default function ClosureSection() {
 
   // Handle step transitions
   useEffect(() => {
+    if (!isActive) return; // Only animate when this section is active
+    if (currentStep === previousStepRef.current) return;
+
     const title = titleRef.current;
     const paragraph1 = paragraph1Ref.current;
     const paragraph2 = paragraph2Ref.current;
@@ -88,19 +92,17 @@ export default function ClosureSection() {
 
       fadeIn(cardContentElements);
     }
-  }, [currentStep]);
 
-  // Set up ScrollTrigger
-  useScrollTrigger({
-    sectionRef,
-    steps: STEPS,
-    onStepChange: setCurrentStep,
-  });
+    previousStepRef.current = currentStep;
+  }, [isActive, currentStep]);
 
   return (
     <div
-      ref={sectionRef}
-      className="relative w-full h-screen bg-forest-green"
+      className={`absolute inset-0 w-full h-full bg-forest-green transition-opacity duration-300 ${
+        isActive
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
+      }`}
       data-section="closure"
     >
       <div

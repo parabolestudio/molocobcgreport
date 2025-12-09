@@ -4,13 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
-import { useScrollTrigger } from "@/hooks/useScrollTrigger";
 import { ANIMATION_CONFIG } from "@/helpers/scroll";
 
-const STEPS = 5; // 1 intro + 4 stats
+interface JourneySectionProps {
+  isActive: boolean;
+  currentStep: number;
+}
 
-export default function JourneySection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+export default function JourneySection({
+  isActive,
+  currentStep,
+}: JourneySectionProps) {
   const introRef = useRef<HTMLDivElement>(null);
   const journeyPathRef = useRef<HTMLDivElement>(null);
   const statRefs = [
@@ -21,8 +25,7 @@ export default function JourneySection() {
   ];
 
   const [showMethodTooltip, setShowMethodTooltip] = useState<boolean>(false);
-  const [currentStep, setCurrentStep] = useState<number>(0);
-  const previousStepRef = useRef(0);
+  const previousStepRef = useRef(-1);
 
   // Set initial visibility
   useEffect(() => {
@@ -44,6 +47,9 @@ export default function JourneySection() {
 
   // Handle step transitions
   useEffect(() => {
+    if (!isActive) return; // Only animate when this section is active
+    if (currentStep === previousStepRef.current) return;
+
     const intro = introRef.current;
     const journeyPath = journeyPathRef.current;
     const stats = statRefs.map((ref) => ref.current);
@@ -145,21 +151,17 @@ export default function JourneySection() {
     }
 
     previousStepRef.current = currentStep;
-  }, [currentStep]);
-
-  // Set up ScrollTrigger
-  useScrollTrigger({
-    sectionRef,
-    steps: STEPS,
-    onStepChange: setCurrentStep,
-  });
+  }, [isActive, currentStep]);
 
   const tooltipText = useCopy("context_button_method_tooltip");
 
   return (
     <div
-      ref={sectionRef}
-      className="relative w-full h-screen"
+      className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
+        isActive
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
+      }`}
       data-section="journey"
     >
       <div className="relative w-full h-full flex items-center justify-center">
