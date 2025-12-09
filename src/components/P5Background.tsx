@@ -150,7 +150,7 @@ export default function P5Background() {
           canvas.parent(canvasRef.current!);
           p5.frameRate(60);
 
-          circleGrid = new gridModule.CircleGrid(p5, 70, 40);
+          circleGrid = new gridModule.CircleGrid(p5, 20);
           circleFormation = new formationModule.CircleFormation(p5);
 
           // Store in ref
