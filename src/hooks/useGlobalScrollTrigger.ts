@@ -82,11 +82,11 @@ export function useGlobalScrollTrigger({
       end: calculateScrollEnd(totalSteps),
       pin: true,
       scrub: false,
-      snap: {
-        snapTo: generateSnapPoints(totalSteps),
-        duration: SCROLL_CONFIG.SNAP_DURATION,
-        ease: SCROLL_CONFIG.SNAP_EASE,
-      },
+      // snap: {
+      //   snapTo: generateSnapPoints(totalSteps),
+      //   duration: SCROLL_CONFIG.SNAP_DURATION,
+      //   ease: SCROLL_CONFIG.SNAP_EASE,
+      // },
       onUpdate: (self) => {
         const progress = self.progress;
         // console.log("ScrollTrigger progress:", progress);

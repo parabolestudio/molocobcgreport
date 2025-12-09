@@ -13,9 +13,11 @@ export interface SubsectionConfig {
   progressStart: number; // 0-1 within the section
   progressEnd: number; // 0-1 within the section
   formation: FormationType;
+  // Optional ring center position (0-1 values, relative to canvas size)
+  // Default is {x: 0.5, y: 0.5} (center of screen)
+  ringCenter?: { x: number; y: number };
 }
 
-// Define subsections for each section
 export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
   hook: [
     {
@@ -25,15 +27,11 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     },
   ],
   journey: [
-    // {
-    //   progressStart: 0,
-    //   progressEnd: 1,
-    //   formation: "invisible", // Temporarily invisible
-    // },
     {
       progressStart: 0,
       progressEnd: 0.2,
-      formation: "invisible", // "rings" Circle in center for first screen
+      formation: "rings", // "rings" Circle in center for first screen
+      ringCenter: { x: 0.8, y: 0.5 }, // 80% to the right, centered vertically
     },
     {
       progressStart: 0.2,
@@ -61,8 +59,8 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 0,
       progressEnd: 1,
-      formation: "invisible", // Temporarily invisible
-      // formation: "rings",
+      formation: "rings",
+      ringCenter: { x: 0.5, y: 0.5 }, // Center of screen
     },
   ],
 };
@@ -106,4 +104,25 @@ export function getActiveFormation(
 
   // Default to last subsection if we're at the end
   return subsections[subsections.length - 1].formation;
+}
+
+// Get the ring center position for the active subsection
+export function getRingCenter(
+  section: SectionName,
+  sectionProgress: number
+): { x: number; y: number } {
+  const subsections = subsectionConfigs[section];
+
+  for (const subsection of subsections) {
+    if (
+      sectionProgress >= subsection.progressStart &&
+      sectionProgress < subsection.progressEnd
+    ) {
+      // Return custom center or default to screen center
+      return subsection.ringCenter || { x: 0.5, y: 0.5 };
+    }
+  }
+
+  // Default to screen center
+  return { x: 0.5, y: 0.5 };
 }

@@ -161,6 +161,14 @@ export class CircleGrid {
     this.clusterConfig = { ...this.clusterConfig, ...config };
   }
 
+  // Instantly snap circles to their target positions (no smooth transition)
+  snapToTargets() {
+    this.circles.forEach((circle) => {
+      circle.x = circle.targetX;
+      circle.y = circle.targetY;
+    });
+  }
+
   resize(width: number, height: number) {
     // Recalculate cols and rows based on new dimensions
     const newCols = Math.ceil(width / this.spacing) + 1;

@@ -4,19 +4,6 @@ import type { Circle } from "./CircleGrid";
 export class CircleFormation {
   constructor(private p5: P5) {}
 
-  // Arrange circles in a spiral pattern
-  applySpiral(circles: Circle[], centerX: number, centerY: number) {
-    const angleStep = (this.p5.TWO_PI / circles.length) * 3;
-    const radiusStep = 4;
-
-    circles.forEach((circle, i) => {
-      const angle = i * angleStep;
-      const radius = radiusStep * i;
-      circle.targetX = centerX + this.p5.cos(angle) * radius;
-      circle.targetY = centerY + this.p5.sin(angle) * radius;
-    });
-  }
-
   // Arrange circles in concentric rings
   applyRings(
     circles: Circle[],
@@ -27,7 +14,7 @@ export class CircleFormation {
   ) {
     const ringsCount = 5;
     const radiusStep = 20;
-    const fixedSize = 6; // Fixed size for all circles in rings formation
+    const fixedSize = 12; // Fixed size for all circles in rings formation
 
     let circleIndex = 0;
 
@@ -55,7 +42,8 @@ export class CircleFormation {
 
         circle.targetX = centerX + this.p5.cos(angle) * radius;
         circle.targetY = centerY + this.p5.sin(angle) * radius;
-        circle.targetSize = fixedSize; // Set fixed size for rings
+        // Set initial size, but don't touch targetSize (will be set by pulse animation)
+        circle.size = fixedSize;
 
         circleIndex++;
       }
@@ -64,7 +52,33 @@ export class CircleFormation {
     // Hide all unused circles
     for (let i = circleIndex; i < circles.length; i++) {
       circles[i].targetSize = 0;
+      circles[i].size = 0;
     }
+  }
+
+  // Apply subtle pulsing animation to rings
+  applyRingsPulse(circles: Circle[], time: number) {
+    const baseSize = 18; // Base size for rings
+    const pulseSpeed = 0.0025; // Speed of the pulse
+    const pulseAmount = 6; // How much bigger/smaller (in pixels)
+    const smoothing = 0.15; // Smoothing factor for size transition
+
+    circles.forEach((circle, i) => {
+      // Only pulse circles that are visible (part of the rings)
+      // Check size instead of targetSize since we're not setting targetSize in applyRings anymore
+      if (circle.size > 0) {
+        // Use sine wave with randomized offset per circle for variety
+        // Multiply index by larger values to create more randomness
+        const randomOffset = i * 2.7; // Prime-like number for pseudo-random distribution
+        const randomSpeed = 1 + (i % 7) * 0.15; // Vary speed per circle
+        const pulse =
+          this.p5.sin(time * pulseSpeed * randomSpeed + randomOffset) *
+          pulseAmount;
+        const targetSize = baseSize + pulse;
+        // Smoothly interpolate towards target size
+        circle.size += (targetSize - circle.size) * smoothing;
+      }
+    });
   }
 
   // Arrange circles in quadrant positions (for quadrant section)
@@ -105,26 +119,6 @@ export class CircleFormation {
       circle.targetX = centerX + this.p5.random(-spread, spread);
       circle.targetY = centerY + this.p5.random(-spread, spread);
       circle.targetSize = this.p5.random(4, 12);
-    });
-  }
-
-  // Wave pattern (for journey section)
-  applyWave(circles: Circle[], width: number, height: number, time: number) {
-    const cols = Math.ceil(Math.sqrt(circles.length));
-    const spacing = width / (cols + 1);
-
-    circles.forEach((circle, i) => {
-      const col = i % cols;
-      const row = Math.floor(i / cols);
-      const x = (col + 1) * spacing;
-      const waveOffset =
-        this.p5.sin((x / width) * this.p5.TWO_PI + time * 0.001) * 100;
-
-      circle.targetX = x;
-      circle.targetY =
-        height / 2 +
-        waveOffset +
-        (row - Math.floor(circles.length / cols) / 2) * 40;
     });
   }
 }

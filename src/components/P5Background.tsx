@@ -47,6 +47,10 @@ export default function P5Background({
     lerpColor: any;
     getActiveFormation: any;
     getActiveSubsectionIndex: any;
+    getRingCenter: any;
+    fadeState: "normal" | "fadeOut" | "fadeIn";
+    fadeProgress: number;
+    pendingFormation: string | null;
   } | null>(null);
 
   // Update section and formation when they change
@@ -75,23 +79,30 @@ export default function P5Background({
       data.lastSection = data.currentSection;
       data.currentSection = sectionName;
       data.lastFormation = data.currentFormation;
-      data.currentFormation = newFormation;
       data.transitionProgress = 0;
 
-      console.log("✅ Section changed - applying formation:", newFormation);
-      applyFormation(newFormation);
+      console.log(
+        "✅ Section changed - initiating fade transition to:",
+        newFormation
+      );
+      // Start fade out transition
+      data.fadeState = "fadeOut";
+      data.fadeProgress = 0;
+      data.pendingFormation = newFormation;
     }
     // Check if formation changed within same section
     else if (data.currentFormation !== newFormation) {
       data.lastFormation = data.currentFormation;
-      data.currentFormation = newFormation;
       data.transitionProgress = 0;
 
       console.log(
-        "✅ Formation changed within section - applying:",
+        "✅ Formation changed within section - initiating fade transition to:",
         newFormation
       );
-      applyFormation(newFormation);
+      // Start fade out transition
+      data.fadeState = "fadeOut";
+      data.fadeProgress = 0;
+      data.pendingFormation = newFormation;
     }
   }, [sectionName, sectionProgress]);
 
@@ -117,10 +128,17 @@ export default function P5Background({
         data.circleGrid.setClusterConfig({ enabled: true });
         break;
       case "rings":
+        // Get ring center from configuration (values are 0-1, relative to canvas size)
+        const ringCenter = data.getRingCenter(
+          data.currentSection,
+          sectionProgress
+        );
+        const ringCenterX = p5.width * ringCenter.x;
+        const ringCenterY = p5.height * ringCenter.y;
         data.circleFormation.applyRings(
           data.circleGrid.circles,
-          centerX,
-          centerY
+          ringCenterX,
+          ringCenterY
         );
         // Disable cluster scaling for rings formation
         data.circleGrid.setClusterConfig({ enabled: false });
@@ -204,6 +222,10 @@ export default function P5Background({
             lerpColor: animModule.lerpColor,
             getActiveFormation: subsectionModule.getActiveFormation,
             getActiveSubsectionIndex: subsectionModule.getActiveSubsectionIndex,
+            getRingCenter: subsectionModule.getRingCenter,
+            fadeState: "normal",
+            fadeProgress: 0,
+            pendingFormation: null,
           };
         };
 
@@ -212,6 +234,27 @@ export default function P5Background({
 
           const data = sketchDataRef.current;
           if (!data || !data.circleGrid || !data.sectionAnimations) return;
+
+          // Handle fade transitions
+          if (data.fadeState === "fadeOut") {
+            data.fadeProgress += 0.2; // Fade out speed
+            if (data.fadeProgress >= 1) {
+              // Fade out complete, apply new formation
+              data.currentFormation = data.pendingFormation!;
+              applyFormation(data.currentFormation);
+              // Instantly snap to new positions (no smooth transition)
+              data.circleGrid.snapToTargets();
+              data.fadeState = "fadeIn";
+              data.fadeProgress = 0;
+            }
+          } else if (data.fadeState === "fadeIn") {
+            data.fadeProgress += 0.2; // Fade in speed (faster)
+            if (data.fadeProgress >= 1) {
+              data.fadeState = "normal";
+              data.fadeProgress = 0;
+              data.pendingFormation = null;
+            }
+          }
 
           // Apply continuous animations for wave formation
           if (data.currentFormation === "wave") {
@@ -249,6 +292,35 @@ export default function P5Background({
 
           // Update and draw circles
           data.circleGrid.update(p5.millis(), pulseIntensity);
+
+          // Apply subtle pulsing animation for rings formation AFTER update
+          // to prevent smoothing from overriding the pulse
+          if (data.currentFormation === "rings") {
+            data.circleFormation.applyRingsPulse(
+              data.circleGrid.circles,
+              p5.millis()
+            );
+          }
+
+          // Apply fade alpha to all circles based on fade state
+          let fadeAlpha = 1;
+          if (data.fadeState === "fadeOut") {
+            fadeAlpha = 1 - data.fadeProgress;
+          } else if (data.fadeState === "fadeIn") {
+            fadeAlpha = data.fadeProgress;
+          }
+
+          // Apply fade alpha to all circles
+          if (fadeAlpha < 1) {
+            data.circleGrid.circles.forEach((circle: any) => {
+              circle.alpha = 0.6 * fadeAlpha;
+            });
+          } else if (data.fadeState === "normal") {
+            // Restore default alpha
+            data.circleGrid.circles.forEach((circle: any) => {
+              circle.alpha = 0.6;
+            });
+          }
 
           // Don't draw if current formation is invisible
           if (data.currentFormation !== "invisible") {
