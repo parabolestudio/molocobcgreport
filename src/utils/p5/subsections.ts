@@ -6,7 +6,8 @@ export type FormationType =
   | "rings"
   | "quadrants"
   | "converge"
-  | "spiral";
+  | "spiral"
+  | "invisible";
 
 export interface SubsectionConfig {
   progressStart: number; // 0-1 within the section
@@ -27,7 +28,7 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 0,
       progressEnd: 1,
-      formation: "grid", // Temporarily using grid
+      formation: "invisible", // Temporarily invisible
     },
     // {
     //   progressStart: 0,
@@ -44,7 +45,7 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 0,
       progressEnd: 1,
-      formation: "grid", // Temporarily using grid
+      formation: "invisible", // Temporarily invisible
       // formation: "quadrants",
     },
   ],
@@ -52,7 +53,7 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 0,
       progressEnd: 1,
-      formation: "grid", // Temporarily using grid
+      formation: "invisible", // Temporarily invisible
       // formation: "converge",
     },
   ],
@@ -60,7 +61,7 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 0,
       progressEnd: 1,
-      formation: "grid", // Temporarily using grid
+      formation: "invisible", // Temporarily invisible
       // formation: "rings",
     },
   ],

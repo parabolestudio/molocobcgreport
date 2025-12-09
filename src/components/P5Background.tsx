@@ -113,6 +113,9 @@ export default function P5Background() {
           centerY
         );
         break;
+      case "invisible":
+        // Don't apply any formation, dots will be hidden in draw
+        break;
     }
   }
 
@@ -145,7 +148,6 @@ export default function P5Background() {
           canvas.parent(canvasRef.current!);
           p5.frameRate(60);
 
-          // Grid with 20 columns and 12 rows - spacing calculated automatically
           circleGrid = new gridModule.CircleGrid(p5, 70, 40);
           circleFormation = new formationModule.CircleFormation(p5);
 
@@ -206,7 +208,11 @@ export default function P5Background() {
 
           // Update and draw circles
           data.circleGrid.update(p5.millis(), pulseIntensity);
-          data.circleGrid.draw(color);
+
+          // Don't draw if current formation is invisible
+          if (data.currentFormation !== "invisible") {
+            data.circleGrid.draw(color);
+          }
         };
 
         p5.windowResized = () => {
