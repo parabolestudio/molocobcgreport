@@ -2,11 +2,7 @@ import { useState } from "react";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 
-interface CTASectionProps {
-  isActive: boolean;
-}
-
-export default function CTASection({ isActive }: CTASectionProps) {
+export default function CTASection({ isActive }: { isActive: boolean }) {
   const [showMethodTooltip, setShowMethodTooltip] = useState<boolean>(false);
   const tooltipText = useCopy("context_button_method_tooltip");
 

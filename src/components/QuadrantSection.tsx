@@ -8,17 +8,15 @@ import type { ChartMode } from "@/helpers/chart";
 import { useCopy } from "@/contexts/CopyContext";
 import { fadeOut, fadeIn } from "@/helpers/scroll";
 
-interface QuadrantSectionProps {
-  isActive: boolean;
-  currentStep: number;
-  scrollToSection: (sectionIndex: number, localStep?: number) => void;
-}
-
 export default function QuadrantSection({
   isActive,
   currentStep,
   scrollToSection,
-}: QuadrantSectionProps) {
+}: {
+  isActive: boolean;
+  currentStep: number;
+  scrollToSection: (sectionIndex: number, localStep?: number) => void;
+}) {
   const introTextRef = useRef<HTMLDivElement>(null);
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartPanelRef = useRef<HTMLDivElement>(null);

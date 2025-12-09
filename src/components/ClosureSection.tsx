@@ -6,15 +6,13 @@ import { useCopy } from "@/contexts/CopyContext";
 import { fadeOut, fadeIn } from "@/helpers/scroll";
 import { basePath } from "@/helpers/general";
 
-interface ClosureSectionProps {
-  isActive: boolean;
-  currentStep: number;
-}
-
 export default function ClosureSection({
   isActive,
   currentStep,
-}: ClosureSectionProps) {
+}: {
+  isActive: boolean;
+  currentStep: number;
+}) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const paragraph1Ref = useRef<HTMLParagraphElement>(null);
   const paragraph2Ref = useRef<HTMLParagraphElement>(null);

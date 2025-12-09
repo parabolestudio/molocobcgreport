@@ -73,7 +73,7 @@ export function useGlobalScrollTrigger({
     const sections = sectionsRef.current;
     const totalSteps = sectionSteps.reduce((sum, steps) => sum + steps, 0);
 
-    console.log("Creating ScrollTrigger with:", { totalSteps, sections });
+    // console.log("Creating ScrollTrigger with:", { totalSteps, sections });
 
     // Create a single ScrollTrigger for the entire page
     const trigger = ScrollTrigger.create({
@@ -89,14 +89,14 @@ export function useGlobalScrollTrigger({
       },
       onUpdate: (self) => {
         const progress = self.progress;
-        console.log("ScrollTrigger progress:", progress);
+        // console.log("ScrollTrigger progress:", progress);
 
         const { sectionIndex, localStep } = getActiveSectionAndStep(
           progress,
           sections
         );
 
-        console.log("Active section/step:", { sectionIndex, localStep });
+        // console.log("Active section/step:", { sectionIndex, localStep });
 
         // Only trigger callback if section or step changed
         if (
@@ -109,10 +109,10 @@ export function useGlobalScrollTrigger({
             progress,
           };
 
-          console.log("Triggering onSectionChange:", {
-            sectionIndex,
-            localStep,
-          });
+          //   console.log("Triggering onSectionChange:", {
+          //     sectionIndex,
+          //     localStep,
+          //   });
           onSectionChangeRef.current?.(sectionIndex, localStep);
         }
       },
@@ -123,7 +123,7 @@ export function useGlobalScrollTrigger({
     });
 
     return () => {
-      console.log("Killing ScrollTrigger");
+      //   console.log("Killing ScrollTrigger");
       trigger.kill();
     };
   }, [containerRef, enabled]);

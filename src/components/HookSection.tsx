@@ -7,15 +7,15 @@ import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 import { fadeOut, fadeIn } from "@/helpers/scroll";
 
-interface HookSectionProps {
-  isActive: boolean;
-  currentStep: number;
-}
-
 export default function HookSection({
   isActive,
   currentStep,
-}: HookSectionProps) {
+  scrollToSection,
+}: {
+  isActive: boolean;
+  currentStep: number;
+  scrollToSection: (sectionIndex: number, localStep?: number) => void;
+}) {
   const text1Ref = useRef<HTMLDivElement>(null);
   const text2Ref = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -80,7 +80,10 @@ export default function HookSection({
         >
           <button className="bg-grey-blue flex items-center justify-center gap-2 opacity-0"></button>
           <p className="hook-p">{useCopy("hooks_1_text")}</p>
-          <div className="bg-grey-blue flex items-center justify-center gap-2 opacity-50 cursor-not-allowed">
+          <button
+            className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
+            onClick={() => scrollToSection(0, 1)}
+          >
             <span>scroll</span>
             <img
               src={`${basePath}/icons/arrow.svg`}
@@ -89,7 +92,7 @@ export default function HookSection({
               height={13}
               style={{ transform: "rotate(-90deg)" }}
             />
-          </div>
+          </button>
         </div>
         <div
           ref={text2Ref}

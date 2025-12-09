@@ -8,17 +8,15 @@ import {
 import { useEffect, useRef, useMemo } from "react";
 import type P5 from "p5";
 
-interface P5BackgroundProps {
-  activeSection: number;
-  currentStep: number;
-  sectionName: SectionName;
-}
-
 export default function P5Background({
   activeSection,
   currentStep,
   sectionName,
-}: P5BackgroundProps) {
+}: {
+  activeSection: number;
+  currentStep: number;
+  sectionName: SectionName;
+}) {
   // Calculate derived values from props
   const sectionSteps = SECTION_STEPS[sectionName];
   const sectionProgress = currentStep / sectionSteps;

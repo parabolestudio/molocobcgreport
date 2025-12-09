@@ -6,15 +6,13 @@ import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 import { ANIMATION_CONFIG } from "@/helpers/scroll";
 
-interface JourneySectionProps {
-  isActive: boolean;
-  currentStep: number;
-}
-
 export default function JourneySection({
   isActive,
   currentStep,
-}: JourneySectionProps) {
+}: {
+  isActive: boolean;
+  currentStep: number;
+}) {
   const introRef = useRef<HTMLDivElement>(null);
   const journeyPathRef = useRef<HTMLDivElement>(null);
   const statRefs = [

@@ -62,6 +62,7 @@ export default function Home() {
         <HookSection
           isActive={currentSection === 0}
           currentStep={currentStep}
+          scrollToSection={scrollToSection}
         />
         <JourneySection
           isActive={currentSection === 1}

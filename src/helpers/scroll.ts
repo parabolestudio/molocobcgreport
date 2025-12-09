@@ -87,21 +87,6 @@ export function generateSnapPoints(steps: number): number[] {
 }
 
 /**
- * Calculate which step should be active based on scroll progress
- * @param progress - Current scroll progress (0-1)
- * @param steps - Total number of steps
- * @returns Current step index (0-based)
- */
-export function getActiveStep(progress: number, steps: number): number {
-  for (let i = 0; i < steps; i++) {
-    if (progress < (i + 1) / steps) {
-      return i;
-    }
-  }
-  return steps - 1;
-}
-
-/**
  * Fade out an element with consistent animation
  * @param element - Element to fade out
  * @param config - Optional animation config override
@@ -222,20 +207,20 @@ export function getActiveSectionAndStep(
   const globalStepFloat = clampedProgress * totalSteps;
   const globalStep = Math.min(Math.floor(globalStepFloat), totalSteps - 1);
 
-  console.log("getActiveSectionAndStep:", {
-    progress: clampedProgress,
-    globalStepFloat,
-    globalStep,
-    totalSteps,
-  });
+  // console.log("getActiveSectionAndStep:", {
+  //   progress: clampedProgress,
+  //   globalStepFloat,
+  //   globalStep,
+  //   totalSteps,
+  // });
 
   for (let i = 0; i < sections.length; i++) {
     const section = sections[i];
     if (globalStep >= section.startStep && globalStep <= section.endStep) {
       const localStep = globalStep - section.startStep;
-      console.log(
-        `Found section ${i} (${section.name}), local step ${localStep}`
-      );
+      // console.log(
+      //   `Found section ${i} (${section.name}), local step ${localStep}`
+      // );
       return {
         sectionIndex: i,
         localStep,
@@ -246,7 +231,7 @@ export function getActiveSectionAndStep(
 
   // Fallback to last section
   const lastSection = sections[sections.length - 1];
-  console.log("Fallback to last section");
+  // console.log("Fallback to last section");
   return {
     sectionIndex: sections.length - 1,
     localStep: lastSection.steps - 1,
