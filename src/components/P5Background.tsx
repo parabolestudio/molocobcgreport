@@ -21,6 +21,7 @@ export default function P5Background() {
     sectionAnimations: any;
     lerpColor: any;
     getActiveFormation: any;
+    getActiveSubsectionIndex: any;
   } | null>(null);
 
   // Update section and formation when they change
@@ -169,14 +170,15 @@ export default function P5Background() {
           sketchDataRef.current = {
             circleGrid,
             circleFormation,
-            currentSection: sectionName,
-            lastSection: sectionName,
+            currentSection: "hook",
+            lastSection: "hook",
             currentFormation: "grid",
             lastFormation: "grid",
             transitionProgress: 1,
             sectionAnimations: animModule.sectionAnimations,
             lerpColor: animModule.lerpColor,
             getActiveFormation: subsectionModule.getActiveFormation,
+            getActiveSubsectionIndex: subsectionModule.getActiveSubsectionIndex,
           };
         };
 
@@ -294,6 +296,15 @@ export default function P5Background() {
           {sketchDataRef.current && (
             <>
               <div className="border-t border-gray-700 my-2 pt-2">
+                <span className="text-gray-400">Subsection:</span>{" "}
+                <span className="text-pink-400">
+                  {sketchDataRef.current.getActiveSubsectionIndex(
+                    sectionName,
+                    sectionProgress
+                  )}
+                </span>
+              </div>
+              <div>
                 <span className="text-gray-400">Formation:</span>{" "}
                 <span className="text-cyan-400">
                   {sketchDataRef.current.currentFormation}

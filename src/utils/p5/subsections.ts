@@ -67,6 +67,27 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
   ],
 };
 
+// Get the active subsection index based on section and progress
+export function getActiveSubsectionIndex(
+  section: SectionName,
+  sectionProgress: number
+): number {
+  const subsections = subsectionConfigs[section];
+
+  for (let i = 0; i < subsections.length; i++) {
+    const subsection = subsections[i];
+    if (
+      sectionProgress >= subsection.progressStart &&
+      sectionProgress < subsection.progressEnd
+    ) {
+      return i;
+    }
+  }
+
+  // Default to last subsection if we're at the end
+  return subsections.length - 1;
+}
+
 // Get the active subsection formation based on section and progress
 export function getActiveFormation(
   section: SectionName,

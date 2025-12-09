@@ -11,7 +11,7 @@ const STEPS = 5; // 1 intro + 4 stats
 
 export default function JourneySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const text1Ref = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLDivElement>(null);
   const journeyPathRef = useRef<HTMLDivElement>(null);
   const statRefs = [
     useRef<HTMLDivElement>(null),
@@ -26,12 +26,11 @@ export default function JourneySection() {
 
   // Set initial visibility
   useEffect(() => {
-    const text1 = text1Ref.current;
+    const intro = introRef.current;
     const journeyPath = journeyPathRef.current;
     const stats = statRefs.map((ref) => ref.current);
 
-    if (!text1 || !journeyPath || stats.some((s) => !s)) return;
-
+    if (!intro || !journeyPath || stats.some((s) => !s)) return;
     // Get all children of each stat container
     const allStatChildren = stats.map((stat) =>
       stat!.querySelectorAll(".stat-content")
@@ -40,21 +39,20 @@ export default function JourneySection() {
 
     // Initial state - all stats and journey path hidden, intro text visible
     gsap.set([journeyPath, ...flatStatChildren], { autoAlpha: 0, y: 30 });
-    gsap.set(text1, { autoAlpha: 1, y: 0 });
+    gsap.set(intro, { autoAlpha: 1, y: 0 });
   }, []);
 
   // Handle step transitions
   useEffect(() => {
-    const text1 = text1Ref.current;
+    const intro = introRef.current;
     const journeyPath = journeyPathRef.current;
     const stats = statRefs.map((ref) => ref.current);
 
-    if (!text1 || !journeyPath || stats.some((s) => !s)) return;
-
+    if (!intro || !journeyPath || stats.some((s) => !s)) return;
     const previousStep = previousStepRef.current;
 
     // Kill all ongoing animations first
-    gsap.killTweensOf([text1, journeyPath]);
+    gsap.killTweensOf([intro, journeyPath]);
 
     // Handle journey path and visibility based on current step
     if (currentStep === 0) {
@@ -78,9 +76,9 @@ export default function JourneySection() {
       });
 
       // Show intro text
-      gsap.killTweensOf(text1);
+      gsap.killTweensOf(intro);
       gsap.fromTo(
-        text1,
+        intro,
         { autoAlpha: 0, y: 30 },
         {
           autoAlpha: 1,
@@ -93,14 +91,14 @@ export default function JourneySection() {
 
       // Fade out intro text if coming from intro
       if (previousStep === 0) {
-        gsap.to(text1, {
+        gsap.to(intro, {
           autoAlpha: 0,
           duration: ANIMATION_CONFIG.duration,
           ...ANIMATION_CONFIG.fadeOut,
         });
       } else {
         // Already on stats - hide intro immediately
-        gsap.set(text1, { autoAlpha: 0 });
+        gsap.set(intro, { autoAlpha: 0 });
       }
 
       // Ensure journey path is visible
@@ -167,7 +165,7 @@ export default function JourneySection() {
       <div className="relative w-full h-full flex items-center justify-center">
         {/* Intro screen */}
         <div
-          ref={text1Ref}
+          ref={introRef}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full opacity-0 invisible"
         >
           <div className="max-w-[1728px] px-10 m-auto mb-16">
