@@ -492,9 +492,9 @@ export default function Chart({
             })}
           </g>
 
-          <text className="fill-red-900 font-light" y="20">
+          {/* <text className="fill-red-900 font-light" y="20">
             {mode}
-          </text>
+          </text> */}
         </g>
       </svg>
       {quadrantData

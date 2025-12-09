@@ -8,6 +8,7 @@ import {
   setInitialVisibility,
 } from "@/hooks/useScrollTrigger";
 import { fadeOut, fadeIn } from "@/helpers/scroll";
+import { basePath } from "@/helpers/general";
 
 const STEPS = 3;
 
@@ -98,6 +99,16 @@ export default function ClosureSection() {
 
   return (
     <div ref={sectionRef} className="relative w-full h-screen bg-forest-green">
+      <div
+        className="fixed top-0 bottom-0 left-0 right-0 "
+        style={{
+          backgroundImage: `url(${basePath}/background/texture.jpg)`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: 0.3,
+          mixBlendMode: "luminosity",
+        }}
+      ></div>
       <div className="relative w-full h-full flex items-center justify-center">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-8 h-full py-12">
           <div
