@@ -104,15 +104,15 @@ export default function HookSection({
 
         <div
           ref={titleRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 text-center flex flex-col items-center justify-center gap-32"
+          className="absolute inset-0 w-full h-full px-8 text-center flex flex-col items-center justify-center gap-16 md:gap-32 py-8 overflow-y-auto"
           style={{ opacity: 0, visibility: "hidden" }}
         >
-          <h1 className="text-[128px] text-bright-green font-museo-moderno uppercase leading-[0.99] font-extralight text-balance">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-[128px] text-bright-green font-museo-moderno uppercase leading-[0.99] font-extralight text-balance">
             {useCopy("hooks_title")}
           </h1>
-          <div>
+          <div className="shrink-0">
             <p className="hook-p">{useCopy("hooks_subline")}</p>
-            <div className="flex gap-12 mt-4">
+            <div className="flex gap-12 mt-4 justify-center">
               <img
                 src={`${basePath}/logos/moloco.svg`}
                 alt="Moloco logo"
