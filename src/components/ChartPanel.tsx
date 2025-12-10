@@ -195,7 +195,7 @@ export default function ChartPanel({
             <button
               className={`bg-grey-blue flex items-center justify-center gap-2 disabled:text-[#9494AA] ${
                 isBackButtonDisabled ? "" : "hover:bg-[#9494AA]"
-              } transition`}
+              } transition grow`}
               onClick={() => scrollBack()}
               disabled={isBackButtonDisabled}
               style={{ fontSize: "14px" }}
@@ -222,14 +222,14 @@ export default function ChartPanel({
               <span>Back</span>
             </button>
             <button
-              className="bg-medium-blue"
+              className="bg-medium-blue grow"
               onClick={() => scrollToDataMode()}
               style={{ fontSize: "14px" }}
             >
               Skip to index
             </button>
             <button
-              className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
+              className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition grow"
               onClick={() => scrollNext()}
               style={{ fontSize: "14px" }}
             >

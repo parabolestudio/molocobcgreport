@@ -529,8 +529,8 @@ export default function Chart({
                     : "left",
                 paddingTop: 40,
                 paddingBottom: 40,
-                paddingLeft: 10,
-                paddingRight: 10,
+                paddingLeft: 15,
+                paddingRight: 15,
                 opacity: mode.startsWith("expl-quadrant") ? 1 : 0,
                 maxWidth: innerWidth / 2 - 20,
               }}

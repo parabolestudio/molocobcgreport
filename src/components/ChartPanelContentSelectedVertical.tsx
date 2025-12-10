@@ -155,7 +155,7 @@ function DetailsCopy({ copy }: { copy: Copy }) {
     <div>
       <div className="border-b border-b-bright-green pb-5 border-dashed gap-4 flex flex-col">
         <div>
-          <p className="font-bold text-[20px]">AI Disruption Risk</p>
+          <p className="font-bold text-[24px]">AI Disruption Risk</p>
           <p>{copy.ai_risk_intro}</p>
         </div>
         <div>
@@ -186,7 +186,7 @@ function DetailsCopy({ copy }: { copy: Copy }) {
       </div>
       <div className="py-5 border-dashed gap-5 flex flex-col">
         <div>
-          <p className="font-bold text-[20px]">
+          <p className="font-bold text-[24px]">
             Strength of Customer Relationship
           </p>
           <p>{copy.customer_intro}</p>

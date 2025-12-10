@@ -111,6 +111,10 @@ button {
   fill: var(--grey-blue);
 }
 
+.copy-text {
+  font-weight: 400;
+}
+
 .panel-content p:not([class*="text-"]),
 .panel-content li {
   font-size: 18px;

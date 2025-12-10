@@ -4,12 +4,9 @@ hooks_1_button,"Hook, screen 1 button",scroll
 hooks_2_text,"Hook, screen 2","Consumer behavior is shifting faster than marketing budgets can follow, and this will only continue to accelerate.
 
 New research on LLM disruption, done in partnership with BCG, dives deep into the <green><b>current state of play for marketers</b></green>, and where we go from here."
-hooks_3_text,"Hook, screen 3","How can brands find and connect with customers? How do they adapt and grow? 
-
-"
 hooks_title,Title,<green>The <b>AI Disruption Index</b></green>
 hooks_subline,Title sub-line,Report by
-context_intro,Context paragraph 1,"<green><b>In partnership with BCG, we talked to and surveyed consumers, advertising executives, and consulted our 1P data to understand just how deep the disruption goes.</b></green>"
+context_intro,Context paragraph 1,"<green><b>In partnership with BCG, we surveyed 283 marketing leaders across 15 verticals and 5 regions, interviewed 15 executives from leading companies, and analyzed billions of Moloco first-party signals and data across 3,000 apps.</b></green>"
 context_buttons_text,Context paragraph 2,"We uncovered new insights on LLM disruption, vertical strengths and opportunities, and the new customer journey."
 context_button_method,Context button 2,methodology
 context_button_method_tooltip,Methodology copy,"<b>About the Research</b>
@@ -52,7 +49,7 @@ qu_expl_x_description,Quadrant X axis description,"<b>AI Disruption</b> <green>(
 - Service Disruption: The ability for customers to use AI/LLM without having a direct relationship with a company
 - Discovery Disruption: Consumers going to LLMs for discovery rather than using traditional channels"
 qu_expl_y_description,Quadrant Y axis description,"<b>Customer Relationship Strength</b> <green>(y-axis)</green> scores strength from high to low based on reliance on paid user acquisition, ability to drive loyalty, and how much customers engage on platforms like apps (higher engagement) vs. the web (lower)."
-qu_info,"Info message (is now the source, to remain the same throughout)","Source: Moloco and BCG (2025). Based on surveys and interviews with 250 senior marketing leaders (CMOs & VPs) across 15 verticals, plus performance data from 3,000+ apps representing 200B+ downloads."
+qu_info,"Info message (is now the source, to remain the same throughout)","Moloco and BCG (2025). Based on surveys and interviews with 250 senior marketing leaders (CMOs & VPs) across 15 verticals, plus performance data from 3,000+ apps representing 200B+ downloads."
 qu_bottom_left_title,"Quadrant, step 1 title",<b>Breached</b>
 qu_bottom_left_headline,"Quadrant, step 1 headline",High AI disruption and weak customer relationships leave these verticals highly vulnerable to being disintermediated by LLMs.
 qu_bottom_left_description,"Quadrant, step 1 body text","They need to fundamentally <b>rebuild the relationship layer</b>, including:
@@ -62,8 +59,7 @@ qu_bottom_left_description,"Quadrant, step 1 body text","They need to fundamenta
 - Making the most of first-party data and closed-loop systems to make their platforms indispensable
 - Diversifying media spend to account for instability in traditional discovery channels "
 qu_top_left_title,"Quadrant, step 2 title",<b>Undefended</b>
-qu_top_left_headline,"Quadrant, step 2 headline","Low AI disruption today, but weak customer relationships, mean these verticals lack long-term defensibility.
-"
+qu_top_left_headline,"Quadrant, step 2 headline","Low AI disruption today, but weak customer relationships, mean these verticals lack long-term defensibility."
 qu_top_left_description,"Quadrant, step 2 body text","They need to <b>build future-proof foundations</b>, including: 
 
 - Building deeper relationships through AI-driven personalization and loyalty ecosystems like mobile apps 
@@ -83,7 +79,6 @@ qu_top_right_description,"Quadrant, step 4 body text","These verticals need to <
 - Reimagining customer connection with AI-powered experiences, shifting from generic loyalty to personalized, proactive relationships 
 - Continue diversifying media spend to reach people where they are"
 qu_data_nudge,Vertical selection nudge,Select a vertical to explore details.
-,Info message for the next phase,Click on a vertical to explore details. Hover over the quadrant name for definitions.
 closure_title,Closure title,<b>Customer relationships</b> are the durable asset of the AI future
 closure_paragraph_1,Closure paragraph 1,"While the implications of the AI future will vary by vertical, there’s one strategic principle that’s consistent. And that’s the need to own more of the customer relationship. Because while journeys shift, relationships endure."
 closure_paragraph_2,Closure paragraph 2,"Many forward-looking CMOs are turning to a hidden gem of their arsenal – their mobile app. At a time when brands are getting disintermediated, surfaces where you own the customer relationship become a primary competitive advantage.

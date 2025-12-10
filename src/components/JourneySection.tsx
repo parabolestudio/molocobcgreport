@@ -210,13 +210,11 @@ export default function JourneySection({
                   strokeLinejoin="round"
                 />
               </svg>
-              <div>
-                {showMethodTooltip && (
-                  <div className="absolute bottom-[54px] right-0  text-black-blue bg-grey-text text-[18px] w-[380px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%]">
-                    {tooltipText}
-                  </div>
-                )}
-              </div>
+              {showMethodTooltip && (
+                <div className="absolute bottom-[54px] right-0  text-black-blue bg-grey-text text-[18px] w-[380px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%] copy-text">
+                  {tooltipText}
+                </div>
+              )}
             </button>
           </div>
         </div>
