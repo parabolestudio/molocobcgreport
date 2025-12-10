@@ -277,7 +277,7 @@ function StatDisplay({
             {useCopy(`journey_${step}_stat_text`)}
           </div>
         </div>
-        <div className="text-grey-text text-[12px] text-center text-balance">
+        <div className="text-[#9494AA] text-[12px] text-center text-balance">
           {useCopy(`journey_${step}_stat_source`)}
         </div>
       </div>
