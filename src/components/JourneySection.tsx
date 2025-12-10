@@ -222,8 +222,8 @@ export default function JourneySection({
         </div>
 
         {/* Stats screens with grid */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-10 pointer-events-none">
-          <div className="grid grid-cols-[1fr_1.5fr_1fr] grid-rows-[1fr_1.5fr] gap-15">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1600px] px-10 pointer-events-none">
+          <div className="grid grid-cols-[1fr_1.5fr_1fr] grid-rows-[auto_1fr] gap-8">
             <div
               ref={journeyPathRef}
               style={{ gridArea: "1 / 1 / 2 / 4" }}
@@ -261,13 +261,13 @@ function StatDisplay({
           gridArea: "2 / 2 / 3 / 3",
         }}
       >
-        <div className="text-grey-text text-[40px] text-center font-bold mb-4">
+        <div className="text-grey-text text-[32px] text-center font-bold mb-3">
           {useCopy(`journey_${step}_stat_headline`)}
         </div>
-        <div className="text-bright-green text-[260px] text-center font-semibold leading-none">
+        <div className="text-bright-green text-[200px] text-center font-semibold leading-none">
           {useCopy(`journey_${step}_stat_number`)}
         </div>
-        <div className="text-bright-green text-[24px] text-center text-balance">
+        <div className="text-bright-green text-[20px] text-center text-balance">
           {useCopy(`journey_${step}_stat_text`)}
         </div>
       </div>
@@ -277,7 +277,7 @@ function StatDisplay({
           gridArea: "2 / 3 / 3 / 4",
         }}
       >
-        <div className="text-grey-text text-[14px] text-balance">
+        <div className="text-grey-text text-[12px] text-balance">
           {useCopy(`journey_${step}_stat_source`)}
         </div>
       </div>
@@ -287,8 +287,16 @@ function StatDisplay({
 
 function JourneyPath({ step }: { step: number }) {
   return (
-    <div className={`max-h-[300] journey-path current-step-${step}`}>
-      <svg width="1571" height="346" fill="none" viewBox="0 0 1571 346">
+    <div
+      className={`w-full max-w-[90%] mx-auto journey-path current-step-${step}`}
+    >
+      <svg
+        width="100%"
+        height="auto"
+        fill="none"
+        viewBox="0 0 1571 346"
+        preserveAspectRatio="xMidYMid meet"
+      >
         <g className="Group 2381">
           <path
             fill="#F2F2F2"

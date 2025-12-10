@@ -95,7 +95,7 @@ export default function ClosureSection({
 
   return (
     <div
-      className={`absolute inset-0 w-full h-full bg-forest-green transition-opacity duration-300 ${
+      className={`absolute inset-0 w-full h-full bg-bright-green transition-opacity duration-300 ${
         isActive
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
@@ -113,17 +113,18 @@ export default function ClosureSection({
         }}
       ></div>
       <div className="relative w-full h-full flex items-center justify-center">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-8 h-full py-12">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1600px] px-8 py-8">
           <div
-            className="w-full h-full grid"
+            className="w-full grid"
             style={{
               gridTemplateColumns: "repeat(6, 1fr)",
-              gridTemplateRows: "repeat(2, 1fr)",
+              gridTemplateRows: "auto auto",
+              gap: "0rem",
             }}
           >
             <h3
               ref={titleRef}
-              className="text-[96px] font-museo-moderno leading-[100%]"
+              className="text-[72px] font-museo-moderno leading-[100%]"
               style={{ gridArea: " 1 / 1 / 2 / 5", color: "var(--black-blue)" }}
             >
               {useCopy("closure_title")}
@@ -131,14 +132,14 @@ export default function ClosureSection({
             <p
               ref={paragraph1Ref}
               className="text-[32px] self-end"
-              style={{ gridArea: " 2 / 5 / 3 / 7" }}
+              style={{ gridArea: " 2 / 5 / 3 / 7", color: "var(--black-blue)" }}
             >
               {useCopy("closure_paragraph_1")}
             </p>
             <p
               ref={paragraph2Ref}
-              className="text-[32px]"
-              style={{ gridArea: "1 / 1 / 2 / 5" }}
+              className="text-[24px]"
+              style={{ gridArea: "1 / 1 / 2 / 5", color: "var(--black-blue)" }}
             >
               {useCopy("closure_paragraph_2")}
             </p>
@@ -149,7 +150,7 @@ export default function ClosureSection({
               <div className="relative max-w-[327px]">
                 <div
                   ref={cardContent1Ref}
-                  className="text-black-blue bg-bright-green rounded-[20px] px-8 pt-8 pb-16"
+                  className="text-black-blue bg-bright-green rounded-[20px] px-6 pt-6 pb-12"
                 >
                   {useCopy("closure_card_1")}
                 </div>
@@ -166,7 +167,7 @@ export default function ClosureSection({
               <div className="relative max-w-[327px]">
                 <div
                   ref={cardContent2Ref}
-                  className="text-black-blue bg-bright-green rounded-[20px] px-8 pt-8 pb-16"
+                  className="text-black-blue bg-bright-green rounded-[20px] px-6 pt-6 pb-12"
                 >
                   {useCopy("closure_card_2")}
                 </div>
@@ -183,7 +184,7 @@ export default function ClosureSection({
               <div className="relative max-w-[327px]">
                 <div
                   ref={cardContent3Ref}
-                  className="text-black-blue bg-bright-green rounded-[20px] px-8 pt-8 pb-16"
+                  className="text-black-blue bg-bright-green rounded-[20px] px-6 pt-6 pb-12"
                 >
                   {useCopy("closure_card_3")}
                 </div>
