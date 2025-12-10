@@ -198,6 +198,7 @@ export default function ChartPanel({
               } transition`}
               onClick={() => scrollBack()}
               disabled={isBackButtonDisabled}
+              style={{ fontSize: "14px" }}
             >
               <svg
                 width="17"
@@ -223,12 +224,14 @@ export default function ChartPanel({
             <button
               className="bg-medium-blue"
               onClick={() => scrollToDataMode()}
+              style={{ fontSize: "14px" }}
             >
               Skip to index
             </button>
             <button
               className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
               onClick={() => scrollNext()}
+              style={{ fontSize: "14px" }}
             >
               <span>Next</span>
               <img
