@@ -166,62 +166,69 @@ export default function JourneySection({
         {/* Intro screen */}
         <div
           ref={introRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full opacity-0 invisible"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 h-full max-h-[1000px] py-8 opacity-0 invisible flex flex-col justify-between items-start"
         >
-          <div className="max-w-[1728px] px-10 m-auto mb-16">
-            <div className="text-[32px] max-w-[900px]">
-              {useCopy("context_intro")}
+          <div className="relative flex flex-col justify-between items-start h-full w-full">
+            <div className="w-full">
+              <div className="text-[32px] max-w-[900px]">
+                {useCopy("context_intro")}
+              </div>
             </div>
-          </div>
-          <img
-            src={`${basePath}/icons/contextPath.svg`}
-            alt="Context Path"
-            className="w-full max-w-[80%] h-auto ml-[-5px]"
-          />
-          <div className="max-w-[1728px] flex justify-between items-end gap-2 px-10 m-auto mt-16">
-            <div className="text-[32px] max-w-[900px]">
-              {useCopy("context_buttons_text")}
-            </div>
-            <button
-              className="relative button-grey-text-hover bg-black-blue border-grey-text border rounded text-grey-text flex items-center justify-between gap-3 hover:bg-grey-text hover:text-black-blue transition"
-              onMouseEnter={() => setShowMethodTooltip(true)}
-              onMouseLeave={() => setShowMethodTooltip(false)}
-            >
-              <span className="">{useCopy("context_button_method")}</span>
-              <svg
-                width="30"
-                height="18"
-                viewBox="0 0 30 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+            <div className="w-full flex justify-between items-end gap-2">
+              <div className="text-[32px] max-w-[900px]">
+                {useCopy("context_buttons_text")}
+              </div>
+              <button
+                className="relative button-grey-text-hover bg-black-blue border-grey-text border rounded text-grey-text flex items-center justify-between gap-3 hover:bg-grey-text hover:text-black-blue transition"
+                onMouseEnter={() => setShowMethodTooltip(true)}
+                onMouseLeave={() => setShowMethodTooltip(false)}
               >
-                <path
-                  d="M1.25 10.25C6.65 -1.75 22.85 -1.75 28.25 10.25"
-                  strokeWidth="2.5"
-                  className="stroke-grey-text no-fill transition"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M14.749 16.2501C14.1581 16.2501 13.5729 16.1337 13.0269 15.9076C12.481 15.6814 11.9849 15.35 11.567 14.9321C11.1492 14.5142 10.8177 14.0182 10.5916 13.4722C10.3654 12.9262 10.249 12.3411 10.249 11.7501C10.249 11.1592 10.3654 10.574 10.5916 10.028C10.8177 9.48208 11.1492 8.986 11.567 8.56814C11.9849 8.15028 12.481 7.81881 13.0269 7.59266C13.5729 7.36652 14.1581 7.25012 14.749 7.25012C15.9425 7.25012 17.0871 7.72423 17.931 8.56814C18.7749 9.41205 19.249 10.5566 19.249 11.7501C19.249 12.9436 18.7749 14.0882 17.931 14.9321C17.0871 15.776 15.9425 16.2501 14.749 16.2501Z"
-                  className="stroke-grey-text fill-grey-text with-fill transition"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              {showMethodTooltip && (
-                <div className="absolute bottom-[54px] right-0  text-black-blue bg-grey-text text-[18px] w-[380px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%] copy-text">
-                  {tooltipText}
-                </div>
-              )}
-            </button>
+                <span className="">{useCopy("context_button_method")}</span>
+                <svg
+                  width="30"
+                  height="18"
+                  viewBox="0 0 30 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.25 10.25C6.65 -1.75 22.85 -1.75 28.25 10.25"
+                    strokeWidth="2.5"
+                    className="stroke-grey-text no-fill transition"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M14.749 16.2501C14.1581 16.2501 13.5729 16.1337 13.0269 15.9076C12.481 15.6814 11.9849 15.35 11.567 14.9321C11.1492 14.5142 10.8177 14.0182 10.5916 13.4722C10.3654 12.9262 10.249 12.3411 10.249 11.7501C10.249 11.1592 10.3654 10.574 10.5916 10.028C10.8177 9.48208 11.1492 8.986 11.567 8.56814C11.9849 8.15028 12.481 7.81881 13.0269 7.59266C13.5729 7.36652 14.1581 7.25012 14.749 7.25012C15.9425 7.25012 17.0871 7.72423 17.931 8.56814C18.7749 9.41205 19.249 10.5566 19.249 11.7501C19.249 12.9436 18.7749 14.0882 17.931 14.9321C17.0871 15.776 15.9425 16.2501 14.749 16.2501Z"
+                    className="stroke-grey-text fill-grey-text with-fill transition"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                {showMethodTooltip && (
+                  <div className="absolute bottom-[54px] right-0  text-black-blue bg-grey-text text-[18px] w-[380px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%] copy-text">
+                    {tooltipText}
+                  </div>
+                )}
+              </button>
+            </div>
+            <div
+              className="absolute top-1/2 -translate-y-1/2"
+              style={{ left: "-8%", right: "-8%" }}
+            >
+              <img
+                src={`${basePath}/icons/contextPath.svg`}
+                alt="Context Path"
+                style={{ width: "80%", marginLeft: "-0.1%" }}
+              />
+            </div>
           </div>
         </div>
 
         {/* Stats screens with grid */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1600px] px-10 pointer-events-none">
-          <div className="grid grid-cols-[1fr_1.5fr_1fr] grid-rows-[auto_1fr] gap-8">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1600px] px-10 h-full max-h-[1200px] py-8 pointer-events-none flex flex-col">
+          <div className="grow grid grid-cols-[1fr_1.5fr_1fr] gap-10 h-full">
             <div
               ref={journeyPathRef}
               style={{ gridArea: "1 / 1 / 2 / 4" }}
@@ -254,22 +261,27 @@ function StatDisplay({
   return (
     <div ref={passRef} style={{ display: "contents" }}>
       <div
-        className="stat-content flex flex-col justify-end opacity-0 invisible"
+        className="stat-content flex flex-col justify-around opacity-0 invisible"
         style={{
           gridArea: "2 / 2 / 3 / 3",
         }}
       >
-        <div className="text-grey-text text-[32px] text-center font-bold mb-3">
-          {useCopy(`journey_${step}_stat_headline`)}
+        <div>
+          <div className="text-bright-green text-[24px] text-center font-bold mb-3">
+            {useCopy(`journey_${step}_stat_headline`)}
+          </div>
+          <div className="text-bright-green text-[260px] text-center font-semibold leading-none font-museo-moderno uppercase">
+            {useCopy(`journey_${step}_stat_number`)}
+          </div>
+          <div className="text-bright-green text-[24px] text-center text-balance mt-5">
+            {useCopy(`journey_${step}_stat_text`)}
+          </div>
         </div>
-        <div className="text-bright-green text-[200px] text-center font-semibold leading-none">
-          {useCopy(`journey_${step}_stat_number`)}
-        </div>
-        <div className="text-bright-green text-[20px] text-center text-balance">
-          {useCopy(`journey_${step}_stat_text`)}
+        <div className="text-grey-text text-[12px] text-center text-balance">
+          {useCopy(`journey_${step}_stat_source`)}
         </div>
       </div>
-      <div
+      {/* <div
         className="stat-content flex flex-col justify-end opacity-0 invisible"
         style={{
           gridArea: "2 / 3 / 3 / 4",
@@ -278,7 +290,7 @@ function StatDisplay({
         <div className="text-grey-text text-[12px] text-balance">
           {useCopy(`journey_${step}_stat_source`)}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

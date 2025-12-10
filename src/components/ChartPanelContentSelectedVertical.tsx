@@ -94,7 +94,7 @@ function SummaryCopy({ copy }: { copy: Copy }) {
         {/* Example apps */}
         <div>
           <p className="text-[14px]">Example apps in category</p>
-          <div className="flex flex-row gap-8 overflow-y-scroll max-h-[60px] mt-2 pb-3">
+          <div className="flex flex-row gap-8 overflow-y-scroll max-h-10 mt-2 pb-3">
             {copy.exampleApps.map((app) => (
               <img
                 key={app}
