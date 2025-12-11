@@ -59,8 +59,7 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 0,
       progressEnd: 1,
-      formation: "rings",
-      ringCenter: { x: 0.5, y: 0.5 }, // Center of screen
+      formation: "grid",
     },
   ],
 };
