@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useCopy } from "@/contexts/CopyContext";
-import { fadeOut, fadeIn } from "@/helpers/scroll";
+import { fadeOut, fadeIn, SCROLL_CONFIG } from "@/helpers/scroll";
 import { basePath } from "@/helpers/general";
 
 export default function ClosureSection({
@@ -16,6 +16,7 @@ export default function ClosureSection({
   const screen1Ref = useRef<HTMLDivElement>(null);
   const screen2Ref = useRef<HTMLDivElement>(null);
   const previousStepRef = useRef(-1);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const screenRefs = [screen1Ref, screen2Ref];
 
@@ -24,11 +25,26 @@ export default function ClosureSection({
     // Set step 0 (text1) visible, others hidden
     gsap.set(screen1Ref.current, { autoAlpha: 1 });
     gsap.set(screen2Ref.current, { autoAlpha: 0 });
+    // Set cards initial state
+    cardsRef.current.forEach((card) => {
+      if (card) {
+        gsap.set(card, { autoAlpha: 0, y: 30 });
+      }
+    });
   }, []);
 
   // Handle step transitions
   useEffect(() => {
-    if (!isActive) return; // Only animate when this section is active
+    if (!isActive) {
+      // Fade out cards smoothly when leaving the section
+      cardsRef.current.forEach((card) => {
+        if (card) {
+          fadeOut(card);
+        }
+      });
+      return;
+    }
+
     if (currentStep === previousStepRef.current) return;
 
     const screens = screenRefs.map((ref) => ref.current).filter(Boolean);
@@ -38,6 +54,9 @@ export default function ClosureSection({
 
     // Kill all ongoing animations first
     screens.forEach((screen) => gsap.killTweensOf(screen));
+    cardsRef.current.forEach((card) => {
+      if (card) gsap.killTweensOf(card);
+    });
 
     // Hide all screens immediately except current and previous
     screens.forEach((screen, i) => {
@@ -50,11 +69,45 @@ export default function ClosureSection({
     if (previousStep >= 0 && previousStep !== currentStep) {
       const previousScreen = screens[previousStep];
       if (previousScreen) fadeOut(previousScreen);
+
+      // Fade out cards when leaving screen2
+      if (previousStep === 1) {
+        cardsRef.current.forEach((card) => {
+          if (card) {
+            fadeOut(card);
+          }
+        });
+      }
     }
 
     // Fade in current screen
     const currentScreen = screens[currentStep];
-    if (currentScreen) fadeIn(currentScreen);
+    if (currentScreen) {
+      fadeIn(currentScreen);
+
+      // If transitioning to screen2 (step 1), animate cards
+      if (currentStep === 1) {
+        // Reset cards first
+        cardsRef.current.forEach((card) => {
+          if (card) {
+            gsap.set(card, { autoAlpha: 0, y: 30 });
+          }
+        });
+
+        // Then animate them in
+        cardsRef.current.forEach((card, index) => {
+          if (card) {
+            gsap.to(card, {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.4,
+              delay: 0.6 + index * 0.3,
+              ease: "power2.inout",
+            });
+          }
+        });
+      }
+    }
 
     previousStepRef.current = currentStep;
   }, [isActive, currentStep]);
@@ -100,9 +153,24 @@ export default function ClosureSection({
               </p>
 
               <div className="max-w-[940px] flex flex-col gap-8">
-                <Card cardIndex={1} />
-                <Card cardIndex={2} />
-                <Card cardIndex={3} />
+                <Card
+                  cardIndex={1}
+                  ref={(el) => {
+                    cardsRef.current[0] = el;
+                  }}
+                />
+                <Card
+                  cardIndex={2}
+                  ref={(el) => {
+                    cardsRef.current[1] = el;
+                  }}
+                />
+                <Card
+                  cardIndex={3}
+                  ref={(el) => {
+                    cardsRef.current[2] = el;
+                  }}
+                />
               </div>
             </div>
 
@@ -165,21 +233,28 @@ export default function ClosureSection({
   );
 }
 
-function Card({ cardIndex }: { cardIndex: number }) {
-  return (
-    <div className="relative bg-bright-green rounded-[20px] pl-[60px] pr-[30px] py-[30px]">
-      <p
-        className="text-[32px] font-bold font-museo-moderno leading-[108%]"
-        style={{ color: "var(--black-blue)", marginBottom: "32px" }}
+const Card = React.forwardRef<HTMLDivElement, { cardIndex: number }>(
+  ({ cardIndex }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className="relative bg-bright-green rounded-[20px] pl-[60px] pr-[30px] py-[30px]"
       >
-        {useCopy("closure_card_" + cardIndex + "_title")}
-      </p>
-      <p className="text-[18px]" style={{ color: "var(--black-blue)" }}>
-        {useCopy("closure_card_" + cardIndex + "_text")}
-      </p>
-      <div className="absolute rounded-[50%] bg-black-blue font-museo-moderno text-[24px] font-bold text-bright-green left-[calc(-42px/2)] top-1/2 -translate-y-1/2 w-[43px] h-[43px] flex items-center justify-center">
-        0{cardIndex}
+        <p
+          className="text-[32px] font-bold font-museo-moderno leading-[108%]"
+          style={{ color: "var(--black-blue)", marginBottom: "32px" }}
+        >
+          {useCopy("closure_card_" + cardIndex + "_title")}
+        </p>
+        <p className="text-[18px]" style={{ color: "var(--black-blue)" }}>
+          {useCopy("closure_card_" + cardIndex + "_text")}
+        </p>
+        <div className="absolute rounded-[50%] bg-black-blue font-museo-moderno text-[24px] font-bold text-bright-green left-[calc(-42px/2)] top-1/2 -translate-y-1/2 w-[43px] h-[43px] flex items-center justify-center">
+          0{cardIndex}
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+);
+
+Card.displayName = "Card";
