@@ -20,6 +20,7 @@ export default function QuadrantSection({
   const introTextRef = useRef<HTMLDivElement>(null);
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartPanelRef = useRef<HTMLDivElement>(null);
+  const chartRef = useRef<HTMLDivElement>(null);
   const [selectedVertical, setSelectedVertical] = useState<string | null>(null);
   const previousStepRef = useRef(-1);
 
@@ -74,17 +75,20 @@ export default function QuadrantSection({
   // Set initial visibility
   useEffect(() => {
     const introText = introTextRef.current;
-    const chartContainer = chartContainerRef.current;
+    const chartPanel = chartPanelRef.current;
+    const chart = chartRef.current;
 
-    if (!introText || !chartContainer) return;
+    if (!introText || !chartPanel || !chart) return;
 
     // Initial state - intro text visible, charts hidden on step 0
     if (currentStep === 0) {
       gsap.set(introText, { autoAlpha: 1, y: 0 });
-      gsap.set(chartContainer, { autoAlpha: 0, y: 30 });
+      gsap.set(chartPanel, { autoAlpha: 0, y: 30 });
+      gsap.set(chart, { autoAlpha: 0, y: 0 });
     } else {
       gsap.set(introText, { autoAlpha: 0, y: -30 });
-      gsap.set(chartContainer, { autoAlpha: 1, y: 0 });
+      gsap.set(chartPanel, { autoAlpha: 1, y: 0 });
+      gsap.set(chart, { autoAlpha: 1, y: 0 });
     }
   }, []);
 
@@ -94,16 +98,38 @@ export default function QuadrantSection({
     if (currentStep === previousStepRef.current) return;
 
     const introText = introTextRef.current;
-    const chartContainer = chartContainerRef.current;
+    const chartPanel = chartPanelRef.current;
+    const chart = chartRef.current;
 
-    if (!introText || !chartContainer) return;
+    if (!introText || !chartPanel || !chart) return;
 
     const previousStep = previousStepRef.current;
 
     if (currentStep === 0) {
       // Step 0: Show intro text, hide charts
-      // Immediately set final states for non-transitioning element
-      gsap.set(chartContainer, { autoAlpha: 0 });
+      // Fade out chart in place (no vertical movement)
+      if (previousStep > 0) {
+        gsap.killTweensOf(chart);
+        gsap.to(chart, {
+          autoAlpha: 0,
+          duration: 0.4,
+          ease: "power2.in",
+          overwrite: true,
+        });
+
+        // Fade out chart panel with vertical movement
+        gsap.killTweensOf(chartPanel);
+        gsap.to(chartPanel, {
+          autoAlpha: 0,
+          y: -30,
+          duration: 0.4,
+          ease: "power2.in",
+          overwrite: true,
+        });
+      } else {
+        gsap.set(chart, { autoAlpha: 0 });
+        gsap.set(chartPanel, { autoAlpha: 0 });
+      }
 
       // Fade in intro text with overwrite to cancel any ongoing animations
       gsap.killTweensOf(introText);
@@ -124,24 +150,39 @@ export default function QuadrantSection({
       // Immediately set final states for intro
       gsap.set(introText, { autoAlpha: 0 });
 
-      // Only fade in chart when transitioning from step 0 or initial load
+      // Only fade in charts when transitioning from step 0 or initial load
       if (previousStep === 0 || previousStep === -1) {
-        gsap.killTweensOf(chartContainer);
+        gsap.killTweensOf([chartPanel, chart]);
+
+        // Fade in chart first (in place, no vertical movement)
         gsap.fromTo(
-          chartContainer,
+          chart,
+          { autoAlpha: 0 },
+          {
+            autoAlpha: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            delay: 0.4,
+            overwrite: true,
+          }
+        );
+
+        // Fade in chart panel with additional delay
+        gsap.fromTo(
+          chartPanel,
           { autoAlpha: 0, y: 30 },
           {
             autoAlpha: 1,
             y: 0,
             duration: 0.4,
             ease: "power2.out",
-            delay: 0.4,
+            delay: 0.8, // 0.2s more delay than chart
             overwrite: true,
           }
         );
       } else {
-        // Between steps 1-7, ensure chart stays visible
-        gsap.set(chartContainer, { autoAlpha: 1, y: 0 });
+        // Between steps 1-7, ensure charts stay visible
+        gsap.set([chartPanel, chart], { autoAlpha: 1, y: 0 });
       }
     }
 
@@ -203,11 +244,13 @@ export default function QuadrantSection({
                 }}
               />
             </div>
-            <Chart
-              mode={chartMode}
-              selectedVertical={selectedVertical}
-              selectVertical={(vertical) => setSelectedVertical(vertical)}
-            />
+            <div ref={chartRef}>
+              <Chart
+                mode={chartMode}
+                selectedVertical={selectedVertical}
+                selectVertical={(vertical) => setSelectedVertical(vertical)}
+              />
+            </div>
           </div>
         </div>
       </div>
