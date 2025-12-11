@@ -64,7 +64,7 @@ export default function ClosureSection({
 
   return (
     <div
-      className={`absolute inset-0 w-full h-full bg-forest-green transition-opacity duration-300 ${
+      className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
         isActive
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"

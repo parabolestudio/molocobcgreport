@@ -37,7 +37,11 @@ export default function Home() {
   console.log("Page: Current section", currentSection, "step", currentStep);
 
   return (
-    <main className="relative">
+    <main
+      className={`relative ${
+        currentSection === 3 ? "bg-forest-green" : "bg-black-blue"
+      }`}
+    >
       <P5Background
         activeSection={currentSection}
         currentStep={currentStep}
