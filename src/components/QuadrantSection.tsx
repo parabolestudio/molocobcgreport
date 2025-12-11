@@ -202,7 +202,7 @@ export default function QuadrantSection({
         {/* Intro text - only visible on step 0 */}
         <div
           ref={introTextRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 h-full max-h-[1000px] flex flex-col justify-between gap-12"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 h-full max-h-[1000px] py-8 flex flex-col justify-between gap-12"
         >
           <h2 className="font-museo-moderno text-bright-green text-[96px] leading-[100%] max-w-[800px] font-extralight">
             {useCopy("climax_1_title")}
@@ -215,8 +215,7 @@ export default function QuadrantSection({
         {/* Chart components - visible from step 1 onwards */}
         <div
           ref={chartContainerRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-10"
-          style={{ height: "calc(100% - 80px)", top: "50%", marginTop: "0" }}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-10 h-full py-8"
         >
           <div className="h-full grid grid-cols-[0.3fr_0.7fr] gap-8">
             <div ref={chartPanelRef} className="h-full overflow-hidden">
@@ -244,7 +243,7 @@ export default function QuadrantSection({
                 }}
               />
             </div>
-            <div ref={chartRef}>
+            <div ref={chartRef} className="h-full overflow-hidden">
               <Chart
                 mode={chartMode}
                 selectedVertical={selectedVertical}
