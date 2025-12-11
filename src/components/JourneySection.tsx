@@ -93,7 +93,7 @@ export default function JourneySection({
     } else {
       // On a stat screen (steps 1-4)
 
-      // Fade out intro text if coming from intro
+      // Fade out intro text if coming from intro, otherwise hide immediately
       if (previousStep === 0) {
         gsap.to(intro, {
           autoAlpha: 0,
@@ -101,19 +101,24 @@ export default function JourneySection({
           ...ANIMATION_CONFIG.fadeOut,
         });
       } else {
-        // Already on stats - hide intro immediately
         gsap.set(intro, { autoAlpha: 0 });
       }
 
-      // Ensure journey path is visible
-      if (previousStep === 0) {
-        // Coming from intro - fade in
+      // Ensure journey path is visible - kill animations first
+      gsap.killTweensOf(journeyPath);
+
+      if (previousStep === 0 || previousStep === -1) {
+        // Coming from intro or initial load - fade in
         gsap.fromTo(
           journeyPath,
           { autoAlpha: 0, y: 30 },
           {
             autoAlpha: 1,
-            ...ANIMATION_CONFIG.fadeIn,
+            y: 0,
+            duration: ANIMATION_CONFIG.duration,
+            ease: ANIMATION_CONFIG.fadeIn.ease,
+            delay: ANIMATION_CONFIG.fadeIn.delay,
+            overwrite: true,
           }
         );
       } else {
