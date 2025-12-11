@@ -433,6 +433,13 @@ export default function Chart({
                     e.stopPropagation();
                     selectVertical(d.vertical);
                   }}
+                  onMouseEnter={(e) => {
+                    // Move this group to the end to render on top
+                    const parent = e.currentTarget.parentNode;
+                    if (parent) {
+                      parent.appendChild(e.currentTarget);
+                    }
+                  }}
                   style={{ cursor: "pointer" }}
                   className={`verticalGroup ${
                     selectedVertical === d.vertical ? "selected" : ""
