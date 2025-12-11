@@ -62,10 +62,7 @@ export default function Chart({
   const [svgCache, setSvgCache] = useState<SVGCache>({});
   const [hoveredQuadrant, setHoveredQuadrant] = useState<{
     quadrant: string;
-    // } | null>(null);
-  } | null>({
-    quadrant: "top-right",
-  });
+  } | null>(null);
 
   // Call all quadrant headline hooks at top level to avoid conditional hook calls
   const quadrantHeadlines = {
