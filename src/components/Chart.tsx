@@ -62,7 +62,10 @@ export default function Chart({
   const [svgCache, setSvgCache] = useState<SVGCache>({});
   const [hoveredQuadrant, setHoveredQuadrant] = useState<{
     quadrant: string;
-  } | null>(null);
+    // } | null>(null);
+  } | null>({
+    quadrant: "top-right",
+  });
 
   // Call all quadrant headline hooks at top level to avoid conditional hook calls
   const quadrantHeadlines = {
@@ -502,6 +505,7 @@ export default function Chart({
           </g>
         </g>
       </svg>
+      {/* Quadrant text on explanation modes */}
       {quadrantData
         .filter((q) => q.position === mode.replace("expl-quadrant-", ""))
         .map((quadrant, index) => {
@@ -509,7 +513,7 @@ export default function Chart({
           return (
             <div
               key={index}
-              className="absolute text-white text-[18px] transition-inset "
+              className="absolute text-white text-[18px] transition-inset"
               style={{
                 color: quadrant.colorQuadrantActiveText,
                 top:
@@ -548,16 +552,16 @@ export default function Chart({
             </div>
           );
         })}
-
+      {/* Quadrant tooltip */}
       <div
-        className="absolute bg-grey-text text-black-blue text-[14px] transition-inset "
+        className="absolute bg-grey-text text-black-blue text-[14px] transition-inset rounded-[3px]"
         style={{
-          top:
+          bottom:
             hoveredQuadrant?.quadrant === "bottom-right" ||
             hoveredQuadrant?.quadrant === "bottom-left"
               ? "calc(50%)"
               : "unset",
-          bottom:
+          top:
             hoveredQuadrant?.quadrant === "top-right" ||
             hoveredQuadrant?.quadrant === "top-left"
               ? "calc(50%)"
@@ -577,12 +581,13 @@ export default function Chart({
             hoveredQuadrant?.quadrant === "bottom-left"
               ? "right"
               : "left",
-          marginTop: 40,
-          marginBottom: 40,
+          marginTop: -10,
+          marginBottom: -10,
           marginLeft: 10,
           marginRight: 10,
           padding: 10,
           opacity: hoveredQuadrant && mode === "data-filled" ? 1 : 0,
+          width: "fit-content",
           maxWidth: innerWidth / 2 - 40,
           pointerEvents: "none",
         }}
