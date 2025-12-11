@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useCopy } from "@/contexts/CopyContext";
-import { fadeOut, fadeIn, SCROLL_CONFIG } from "@/helpers/scroll";
+import { fadeOut, fadeIn } from "@/helpers/scroll";
 import { basePath } from "@/helpers/general";
 
 export default function ClosureSection({
@@ -16,15 +16,20 @@ export default function ClosureSection({
   const screen1Ref = useRef<HTMLDivElement>(null);
   const screen2Ref = useRef<HTMLDivElement>(null);
   const previousStepRef = useRef(-1);
+  const previousActiveRef = useRef(false);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const screenRefs = [screen1Ref, screen2Ref];
 
-  // Set initial visibility
+  // Set initial visibility based on currentStep
   useEffect(() => {
-    // Set step 0 (text1) visible, others hidden
-    gsap.set(screen1Ref.current, { autoAlpha: 1 });
-    gsap.set(screen2Ref.current, { autoAlpha: 0 });
+    if (currentStep === 0) {
+      gsap.set(screen1Ref.current, { autoAlpha: 1 });
+      gsap.set(screen2Ref.current, { autoAlpha: 0 });
+    } else if (currentStep === 1) {
+      gsap.set(screen1Ref.current, { autoAlpha: 0 });
+      gsap.set(screen2Ref.current, { autoAlpha: 1 });
+    }
     // Set cards initial state
     cardsRef.current.forEach((card) => {
       if (card) {
@@ -42,10 +47,20 @@ export default function ClosureSection({
           fadeOut(card);
         }
       });
+      previousActiveRef.current = false;
       return;
     }
 
-    if (currentStep === previousStepRef.current) return;
+    // Check if section just became active
+    const justActivated = !previousActiveRef.current && isActive;
+    previousActiveRef.current = isActive;
+
+    // Run effect if: step changed OR section just became active on step 1
+    const shouldRun =
+      currentStep !== previousStepRef.current ||
+      (justActivated && currentStep === 1);
+
+    if (!shouldRun) return;
 
     const screens = screenRefs.map((ref) => ref.current).filter(Boolean);
     if (screens.length === 0 || currentStep < 0) return;
@@ -94,7 +109,7 @@ export default function ClosureSection({
           }
         });
 
-        // Then animate them in
+        // Then animate them in with stagger
         cardsRef.current.forEach((card, index) => {
           if (card) {
             gsap.to(card, {
@@ -103,6 +118,7 @@ export default function ClosureSection({
               duration: 0.4,
               delay: 0.6 + index * 0.3,
               ease: "power2.inout",
+              overwrite: true,
             });
           }
         });
@@ -141,9 +157,8 @@ export default function ClosureSection({
         <div
           ref={screen2Ref}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 h-full max-h-[1100px] py-8 opacity-0 invisible"
-          style={{ opacity: 0, visibility: "hidden" }}
         >
-          <div className="relative flex flex-col justify-between items-start h-full w-full gap-4">
+          <div className="relative flex flex-col justify-between items-start h-full w-full gap-4 overflow-y-scroll overflow-x-visible">
             <p className="text-[24px] max-w-[940px]">
               {useCopy("closure_paragraph_2")}
             </p>
@@ -152,7 +167,7 @@ export default function ClosureSection({
                 {useCopy("closure_paragraph_3")}
               </p>
 
-              <div className="max-w-[940px] flex flex-col gap-8">
+              <div className="max-w-[940px] flex flex-col gap-8 pl-[23px]">
                 <Card
                   cardIndex={1}
                   ref={(el) => {
@@ -173,59 +188,58 @@ export default function ClosureSection({
                 />
               </div>
             </div>
-
-            <div className="absolute bottom-0 right-0 flex flex-col items-start gap-4">
-              <p className="text-[14px] font-bold">To learn more</p>
-              <button
-                className="flex-1 bg-grey-text flex items-center justify-between gap-2 hover:bg-bright-green/80 transition text-black-blue"
-                onClick={() => {
-                  // link to external URL, TODO: replace with actual URL
-                  window.open(" https://www.moloco.com/", "_blank");
-                }}
+          </div>
+          <div className="absolute bottom-0 right-0 flex flex-col items-start gap-4 pb-8">
+            <p className="text-[14px] font-bold">To learn more</p>
+            <button
+              className="flex-1 bg-grey-text flex items-center justify-between gap-2 hover:bg-bright-green/80 transition text-black-blue"
+              onClick={() => {
+                // link to external URL, TODO: replace with actual URL
+                window.open(" https://www.moloco.com/", "_blank");
+              }}
+            >
+              <span>{useCopy("cta_text_button_1")}</span>
+              <img
+                src={`${basePath}/icons/document.svg`}
+                alt="document"
+                width={19}
+                height={19}
+              />
+            </button>
+            <button
+              className="flex-1 button-grey-text-hover border border-grey-text flex items-center justify-between gap-2 hover:bg-grey-text transition text-grey-text hover:text-black-blue relative"
+              onMouseEnter={() => setShowMethodTooltip(true)}
+              onMouseLeave={() => setShowMethodTooltip(false)}
+            >
+              <span>{useCopy("cta_text_button_2")}</span>
+              <svg
+                width="30"
+                height="18"
+                viewBox="0 0 30 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <span>{useCopy("cta_text_button_1")}</span>
-                <img
-                  src={`${basePath}/icons/document.svg`}
-                  alt="document"
-                  width={19}
-                  height={19}
+                <path
+                  d="M1.25 10.25C6.65 -1.75 22.85 -1.75 28.25 10.25"
+                  strokeWidth="2.5"
+                  className="stroke-grey-text no-fill transition"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
-              </button>
-              <button
-                className="flex-1 button-grey-text-hover border border-grey-text flex items-center justify-between gap-2 hover:bg-grey-text transition text-grey-text hover:text-black-blue relative"
-                onMouseEnter={() => setShowMethodTooltip(true)}
-                onMouseLeave={() => setShowMethodTooltip(false)}
-              >
-                <span>{useCopy("cta_text_button_2")}</span>
-                <svg
-                  width="30"
-                  height="18"
-                  viewBox="0 0 30 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.25 10.25C6.65 -1.75 22.85 -1.75 28.25 10.25"
-                    strokeWidth="2.5"
-                    className="stroke-grey-text no-fill transition"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M14.749 16.2501C14.1581 16.2501 13.5729 16.1337 13.0269 15.9076C12.481 15.6814 11.9849 15.35 11.567 14.9321C11.1492 14.5142 10.8177 14.0182 10.5916 13.4722C10.3654 12.9262 10.249 12.3411 10.249 11.7501C10.249 11.1592 10.3654 10.574 10.5916 10.028C10.8177 9.48208 11.1492 8.986 11.567 8.56814C11.9849 8.15028 12.481 7.81881 13.0269 7.59266C13.5729 7.36652 14.1581 7.25012 14.749 7.25012C15.9425 7.25012 17.0871 7.72423 17.931 8.56814C18.7749 9.41205 19.249 10.5566 19.249 11.7501C19.249 12.9436 18.7749 14.0882 17.931 14.9321C17.0871 15.776 15.9425 16.2501 14.749 16.2501Z"
-                    className="stroke-grey-text fill-grey-text with-fill transition"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                {showMethodTooltip && (
-                  <div className="copy-text absolute bottom-[54px] mb-2 -right-px text-black-blue bg-grey-text text-[18px] w-[600px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%]">
-                    {tooltipText}
-                  </div>
-                )}
-              </button>
-            </div>
+                <path
+                  d="M14.749 16.2501C14.1581 16.2501 13.5729 16.1337 13.0269 15.9076C12.481 15.6814 11.9849 15.35 11.567 14.9321C11.1492 14.5142 10.8177 14.0182 10.5916 13.4722C10.3654 12.9262 10.249 12.3411 10.249 11.7501C10.249 11.1592 10.3654 10.574 10.5916 10.028C10.8177 9.48208 11.1492 8.986 11.567 8.56814C11.9849 8.15028 12.481 7.81881 13.0269 7.59266C13.5729 7.36652 14.1581 7.25012 14.749 7.25012C15.9425 7.25012 17.0871 7.72423 17.931 8.56814C18.7749 9.41205 19.249 10.5566 19.249 11.7501C19.249 12.9436 18.7749 14.0882 17.931 14.9321C17.0871 15.776 15.9425 16.2501 14.749 16.2501Z"
+                  className="stroke-grey-text fill-grey-text with-fill transition"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              {showMethodTooltip && (
+                <div className="copy-text absolute bottom-[54px] mb-2 -right-px text-black-blue bg-grey-text text-[18px] w-[600px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%]">
+                  {tooltipText}
+                </div>
+              )}
+            </button>
           </div>
         </div>
       </div>
