@@ -147,11 +147,13 @@ export default function QuadrantSection({
       );
     } else {
       // Steps 1-7: Hide intro text, show charts (charts stay visible, only mode changes)
-      // Immediately set final states for intro
-      gsap.set(introText, { autoAlpha: 0 });
 
       // Only fade in charts when transitioning from step 0 or initial load
       if (previousStep === 0 || previousStep === -1) {
+        // Fade out intro text
+        gsap.killTweensOf(introText);
+        fadeOut(introText);
+
         gsap.killTweensOf([chartPanel, chart]);
 
         // Fade in chart first (in place, no vertical movement)
@@ -181,7 +183,9 @@ export default function QuadrantSection({
           }
         );
       } else {
-        // Between steps 1-7, ensure charts stay visible
+        // Between steps 1-7, ensure intro is hidden and charts stay visible
+        gsap.killTweensOf(introText);
+        gsap.set(introText, { autoAlpha: 0, y: -30 });
         gsap.set([chartPanel, chart], { autoAlpha: 1, y: 0 });
       }
     }
