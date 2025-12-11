@@ -6,7 +6,7 @@ hooks_2_text,"Hook, screen 2","Consumer behavior is shifting faster than marketi
 New research on LLM disruption, done in partnership with BCG, dives deep into the <green><b>current state of play for marketers</b></green>, and where we go from here."
 hooks_title,Title,<green>The <b>AI Disruption Index</b></green>
 hooks_subline,Title sub-line,Report by
-context_intro,Context paragraph 1,"<green><b>In partnership with BCG, we surveyed 283 marketing leaders across 15 verticals and 5 regions, interviewed 15 executives from leading companies, and analyzed billions of Moloco first-party signals and data across 3,000 apps.</b></green>"
+context_intro,Context paragraph 1,"<b>In partnership with BCG, we surveyed 283 marketing leaders across 15 verticals and 5 regions, interviewed 15 executives from leading companies, and analyzed billions of Moloco first-party signals and data across 3,000 apps.</b>"
 context_buttons_text,Context paragraph 2,"We uncovered new insights on LLM disruption, vertical strengths and opportunities, and the new customer journey."
 context_button_method,Context button 2,methodology
 context_button_method_tooltip,Methodology copy,"<b>About the Research</b>
@@ -20,23 +20,23 @@ This report leverages insights from multiple research methodologies conducted wi
 <b>Performance Analysis</b>: App performance data from 3000+ apps with 200B+ downloads, analyzing retention rates, engagement patterns, and acquisition channels (Moloco/Sensor Tower/Semrush)"
 ,Consumer journey title,AI and the new consumer journey
 journey_1_title,"Consumer journey, step 1 title",Inspiration
-journey_1_stat_headline,"Consumer journey, step 1 headline",Inspiration now starts with LLMs
+journey_1_stat_headline,"Consumer journey, step 1 headline",<green><b>Inspiration now starts with LLMs</b></green>
 journey_1_stat_number,"Consumer journey, step 1 stat",1/3
 journey_1_stat_text,"Consumer journey, step 1 body text",U.S. adults now discover brands via personal AI agents
 journey_1_stat_source,"Consumer journey, step 1 source","Source: Cordial, “Brands Battle for Attention as AI Redefines the Funnel” conducted by Dynata, Aug 2025. 1,000 US Adults surveyed by Dynata"
 journey_2_title,"Consumer journey, step 2 title",Discovery
-journey_2_stat_headline,"Consumer journey, step 2 headline",Discovery has been disrupted
+journey_2_stat_headline,"Consumer journey, step 2 headline",<green><b>Discovery has been disrupted</b></green>
 journey_2_stat_number,"Consumer journey, step 2 stat",80%
 journey_2_stat_text,"Consumer journey, step 2 body text",of Google searches now end without a click when AI Overview present
 journey_2_stat_source,"Consumer journey, step 2 source","Source: Similarweb, “Zero-Click Searched And How They Impact Traffic”, May 2025"
 journey_3_title,"Consumer journey, step 3 title",Consideration
-journey_3_stat_headline,"Consumer journey, step 3 headline","For shoppers, AI has gone from experimental to essential"
+journey_3_stat_headline,"Consumer journey, step 3 headline","<green><b>For shoppers, AI has gone from experimental to essential</b></green>"
 journey_3_stat_number,"Consumer journey, step 3 stat",47%
 journey_3_stat_text,"Consumer journey, step 3 body text",of consumers use GenAI to research purchases
 journey_3_stat_source,"Consumer journey, step 3 source","Source: Attest, “2025 Consumer Adoption of AI Report” , July 2025. 
 5,000 Adults in US, UK, Canada and Australia using Attest platform"
 journey_4_title,"Consumer journey, step 4 title",Conversion
-journey_4_stat_headline,"Consumer journey, step 4 headline",AI can replace the need to discover a brand at all
+journey_4_stat_headline,"Consumer journey, step 4 headline",<green><b>AI can replace the need to discover a brand at all</b></green>
 journey_4_stat_number,"Consumer journey, step 4 stat",45%
 journey_4_stat_text,"Consumer journey, step 4 body text",feel comfortable letting AI/LLM make purchases for them
 journey_4_stat_source,"Consumer journey, step 4 source","Source: Chain Store Age, “Consumer comfort, interest in AI shopping assistants grows”, June 2025. 
@@ -79,7 +79,7 @@ qu_top_right_description,"Quadrant, step 4 body text","These verticals need to <
 - Reimagining customer connection with AI-powered experiences, shifting from generic loyalty to personalized, proactive relationships 
 - Continue diversifying media spend to reach people where they are"
 qu_data_nudge,Vertical selection nudge,Select a vertical to explore details.
-closure_title,Closure title,<b>Customer relationships</b> are the durable asset of the AI future
+closure_title,Closure title,<b>Customer relationships are the durable asset of the AI future.</b>
 closure_paragraph_1,Closure paragraph 1,"While the implications of the AI future will vary by vertical, there’s one strategic principle that’s consistent. And that’s the need to own more of the customer relationship. Because while journeys shift, relationships endure."
 closure_paragraph_2,Closure paragraph 2,"Many forward-looking CMOs are turning to a hidden gem of their arsenal – their mobile app. At a time when brands are getting disintermediated, surfaces where you own the customer relationship become a primary competitive advantage.
 

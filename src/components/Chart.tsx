@@ -205,12 +205,13 @@ export default function Chart({
               }
             />
             <text
-              className="chart-text transition"
+              className="chart-text-bold transition"
               x={innerWidth / 2}
               y={innerHeight + margin.bottom / 2}
               dominantBaseline="middle"
               textAnchor="middle"
               style={{
+                fontSize: mode === "expl-x-axis" ? "18px" : "14px",
                 fill:
                   mode === "expl-x-axis"
                     ? "var(--bright-green)"
@@ -222,7 +223,7 @@ export default function Chart({
               Strength of customer relationship
             </text>
             <text
-              className="chart-text-bold uppercase transition"
+              className="chart-text uppercase transition"
               y={innerHeight + margin.bottom / 2}
               dominantBaseline="middle"
               style={{
@@ -237,7 +238,7 @@ export default function Chart({
               low
             </text>
             <text
-              className="chart-text-bold uppercase transition"
+              className="chart-text uppercase transition"
               x={innerWidth}
               y={innerHeight + margin.bottom / 2}
               dominantBaseline="middle"
@@ -273,7 +274,7 @@ export default function Chart({
               strokeLinejoin="round"
             />
             <text
-              className="chart-text transition"
+              className="chart-text-bold transition"
               x={innerWidth}
               y={innerHeight / 2 + margin.right / 2}
               dominantBaseline="middle"
@@ -281,6 +282,7 @@ export default function Chart({
               style={{
                 transform: `rotate(-90deg)`,
                 transformOrigin: `${innerWidth}px ${innerHeight / 2}px`,
+                fontSize: mode === "expl-y-axis" ? "18px" : "14px",
                 fill:
                   mode === "expl-y-axis"
                     ? "var(--bright-green)"
@@ -292,7 +294,7 @@ export default function Chart({
               Risk of AI disruption
             </text>
             <text
-              className="chart-text-bold uppercase transition"
+              className="chart-text uppercase transition"
               x={innerWidth + 10}
               y={6}
               dominantBaseline="middle"
@@ -308,7 +310,7 @@ export default function Chart({
               low
             </text>
             <text
-              className="chart-text-bold uppercase transition"
+              className="chart-text uppercase transition"
               x={innerWidth + 10}
               y={innerHeight - 6}
               dominantBaseline="middle"
@@ -434,7 +436,7 @@ export default function Chart({
                     selectVertical(d.vertical);
                   }}
                   onMouseEnter={(e) => {
-                    // Move this group to the end to render on top
+                    // Move this group to the end to render on top (on hover)
                     const parent = e.currentTarget.parentNode;
                     if (parent) {
                       parent.appendChild(e.currentTarget);
@@ -498,10 +500,6 @@ export default function Chart({
               );
             })}
           </g>
-
-          {/* <text className="fill-red-900 font-light" y="20">
-            {mode}
-          </text> */}
         </g>
       </svg>
       {quadrantData
