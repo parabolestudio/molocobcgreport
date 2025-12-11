@@ -114,7 +114,7 @@ export default function HookSection({
             <p className="hook-p" style={{ fontSize: "24px" }}>
               {useCopy("hooks_subline")}
             </p>
-            <div className="flex gap-12 mt-4 justify-center">
+            <div className="flex gap-11 mt-4 justify-center">
               <img
                 src={`${basePath}/logos/moloco.svg`}
                 alt="Moloco logo"
