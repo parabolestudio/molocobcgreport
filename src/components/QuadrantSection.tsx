@@ -21,6 +21,7 @@ export default function QuadrantSection({
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartPanelRef = useRef<HTMLDivElement>(null);
   const [selectedVertical, setSelectedVertical] = useState<string | null>(null);
+  const previousStepRef = useRef(-1);
 
   const chartModes: ChartMode[] = [
     "expl-y-axis",
@@ -90,23 +91,61 @@ export default function QuadrantSection({
   // Handle transitions between intro and chart
   useEffect(() => {
     if (!isActive) return;
+    if (currentStep === previousStepRef.current) return;
 
     const introText = introTextRef.current;
     const chartContainer = chartContainerRef.current;
 
     if (!introText || !chartContainer) return;
 
-    gsap.killTweensOf([introText, chartContainer]);
+    const previousStep = previousStepRef.current;
 
     if (currentStep === 0) {
-      // Show intro text, hide charts
-      fadeIn(introText);
-      fadeOut(chartContainer);
-    } else if (currentStep === 1) {
-      // Hide intro text, show charts
-      fadeOut(introText);
-      fadeIn(chartContainer);
+      // Step 0: Show intro text, hide charts
+      // Immediately set final states for non-transitioning element
+      gsap.set(chartContainer, { autoAlpha: 0 });
+
+      // Fade in intro text with overwrite to cancel any ongoing animations
+      gsap.killTweensOf(introText);
+      gsap.fromTo(
+        introText,
+        { autoAlpha: 0, y: 30 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "power2.out",
+          delay: 0.4,
+          overwrite: true,
+        }
+      );
+    } else {
+      // Steps 1-7: Hide intro text, show charts (charts stay visible, only mode changes)
+      // Immediately set final states for intro
+      gsap.set(introText, { autoAlpha: 0 });
+
+      // Only fade in chart when transitioning from step 0 or initial load
+      if (previousStep === 0 || previousStep === -1) {
+        gsap.killTweensOf(chartContainer);
+        gsap.fromTo(
+          chartContainer,
+          { autoAlpha: 0, y: 30 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.4,
+            ease: "power2.out",
+            delay: 0.4,
+            overwrite: true,
+          }
+        );
+      } else {
+        // Between steps 1-7, ensure chart stays visible
+        gsap.set(chartContainer, { autoAlpha: 1, y: 0 });
+      }
     }
+
+    previousStepRef.current = currentStep;
   }, [isActive, currentStep]);
 
   return (
