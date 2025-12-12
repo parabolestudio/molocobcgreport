@@ -7,6 +7,7 @@ export interface DistributedRingsFormationConfig {
   centerY: number; // Center Y position (typically p5.height * ringCenter.y)
   arcSpacing: number; // Arc length spacing between circles (in pixels) - Default: 30
   innerRadius: number; // Starting radius for the first ring - Default: 200
+  innerRadiusOffset: number; // Offset to add/subtract from innerRadius (e.g., -40 to start inside, +40 to start outside) - Default: 0
   ringsCount: number; // Number of concentric rings (3-5 recommended) - Default: 4
   radiusStep: number; // Distance between each ring - Default: 60
   circleSize: number; // Fixed size of circles (no pulsing) - Default: 8
@@ -27,11 +28,15 @@ export interface DistributedRingsFormationConfig {
  * 1. Set centerX and centerY to position the rings (use 0-1 values in subsections.ts,
  *    they'll be multiplied by canvas size in P5Background.tsx)
  * 2. Configure ringsCount (3-5 recommended) and radiusStep to control ring density
- * 3. Adjust distributionZoneAngle to control how wide the horizontal distribution zone is
+ * 3. Use innerRadiusOffset to adjust ring positioning:
+ *    - Negative values (e.g., -80) start rings inside the chart circle
+ *    - Positive values (e.g., +40) start rings outside the chart circle
+ *    - Zero (default) starts at the chart circle radius
+ * 4. Adjust distributionZoneAngle to control how wide the horizontal distribution zone is
  *    - Smaller values (PI/6) = narrow horizontal band
  *    - Larger values (PI/2) = wider distribution area
- * 4. Set distributionMinRadius and distributionMaxRadius to control scatter range
- * 5. Change distributionSeed for different random patterns
+ * 5. Set distributionMinRadius and distributionMaxRadius to control scatter range
+ * 6. Change distributionSeed for different random patterns
  *
  * Example in subsections.ts:
  * {
@@ -39,6 +44,11 @@ export interface DistributedRingsFormationConfig {
  *   progressEnd: 1,
  *   formation: "distributedRings",
  *   ringCenter: { x: 0.5, y: 0.5 }, // Center of screen
+ *   distributedRingsConfig: {
+ *     innerRadiusOffset: -80, // Start 80px inside the chart circle
+ *     ringsCount: 3,
+ *     radiusStep: 40,
+ *   },
  *   color: "48, 48, 97",
  * }
  */
@@ -53,6 +63,7 @@ export class DistributedRingsFormation implements Formation {
       centerY: 0,
       arcSpacing: 30,
       innerRadius: 200,
+      innerRadiusOffset: 0,
       ringsCount: 4,
       radiusStep: 60,
       circleSize: 8,
@@ -153,6 +164,7 @@ export class DistributedRingsFormation implements Formation {
       centerY,
       arcSpacing,
       innerRadius,
+      innerRadiusOffset,
       ringsCount,
       radiusStep,
       circleSize,
@@ -167,7 +179,7 @@ export class DistributedRingsFormation implements Formation {
       ringIndex < ringsCount && circleIndex < circles.length;
       ringIndex++
     ) {
-      const radius = innerRadius + ringIndex * radiusStep;
+      const radius = innerRadius + innerRadiusOffset + ringIndex * radiusStep;
       const circumference = p5.TWO_PI * radius;
 
       // Calculate how many circles fit on this ring with the desired arc spacing

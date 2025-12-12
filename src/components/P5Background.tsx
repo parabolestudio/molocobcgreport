@@ -33,6 +33,50 @@ export default function P5Background({
   // Calculate total progress
   const totalSteps = Object.values(SECTION_STEPS).reduce((a, b) => a + b, 0);
   const totalProgress = globalStep / totalSteps;
+
+  // Helper function to get chart circle position and radius from DOM
+  const getChartCircleData = useMemo(() => {
+    return (p5: P5) => {
+      const chartCircle = document.querySelector(
+        "#chart-container .structure circle"
+      ) as SVGCircleElement;
+      if (chartCircle) {
+        const svgElement = chartCircle.ownerSVGElement;
+        if (svgElement) {
+          const circleRect = chartCircle.getBoundingClientRect();
+          const svgRect = svgElement.getBoundingClientRect();
+
+          // Get center position relative to viewport
+          const centerX = circleRect.left + circleRect.width / 2;
+          const centerY = circleRect.top + circleRect.height / 2;
+
+          // Get radius from the circle element
+          const radius = parseFloat(chartCircle.getAttribute("r") || "0");
+          let innerRadius: number | undefined;
+
+          if (radius > 0) {
+            // Convert SVG radius to screen pixels
+            const viewBoxWidth = parseFloat(
+              svgElement.getAttribute("viewBox")?.split(" ")[2] ||
+                svgRect.width.toString()
+            );
+            const scale = svgRect.width / viewBoxWidth;
+            innerRadius = radius * scale;
+          }
+
+          return { centerX, centerY, innerRadius };
+        }
+      }
+
+      // Fallback to center of screen
+      return {
+        centerX: p5.width * 0.5,
+        centerY: p5.height * 0.5,
+        innerRadius: undefined,
+      };
+    };
+  }, []);
+
   const canvasRef = useRef<HTMLDivElement>(null);
   const p5InstanceRef = useRef<P5 | null>(null);
   const sketchDataRef = useRef<{
@@ -157,12 +201,19 @@ export default function P5Background({
         );
         const activeSubsectionDR =
           data.subsectionConfigs[data.currentSection][subsectionIndexDR];
-        const ringCenterDR = activeSubsectionDR.ringCenter || {
-          x: 0.5,
-          y: 0.5,
-        };
-        const ringCenterXDR = p5.width * ringCenterDR.x;
-        const ringCenterYDR = p5.height * ringCenterDR.y;
+
+        // Get exact position from the chart circle element
+        const chartDataInit = getChartCircleData(p5);
+
+        // Use fallback from config if chart not found
+        if (chartDataInit.innerRadius === undefined) {
+          const ringCenterDR = activeSubsectionDR.ringCenter || {
+            x: 0.5,
+            y: 0.5,
+          };
+          chartDataInit.centerX = p5.width * ringCenterDR.x;
+          chartDataInit.centerY = p5.height * ringCenterDR.y;
+        }
 
         // Apply distributed rings formation
         data.distributedRingsFormation.apply(
@@ -170,8 +221,12 @@ export default function P5Background({
           p5,
           p5.millis(),
           {
-            centerX: ringCenterXDR,
-            centerY: ringCenterYDR,
+            ...activeSubsectionDR.distributedRingsConfig,
+            centerX: chartDataInit.centerX,
+            centerY: chartDataInit.centerY,
+            ...(chartDataInit.innerRadius !== undefined && {
+              innerRadius: chartDataInit.innerRadius,
+            }),
           }
         );
         break;
@@ -283,7 +338,7 @@ export default function P5Background({
             data.transitionProgress += 0.02;
           }
 
-          // Get animation configs from active subsections
+          // Get active subsection configs (calculate once per frame)
           const currentSubsectionIndex = data.getActiveSubsectionIndex(
             data.currentSection,
             data.sectionProgress
@@ -317,19 +372,10 @@ export default function P5Background({
               p5.millis()
             );
           } else if (data.currentFormation === "rings") {
-            const subsectionIndex = data.getActiveSubsectionIndex(
-              data.currentSection,
-              data.sectionProgress
-            );
-            const activeSubsection =
-              data.subsectionConfigs[data.currentSection][subsectionIndex];
-            const ringCenter = activeSubsection.ringCenter || {
-              x: 0.5,
-              y: 0.5,
-            };
+            const ringCenter = currentConfig.ringCenter || { x: 0.5, y: 0.5 };
             const ringCenterX = p5.width * ringCenter.x;
             const ringCenterY = p5.height * ringCenter.y;
-            const ringPulseIntensity = activeSubsection.pulseIntensity ?? 0;
+            const ringPulseIntensity = currentConfig.pulseIntensity ?? 0;
 
             // Apply rings formation with pulse intensity
             data.ringsFormation.apply(
@@ -343,18 +389,15 @@ export default function P5Background({
               }
             );
           } else if (data.currentFormation === "distributedRings") {
-            const subsectionIndex = data.getActiveSubsectionIndex(
-              data.currentSection,
-              data.sectionProgress
-            );
-            const activeSubsection =
-              data.subsectionConfigs[data.currentSection][subsectionIndex];
-            const ringCenter = activeSubsection.ringCenter || {
-              x: 0.5,
-              y: 0.5,
-            };
-            const ringCenterX = p5.width * ringCenter.x;
-            const ringCenterY = p5.height * ringCenter.y;
+            // Get exact position from the chart circle element
+            const chartData = getChartCircleData(p5);
+
+            // Use fallback from config if chart not found
+            if (chartData.innerRadius === undefined) {
+              const ringCenter = currentConfig.ringCenter || { x: 0.5, y: 0.5 };
+              chartData.centerX = p5.width * ringCenter.x;
+              chartData.centerY = p5.height * ringCenter.y;
+            }
 
             // Apply distributed rings formation
             data.distributedRingsFormation.apply(
@@ -362,8 +405,12 @@ export default function P5Background({
               p5,
               p5.millis(),
               {
-                centerX: ringCenterX,
-                centerY: ringCenterY,
+                ...currentConfig.distributedRingsConfig,
+                centerX: chartData.centerX,
+                centerY: chartData.centerY,
+                ...(chartData.innerRadius !== undefined && {
+                  innerRadius: chartData.innerRadius,
+                }),
               }
             );
           }
@@ -376,15 +423,18 @@ export default function P5Background({
             fadeAlpha = data.fadeProgress;
           }
 
+          // Get base alpha from current subsection config
+          const baseAlpha = currentConfig.alpha ?? 0.6;
+
           // Apply fade alpha to all circles
           if (fadeAlpha < 1) {
             data.circleManager.circles.forEach((circle: any) => {
-              circle.alpha = 0.6 * fadeAlpha;
+              circle.alpha = baseAlpha * fadeAlpha;
             });
           } else if (data.fadeState === "normal") {
-            // Restore default alpha
+            // Restore alpha based on config
             data.circleManager.circles.forEach((circle: any) => {
-              circle.alpha = 0.6;
+              circle.alpha = baseAlpha;
             });
           }
 

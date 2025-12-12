@@ -12,6 +12,20 @@ export interface SubsectionConfig {
   ringCenter?: { x: number; y: number };
   // Animation properties
   pulseIntensity?: number;
+  alpha?: number; // Base opacity for circles (0-1) - Default: 0.6
+  // DistributedRings formation configuration
+  distributedRingsConfig?: {
+    innerRadius?: number; // Starting radius for the first ring - Default: 200
+    innerRadiusOffset?: number; // Offset to add/subtract from innerRadius (e.g., -40 to start inside, +40 to start outside) - Default: 0
+    ringsCount?: number; // Number of concentric rings (3-5 recommended) - Default: 4
+    radiusStep?: number; // Distance between each ring - Default: 60
+    circleSize?: number; // Fixed size of circles - Default: 8
+    arcSpacing?: number; // Arc length spacing between circles - Default: 30
+    distributionZoneAngle?: number; // Angle range around horizontal center - Default: PI/3
+    distributionMinRadius?: number; // Min scatter distance - Default: 20
+    distributionMaxRadius?: number; // Max scatter distance - Default: 120
+    distributionSeed?: number; // Random seed - Default: 42
+  };
   color: string;
 }
 
@@ -46,8 +60,18 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 0,
       progressEnd: 1 / SECTION_STEPS.quadrant,
-      formation: "invisible",
+      formation: "distributedRings",
+      ringCenter: { x: 0.65, y: 0.5 },
       color: defaultColor,
+      distributedRingsConfig: {
+        // innerRadius: 380, // Matches the chart circle radius (innerWidth/2 = 760/2 = 380px)
+        innerRadiusOffset: 0,
+        ringsCount: 4,
+        radiusStep: 40,
+        distributionZoneAngle: Math.PI / 4, // 45 degrees
+        distributionMinRadius: 30,
+        distributionMaxRadius: 200,
+      },
     },
     {
       progressStart: 1 / SECTION_STEPS.quadrant,
@@ -57,7 +81,17 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
       // Chart is in a 70% wide column on the right side of a 30/70 grid
       // Approximate center: left padding + left column + gap + half of right column
       // ≈ 40px + 506px + 32px + 575px = 1153px out of 1728px ≈ 0.667 (66.7%)
-      ringCenter: { x: 0.64, y: 0.5 },
+      ringCenter: { x: 0.65, y: 0.5 },
+      distributedRingsConfig: {
+        // innerRadius: 380, // Matches the chart circle radius (innerWidth/2 = 760/2 = 380px)
+        innerRadiusOffset: -60, // Start 60px inside the chart circle
+        ringsCount: 4,
+        radiusStep: 40,
+        distributionZoneAngle: Math.PI / 4, // 45 degrees
+        distributionMinRadius: 30,
+        distributionMaxRadius: 140,
+      },
+      alpha: 0.4,
       color: defaultColor,
     },
   ],
