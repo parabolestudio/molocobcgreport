@@ -50,20 +50,20 @@ export default function Home() {
   }
   const bgClass = getBackgroundColorClass(currentSection, currentStep);
 
-  function isTexturedBackgroundVisible(
-    currentSection: number,
-    currentStep: number
-  ) {
-    // Show textured background for all sections except Quadrant section
-    if (currentSection === 2 && currentStep > 0) {
-      return false;
-    }
-    return true;
-  }
-  const isTextureVisible = isTexturedBackgroundVisible(
-    currentSection,
-    currentStep
-  );
+  // function isTexturedBackgroundVisible(
+  //   currentSection: number,
+  //   currentStep: number
+  // ) {
+  //   // Show textured background for all sections except Quadrant section
+  //   if (currentSection === 2 && currentStep > 0) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+  // const isTextureVisible = isTexturedBackgroundVisible(
+  //   currentSection,
+  //   currentStep
+  // );
 
   return (
     <main className={`relative ${bgClass} transition-background`}>
@@ -78,7 +78,7 @@ export default function Home() {
           backgroundImage: `url(${basePath}/background/texture.jpg)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          opacity: isTextureVisible ? 0.3 : 0,
+          opacity: 0.3,
           mixBlendMode: "luminosity",
           zIndex: 1,
         }}

@@ -20,10 +20,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
-      <body className={`${museoModerno.variable} antialiased`}>
+      <body className={`${museoModerno.variable} antialiased bg-[#0F0E45]`}>
         <CopyProvider data={copyData}>
           <DevLinkProvider>
             {/* Add here any Navbar or Header you want to be present on all pages */}
