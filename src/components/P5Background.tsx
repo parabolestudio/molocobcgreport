@@ -43,11 +43,11 @@ export default function P5Background({
     currentFormation: string;
     lastFormation: string;
     transitionProgress: number;
-    sectionAnimations: any;
     lerpColor: any;
     getActiveFormation: any;
     getActiveSubsectionIndex: any;
     getRingCenter: any;
+    subsectionConfigs: any;
     fadeState: "normal" | "fadeOut" | "fadeIn";
     fadeProgress: number;
     pendingFormation: string | null;
@@ -218,11 +218,11 @@ export default function P5Background({
             currentFormation: "grid",
             lastFormation: "grid",
             transitionProgress: 1,
-            sectionAnimations: animModule.sectionAnimations,
             lerpColor: animModule.lerpColor,
             getActiveFormation: subsectionModule.getActiveFormation,
             getActiveSubsectionIndex: subsectionModule.getActiveSubsectionIndex,
             getRingCenter: subsectionModule.getRingCenter,
+            subsectionConfigs: subsectionModule.subsectionConfigs,
             fadeState: "normal",
             fadeProgress: 0,
             pendingFormation: null,
@@ -233,7 +233,7 @@ export default function P5Background({
           p5.clear();
 
           const data = sketchDataRef.current;
-          if (!data || !data.circleGrid || !data.sectionAnimations) return;
+          if (!data || !data.circleGrid || !data.subsectionConfigs) return;
 
           // Handle fade transitions
           if (data.fadeState === "fadeOut") {
@@ -271,9 +271,20 @@ export default function P5Background({
             data.transitionProgress += 0.02;
           }
 
-          // Get animation configs
-          const currentConfig = data.sectionAnimations[data.currentSection];
-          const lastConfig = data.sectionAnimations[data.lastSection];
+          // Get animation configs from active subsections
+          const currentSubsectionIndex = data.getActiveSubsectionIndex(
+            data.currentSection,
+            sectionProgress
+          );
+          const lastSubsectionIndex = data.getActiveSubsectionIndex(
+            data.lastSection,
+            0 // Use start of last section
+          );
+
+          const currentConfig =
+            data.subsectionConfigs[data.currentSection][currentSubsectionIndex];
+          const lastConfig =
+            data.subsectionConfigs[data.lastSection][lastSubsectionIndex];
 
           // Interpolate colors
           const color = data.lerpColor(

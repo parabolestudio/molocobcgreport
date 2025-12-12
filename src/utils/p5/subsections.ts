@@ -16,7 +16,13 @@ export interface SubsectionConfig {
   // Optional ring center position (0-1 values, relative to canvas size)
   // Default is {x: 0.5, y: 0.5} (center of screen)
   ringCenter?: { x: number; y: number };
+  // Animation properties
+  pulseIntensity: number;
+  color: string;
+  speed: number;
 }
+
+const defaultColor = "48, 48, 97"; // Default deep blue
 
 export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
   hook: [
@@ -24,6 +30,9 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
       progressStart: 0,
       progressEnd: 1,
       formation: "grid",
+      pulseIntensity: 0.8,
+      color: defaultColor,
+      speed: 2.5,
     },
   ],
   journey: [
@@ -32,11 +41,17 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
       progressEnd: 0.2,
       formation: "rings", // "rings" Circle in center for first screen
       ringCenter: { x: 0.8, y: 0.5 }, // 80% to the right, centered vertically
+      pulseIntensity: 0.4,
+      color: defaultColor,
+      speed: 1.5,
     },
     {
       progressStart: 0.2,
       progressEnd: 1,
       formation: "invisible",
+      pulseIntensity: 0.4,
+      color: defaultColor,
+      speed: 1.5,
     },
   ],
   quadrant: [
@@ -45,12 +60,18 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
       progressEnd: 1 / 8,
       formation: "invisible",
       ringCenter: { x: 0.5, y: 0.5 },
+      pulseIntensity: 0.3,
+      color: defaultColor,
+      speed: 1,
     },
     {
       progressStart: 1 / 8,
       progressEnd: 1,
       formation: "invisible",
       ringCenter: { x: 0.8, y: 0.5 },
+      pulseIntensity: 0.3,
+      color: defaultColor,
+      speed: 1,
     },
   ],
   closure: [
@@ -59,6 +80,9 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
       progressEnd: 1,
       formation: "invisible", // Temporarily invisible
       // formation: "converge",
+      pulseIntensity: 0.5,
+      color: defaultColor,
+      speed: 0.8,
     },
   ],
   cta: [
@@ -66,6 +90,9 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
       progressStart: 0,
       progressEnd: 1,
       formation: "grid",
+      pulseIntensity: 0.6,
+      color: defaultColor,
+      speed: 2,
     },
   ],
 };
