@@ -27,7 +27,7 @@ journey_1_stat_source,"Consumer journey, step 1 source","Source: Cordial, “Bra
 journey_2_title,"Consumer journey, step 2 title",Discovery
 journey_2_stat_headline,"Consumer journey, step 2 headline",<green><b>Discovery has been disrupted</b></green>
 journey_2_stat_number,"Consumer journey, step 2 stat",80%
-journey_2_stat_text,"Consumer journey, step 2 body text",of Google searches now end without a click when AI Overview present
+journey_2_stat_text,"Consumer journey, step 2 body text",of Google searches now end without a click when AI Overview is present
 journey_2_stat_source,"Consumer journey, step 2 source","Source: Similarweb, “Zero-Click Searched And How They Impact Traffic”, May 2025"
 journey_3_title,"Consumer journey, step 3 title",Consideration
 journey_3_stat_headline,"Consumer journey, step 3 headline","<green><b>For shoppers, AI has gone from experimental to essential</b></green>"
@@ -89,7 +89,7 @@ closure_card_2_title,Closure card 2 title,<b>Diversifying channel mixes to reach
 closure_card_2_text,Closure card 2 text,"To grow their app user base and encourage regular app usage, many media teams are reducing reliance on traditional channels. They’re diversifying their media channel mix outside walled gardens to reach users across the independent app ecosystem."
 closure_card_3_title,Closure card 3 title,<b>Integrating AI into their mobile apps</b>
 closure_card_3_text,Closure card 3 text,"Brands are investing in everything from direct LLM integrations to LLM-driven browsing, comparison, and assistance. The more you can combine the unique value your brand offers with the LLM experiences customers have come to rely on, the closer the ties you can build."
-cta_text,CTA text,<green>Contact us to talk more about <b>your company and vertical</b></green>
+cta_text,CTA text,<green>Let’s <b>grow your app</b></green>
 cta_text_button_1,CTA button 1,Full BCG report
 cta_text_button_2,CTA button 2,methodology
 cta_text_button_3,CTA button 3,contact us

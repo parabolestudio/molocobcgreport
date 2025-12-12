@@ -4,104 +4,67 @@
 export type CopyData = Record<string, string>;
 
 export const copyData: CopyData = {
-  hooks_1_text:
-    "The biggest shifts in AI today aren’t technological, <b><green>they’re behavioral</green></b>.",
-  hooks_1_button: "scroll",
-  hooks_2_text:
-    "Consumer behavior is shifting faster than marketing budgets can follow, and this will only continue to accelerate.\n\nNew research on LLM disruption, done in partnership with BCG, dives deep into the <green><b>current state of play for marketers</b></green>, and where we go from here.",
-  hooks_title: "<green>The <b>AI Disruption Index</b></green>",
-  hooks_subline: "Report by",
-  context_intro:
-    "<b>In partnership with BCG, we surveyed 283 marketing leaders across 15 verticals and 5 regions, interviewed 15 executives from leading companies, and analyzed billions of Moloco first-party signals and data across 3,000 apps.</b>",
-  context_buttons_text:
-    "We uncovered new insights on LLM disruption, vertical strengths and opportunities, and the new customer journey.",
-  context_button_method: "methodology",
-  context_button_method_tooltip:
-    "<b>About the Research</b>\n\nThis report leverages insights from multiple research methodologies conducted with Boston Consulting Group from June to October 2025:\n\n<b>Quantitative Survey</b>: 283 marketing leaders (VP/C-level) across 15 verticals and 5 regions, representing companies from $50M to $10B+ in revenue\n\n<b>Expert Deep Dive Interviews</b>: 15 senior executives (VP/C-level) from leading companies across key verticals\n\n<b>Performance Analysis</b>: App performance data from 3000+ apps with 200B+ downloads, analyzing retention rates, engagement patterns, and acquisition channels (Moloco/Sensor Tower/Semrush)",
-  journey_1_title: "Inspiration",
-  journey_1_stat_headline:
-    "<green><b>Inspiration now starts with LLMs</b></green>",
-  journey_1_stat_number: "1/3",
-  journey_1_stat_text: "U.S. adults now discover brands via personal AI agents",
-  journey_1_stat_source:
-    "Source: Cordial, “Brands Battle for Attention as AI Redefines the Funnel” conducted by Dynata, Aug 2025. 1,000 US Adults surveyed by Dynata",
-  journey_2_title: "Discovery",
-  journey_2_stat_headline: "<green><b>Discovery has been disrupted</b></green>",
-  journey_2_stat_number: "80%",
-  journey_2_stat_text:
-    "of Google searches now end without a click when AI Overview present",
-  journey_2_stat_source:
-    "Source: Similarweb, “Zero-Click Searched And How They Impact Traffic”, May 2025",
-  journey_3_title: "Consideration",
-  journey_3_stat_headline:
-    "<green><b>For shoppers, AI has gone from experimental to essential</b></green>",
-  journey_3_stat_number: "47%",
-  journey_3_stat_text: "of consumers use GenAI to research purchases",
-  journey_3_stat_source:
-    "Source: Attest, “2025 Consumer Adoption of AI Report” , July 2025. \n5,000 Adults in US, UK, Canada and Australia using Attest platform",
-  journey_4_title: "Conversion",
-  journey_4_stat_headline:
-    "<green><b>AI can replace the need to discover a brand at all</b></green>",
-  journey_4_stat_number: "45%",
-  journey_4_stat_text:
-    "feel comfortable letting AI/LLM make purchases for them",
-  journey_4_stat_source:
-    "Source: Chain Store Age, “Consumer comfort, interest in AI shopping assistants grows”, June 2025. \n1,000 US Adults surveyed by CouponFollow",
-  climax_1_title:
-    "<green>Understanding disruption on the <b>vertical level</b></green>",
-  climax_1_paragraph:
-    "To explore the risks and opportunities for each vertical, we quantified how exposed you are to AI-driven discovery and service disruption, and how strong your customer relationships already are.",
-  qu_expl_title: "The <b>AI Disruption Index</b>",
-  qu_expl_subline:
-    "AI/LLM Disruption scores verticals on their level of exposure to:",
-  qu_expl_x_description:
-    "<b>AI Disruption</b> <green>(x-axis)</green> scores disruption from high to low based on levels of:\n- Service Disruption: The ability for customers to use AI/LLM without having a direct relationship with a company\n- Discovery Disruption: Consumers going to LLMs for discovery rather than using traditional channels",
-  qu_expl_y_description:
-    "<b>Customer Relationship Strength</b> <green>(y-axis)</green> scores strength from high to low based on reliance on paid user acquisition, ability to drive loyalty, and how much customers engage on platforms like apps (higher engagement) vs. the web (lower).",
-  qu_info:
-    "Moloco and BCG (2025). Based on surveys and interviews with 250 senior marketing leaders (CMOs & VPs) across 15 verticals, plus performance data from 3,000+ apps representing 200B+ downloads.",
-  qu_bottom_left_title: "<b>Breached</b>",
-  qu_bottom_left_headline:
-    "High AI disruption and weak customer relationships leave these verticals highly vulnerable to being disintermediated by LLMs.",
-  qu_bottom_left_description:
-    "They need to fundamentally <b>rebuild the relationship layer</b>, including:\n\n- Bringing more of the journey into their owned ecosystems and mobile app through things like loyalty programs, deeper engagement, and personalized experiences \n- Building LLM-like offerings into their mobile app and other owned experiences to offer greater value,  including  product comparisons, discovery, and customer assistance\n- Making the most of first-party data and closed-loop systems to make their platforms indispensable\n- Diversifying media spend to account for instability in traditional discovery channels",
-  qu_top_left_title: "<b>Undefended</b>",
-  qu_top_left_headline:
-    "Low AI disruption today, but weak customer relationships, mean these verticals lack long-term defensibility.",
-  qu_top_left_description:
-    "They need to <b>build future-proof foundations</b>, including: \n\n- Building deeper relationships through AI-driven personalization and loyalty ecosystems like mobile apps \n- Embedding into LLM ecosystems via partnerships and integrations to ensure visibility in LLM discovery",
-  qu_bottom_right_title: "<b>Contested</b>",
-  qu_bottom_right_headline:
-    "High AI disruption is already reshaping discovery here, but strong loyalty and user intent keep these verticals durable.",
-  qu_bottom_right_description:
-    "These verticals can <b>accelerate their advantage</b> by:\n\n- Making AI-enhanced services indispensable within their ecosystem\n- Using AI/LLM to amplify data, trust, and regulatory barriers into even stronger differentiators\n- Diversifying media spend to account for instability in traditional discovery channels",
-  qu_top_right_title: "<b>Secured</b>",
-  qu_top_right_headline:
-    "Low AI disruption and strong customer relationships combine to create resilience.",
-  qu_top_right_description:
-    "These verticals need to <b>defend and differentiate</b>, including:\n\n- Reimagining customer connection with AI-powered experiences, shifting from generic loyalty to personalized, proactive relationships \n- Continue diversifying media spend to reach people where they are",
-  qu_data_nudge: "Select a vertical to explore details.",
-  closure_title:
-    "<b>Customer relationships are the durable asset of the AI future.</b>",
-  closure_paragraph_1:
-    "While the implications of the AI future will vary by vertical, there’s one strategic principle that’s consistent. And that’s the need to own more of the customer relationship. Because while journeys shift, relationships endure.",
-  closure_paragraph_2:
-    "Many forward-looking CMOs are turning to a hidden gem of their arsenal – their mobile app. At a time when brands are getting disintermediated, surfaces where you own the customer relationship become a primary competitive advantage.",
-  closure_paragraph_3:
-    "<b>Here are a few of their strategies to own the AI future on mobile apps:</b>",
-  closure_card_1_title: "<b>Deepening customer relationships on mobile</b>",
-  closure_card_1_text:
-    "Brands are finding opportunities to deepen engagement and loyalty with strong mobile apps that offer personalized content and discovery, gamified interactions, community building, and exclusive access/rewards.",
-  closure_card_2_title:
-    "<b>Diversifying channel mixes to reach customers where they are</b>",
-  closure_card_2_text:
-    "To grow their app user base and encourage regular app usage, many media teams are reducing reliance on traditional channels. They’re diversifying their media channel mix outside walled gardens to reach users across the independent app ecosystem.",
-  closure_card_3_title: "<b>Integrating AI into their mobile apps</b>",
-  closure_card_3_text:
-    "Brands are investing in everything from direct LLM integrations to LLM-driven browsing, comparison, and assistance. The more you can combine the unique value your brand offers with the LLM experiences customers have come to rely on, the closer the ties you can build.",
-  cta_text:
-    "<green>Contact us to talk more about <b>your company and vertical</b></green>",
-  cta_text_button_1: "Full BCG report",
-  cta_text_button_2: "methodology",
-  cta_text_button_3: "contact us",
+  "hooks_1_text": "The biggest shifts in AI today aren’t technological, <b><green>they’re behavioral</green></b>.",
+  "hooks_1_button": "scroll",
+  "hooks_2_text": "Consumer behavior is shifting faster than marketing budgets can follow, and this will only continue to accelerate.\n\nNew research on LLM disruption, done in partnership with BCG, dives deep into the <green><b>current state of play for marketers</b></green>, and where we go from here.",
+  "hooks_title": "<green>The <b>AI Disruption Index</b></green>",
+  "hooks_subline": "Report by",
+  "context_intro": "<b>In partnership with BCG, we surveyed 283 marketing leaders across 15 verticals and 5 regions, interviewed 15 executives from leading companies, and analyzed billions of Moloco first-party signals and data across 3,000 apps.</b>",
+  "context_buttons_text": "We uncovered new insights on LLM disruption, vertical strengths and opportunities, and the new customer journey.",
+  "context_button_method": "methodology",
+  "context_button_method_tooltip": "<b>About the Research</b>\n\nThis report leverages insights from multiple research methodologies conducted with Boston Consulting Group from June to October 2025:\n\n<b>Quantitative Survey</b>: 283 marketing leaders (VP/C-level) across 15 verticals and 5 regions, representing companies from $50M to $10B+ in revenue\n\n<b>Expert Deep Dive Interviews</b>: 15 senior executives (VP/C-level) from leading companies across key verticals\n\n<b>Performance Analysis</b>: App performance data from 3000+ apps with 200B+ downloads, analyzing retention rates, engagement patterns, and acquisition channels (Moloco/Sensor Tower/Semrush)",
+  "journey_1_title": "Inspiration",
+  "journey_1_stat_headline": "<green><b>Inspiration now starts with LLMs</b></green>",
+  "journey_1_stat_number": "1/3",
+  "journey_1_stat_text": "U.S. adults now discover brands via personal AI agents",
+  "journey_1_stat_source": "Source: Cordial, “Brands Battle for Attention as AI Redefines the Funnel” conducted by Dynata, Aug 2025. 1,000 US Adults surveyed by Dynata",
+  "journey_2_title": "Discovery",
+  "journey_2_stat_headline": "<green><b>Discovery has been disrupted</b></green>",
+  "journey_2_stat_number": "80%",
+  "journey_2_stat_text": "of Google searches now end without a click when AI Overview is present",
+  "journey_2_stat_source": "Source: Similarweb, “Zero-Click Searched And How They Impact Traffic”, May 2025",
+  "journey_3_title": "Consideration",
+  "journey_3_stat_headline": "<green><b>For shoppers, AI has gone from experimental to essential</b></green>",
+  "journey_3_stat_number": "47%",
+  "journey_3_stat_text": "of consumers use GenAI to research purchases",
+  "journey_3_stat_source": "Source: Attest, “2025 Consumer Adoption of AI Report” , July 2025. \n5,000 Adults in US, UK, Canada and Australia using Attest platform",
+  "journey_4_title": "Conversion",
+  "journey_4_stat_headline": "<green><b>AI can replace the need to discover a brand at all</b></green>",
+  "journey_4_stat_number": "45%",
+  "journey_4_stat_text": "feel comfortable letting AI/LLM make purchases for them",
+  "journey_4_stat_source": "Source: Chain Store Age, “Consumer comfort, interest in AI shopping assistants grows”, June 2025. \n1,000 US Adults surveyed by CouponFollow",
+  "climax_1_title": "<green>Understanding disruption on the <b>vertical level</b></green>",
+  "climax_1_paragraph": "To explore the risks and opportunities for each vertical, we quantified how exposed you are to AI-driven discovery and service disruption, and how strong your customer relationships already are.",
+  "qu_expl_title": "The <b>AI Disruption Index</b>",
+  "qu_expl_subline": "AI/LLM Disruption scores verticals on their level of exposure to:",
+  "qu_expl_x_description": "<b>AI Disruption</b> <green>(x-axis)</green> scores disruption from high to low based on levels of:\n- Service Disruption: The ability for customers to use AI/LLM without having a direct relationship with a company\n- Discovery Disruption: Consumers going to LLMs for discovery rather than using traditional channels",
+  "qu_expl_y_description": "<b>Customer Relationship Strength</b> <green>(y-axis)</green> scores strength from high to low based on reliance on paid user acquisition, ability to drive loyalty, and how much customers engage on platforms like apps (higher engagement) vs. the web (lower).",
+  "qu_info": "Moloco and BCG (2025). Based on surveys and interviews with 250 senior marketing leaders (CMOs & VPs) across 15 verticals, plus performance data from 3,000+ apps representing 200B+ downloads.",
+  "qu_bottom_left_title": "<b>Breached</b>",
+  "qu_bottom_left_headline": "High AI disruption and weak customer relationships leave these verticals highly vulnerable to being disintermediated by LLMs.",
+  "qu_bottom_left_description": "They need to fundamentally <b>rebuild the relationship layer</b>, including:\n\n- Bringing more of the journey into their owned ecosystems and mobile app through things like loyalty programs, deeper engagement, and personalized experiences \n- Building LLM-like offerings into their mobile app and other owned experiences to offer greater value,  including  product comparisons, discovery, and customer assistance\n- Making the most of first-party data and closed-loop systems to make their platforms indispensable\n- Diversifying media spend to account for instability in traditional discovery channels",
+  "qu_top_left_title": "<b>Undefended</b>",
+  "qu_top_left_headline": "Low AI disruption today, but weak customer relationships, mean these verticals lack long-term defensibility.",
+  "qu_top_left_description": "They need to <b>build future-proof foundations</b>, including: \n\n- Building deeper relationships through AI-driven personalization and loyalty ecosystems like mobile apps \n- Embedding into LLM ecosystems via partnerships and integrations to ensure visibility in LLM discovery",
+  "qu_bottom_right_title": "<b>Contested</b>",
+  "qu_bottom_right_headline": "High AI disruption is already reshaping discovery here, but strong loyalty and user intent keep these verticals durable.",
+  "qu_bottom_right_description": "These verticals can <b>accelerate their advantage</b> by:\n\n- Making AI-enhanced services indispensable within their ecosystem\n- Using AI/LLM to amplify data, trust, and regulatory barriers into even stronger differentiators\n- Diversifying media spend to account for instability in traditional discovery channels",
+  "qu_top_right_title": "<b>Secured</b>",
+  "qu_top_right_headline": "Low AI disruption and strong customer relationships combine to create resilience.",
+  "qu_top_right_description": "These verticals need to <b>defend and differentiate</b>, including:\n\n- Reimagining customer connection with AI-powered experiences, shifting from generic loyalty to personalized, proactive relationships \n- Continue diversifying media spend to reach people where they are",
+  "qu_data_nudge": "Select a vertical to explore details.",
+  "closure_title": "<b>Customer relationships are the durable asset of the AI future.</b>",
+  "closure_paragraph_1": "While the implications of the AI future will vary by vertical, there’s one strategic principle that’s consistent. And that’s the need to own more of the customer relationship. Because while journeys shift, relationships endure.",
+  "closure_paragraph_2": "Many forward-looking CMOs are turning to a hidden gem of their arsenal – their mobile app. At a time when brands are getting disintermediated, surfaces where you own the customer relationship become a primary competitive advantage.",
+  "closure_paragraph_3": "<b>Here are a few of their strategies to own the AI future on mobile apps:</b>",
+  "closure_card_1_title": "<b>Deepening customer relationships on mobile</b>",
+  "closure_card_1_text": "Brands are finding opportunities to deepen engagement and loyalty with strong mobile apps that offer personalized content and discovery, gamified interactions, community building, and exclusive access/rewards.",
+  "closure_card_2_title": "<b>Diversifying channel mixes to reach customers where they are</b>",
+  "closure_card_2_text": "To grow their app user base and encourage regular app usage, many media teams are reducing reliance on traditional channels. They’re diversifying their media channel mix outside walled gardens to reach users across the independent app ecosystem.",
+  "closure_card_3_title": "<b>Integrating AI into their mobile apps</b>",
+  "closure_card_3_text": "Brands are investing in everything from direct LLM integrations to LLM-driven browsing, comparison, and assistance. The more you can combine the unique value your brand offers with the LLM experiences customers have come to rely on, the closer the ties you can build.",
+  "cta_text": "<green>Let’s <b>grow your app</b></green>",
+  "cta_text_button_1": "Full BCG report",
+  "cta_text_button_2": "methodology",
+  "cta_text_button_3": "contact us"
 };
