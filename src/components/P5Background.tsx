@@ -46,7 +46,6 @@ export default function P5Background({
     lerpColor: any;
     getActiveFormation: any;
     getActiveSubsectionIndex: any;
-    getRingCenter: any;
     subsectionConfigs: any;
     fadeState: "normal" | "fadeOut" | "fadeIn";
     fadeProgress: number;
@@ -113,26 +112,21 @@ export default function P5Background({
     const p5 = p5InstanceRef.current;
     if (!p5 || !data.circleGrid || !data.circleFormation) return;
 
-    const centerX = p5.width / 2;
-    const centerY = p5.height / 2;
-
     switch (formation) {
       case "grid":
         data.circleGrid.initializeGrid();
         // Re-enable cluster scaling for grid formation
         data.circleGrid.setClusterConfig({ enabled: true });
         break;
-      case "wave":
-        // Wave is continuous, will be applied in draw loop
-        // Re-enable cluster scaling for wave formation
-        data.circleGrid.setClusterConfig({ enabled: true });
-        break;
       case "rings":
-        // Get ring center from configuration (values are 0-1, relative to canvas size)
-        const ringCenter = data.getRingCenter(
+        // Get ring center from active subsection configuration (values are 0-1, relative to canvas size)
+        const subsectionIndex = data.getActiveSubsectionIndex(
           data.currentSection,
           sectionProgress
         );
+        const activeSubsection =
+          data.subsectionConfigs[data.currentSection][subsectionIndex];
+        const ringCenter = activeSubsection.ringCenter || { x: 0.5, y: 0.5 };
         const ringCenterX = p5.width * ringCenter.x;
         const ringCenterY = p5.height * ringCenter.y;
         data.circleFormation.applyRings(
@@ -142,34 +136,6 @@ export default function P5Background({
         );
         // Disable cluster scaling for rings formation
         data.circleGrid.setClusterConfig({ enabled: false });
-        break;
-      case "quadrants":
-        data.circleFormation.applyQuadrants(
-          data.circleGrid.circles,
-          p5.width,
-          p5.height
-        );
-        // Re-enable cluster scaling for quadrants formation
-        data.circleGrid.setClusterConfig({ enabled: true });
-        break;
-      case "converge":
-        data.circleFormation.applyConverge(
-          data.circleGrid.circles,
-          centerX,
-          centerY,
-          100
-        );
-        // Re-enable cluster scaling for converge formation
-        data.circleGrid.setClusterConfig({ enabled: true });
-        break;
-      case "spiral":
-        data.circleFormation.applySpiral(
-          data.circleGrid.circles,
-          centerX,
-          centerY
-        );
-        // Re-enable cluster scaling for spiral formation
-        data.circleGrid.setClusterConfig({ enabled: true });
         break;
       case "invisible":
         // Don't apply any formation, dots will be hidden in draw
@@ -221,7 +187,6 @@ export default function P5Background({
             lerpColor: animModule.lerpColor,
             getActiveFormation: subsectionModule.getActiveFormation,
             getActiveSubsectionIndex: subsectionModule.getActiveSubsectionIndex,
-            getRingCenter: subsectionModule.getRingCenter,
             subsectionConfigs: subsectionModule.subsectionConfigs,
             fadeState: "normal",
             fadeProgress: 0,
@@ -254,16 +219,6 @@ export default function P5Background({
               data.fadeProgress = 0;
               data.pendingFormation = null;
             }
-          }
-
-          // Apply continuous animations for wave formation
-          if (data.currentFormation === "wave") {
-            data.circleFormation.applyWave(
-              data.circleGrid.circles,
-              p5.width,
-              p5.height,
-              p5.millis()
-            );
           }
 
           // Smooth transition between sections

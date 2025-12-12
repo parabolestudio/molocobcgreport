@@ -80,45 +80,4 @@ export class CircleFormation {
       }
     });
   }
-
-  // Arrange circles in quadrant positions (for quadrant section)
-  applyQuadrants(circles: Circle[], width: number, height: number) {
-    const quadrants = [
-      { x: width * 0.25, y: height * 0.25 }, // Top-left
-      { x: width * 0.75, y: height * 0.25 }, // Top-right
-      { x: width * 0.25, y: height * 0.75 }, // Bottom-left
-      { x: width * 0.75, y: height * 0.75 }, // Bottom-right
-    ];
-
-    const circlesPerQuadrant = Math.ceil(circles.length / 4);
-
-    circles.forEach((circle, i) => {
-      const quadrantIndex = Math.floor(i / circlesPerQuadrant);
-      const positionInQuadrant = i % circlesPerQuadrant;
-
-      if (quadrantIndex < 4) {
-        const quadrant = quadrants[quadrantIndex];
-        const angle =
-          (positionInQuadrant / circlesPerQuadrant) * this.p5.TWO_PI;
-        const radius = 60 + (positionInQuadrant % 3) * 30;
-
-        circle.targetX = quadrant.x + this.p5.cos(angle) * radius;
-        circle.targetY = quadrant.y + this.p5.sin(angle) * radius;
-      }
-    });
-  }
-
-  // Converge circles to center (for closure section)
-  applyConverge(
-    circles: Circle[],
-    centerX: number,
-    centerY: number,
-    spread: number = 50
-  ) {
-    circles.forEach((circle) => {
-      circle.targetX = centerX + this.p5.random(-spread, spread);
-      circle.targetY = centerY + this.p5.random(-spread, spread);
-      circle.targetSize = this.p5.random(4, 12);
-    });
-  }
 }

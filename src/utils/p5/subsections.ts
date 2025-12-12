@@ -1,13 +1,6 @@
 import type { SectionName } from "@/helpers/scroll";
 
-export type FormationType =
-  | "grid"
-  | "wave"
-  | "rings"
-  | "quadrants"
-  | "converge"
-  | "spiral"
-  | "invisible";
+export type FormationType = "grid" | "rings" | "invisible";
 
 export interface SubsectionConfig {
   progressStart: number; // 0-1 within the section
@@ -136,25 +129,4 @@ export function getActiveFormation(
 
   // Default to last subsection if we're at the end
   return subsections[subsections.length - 1].formation;
-}
-
-// Get the ring center position for the active subsection
-export function getRingCenter(
-  section: SectionName,
-  sectionProgress: number
-): { x: number; y: number } {
-  const subsections = subsectionConfigs[section];
-
-  for (const subsection of subsections) {
-    if (
-      sectionProgress >= subsection.progressStart &&
-      sectionProgress < subsection.progressEnd
-    ) {
-      // Return custom center or default to screen center
-      return subsection.ringCenter || { x: 0.5, y: 0.5 };
-    }
-  }
-
-  // Default to screen center
-  return { x: 0.5, y: 0.5 };
 }
