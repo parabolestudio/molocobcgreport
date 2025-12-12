@@ -43,6 +43,7 @@ export default function P5Background({
     currentFormation: string;
     lastFormation: string;
     transitionProgress: number;
+    sectionProgress: number;
     lerpColor: any;
     getActiveFormation: any;
     getActiveSubsectionIndex: any;
@@ -64,6 +65,10 @@ export default function P5Background({
     if (!sketchDataRef.current) return;
 
     const data = sketchDataRef.current;
+
+    // Update section progress
+    data.sectionProgress = sectionProgress;
+
     const newFormation = data.getActiveFormation(sectionName, sectionProgress);
 
     console.log(
@@ -122,17 +127,21 @@ export default function P5Background({
         // Get ring center from active subsection configuration (values are 0-1, relative to canvas size)
         const subsectionIndex = data.getActiveSubsectionIndex(
           data.currentSection,
-          sectionProgress
+          data.sectionProgress
         );
         const activeSubsection =
           data.subsectionConfigs[data.currentSection][subsectionIndex];
         const ringCenter = activeSubsection.ringCenter || { x: 0.5, y: 0.5 };
         const ringCenterX = p5.width * ringCenter.x;
         const ringCenterY = p5.height * ringCenter.y;
+        // Note: pulseIntensity will be passed from draw loop via continuous application
+        // This initial call just sets up the positions
         data.circleFormation.applyRings(
           data.circleGrid.circles,
           ringCenterX,
-          ringCenterY
+          ringCenterY,
+          p5.millis(),
+          0 // No pulse during initial setup
         );
         // Disable cluster scaling for rings formation
         data.circleGrid.setClusterConfig({ enabled: false });
@@ -184,6 +193,7 @@ export default function P5Background({
             currentFormation: "grid",
             lastFormation: "grid",
             transitionProgress: 1,
+            sectionProgress: 0,
             lerpColor: animModule.lerpColor,
             getActiveFormation: subsectionModule.getActiveFormation,
             getActiveSubsectionIndex: subsectionModule.getActiveSubsectionIndex,
@@ -229,7 +239,7 @@ export default function P5Background({
           // Get animation configs from active subsections
           const currentSubsectionIndex = data.getActiveSubsectionIndex(
             data.currentSection,
-            sectionProgress
+            data.sectionProgress
           );
           const lastSubsectionIndex = data.getActiveSubsectionIndex(
             data.lastSection,
@@ -249,22 +259,47 @@ export default function P5Background({
             data.transitionProgress
           );
 
-          // Interpolate pulse intensity
+          // Interpolate pulse intensity (default to 0 if not defined)
           const pulseIntensity = p5.lerp(
-            lastConfig.pulseIntensity,
-            currentConfig.pulseIntensity,
+            lastConfig.pulseIntensity ?? 0,
+            currentConfig.pulseIntensity ?? 0,
             data.transitionProgress
           );
 
           // Update and draw circles
           data.circleGrid.update(p5.millis(), pulseIntensity);
 
-          // Apply subtle pulsing animation for rings formation AFTER update
-          // to prevent smoothing from overriding the pulse
+          // Apply rings formation with pulsing animation if current formation is rings
           if (data.currentFormation === "rings") {
-            data.circleFormation.applyRingsPulse(
+            const subsectionIndex = data.getActiveSubsectionIndex(
+              data.currentSection,
+              data.sectionProgress
+            );
+            const activeSubsection =
+              data.subsectionConfigs[data.currentSection][subsectionIndex];
+            const ringCenter = activeSubsection.ringCenter || {
+              x: 0.5,
+              y: 0.5,
+            };
+            const ringCenterX = p5.width * ringCenter.x;
+            const ringCenterY = p5.height * ringCenter.y;
+            const ringPulseIntensity = activeSubsection.pulseIntensity ?? 0;
+
+            // Debug logging
+            console.log(
+              "Ring subsection index:",
+              subsectionIndex,
+              "pulseIntensity:",
+              ringPulseIntensity
+            );
+
+            // Apply with current pulseIntensity from active subsection (default to 0 if not defined)
+            data.circleFormation.applyRings(
               data.circleGrid.circles,
-              p5.millis()
+              ringCenterX,
+              ringCenterY,
+              p5.millis(),
+              ringPulseIntensity
             );
           }
 

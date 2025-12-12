@@ -4,17 +4,22 @@ import type { Circle } from "./CircleGrid";
 export class CircleFormation {
   constructor(private p5: P5) {}
 
-  // Arrange circles in concentric rings
+  // Arrange circles in concentric rings with optional pulsing animation
   applyRings(
     circles: Circle[],
     centerX: number,
     centerY: number,
+    time: number,
+    pulseIntensity: number = 0,
     arcSpacing: number = 30, // Arc length spacing between circles (in pixels)
     innerRadius: number = 260 // Starting radius for the first ring
   ) {
     const ringsCount = 5;
     const radiusStep = 20;
-    const fixedSize = 12; // Fixed size for all circles in rings formation
+    const baseSize = pulseIntensity > 0 ? 18 : 12; // Use larger base size when pulsing
+    const pulseSpeed = 0.0025; // Speed of the pulse
+    const pulseAmount = 6 * pulseIntensity; // Scale pulse amount by intensity (0-1)
+    const smoothing = 0.15; // Smoothing factor for size transition
 
     let circleIndex = 0;
 
@@ -42,8 +47,22 @@ export class CircleFormation {
 
         circle.targetX = centerX + this.p5.cos(angle) * radius;
         circle.targetY = centerY + this.p5.sin(angle) * radius;
-        // Set initial size, but don't touch targetSize (will be set by pulse animation)
-        circle.size = fixedSize;
+
+        // Apply pulsing animation if pulseIntensity > 0
+        if (pulseIntensity > 0) {
+          // Use sine wave with randomized offset per circle for variety
+          const randomOffset = circleIndex * 2.7; // Prime-like number for pseudo-random distribution
+          const randomSpeed = 1 + (circleIndex % 7) * 0.15; // Vary speed per circle
+          const pulse =
+            this.p5.sin(time * pulseSpeed * randomSpeed + randomOffset) *
+            pulseAmount;
+          const targetSize = baseSize + pulse;
+          // Smoothly interpolate towards target size
+          circle.size += (targetSize - circle.size) * smoothing;
+        } else {
+          // No pulse, use fixed size
+          circle.size = baseSize;
+        }
 
         circleIndex++;
       }
@@ -54,30 +73,5 @@ export class CircleFormation {
       circles[i].targetSize = 0;
       circles[i].size = 0;
     }
-  }
-
-  // Apply subtle pulsing animation to rings
-  applyRingsPulse(circles: Circle[], time: number) {
-    const baseSize = 18; // Base size for rings
-    const pulseSpeed = 0.0025; // Speed of the pulse
-    const pulseAmount = 6; // How much bigger/smaller (in pixels)
-    const smoothing = 0.15; // Smoothing factor for size transition
-
-    circles.forEach((circle, i) => {
-      // Only pulse circles that are visible (part of the rings)
-      // Check size instead of targetSize since we're not setting targetSize in applyRings anymore
-      if (circle.size > 0) {
-        // Use sine wave with randomized offset per circle for variety
-        // Multiply index by larger values to create more randomness
-        const randomOffset = i * 2.7; // Prime-like number for pseudo-random distribution
-        const randomSpeed = 1 + (i % 7) * 0.15; // Vary speed per circle
-        const pulse =
-          this.p5.sin(time * pulseSpeed * randomSpeed + randomOffset) *
-          pulseAmount;
-        const targetSize = baseSize + pulse;
-        // Smoothly interpolate towards target size
-        circle.size += (targetSize - circle.size) * smoothing;
-      }
-    });
   }
 }
