@@ -36,8 +36,9 @@ export default function P5Background({
   const canvasRef = useRef<HTMLDivElement>(null);
   const p5InstanceRef = useRef<P5 | null>(null);
   const sketchDataRef = useRef<{
-    circleGrid: any;
-    circleFormation: any;
+    circleManager: any;
+    gridFormation: any;
+    ringsFormation: any;
     currentSection: SectionName;
     lastSection: SectionName;
     currentFormation: string;
@@ -115,13 +116,17 @@ export default function P5Background({
 
     const data = sketchDataRef.current;
     const p5 = p5InstanceRef.current;
-    if (!p5 || !data.circleGrid || !data.circleFormation) return;
+    if (
+      !p5 ||
+      !data.circleManager ||
+      !data.gridFormation ||
+      !data.ringsFormation
+    )
+      return;
 
     switch (formation) {
       case "grid":
-        data.circleGrid.initializeGrid();
-        // Re-enable cluster scaling for grid formation
-        data.circleGrid.setClusterConfig({ enabled: true });
+        data.gridFormation.initialize(data.circleManager.circles, p5);
         break;
       case "rings":
         // Get ring center from active subsection configuration (values are 0-1, relative to canvas size)
@@ -134,17 +139,14 @@ export default function P5Background({
         const ringCenter = activeSubsection.ringCenter || { x: 0.5, y: 0.5 };
         const ringCenterX = p5.width * ringCenter.x;
         const ringCenterY = p5.height * ringCenter.y;
-        // Note: pulseIntensity will be passed from draw loop via continuous application
-        // This initial call just sets up the positions
-        data.circleFormation.applyRings(
-          data.circleGrid.circles,
-          ringCenterX,
-          ringCenterY,
-          p5.millis(),
-          0 // No pulse during initial setup
-        );
-        // Disable cluster scaling for rings formation
-        data.circleGrid.setClusterConfig({ enabled: false });
+        const pulseIntensity = activeSubsection.pulseIntensity ?? 0;
+
+        // Apply rings formation with initial config
+        data.ringsFormation.apply(data.circleManager.circles, p5, p5.millis(), {
+          centerX: ringCenterX,
+          centerY: ringCenterY,
+          pulseIntensity: 0, // No pulse during initial setup
+        });
         break;
       case "invisible":
         // Don't apply any formation, dots will be hidden in draw
@@ -164,30 +166,42 @@ export default function P5Background({
       const P5 = p5Module.default;
 
       // Import utility modules
-      const [gridModule, formationModule, animModule, subsectionModule] =
-        await Promise.all([
-          import("@/utils/p5/CircleGrid"),
-          import("@/utils/p5/CircleFormation"),
-          import("@/utils/p5/animations"),
-          import("@/utils/p5/subsections"),
-        ]);
+      const [
+        managerModule,
+        gridFormationModule,
+        ringsFormationModule,
+        animModule,
+        subsectionModule,
+      ] = await Promise.all([
+        import("@/utils/p5/CircleManager"),
+        import("@/utils/p5/formations/GridFormation"),
+        import("@/utils/p5/formations/RingsFormation"),
+        import("@/utils/p5/animations"),
+        import("@/utils/p5/subsections"),
+      ]);
 
       const sketch = (p5: P5) => {
-        let circleGrid: any;
-        let circleFormation: any;
+        let circleManager: any;
+        let gridFormation: any;
+        let ringsFormation: any;
 
         p5.setup = () => {
           const canvas = p5.createCanvas(window.innerWidth, window.innerHeight);
           canvas.parent(canvasRef.current!);
           p5.frameRate(60);
 
-          circleGrid = new gridModule.CircleGrid(p5, 20);
-          circleFormation = new formationModule.CircleFormation(p5);
+          circleManager = new managerModule.CircleManager(p5);
+          gridFormation = new gridFormationModule.GridFormation();
+          ringsFormation = new ringsFormationModule.RingsFormation();
+
+          // Initialize the grid formation to create circles
+          gridFormation.initialize(circleManager.circles, p5);
 
           // Store in ref
           sketchDataRef.current = {
-            circleGrid,
-            circleFormation,
+            circleManager,
+            gridFormation,
+            ringsFormation,
             currentSection: "hook",
             lastSection: "hook",
             currentFormation: "grid",
@@ -208,7 +222,7 @@ export default function P5Background({
           p5.clear();
 
           const data = sketchDataRef.current;
-          if (!data || !data.circleGrid || !data.subsectionConfigs) return;
+          if (!data || !data.circleManager || !data.subsectionConfigs) return;
 
           // Handle fade transitions
           if (data.fadeState === "fadeOut") {
@@ -218,7 +232,7 @@ export default function P5Background({
               data.currentFormation = data.pendingFormation!;
               applyFormation(data.currentFormation);
               // Instantly snap to new positions (no smooth transition)
-              data.circleGrid.snapToTargets();
+              data.circleManager.snapToTargets();
               data.fadeState = "fadeIn";
               data.fadeProgress = 0;
             }
@@ -266,11 +280,17 @@ export default function P5Background({
             data.transitionProgress
           );
 
-          // Update and draw circles
-          data.circleGrid.update(p5.millis(), pulseIntensity);
+          // Update circles (smooth movement)
+          data.circleManager.update();
 
-          // Apply rings formation with pulsing animation if current formation is rings
-          if (data.currentFormation === "rings") {
+          // Apply current formation
+          if (data.currentFormation === "grid") {
+            data.gridFormation.apply(
+              data.circleManager.circles,
+              p5,
+              p5.millis()
+            );
+          } else if (data.currentFormation === "rings") {
             const subsectionIndex = data.getActiveSubsectionIndex(
               data.currentSection,
               data.sectionProgress
@@ -285,21 +305,16 @@ export default function P5Background({
             const ringCenterY = p5.height * ringCenter.y;
             const ringPulseIntensity = activeSubsection.pulseIntensity ?? 0;
 
-            // Debug logging
-            console.log(
-              "Ring subsection index:",
-              subsectionIndex,
-              "pulseIntensity:",
-              ringPulseIntensity
-            );
-
-            // Apply with current pulseIntensity from active subsection (default to 0 if not defined)
-            data.circleFormation.applyRings(
-              data.circleGrid.circles,
-              ringCenterX,
-              ringCenterY,
+            // Apply rings formation with pulse intensity
+            data.ringsFormation.apply(
+              data.circleManager.circles,
+              p5,
               p5.millis(),
-              ringPulseIntensity
+              {
+                centerX: ringCenterX,
+                centerY: ringCenterY,
+                pulseIntensity: ringPulseIntensity,
+              }
             );
           }
 
@@ -313,26 +328,30 @@ export default function P5Background({
 
           // Apply fade alpha to all circles
           if (fadeAlpha < 1) {
-            data.circleGrid.circles.forEach((circle: any) => {
+            data.circleManager.circles.forEach((circle: any) => {
               circle.alpha = 0.6 * fadeAlpha;
             });
           } else if (data.fadeState === "normal") {
             // Restore default alpha
-            data.circleGrid.circles.forEach((circle: any) => {
+            data.circleManager.circles.forEach((circle: any) => {
               circle.alpha = 0.6;
             });
           }
 
           // Don't draw if current formation is invisible
           if (data.currentFormation !== "invisible") {
-            data.circleGrid.draw(color);
+            data.circleManager.draw(color);
           }
         };
 
         p5.windowResized = () => {
           p5.resizeCanvas(window.innerWidth, window.innerHeight);
-          if (sketchDataRef.current?.circleGrid) {
-            sketchDataRef.current.circleGrid.resize(p5.width, p5.height);
+          if (sketchDataRef.current) {
+            const data = sketchDataRef.current;
+            // Re-initialize grid formation on resize if currently in grid mode
+            if (data.currentFormation === "grid") {
+              data.gridFormation.resize(data.circleManager.circles, p5);
+            }
           }
         };
       };

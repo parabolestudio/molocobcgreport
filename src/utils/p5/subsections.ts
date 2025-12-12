@@ -1,4 +1,5 @@
 import type { SectionName } from "@/helpers/scroll";
+import { SECTION_STEPS } from "@/helpers/scroll";
 
 export type FormationType = "grid" | "rings" | "invisible";
 
@@ -28,30 +29,28 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
   journey: [
     {
       progressStart: 0,
-      progressEnd: 0.2,
+      progressEnd: 1 / SECTION_STEPS.journey,
       formation: "rings",
       ringCenter: { x: 0.8, y: 0.5 }, // 80% to the right, centered vertically
       pulseIntensity: 0.8,
       color: defaultColor,
     },
     {
-      progressStart: 0.2,
+      progressStart: 1 / SECTION_STEPS.journey,
       progressEnd: 1,
-      formation: "rings",
-      ringCenter: { x: 0.8, y: 0.5 }, // 80% to the right, centered vertically
-      pulseIntensity: 0,
+      formation: "invisible",
       color: defaultColor,
     },
   ],
   quadrant: [
     {
       progressStart: 0,
-      progressEnd: 1 / 8,
+      progressEnd: 1 / SECTION_STEPS.quadrant,
       formation: "invisible",
       color: defaultColor,
     },
     {
-      progressStart: 1 / 8,
+      progressStart: 1 / SECTION_STEPS.quadrant,
       progressEnd: 1,
       formation: "invisible",
       color: defaultColor,
