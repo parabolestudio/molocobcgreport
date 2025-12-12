@@ -42,9 +42,15 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
   quadrant: [
     {
       progressStart: 0,
+      progressEnd: 1 / 8,
+      formation: "rings",
+      ringCenter: { x: 0.5, y: 0.5 },
+    },
+    {
+      progressStart: 1 / 8,
       progressEnd: 1,
-      formation: "invisible", // Temporarily invisible
-      // formation: "quadrants",
+      formation: "rings",
+      ringCenter: { x: 0.8, y: 0.5 },
     },
   ],
   closure: [

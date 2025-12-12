@@ -34,26 +34,51 @@ export default function Home() {
     },
   });
 
-  console.log("Page: Current section", currentSection, "step", currentStep);
+  // console.log("Page: Current section", currentSection, "step", currentStep);
+
+  function getBackgroundColorClass(
+    currentSection: number,
+    currentStep: number
+  ) {
+    if (currentSection === 3) {
+      return "bg-forest-green";
+    } else if (currentSection === 2 && currentStep >= 0) {
+      return "bg-dark-background";
+    } else {
+      return "bg-black-blue";
+    }
+  }
+  const bgClass = getBackgroundColorClass(currentSection, currentStep);
+
+  function isTexturedBackgroundVisible(
+    currentSection: number,
+    currentStep: number
+  ) {
+    // Show textured background for all sections except Quadrant section
+    if (currentSection === 2 && currentStep > 0) {
+      return false;
+    }
+    return true;
+  }
+  const isTextureVisible = isTexturedBackgroundVisible(
+    currentSection,
+    currentStep
+  );
 
   return (
-    <main
-      className={`relative ${
-        currentSection === 3 ? "bg-forest-green" : "bg-black-blue"
-      }`}
-    >
+    <main className={`relative ${bgClass} transition-background`}>
       <P5Background
         activeSection={currentSection}
         currentStep={currentStep}
         sectionName={SECTION_NAMES[currentSection] as any}
       />
       <div
-        className="fixed top-0 bottom-0 left-0 right-0 "
+        className="fixed top-0 bottom-0 left-0 right-0 transition-opacity pointer-events-none"
         style={{
           backgroundImage: `url(${basePath}/background/texture.jpg)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          opacity: 0.3,
+          opacity: isTextureVisible ? 0.3 : 0,
           mixBlendMode: "luminosity",
           zIndex: 1,
         }}
