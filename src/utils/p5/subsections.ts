@@ -1,7 +1,7 @@
 import type { SectionName } from "@/helpers/scroll";
 import { SECTION_STEPS } from "@/helpers/scroll";
 
-export type FormationType = "grid" | "rings" | "invisible";
+export type FormationType = "grid" | "rings" | "distributedRings" | "invisible";
 
 export interface SubsectionConfig {
   progressStart: number; // 0-1 within the section
@@ -52,7 +52,12 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 1 / SECTION_STEPS.quadrant,
       progressEnd: 1,
-      formation: "invisible",
+      formation: "distributedRings",
+      // Position matches the center circle in the Chart SVG
+      // Chart is in a 70% wide column on the right side of a 30/70 grid
+      // Approximate center: left padding + left column + gap + half of right column
+      // ≈ 40px + 506px + 32px + 575px = 1153px out of 1728px ≈ 0.667 (66.7%)
+      ringCenter: { x: 0.64, y: 0.5 },
       color: defaultColor,
     },
   ],

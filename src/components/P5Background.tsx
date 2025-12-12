@@ -39,6 +39,7 @@ export default function P5Background({
     circleManager: any;
     gridFormation: any;
     ringsFormation: any;
+    distributedRingsFormation: any;
     currentSection: SectionName;
     lastSection: SectionName;
     currentFormation: string;
@@ -120,7 +121,8 @@ export default function P5Background({
       !p5 ||
       !data.circleManager ||
       !data.gridFormation ||
-      !data.ringsFormation
+      !data.ringsFormation ||
+      !data.distributedRingsFormation
     )
       return;
 
@@ -147,6 +149,32 @@ export default function P5Background({
           pulseIntensity: 0, // No pulse during initial setup
         });
         break;
+      case "distributedRings":
+        // Get ring center from active subsection configuration
+        const subsectionIndexDR = data.getActiveSubsectionIndex(
+          data.currentSection,
+          data.sectionProgress
+        );
+        const activeSubsectionDR =
+          data.subsectionConfigs[data.currentSection][subsectionIndexDR];
+        const ringCenterDR = activeSubsectionDR.ringCenter || {
+          x: 0.5,
+          y: 0.5,
+        };
+        const ringCenterXDR = p5.width * ringCenterDR.x;
+        const ringCenterYDR = p5.height * ringCenterDR.y;
+
+        // Apply distributed rings formation
+        data.distributedRingsFormation.apply(
+          data.circleManager.circles,
+          p5,
+          p5.millis(),
+          {
+            centerX: ringCenterXDR,
+            centerY: ringCenterYDR,
+          }
+        );
+        break;
       case "invisible":
         // Don't apply any formation, dots will be hidden in draw
         break;
@@ -169,12 +197,14 @@ export default function P5Background({
         managerModule,
         gridFormationModule,
         ringsFormationModule,
+        distributedRingsFormationModule,
         helpersModule,
         subsectionModule,
       ] = await Promise.all([
         import("@/utils/p5/CircleManager"),
         import("@/utils/p5/formations/GridFormation"),
         import("@/utils/p5/formations/RingsFormation"),
+        import("@/utils/p5/formations/DistributedRingsFormation"),
         import("@/utils/p5/helpers"),
         import("@/utils/p5/subsections"),
       ]);
@@ -183,6 +213,7 @@ export default function P5Background({
         let circleManager: any;
         let gridFormation: any;
         let ringsFormation: any;
+        let distributedRingsFormation: any;
 
         p5.setup = () => {
           const canvas = p5.createCanvas(window.innerWidth, window.innerHeight);
@@ -192,6 +223,8 @@ export default function P5Background({
           circleManager = new managerModule.CircleManager(p5);
           gridFormation = new gridFormationModule.GridFormation();
           ringsFormation = new ringsFormationModule.RingsFormation();
+          distributedRingsFormation =
+            new distributedRingsFormationModule.DistributedRingsFormation();
 
           // Initialize the grid formation to create circles
           gridFormation.initialize(circleManager.circles, p5);
@@ -201,6 +234,7 @@ export default function P5Background({
             circleManager,
             gridFormation,
             ringsFormation,
+            distributedRingsFormation,
             currentSection: "hook",
             lastSection: "hook",
             currentFormation: "grid",
@@ -306,6 +340,30 @@ export default function P5Background({
                 centerX: ringCenterX,
                 centerY: ringCenterY,
                 pulseIntensity: ringPulseIntensity,
+              }
+            );
+          } else if (data.currentFormation === "distributedRings") {
+            const subsectionIndex = data.getActiveSubsectionIndex(
+              data.currentSection,
+              data.sectionProgress
+            );
+            const activeSubsection =
+              data.subsectionConfigs[data.currentSection][subsectionIndex];
+            const ringCenter = activeSubsection.ringCenter || {
+              x: 0.5,
+              y: 0.5,
+            };
+            const ringCenterX = p5.width * ringCenter.x;
+            const ringCenterY = p5.height * ringCenter.y;
+
+            // Apply distributed rings formation
+            data.distributedRingsFormation.apply(
+              data.circleManager.circles,
+              p5,
+              p5.millis(),
+              {
+                centerX: ringCenterX,
+                centerY: ringCenterY,
               }
             );
           }
