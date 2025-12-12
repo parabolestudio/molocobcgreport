@@ -43,13 +43,13 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 0,
       progressEnd: 1 / 8,
-      formation: "rings",
+      formation: "invisible",
       ringCenter: { x: 0.5, y: 0.5 },
     },
     {
       progressStart: 1 / 8,
       progressEnd: 1,
-      formation: "rings",
+      formation: "invisible",
       ringCenter: { x: 0.8, y: 0.5 },
     },
   ],
