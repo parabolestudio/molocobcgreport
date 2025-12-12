@@ -139,7 +139,6 @@ export default function P5Background({
         const ringCenter = activeSubsection.ringCenter || { x: 0.5, y: 0.5 };
         const ringCenterX = p5.width * ringCenter.x;
         const ringCenterY = p5.height * ringCenter.y;
-        const pulseIntensity = activeSubsection.pulseIntensity ?? 0;
 
         // Apply rings formation with initial config
         data.ringsFormation.apply(data.circleManager.circles, p5, p5.millis(), {
@@ -170,13 +169,13 @@ export default function P5Background({
         managerModule,
         gridFormationModule,
         ringsFormationModule,
-        animModule,
+        helpersModule,
         subsectionModule,
       ] = await Promise.all([
         import("@/utils/p5/CircleManager"),
         import("@/utils/p5/formations/GridFormation"),
         import("@/utils/p5/formations/RingsFormation"),
-        import("@/utils/p5/animations"),
+        import("@/utils/p5/helpers"),
         import("@/utils/p5/subsections"),
       ]);
 
@@ -208,7 +207,7 @@ export default function P5Background({
             lastFormation: "grid",
             transitionProgress: 1,
             sectionProgress: 0,
-            lerpColor: animModule.lerpColor,
+            lerpColor: helpersModule.lerpColor,
             getActiveFormation: subsectionModule.getActiveFormation,
             getActiveSubsectionIndex: subsectionModule.getActiveSubsectionIndex,
             subsectionConfigs: subsectionModule.subsectionConfigs,
@@ -270,13 +269,6 @@ export default function P5Background({
             p5,
             lastConfig.color,
             currentConfig.color,
-            data.transitionProgress
-          );
-
-          // Interpolate pulse intensity (default to 0 if not defined)
-          const pulseIntensity = p5.lerp(
-            lastConfig.pulseIntensity ?? 0,
-            currentConfig.pulseIntensity ?? 0,
             data.transitionProgress
           );
 
