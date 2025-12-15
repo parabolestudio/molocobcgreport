@@ -488,7 +488,7 @@ export default function P5Background({
 
       {/* Debug Panel */}
       <div
-        className="fixed top-2 right-2 bg-black/60 opacity-60 text-white p-3 rounded-lg text-[10px] font-mono pointer-events-auto"
+        className="fixed top-2 right-2 bg-black/60  text-white p-3 rounded-lg text-[10px] font-mono pointer-events-none opacity-0"
         style={{ zIndex: 9999 }}
       >
         <div className="font-bold mb-2 text-sm">Scroll Debug</div>

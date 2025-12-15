@@ -76,10 +76,12 @@ export default function HookSection({
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={text1Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center flex flex-col items-center justify-between gap-20 h-[80vh]"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8 text-center flex flex-col items-center justify-between gap-20 h-[80vh]"
         >
           <button className="bg-grey-blue flex items-center justify-center gap-2 opacity-0"></button>
-          <p className="hook-p">{useCopy("hooks_1_text")}</p>
+          <p className="text-[18px] md:text-[32px] leading-[125%] font-normal">
+            {useCopy("hooks_1_text")}
+          </p>
           <button
             className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
             onClick={() => scrollToSection(0, 1)}
@@ -96,25 +98,27 @@ export default function HookSection({
         </div>
         <div
           ref={text2Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-8 text-center flex flex-col items-center justify-center gap-20"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8 text-center flex flex-col items-center justify-center gap-20"
           style={{ opacity: 0, visibility: "hidden" }}
         >
-          <p className="hook-p">{useCopy("hooks_2_text")}</p>
+          <p className="text-[18px] md:text-[32px] leading-[125%] font-normal">
+            {useCopy("hooks_2_text")}
+          </p>
         </div>
 
         <div
           ref={titleRef}
-          className="absolute inset-0 w-full h-full px-8 text-center flex flex-col items-center justify-center gap-16 md:gap-32 py-8 overflow-y-auto"
+          className="absolute inset-0 w-full h-full px-8 text-center flex flex-col items-center justify-center gap-32 md:gap-32 py-8 overflow-y-auto"
           style={{ opacity: 0, visibility: "hidden" }}
         >
-          <h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-[128px] text-bright-green font-museo-moderno uppercase leading-[0.99] font-extralight text-balance">
+          <h1 className="text-[40px] md:text-[128px] text-bright-green font-museo-moderno uppercase leading-[0.99] font-extralight text-balance">
             {useCopy("hooks_title")}
           </h1>
           <div className="shrink-0">
-            <p className="hook-p" style={{ fontSize: "24px" }}>
+            <p className="text-[18px] md:text-[24px] leading-[125%] font-normal">
               {useCopy("hooks_subline")}
             </p>
-            <div className="flex gap-11 mt-4 justify-center">
+            <div className="flex  mt-4 justify-center max-h-[25px] md:max-h-10 md:gap-11">
               <img
                 src={`${basePath}/logos/moloco.svg`}
                 alt="Moloco logo"
