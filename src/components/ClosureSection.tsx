@@ -143,27 +143,27 @@ export default function ClosureSection({
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={screen1Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 h-full max-h-[1100px] py-8 opacity-0 invisible"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[1100px] py-8 opacity-0 invisible"
         >
           <div className="relative flex flex-col justify-start items-start h-full w-full gap-16">
-            <p className="text-[32px] max-w-[900px]">
+            <p className="text-[18px] md:text-[32px] max-w-[900px]">
               {useCopy("closure_paragraph_1")}
             </p>
-            <h3 className="text-[32px] max-w-[900px] text-grey-text text-balance">
+            <h3 className="text-[18px] md:text-[32px] max-w-[900px] text-grey-text text-balance">
               {useCopy("closure_title")}
             </h3>
           </div>
         </div>
         <div
           ref={screen2Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 h-full max-h-[1100px] py-8 opacity-0 invisible"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[1100px] py-8 opacity-0 invisible"
         >
           <div className="relative flex flex-col justify-between items-start h-full w-full gap-4 overflow-y-scroll overflow-x-visible">
-            <p className="text-[24px] max-w-[940px]">
+            <p className="text-[18px] md:text-[24px] max-w-[940px]">
               {useCopy("closure_paragraph_2")}
             </p>
             <div className="flex flex-col gap-8">
-              <p className="text-[24px] max-w-[940px]">
+              <p className="text-[18px] md:text-[24px] max-w-[940px]">
                 {useCopy("closure_paragraph_3")}
               </p>
 
@@ -255,12 +255,15 @@ const Card = React.forwardRef<HTMLDivElement, { cardIndex: number }>(
         className="relative bg-bright-green rounded-[20px] pl-[60px] pr-[30px] py-[30px]"
       >
         <p
-          className="text-[32px] font-bold font-museo-moderno leading-[108%]"
+          className="text-[24px] md:text-[32px] font-bold font-museo-moderno leading-[108%]"
           style={{ color: "var(--black-blue)", marginBottom: "32px" }}
         >
           {useCopy("closure_card_" + cardIndex + "_title")}
         </p>
-        <p className="text-[18px]" style={{ color: "var(--black-blue)" }}>
+        <p
+          className="text-[14px] md:text-[18px]"
+          style={{ color: "var(--black-blue)" }}
+        >
           {useCopy("closure_card_" + cardIndex + "_text")}
         </p>
         <div className="absolute rounded-[50%] bg-black-blue font-museo-moderno text-[24px] font-bold text-bright-green left-[calc(-42px/2)] top-1/2 -translate-y-1/2 w-[43px] h-[43px] flex items-center justify-center">

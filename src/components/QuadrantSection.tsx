@@ -206,12 +206,12 @@ export default function QuadrantSection({
         {/* Intro text - only visible on step 0 */}
         <div
           ref={introTextRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[90%] px-8 h-full max-h-[1000px] py-8 flex flex-col justify-between gap-12"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[1000px] py-8 flex flex-col justify-start md:justify-between gap-12"
         >
-          <h2 className="font-museo-moderno text-bright-green text-[96px] leading-[100%] max-w-[800px] font-extralight">
+          <h2 className="font-museo-moderno text-bright-green text-[40px] md:text-[96px] leading-[125%] md:leading-[114px] max-w-[800px] font-extralight">
             {useCopy("climax_1_title")}
           </h2>
-          <p className="text-[32px] max-w-[615px] self-end">
+          <p className="text-[18px] md:text-[32px] max-w-[615px] self-end">
             {useCopy("climax_1_paragraph")}
           </p>
         </div>
