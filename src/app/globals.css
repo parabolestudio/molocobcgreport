@@ -72,16 +72,6 @@ button {
   @apply text-[12px] md:text-[18px] uppercase leading-[108%];
 }
 
-/* .button-grey-text-hover:hover {
-  path.no-fill {
-    stroke: var(--black-blue);
-  }
-  path.with-fill {
-    stroke: var(--black-blue);
-    fill: var(--black-blue);
-  }
-} */
-
 .chart-text {
   font-weight: 400;
   font-family: "Montserrat", Helvetica, sans-serif;
@@ -112,7 +102,7 @@ button {
 
 .panel-content p:not([class*="text-"]),
 .panel-content li {
-  font-size: 18px;
+  @apply text-[14px] md:text-[18px] text-black-blue md:text-grey-text;
 }
 
 .verticals .selected text,
@@ -143,7 +133,12 @@ button {
 }
 
 .panel-content .panel-heading {
-  @apply text-grey-text font-museo-moderno mb-8 text-[40px];
+  @apply text-black-blue md:text-grey-text font-museo-moderno mb-4 md:mb-8 text-[18px] md:text-[40px];
+}
+
+.panel-content.panel-content-explanation .panel-text,
+.panel-content.panel-content-explanation .panel-text span {
+  @apply text-black-blue md:text-grey-text text-[14px] md:text-[18px];
 }
 
 .panel-content .highlighted-axis .text-bright-green {

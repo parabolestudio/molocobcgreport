@@ -5,7 +5,7 @@ import { csv } from "d3-fetch";
 import { scaleLinear } from "d3-scale";
 import type { ChartMode } from "@/helpers/chart";
 import { verticalsMap } from "@/helpers/chart";
-import { basePath } from "@/helpers/general";
+import { basePath, isMobile } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 
 interface VerticalData {
@@ -63,6 +63,11 @@ export default function Chart({
   const [hoveredQuadrant, setHoveredQuadrant] = useState<{
     quadrant: string;
   } | null>(null);
+  const [mobile, setMobile] = useState(false);
+
+  useEffect(() => {
+    setMobile(mobile);
+  }, []);
 
   // Call all quadrant headline hooks at top level to avoid conditional hook calls
   const quadrantHeadlines = {
@@ -135,7 +140,12 @@ export default function Chart({
   }, []);
 
   // margin needs to be equal horizontally and vertically
-  const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+  const margin = {
+    top: 50,
+    bottom: 50,
+    right: 50,
+    left: 50,
+  };
   const innerWidth = length - margin.left - margin.right;
   const innerHeight = length - margin.top - margin.bottom;
 
@@ -211,7 +221,14 @@ export default function Chart({
               dominantBaseline="middle"
               textAnchor="middle"
               style={{
-                fontSize: mode === "expl-x-axis" ? "18px" : "14px",
+                fontSize:
+                  mode === "expl-x-axis"
+                    ? mobile
+                      ? "14px"
+                      : "18px"
+                    : mobile
+                    ? "12px"
+                    : "14px",
                 fill:
                   mode === "expl-x-axis"
                     ? "var(--bright-green)"
@@ -233,6 +250,7 @@ export default function Chart({
                     : mode.startsWith("expl-quadrant-")
                     ? "var(--grey-text)"
                     : "var(--grey-blue)",
+                fontSize: mobile ? "12px" : "14px",
               }}
             >
               low
@@ -250,6 +268,7 @@ export default function Chart({
                     : mode.startsWith("expl-quadrant-")
                     ? "var(--grey-text)"
                     : "var(--grey-blue)",
+                fontSize: mobile ? "12px" : "14px",
               }}
             >
               high
@@ -282,7 +301,14 @@ export default function Chart({
               style={{
                 transform: `rotate(-90deg)`,
                 transformOrigin: `${innerWidth}px ${innerHeight / 2}px`,
-                fontSize: mode === "expl-y-axis" ? "18px" : "14px",
+                fontSize:
+                  mode === "expl-y-axis"
+                    ? mobile
+                      ? "14px"
+                      : "18px"
+                    : mobile
+                    ? "12px"
+                    : "14px",
                 fill:
                   mode === "expl-y-axis"
                     ? "var(--bright-green)"
@@ -305,6 +331,7 @@ export default function Chart({
                     : mode.startsWith("expl-quadrant-")
                     ? "var(--grey-text)"
                     : "var(--grey-blue)",
+                fontSize: mobile ? "12px" : "14px",
               }}
             >
               low
@@ -321,6 +348,7 @@ export default function Chart({
                     : mode.startsWith("expl-quadrant-")
                     ? "var(--grey-text)"
                     : "var(--grey-blue)",
+                fontSize: mobile ? "12px" : "14px",
               }}
             >
               high

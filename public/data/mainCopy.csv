@@ -49,7 +49,8 @@ qu_expl_x_description,Quadrant X axis description,"<b>AI Disruption</b> <green>(
 - Service Disruption: The ability for customers to use AI/LLM without having a direct relationship with a company
 - Discovery Disruption: Consumers going to LLMs for discovery rather than using traditional channels"
 qu_expl_y_description,Quadrant Y axis description,"<b>Customer Relationship Strength</b> <green>(y-axis)</green> scores strength from high to low based on reliance on paid user acquisition, ability to drive loyalty, and how much customers engage on platforms like apps (higher engagement) vs. the web (lower)."
-qu_info,"Info message (is now the source, to remain the same throughout)","Moloco and BCG (2025). Based on surveys and interviews with 250 senior marketing leaders (CMOs & VPs) across 15 verticals, plus performance data from 3,000+ apps representing 200B+ downloads."
+qu_info,"Info message (is now the source, to remain the same throughout)","Source: Moloco and BCG (2025). Based on surveys and interviews with 250 senior marketing leaders (CMOs & VPs) across 15 verticals, plus performance data from 3,000+ apps representing 200B+ downloads."
+qu_info_short,Info message short (short source),Source: Moloco and BCG (2025).
 qu_bottom_left_title,"Quadrant, step 1 title",<b>Breached</b>
 qu_bottom_left_headline,"Quadrant, step 1 headline",High AI disruption and weak customer relationships leave these verticals highly vulnerable to being disintermediated by LLMs.
 qu_bottom_left_description,"Quadrant, step 1 body text","They need to fundamentally <b>rebuild the relationship layer</b>, including:

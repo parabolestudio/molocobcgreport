@@ -4,7 +4,7 @@ import type { ChartMode } from "@/helpers/chart";
 import { isChartModeExplanation } from "@/helpers/chart";
 import { JSX, useEffect, useState } from "react";
 import ChartPanelContentSelectedVertical from "./ChartPanelContentSelectedVertical";
-import { basePath } from "@/helpers/general";
+import { basePath, isMobile } from "@/helpers/general";
 import { csv } from "d3-fetch";
 import { useCopy } from "@/contexts/CopyContext";
 
@@ -55,6 +55,12 @@ export default function ChartPanel({
   const [shownSide, setShownSide] = useState<"summary" | "details">("summary");
   const [isFlipping, setIsFlipping] = useState(false);
   const isExplanation = isChartModeExplanation(mode);
+  const [mobile, setMobile] = useState(false);
+
+  // Detect mobile after hydration to avoid SSR mismatch
+  useEffect(() => {
+    setMobile(isMobile());
+  }, []);
 
   const handleSideChange = (newSide: "summary" | "details") => {
     if (newSide !== shownSide) {
@@ -66,12 +72,37 @@ export default function ChartPanel({
     }
   };
   const backgroundColor = isExplanation
-    ? "bg-panel-background-grey"
+    ? mobile
+      ? "bg-transparent"
+      : "bg-panel-background-grey"
     : shownSide === "details"
     ? "bg-panel-background-green"
     : "bg-panel-background-blue";
 
+  const backgroundColorInner = mobile
+    ? isExplanation
+      ? "bg-grey-text"
+      : "bg-transparent"
+    : "bg-transparent";
+
   const [verticalsCopy, setVerticalsCopy] = useState<Array<Copy>>([]);
+
+  // Call all useCopy hooks at top level to avoid conditional hook calls
+  const copyTexts = {
+    qu_expl_title: useCopy("qu_expl_title"),
+    qu_expl_subline: useCopy("qu_expl_subline"),
+    qu_expl_y_description: useCopy("qu_expl_y_description"),
+    qu_expl_x_description: useCopy("qu_expl_x_description"),
+    qu_bottom_left_title: useCopy("qu_bottom_left_title"),
+    qu_bottom_left_description: useCopy("qu_bottom_left_description"),
+    qu_top_left_title: useCopy("qu_top_left_title"),
+    qu_top_left_description: useCopy("qu_top_left_description"),
+    qu_top_right_title: useCopy("qu_top_right_title"),
+    qu_top_right_description: useCopy("qu_top_right_description"),
+    qu_bottom_right_title: useCopy("qu_bottom_right_title"),
+    qu_bottom_right_description: useCopy("qu_bottom_right_description"),
+    qu_info: useCopy("qu_info"),
+  };
 
   useEffect(() => {
     csv(`${basePath}/data/verticalsCopy.csv`).then((data) => {
@@ -154,10 +185,10 @@ export default function ChartPanel({
     selectedVertical,
     selectVertical,
     shownSide,
-    setShownSide,
     copy,
-    mode,
-    handleSideChange
+    handleSideChange,
+    mobile,
+    copyTexts
   );
 
   // Reset to summary side when mode changes
@@ -183,9 +214,11 @@ export default function ChartPanel({
         transform: isFlipping ? "rotateY(90deg)" : "rotateY(0deg)",
       }}
     >
-      <div className="p-6 flex-1 min-h-0 flex flex-col">
+      <div className="p-0 md:p-6 flex-1 min-h-0 flex flex-col">
         <div
-          className="panel-content flex-1 min-h-0 flex flex-col overflow-y-auto pr-2"
+          className={`panel-content ${
+            isExplanation ? "panel-content-explanation" : ""
+          } max-h-[185px] md:max-h-none flex-1 min-h-0 flex flex-col overflow-y-auto pr-2 ${backgroundColorInner} rounded-[3px] p-4 md:p-0`}
           style={{ scrollbarGutter: "stable" }}
         >
           {contentMap[mode]}
@@ -198,7 +231,7 @@ export default function ChartPanel({
               } transition grow`}
               onClick={() => scrollBack()}
               disabled={isBackButtonDisabled}
-              style={{ fontSize: "14px" }}
+              style={{ fontSize: mobile ? "12px" : "14px" }}
             >
               <svg
                 width="17"
@@ -224,14 +257,14 @@ export default function ChartPanel({
             <button
               className="bg-medium-blue grow"
               onClick={() => scrollToDataMode()}
-              style={{ fontSize: "14px" }}
+              style={{ fontSize: mobile ? "12px" : "14px" }}
             >
               Skip to index
             </button>
             <button
               className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition grow"
               onClick={() => scrollNext()}
-              style={{ fontSize: "14px" }}
+              style={{ fontSize: mobile ? "12px" : "14px" }}
             >
               <span>Next</span>
               <img
@@ -245,17 +278,19 @@ export default function ChartPanel({
           </div>
         )}
       </div>
-      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3 shrink-0 items-start">
-        <img
-          src={`${basePath}/icons/moloco_small.svg`}
-          alt="Information"
-          width={25}
-          height={28}
-        />
-        <p className="text-[14px] leading-[108%] text-grey-text m-0">
-          {useCopy("qu_info")}
-        </p>
-      </div>
+      {!mobile && (
+        <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3 shrink-0 items-start">
+          <img
+            src={`${basePath}/icons/moloco_small.svg`}
+            alt="Information"
+            width={25}
+            height={28}
+          />
+          <p className="text-[14px] leading-[108%] text-grey-text m-0">
+            {copyTexts.qu_info}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
@@ -264,56 +299,70 @@ const getContentMap = (
   selectedVertical: string | null,
   selectVertical: (vertical: string | null) => void,
   shownSide: "summary" | "details",
-  onShownSideChange: (side: "summary" | "details") => void,
   copy: Copy | undefined,
-  mode: ChartMode,
-  handleSideChange: (side: "summary" | "details") => void
+  handleSideChange: (side: "summary" | "details") => void,
+  mobile: boolean = false,
+  copyTexts: {
+    qu_expl_title: React.ReactNode;
+    qu_expl_subline: React.ReactNode;
+    qu_expl_y_description: React.ReactNode;
+    qu_expl_x_description: React.ReactNode;
+    qu_bottom_left_title: React.ReactNode;
+    qu_bottom_left_description: React.ReactNode;
+    qu_top_left_title: React.ReactNode;
+    qu_top_left_description: React.ReactNode;
+    qu_top_right_title: React.ReactNode;
+    qu_top_right_description: React.ReactNode;
+    qu_bottom_right_title: React.ReactNode;
+    qu_bottom_right_description: React.ReactNode;
+    qu_info: React.ReactNode;
+  }
 ): Record<ChartMode, JSX.Element> => ({
   "expl-y-axis": (
-    <div className="flex flex-col gap-4">
-      <h3 className="panel-heading">{useCopy("qu_expl_title")}</h3>
-      <p>{useCopy("qu_expl_subline")}</p>
-      <div className="text-[18px] highlighted-axis">
-        {useCopy("qu_expl_y_description")}
+    <div className="flex flex-col gap-4 text-grey-text">
+      <h3 className="panel-heading">{copyTexts.qu_expl_title}</h3>
+      <p className="panel-text">{copyTexts.qu_expl_subline}</p>
+      <div className="panel-text highlighted-axis">
+        {copyTexts.qu_expl_y_description}
       </div>
     </div>
   ),
   "expl-x-axis": (
     <div className="flex flex-col gap-4">
-      <h3 className="panel-heading">{useCopy("qu_expl_title")}</h3>
-      <p>{useCopy("qu_expl_subline")}</p>
-      <div className="text-[18px] non-highlighted-axis">
-        {useCopy("qu_expl_y_description")}
-      </div>
-      <div className="text-[18px] highlighted-axis">
-        {useCopy("qu_expl_x_description")}
+      <h3 className="panel-heading mb-0">{copyTexts.qu_expl_title}</h3>
+      <p className="panel-text">{copyTexts.qu_expl_subline}</p>
+      {!mobile && (
+        <div className="panel-text non-highlighted-axis">
+          {copyTexts.qu_expl_y_description}
+        </div>
+      )}
+      <div className="panel-text highlighted-axis">
+        {copyTexts.qu_expl_x_description}
       </div>
     </div>
   ),
   "expl-quadrant-bottom-left": (
     <div>
-      <h3 className="panel-heading">{useCopy("qu_bottom_left_title")}</h3>
-      <div className="text-[18px]">{useCopy("qu_bottom_left_description")}</div>
+      <h3 className="panel-heading">{copyTexts.qu_bottom_left_title}</h3>
+      <div className="panel-text">{copyTexts.qu_bottom_left_description}</div>
     </div>
   ),
   "expl-quadrant-top-left": (
     <div>
-      <h3 className="panel-heading">{useCopy("qu_top_left_title")}</h3>
-      <div className="text-[18px]">{useCopy("qu_top_left_description")}</div>
+      <h3 className="panel-heading">{copyTexts.qu_top_left_title}</h3>
+      <div className="panel-text">{copyTexts.qu_top_left_description}</div>
     </div>
   ),
   "expl-quadrant-top-right": (
     <div>
-      <h3 className="panel-heading">{useCopy("qu_top_right_title")}</h3>
-      <div className="text-[18px]">{useCopy("qu_top_right_description")}</div>
+      <h3 className="panel-heading">{copyTexts.qu_top_right_title}</h3>
+      <div className="panel-text">{copyTexts.qu_top_right_description}</div>
     </div>
   ),
   "expl-quadrant-bottom-right": (
     <div>
-      <h3 className="panel-heading">{useCopy("qu_bottom_right_title")}</h3>
-      <div className="text-[18px]">
-        {useCopy("qu_bottom_right_description")}
-      </div>
+      <h3 className="panel-heading">{copyTexts.qu_bottom_right_title}</h3>
+      <div className="panel-text">{copyTexts.qu_bottom_right_description}</div>
     </div>
   ),
   "data-filled": (

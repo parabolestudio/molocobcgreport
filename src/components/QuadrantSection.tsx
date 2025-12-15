@@ -5,8 +5,9 @@ import { gsap } from "gsap";
 import Chart from "./Chart";
 import ChartPanel from "./ChartPanel";
 import type { ChartMode } from "@/helpers/chart";
+import { basePath, isMobile } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
-import { fadeOut, fadeIn } from "@/helpers/scroll";
+import { fadeOut } from "@/helpers/scroll";
 
 export default function QuadrantSection({
   isActive,
@@ -17,12 +18,21 @@ export default function QuadrantSection({
   currentStep: number;
   scrollToSection: (sectionIndex: number, localStep?: number) => void;
 }) {
+  const [mobile, setMobile] = useState(false);
+
   const introTextRef = useRef<HTMLDivElement>(null);
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartPanelRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<HTMLDivElement>(null);
+  const mobileHeaderRef = useRef<HTMLDivElement>(null);
   const [selectedVertical, setSelectedVertical] = useState<string | null>(null);
   const previousStepRef = useRef(-1);
+  const [sourceExpandedMobile, setSourceExpandedMobile] = useState(false);
+
+  // Detect mobile after hydration to avoid SSR mismatch
+  useEffect(() => {
+    setMobile(isMobile());
+  }, []);
 
   const chartModes: ChartMode[] = [
     "expl-y-axis",
@@ -77,6 +87,7 @@ export default function QuadrantSection({
     const introText = introTextRef.current;
     const chartPanel = chartPanelRef.current;
     const chart = chartRef.current;
+    const mobileHeader = mobileHeaderRef.current;
 
     if (!introText || !chartPanel || !chart) return;
 
@@ -85,10 +96,12 @@ export default function QuadrantSection({
       gsap.set(introText, { autoAlpha: 1, y: 0 });
       gsap.set(chartPanel, { autoAlpha: 0, y: 30 });
       gsap.set(chart, { autoAlpha: 0, y: 0 });
+      if (mobileHeader) gsap.set(mobileHeader, { autoAlpha: 0, y: 30 });
     } else {
       gsap.set(introText, { autoAlpha: 0, y: -30 });
       gsap.set(chartPanel, { autoAlpha: 1, y: 0 });
       gsap.set(chart, { autoAlpha: 1, y: 0 });
+      if (mobileHeader) gsap.set(mobileHeader, { autoAlpha: 1, y: 0 });
     }
   }, []);
 
@@ -100,6 +113,7 @@ export default function QuadrantSection({
     const introText = introTextRef.current;
     const chartPanel = chartPanelRef.current;
     const chart = chartRef.current;
+    const mobileHeader = mobileHeaderRef.current;
 
     if (!introText || !chartPanel || !chart) return;
 
@@ -126,9 +140,22 @@ export default function QuadrantSection({
           ease: "power2.in",
           overwrite: true,
         });
+
+        // Fade out mobile header
+        if (mobileHeader) {
+          gsap.killTweensOf(mobileHeader);
+          gsap.to(mobileHeader, {
+            autoAlpha: 0,
+            y: -30,
+            duration: 0.4,
+            ease: "power2.in",
+            overwrite: true,
+          });
+        }
       } else {
         gsap.set(chart, { autoAlpha: 0 });
         gsap.set(chartPanel, { autoAlpha: 0 });
+        if (mobileHeader) gsap.set(mobileHeader, { autoAlpha: 0 });
       }
 
       // Fade in intro text with overwrite to cancel any ongoing animations
@@ -182,16 +209,37 @@ export default function QuadrantSection({
             overwrite: true,
           }
         );
+
+        // Fade in mobile header
+        if (mobileHeader) {
+          gsap.fromTo(
+            mobileHeader,
+            { autoAlpha: 0, y: 30 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.4,
+              ease: "power2.out",
+              delay: 0.4, // Same timing as chart
+              overwrite: true,
+            }
+          );
+        }
       } else {
         // Between steps 1-7, ensure intro is hidden and charts stay visible
         gsap.killTweensOf(introText);
         gsap.set(introText, { autoAlpha: 0, y: -30 });
         gsap.set([chartPanel, chart], { autoAlpha: 1, y: 0 });
+        if (mobileHeader) gsap.set(mobileHeader, { autoAlpha: 1, y: 0 });
       }
     }
 
     previousStepRef.current = currentStep;
   }, [isActive, currentStep]);
+
+  const quadrantExplTitle = useCopy("qu_expl_title");
+  const sourceShort = useCopy("qu_info_short");
+  const sourceFull = useCopy("qu_info");
 
   return (
     <div
@@ -219,42 +267,103 @@ export default function QuadrantSection({
         {/* Chart components - visible from step 1 onwards */}
         <div
           ref={chartContainerRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-10 h-full py-8"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-6 md:px-10 h-full py-8"
         >
-          <div className="h-full grid grid-cols-[0.3fr_0.7fr] gap-8">
-            <div ref={chartPanelRef} className="h-full overflow-hidden">
-              <ChartPanel
-                mode={chartMode}
-                selectedVertical={selectedVertical}
-                selectVertical={(vertical) => setSelectedVertical(vertical)}
-                scrollNext={() => {
-                  // QuadrantSection is section 2, advance to next step
-                  const nextStep = currentStep + 1;
-                  if (nextStep <= 7) {
-                    scrollToSection(2, nextStep);
-                  }
-                }}
-                scrollBack={() => {
-                  // Go to previous step
-                  const prevStep = currentStep - 1;
-                  if (prevStep >= 0) {
-                    scrollToSection(2, prevStep);
-                  }
-                }}
-                scrollToDataMode={() => {
-                  // Jump to data-filled mode (step 7)
-                  scrollToSection(2, 7);
-                }}
-              />
+          {mobile ? (
+            <div className="h-full flex flex-col justify-between">
+              <div ref={mobileHeaderRef}>
+                <h3 className="font-museo-moderno text-[24px] leading-[115%] text-grey-text mb-2">
+                  {quadrantExplTitle}
+                </h3>
+                <div className="flex gap-2 items-start">
+                  <img
+                    src={`${basePath}/icons/moloco_small.svg`}
+                    alt="Information"
+                    width={25}
+                    height={28}
+                  />
+                  <p className="text-[12px] text-grey-text">
+                    {sourceExpandedMobile ? sourceFull : sourceShort}{" "}
+                    <span
+                      className="underline cursor-pointer"
+                      onClick={() =>
+                        setSourceExpandedMobile(!sourceExpandedMobile)
+                      }
+                    >
+                      Show {sourceExpandedMobile ? "less" : "more"}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div ref={chartRef} className="border border-grey-blue">
+                <Chart
+                  mode={chartMode}
+                  selectedVertical={selectedVertical}
+                  selectVertical={(vertical) => setSelectedVertical(vertical)}
+                />
+              </div>
+              <div ref={chartPanelRef}>
+                <ChartPanel
+                  mode={chartMode}
+                  selectedVertical={selectedVertical}
+                  selectVertical={(vertical) => setSelectedVertical(vertical)}
+                  scrollNext={() => {
+                    // QuadrantSection is section 2, advance to next step
+                    const nextStep = currentStep + 1;
+                    if (nextStep <= 7) {
+                      scrollToSection(2, nextStep);
+                    }
+                  }}
+                  scrollBack={() => {
+                    // Go to previous step
+                    const prevStep = currentStep - 1;
+                    if (prevStep >= 0) {
+                      scrollToSection(2, prevStep);
+                    }
+                  }}
+                  scrollToDataMode={() => {
+                    // Jump to data-filled mode (step 7)
+                    scrollToSection(2, 7);
+                  }}
+                />
+              </div>
             </div>
-            <div ref={chartRef} className="h-full overflow-hidden">
-              <Chart
-                mode={chartMode}
-                selectedVertical={selectedVertical}
-                selectVertical={(vertical) => setSelectedVertical(vertical)}
-              />
+          ) : (
+            <div className="h-full grid grid-cols-[0.3fr_0.7fr] gap-8">
+              <div ref={chartPanelRef} className="h-full overflow-hidden">
+                <ChartPanel
+                  mode={chartMode}
+                  selectedVertical={selectedVertical}
+                  selectVertical={(vertical) => setSelectedVertical(vertical)}
+                  scrollNext={() => {
+                    // QuadrantSection is section 2, advance to next step
+                    const nextStep = currentStep + 1;
+                    if (nextStep <= 7) {
+                      scrollToSection(2, nextStep);
+                    }
+                  }}
+                  scrollBack={() => {
+                    // Go to previous step
+                    const prevStep = currentStep - 1;
+                    if (prevStep >= 0) {
+                      scrollToSection(2, prevStep);
+                    }
+                  }}
+                  scrollToDataMode={() => {
+                    // Jump to data-filled mode (step 7)
+                    scrollToSection(2, 7);
+                  }}
+                />
+              </div>
+              <div ref={chartRef} className="h-full overflow-hidden">
+                <Chart
+                  mode={chartMode}
+                  selectedVertical={selectedVertical}
+                  selectVertical={(vertical) => setSelectedVertical(vertical)}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
