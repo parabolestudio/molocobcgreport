@@ -72,7 +72,7 @@ button {
   @apply text-[12px] md:text-[18px] uppercase leading-[108%];
 }
 
-.button-grey-text-hover:hover {
+/* .button-grey-text-hover:hover {
   path.no-fill {
     stroke: var(--black-blue);
   }
@@ -80,7 +80,7 @@ button {
     stroke: var(--black-blue);
     fill: var(--black-blue);
   }
-}
+} */
 
 .chart-text {
   font-weight: 400;
@@ -221,4 +221,8 @@ button {
       opacity: 0;
     }
   }
+}
+
+.method-tooltip {
+  @apply absolute text-black-blue bg-grey-text text-[18px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%] z-1;
 }
