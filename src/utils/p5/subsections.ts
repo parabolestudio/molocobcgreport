@@ -7,9 +7,11 @@ export interface SubsectionConfig {
   progressStart: number; // 0-1 within the section
   progressEnd: number; // 0-1 within the section
   formation: FormationType;
-  // Optional ring center position (0-1 values, relative to canvas size)
+  // Optional ring center position
+  // Can be 'chartCenter' to use the chart circle center from DOM
+  // Or an object with x, y values (0-1, relative to canvas size)
   // Default is {x: 0.5, y: 0.5} (center of screen)
-  ringCenter?: { x: number; y: number };
+  ringCenter?: "chartCenter" | { x: number; y: number };
   // Animation properties
   pulseIntensity?: number;
   alpha?: number; // Base opacity for circles (0-1) - Default: 0.6
@@ -30,6 +32,22 @@ export interface SubsectionConfig {
 }
 
 const defaultColor = "48, 48, 97"; // Default deep blue
+const brightGreen = "96, 226, 183";
+
+const configDistributedRingsCenterFullScreen = {
+  formation: "distributedRings" as FormationType,
+  ringCenter: { x: 0.5, y: 0.5 },
+
+  distributedRingsConfig: {
+    innerRadius: 380,
+    innerRadiusOffset: 0,
+    ringsCount: 4,
+    radiusStep: 40,
+    distributionZoneAngle: Math.PI / 4, // 45 degrees
+    distributionMinRadius: 30,
+    distributionMaxRadius: 250,
+  },
+};
 
 export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
   hook: [
@@ -60,28 +78,14 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 0,
       progressEnd: 1 / SECTION_STEPS.quadrant,
-      formation: "distributedRings",
-      ringCenter: { x: 0.65, y: 0.5 },
       color: defaultColor,
-      distributedRingsConfig: {
-        // innerRadius: 380, // Matches the chart circle radius (innerWidth/2 = 760/2 = 380px)
-        innerRadiusOffset: 0,
-        ringsCount: 4,
-        radiusStep: 40,
-        distributionZoneAngle: Math.PI / 4, // 45 degrees
-        distributionMinRadius: 30,
-        distributionMaxRadius: 200,
-      },
+      ...configDistributedRingsCenterFullScreen,
     },
     {
       progressStart: 1 / SECTION_STEPS.quadrant,
       progressEnd: 1,
       formation: "distributedRings",
-      // Position matches the center circle in the Chart SVG
-      // Chart is in a 70% wide column on the right side of a 30/70 grid
-      // Approximate center: left padding + left column + gap + half of right column
-      // ≈ 40px + 506px + 32px + 575px = 1153px out of 1728px ≈ 0.667 (66.7%)
-      ringCenter: { x: 0.65, y: 0.5 },
+      ringCenter: "chartCenter",
       distributedRingsConfig: {
         // innerRadius: 380, // Matches the chart circle radius (innerWidth/2 = 760/2 = 380px)
         innerRadiusOffset: -60, // Start 60px inside the chart circle
@@ -99,16 +103,18 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 0,
       progressEnd: 1,
-      formation: "invisible",
-      color: defaultColor,
+      alpha: 0.2,
+      color: brightGreen,
+      ...configDistributedRingsCenterFullScreen,
     },
   ],
   cta: [
     {
       progressStart: 0,
       progressEnd: 1,
-      formation: "grid",
-      color: defaultColor,
+      alpha: 0.2,
+      color: brightGreen,
+      ...configDistributedRingsCenterFullScreen,
     },
   ],
 };

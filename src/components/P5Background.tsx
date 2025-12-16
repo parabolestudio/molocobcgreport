@@ -182,9 +182,22 @@ export default function P5Background({
         );
         const activeSubsection =
           data.subsectionConfigs[data.currentSection][subsectionIndex];
-        const ringCenter = activeSubsection.ringCenter || { x: 0.5, y: 0.5 };
-        const ringCenterX = p5.width * ringCenter.x;
-        const ringCenterY = p5.height * ringCenter.y;
+        const ringCenterConfig = activeSubsection.ringCenter || {
+          x: 0.5,
+          y: 0.5,
+        };
+
+        let ringCenterX: number;
+        let ringCenterY: number;
+
+        if (ringCenterConfig === "chartCenter") {
+          const chartData = getChartCircleData(p5);
+          ringCenterX = chartData.centerX;
+          ringCenterY = chartData.centerY;
+        } else {
+          ringCenterX = p5.width * ringCenterConfig.x;
+          ringCenterY = p5.height * ringCenterConfig.y;
+        }
 
         // Apply rings formation with initial config
         data.ringsFormation.apply(data.circleManager.circles, p5, p5.millis(), {
@@ -201,18 +214,26 @@ export default function P5Background({
         );
         const activeSubsectionDR =
           data.subsectionConfigs[data.currentSection][subsectionIndexDR];
+        const ringCenterConfigDR = activeSubsectionDR.ringCenter || {
+          x: 0.5,
+          y: 0.5,
+        };
 
-        // Get exact position from the chart circle element
-        const chartDataInit = getChartCircleData(p5);
+        let chartDataInit: {
+          centerX: number;
+          centerY: number;
+          innerRadius?: number;
+        };
 
-        // Use fallback from config if chart not found
-        if (chartDataInit.innerRadius === undefined) {
-          const ringCenterDR = activeSubsectionDR.ringCenter || {
-            x: 0.5,
-            y: 0.5,
+        if (ringCenterConfigDR === "chartCenter") {
+          // Get exact position from the chart circle element
+          chartDataInit = getChartCircleData(p5);
+        } else {
+          // Use configured coordinates
+          chartDataInit = {
+            centerX: p5.width * ringCenterConfigDR.x,
+            centerY: p5.height * ringCenterConfigDR.y,
           };
-          chartDataInit.centerX = p5.width * ringCenterDR.x;
-          chartDataInit.centerY = p5.height * ringCenterDR.y;
         }
 
         // Apply distributed rings formation
@@ -372,9 +393,23 @@ export default function P5Background({
               p5.millis()
             );
           } else if (data.currentFormation === "rings") {
-            const ringCenter = currentConfig.ringCenter || { x: 0.5, y: 0.5 };
-            const ringCenterX = p5.width * ringCenter.x;
-            const ringCenterY = p5.height * ringCenter.y;
+            const ringCenterConfig = currentConfig.ringCenter || {
+              x: 0.5,
+              y: 0.5,
+            };
+
+            let ringCenterX: number;
+            let ringCenterY: number;
+
+            if (ringCenterConfig === "chartCenter") {
+              const chartData = getChartCircleData(p5);
+              ringCenterX = chartData.centerX;
+              ringCenterY = chartData.centerY;
+            } else {
+              ringCenterX = p5.width * ringCenterConfig.x;
+              ringCenterY = p5.height * ringCenterConfig.y;
+            }
+
             const ringPulseIntensity = currentConfig.pulseIntensity ?? 0;
 
             // Apply rings formation with pulse intensity
@@ -389,14 +424,26 @@ export default function P5Background({
               }
             );
           } else if (data.currentFormation === "distributedRings") {
-            // Get exact position from the chart circle element
-            const chartData = getChartCircleData(p5);
+            const ringCenterConfig = currentConfig.ringCenter || {
+              x: 0.5,
+              y: 0.5,
+            };
 
-            // Use fallback from config if chart not found
-            if (chartData.innerRadius === undefined) {
-              const ringCenter = currentConfig.ringCenter || { x: 0.5, y: 0.5 };
-              chartData.centerX = p5.width * ringCenter.x;
-              chartData.centerY = p5.height * ringCenter.y;
+            let chartData: {
+              centerX: number;
+              centerY: number;
+              innerRadius?: number;
+            };
+
+            if (ringCenterConfig === "chartCenter") {
+              // Get exact position from the chart circle element
+              chartData = getChartCircleData(p5);
+            } else {
+              // Use configured coordinates
+              chartData = {
+                centerX: p5.width * ringCenterConfig.x,
+                centerY: p5.height * ringCenterConfig.y,
+              };
             }
 
             // Apply distributed rings formation
