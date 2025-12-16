@@ -471,6 +471,8 @@ export default function P5Background({
     };
   }, []);
 
+  const showDebugPanel = false;
+
   return (
     <>
       <div
@@ -487,74 +489,79 @@ export default function P5Background({
       />
 
       {/* Debug Panel */}
-      <div
-        className="fixed top-2 right-2 bg-black/60  text-white p-3 rounded-lg text-[10px] font-mono pointer-events-none opacity-0"
-        style={{ zIndex: 9999 }}
-      >
-        <div className="font-bold mb-2 text-sm">Scroll Debug</div>
-        <div className="space-y-1">
-          <div>
-            <span className="text-gray-400">Active Section:</span>{" "}
-            {/* <span className="text-green-400">{activeSection}</span>{" "} */}
-            <span className="text-blue-400">
-              {sectionName} ({activeSection})
-            </span>
+      {showDebugPanel && (
+        <div
+          className="fixed top-2 right-2 bg-black/60  text-white p-3 rounded-lg text-[10px] font-mono pointer-events-none"
+          style={{ zIndex: 9999 }}
+        >
+          <div className="font-bold mb-2 text-sm">Scroll Debug</div>
+          <div className="space-y-1">
+            <div>
+              <span className="text-gray-400">Active Section:</span>{" "}
+              {/* <span className="text-green-400">{activeSection}</span>{" "} */}
+              <span className="text-blue-400">
+                {sectionName} ({activeSection})
+              </span>
+            </div>
+            <div>
+              <span className="text-gray-400">Current Step:</span>{" "}
+              <span className="text-red-400">{currentStep + 1}</span>
+              <span className="text-gray-500">
+                {" "}
+                / {sectionSteps} (index {currentStep})
+              </span>
+            </div>
+            <div>
+              <span className="text-gray-400">Section Progress:</span>{" "}
+              <span className="text-yellow-400">
+                {(sectionProgress * 100).toFixed(1)}%
+              </span>
+            </div>
+            <div>
+              <span className="text-gray-400">Global Step:</span>{" "}
+              <span className="text-red-400">{globalStep + 1}</span>
+              <span className="text-gray-500"> / {totalSteps}</span>
+            </div>
+            <div>
+              <span className="text-gray-400">Total Progress:</span>{" "}
+              <span className="text-purple-400">
+                {(totalProgress * 100).toFixed(1)}%
+              </span>
+            </div>
+            {sketchDataRef.current && (
+              <>
+                <div className="border-t border-gray-700 my-2 pt-2 font-bold mb-2 text-sm">
+                  Background Debug
+                </div>
+                <div className="">
+                  <span className="text-gray-400">Formation:</span>{" "}
+                  <span className="text-cyan-400">
+                    {sketchDataRef.current.currentFormation}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-gray-400">Subsection:</span>{" "}
+                  <span className="text-pink-400">
+                    {sketchDataRef.current.getActiveSubsectionIndex(
+                      sectionName,
+                      sectionProgress
+                    )}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-gray-400">Transition:</span>{" "}
+                  <span className="text-orange-400">
+                    {(sketchDataRef.current.transitionProgress * 100).toFixed(
+                      0
+                    )}
+                    %
+                  </span>
+                </div>
+              </>
+            )}
           </div>
-          <div>
-            <span className="text-gray-400">Current Step:</span>{" "}
-            <span className="text-red-400">{currentStep + 1}</span>
-            <span className="text-gray-500">
-              {" "}
-              / {sectionSteps} (index {currentStep})
-            </span>
-          </div>
-          <div>
-            <span className="text-gray-400">Section Progress:</span>{" "}
-            <span className="text-yellow-400">
-              {(sectionProgress * 100).toFixed(1)}%
-            </span>
-          </div>
-          <div>
-            <span className="text-gray-400">Global Step:</span>{" "}
-            <span className="text-red-400">{globalStep + 1}</span>
-            <span className="text-gray-500"> / {totalSteps}</span>
-          </div>
-          <div>
-            <span className="text-gray-400">Total Progress:</span>{" "}
-            <span className="text-purple-400">
-              {(totalProgress * 100).toFixed(1)}%
-            </span>
-          </div>
-          {sketchDataRef.current && (
-            <>
-              <div className="border-t border-gray-700 my-2 pt-2 font-bold mb-2 text-sm">
-                Background Debug
-              </div>
-              <div className="">
-                <span className="text-gray-400">Formation:</span>{" "}
-                <span className="text-cyan-400">
-                  {sketchDataRef.current.currentFormation}
-                </span>
-              </div>
-              <div>
-                <span className="text-gray-400">Subsection:</span>{" "}
-                <span className="text-pink-400">
-                  {sketchDataRef.current.getActiveSubsectionIndex(
-                    sectionName,
-                    sectionProgress
-                  )}
-                </span>
-              </div>
-              <div>
-                <span className="text-gray-400">Transition:</span>{" "}
-                <span className="text-orange-400">
-                  {(sketchDataRef.current.transitionProgress * 100).toFixed(0)}%
-                </span>
-              </div>
-            </>
-          )}
         </div>
-      </div>
+      )}
     </>
   );
 }
