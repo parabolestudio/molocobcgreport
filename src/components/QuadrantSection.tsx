@@ -267,7 +267,7 @@ export default function QuadrantSection({
         {/* Chart components - visible from step 1 onwards */}
         <div
           ref={chartContainerRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-6 md:px-10 h-full py-8"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-5 md:px-10 h-full py-8"
         >
           {mobile ? (
             <div className="h-full flex flex-col justify-between">
@@ -295,7 +295,7 @@ export default function QuadrantSection({
                   </p>
                 </div>
               </div>
-              <div ref={chartRef} className="border border-grey-blue">
+              <div ref={chartRef}>
                 <Chart
                   mode={chartMode}
                   selectedVertical={selectedVertical}

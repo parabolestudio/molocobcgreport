@@ -65,8 +65,9 @@ export default function Chart({
   } | null>(null);
   const [mobile, setMobile] = useState(false);
 
+  // Detect mobile after hydration to avoid SSR mismatch
   useEffect(() => {
-    setMobile(mobile);
+    setMobile(isMobile());
   }, []);
 
   // Call all quadrant headline hooks at top level to avoid conditional hook calls
@@ -123,31 +124,78 @@ export default function Chart({
   }, []);
 
   // console.log("Rendering Chart", mode, verticalsData);
-  const [length, setLength] = useState(860);
+  const [containerWidth, setContainerWidth] = useState(860);
+  const [containerHeight, setContainerHeight] = useState(860);
 
   useEffect(() => {
     const visContainer = document.querySelector(
       `#chart-container`
     ) as HTMLElement;
-    const w = visContainer?.offsetWidth || 860;
-    const h = visContainer?.offsetHeight || 860;
-    const minDim = Math.min(w, h);
-    if (minDim < 860) {
-      setLength(minDim);
-    } else {
-      setLength(860);
-    }
+
+    if (!visContainer) return;
+
+    const updateDimensions = () => {
+      const rect = visContainer.getBoundingClientRect();
+      console.log("visContainer dimensions:", {
+        clientWidth: visContainer.clientWidth,
+        offsetWidth: visContainer.offsetWidth,
+        boundingWidth: rect.width,
+        boundingHeight: rect.height,
+      });
+      const w = rect.width || 860;
+      const h = rect.height || 860;
+      setContainerWidth(w);
+      setContainerHeight(h);
+    };
+
+    // Initial measurement with a slight delay to ensure layout is complete
+    const timeoutId = setTimeout(updateDimensions, 0);
+
+    // Add resize observer to handle container size changes
+    const resizeObserver = new ResizeObserver(() => {
+      updateDimensions();
+    });
+
+    resizeObserver.observe(visContainer);
+
+    return () => {
+      clearTimeout(timeoutId);
+      resizeObserver.disconnect();
+    };
   }, []);
 
-  // margin needs to be equal horizontally and vertically
   const margin = {
-    top: 50,
-    bottom: 50,
-    right: 50,
-    left: 50,
+    top: mobile ? 30 : 50,
+    bottom: mobile ? 30 : 50,
+    right: mobile ? 1 : 50,
+    left: mobile ? 1 : 50,
   };
-  const innerWidth = length - margin.left - margin.right;
-  const innerHeight = length - margin.top - margin.bottom;
+
+  let circleDiameter = 0;
+  let chartHeight = 0;
+  let chartWidth = 0;
+  if (containerHeight > containerWidth) {
+    circleDiameter = containerWidth - margin.left - margin.right;
+    chartHeight = circleDiameter + margin.top + margin.bottom;
+    chartWidth = containerWidth;
+  } else {
+    circleDiameter = containerHeight - margin.top - margin.bottom;
+    chartWidth = circleDiameter + margin.left + margin.right;
+    chartHeight = containerHeight;
+  }
+
+  const innerWidth = chartWidth - margin.left - margin.right;
+  const innerHeight = chartHeight - margin.top - margin.bottom;
+
+  console.log("Chart dimensions:", {
+    containerWidth,
+    containerHeight,
+    chartWidth,
+    chartHeight,
+    innerWidth,
+    innerHeight,
+    circleDiameter,
+  });
 
   const xScale = scaleLinear().domain([4.5, 10.5]).range([0, innerWidth]);
   const yScale = scaleLinear().domain([10, 1.5]).range([0, innerHeight]);
@@ -158,15 +206,53 @@ export default function Chart({
       className="w-full h-full overflow-hidden relative"
     >
       <svg
-        viewBox={`0 0 ${length} ${length}`}
-        style={{ width: "100%", height: "100%", overflow: "visible" }}
+        viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+        style={{
+          width: "100%",
+          height: "100%",
+          overflow: "visible",
+          // backgroundColor: "pink",
+        }}
       >
+        {/* <rect
+          x="0"
+          y="0"
+          width={chartWidth}
+          height={margin.top}
+          fill="orange"
+          fillOpacity={0.3}
+        />
+        <rect
+          x="0"
+          y={margin.top + innerHeight}
+          width={chartWidth}
+          height={margin.bottom}
+          fill="orange"
+          fillOpacity={0.3}
+        />
+        <rect
+          x="0"
+          y="0"
+          width={margin.left}
+          height={chartHeight}
+          fill="yellow"
+          fillOpacity={0.3}
+        />
+        <rect
+          x={margin.left + innerWidth}
+          y="0"
+          width={margin.right}
+          height={chartHeight}
+          fill="yellow"
+          fillOpacity={0.3}
+        /> */}
+
         <g transform={`translate(${margin.left},${margin.top})`}>
           <g className="structure">
             <circle
               cx={innerWidth / 2}
               cy={innerHeight / 2}
-              r={innerWidth / 2}
+              r={circleDiameter / 2}
               stroke="var(--grey-blue)"
               strokeWidth={1.5}
               fill="none"
@@ -257,7 +343,7 @@ export default function Chart({
             </text>
             <text
               className="chart-text uppercase transition"
-              x={innerWidth}
+              x={mobile ? innerWidth - 5 : innerWidth}
               y={innerHeight + margin.bottom / 2}
               dominantBaseline="middle"
               textAnchor="end"
@@ -295,11 +381,11 @@ export default function Chart({
             <text
               className="chart-text-bold transition"
               x={innerWidth}
-              y={innerHeight / 2 + margin.right / 2}
+              y={mobile ? -margin.top / 2 : innerHeight / 2 + margin.right / 2}
               dominantBaseline="middle"
-              textAnchor="middle"
+              textAnchor={mobile ? "end" : "middle"}
               style={{
-                transform: `rotate(-90deg)`,
+                transform: mobile ? "" : `rotate(-90deg)`,
                 transformOrigin: `${innerWidth}px ${innerHeight / 2}px`,
                 fontSize:
                   mode === "expl-y-axis"
@@ -321,8 +407,9 @@ export default function Chart({
             </text>
             <text
               className="chart-text uppercase transition"
-              x={innerWidth + 10}
+              x={mobile ? innerWidth - 5 : innerWidth + 10}
               y={6}
+              textAnchor={mobile ? "end" : "start"}
               dominantBaseline="middle"
               style={{
                 fill:
@@ -338,8 +425,9 @@ export default function Chart({
             </text>
             <text
               className="chart-text uppercase transition"
-              x={innerWidth + 10}
-              y={innerHeight - 6}
+              x={mobile ? innerWidth - 5 : innerWidth + 10}
+              y={mobile ? innerHeight - 12 : innerHeight - 6}
+              textAnchor={mobile ? "end" : "start"}
               dominantBaseline="middle"
               style={{
                 fill:
@@ -382,6 +470,9 @@ export default function Chart({
               const isQuadrantHovered =
                 hoveredQuadrant?.quadrant === quadrant.position;
 
+              const offsetX = mobile ? 8 : 12;
+              const offsetY = mobile ? 14 : 20;
+
               return (
                 <g key={index}>
                   <path
@@ -392,7 +483,11 @@ export default function Chart({
                   />
                   <text
                     className={`chart-text-base  transition cursor-pointer ${
-                      isQuadrantActive
+                      mobile
+                        ? isQuadrantActive
+                          ? "text-[14px] font-bold"
+                          : "text-[12px] font-medium"
+                        : isQuadrantActive
                         ? "text-[18px] font-bold"
                         : "text-[14px] font-medium"
                     }`}
@@ -400,15 +495,15 @@ export default function Chart({
                     dx={
                       quadrant.position === "bottom-left" ||
                       quadrant.position === "top-left"
-                        ? -12
-                        : 12
+                        ? -offsetX
+                        : offsetX
                     }
                     y={innerHeight / 2}
                     dy={
                       quadrant.position === "bottom-left" ||
                       quadrant.position === "bottom-right"
-                        ? 20
-                        : -20
+                        ? offsetY
+                        : -offsetY
                     }
                     dominantBaseline="middle"
                     textAnchor={quadrant.titleAnchor}
@@ -479,7 +574,7 @@ export default function Chart({
                       : ""
                   }`}
                 >
-                  {svgContent ? (
+                  {!mobile && svgContent && (
                     <g
                       transform="translate(-16, -16)"
                       dangerouslySetInnerHTML={{
@@ -490,11 +585,21 @@ export default function Chart({
                           .replace(/height="[^"]*"/, 'height="32"'),
                       }}
                     />
-                  ) : (
-                    <circle r={16} fill="#9494AA" />
+                  )}
+                  {mobile && svgContent && (
+                    <g
+                      transform="translate(-16, -16) scale(0.6)"
+                      dangerouslySetInnerHTML={{
+                        __html: svgContent
+                          .replace(/<svg[^>]*>/, "<g>")
+                          .replace(/<\/svg>/, "</g>")
+                          .replace(/width="[^"]*"/, 'width="32"')
+                          .replace(/height="[^"]*"/, 'height="32"'),
+                      }}
+                    />
                   )}
 
-                  {verticalInfo.labelFormatted ? (
+                  {!mobile && verticalInfo.labelFormatted && (
                     <text
                       className="text-[14px]"
                       fill="#9494AA"
@@ -514,7 +619,8 @@ export default function Chart({
                         {verticalInfo.labelFormatted.secondLine}
                       </tspan>
                     </text>
-                  ) : (
+                  )}
+                  {!mobile && !verticalInfo.labelFormatted && (
                     <text
                       className="text-[14px]"
                       fill="#9494AA"
@@ -530,53 +636,54 @@ export default function Chart({
           </g>
         </g>
       </svg>
-      {/* Quadrant text on explanation modes */}
-      {quadrantData
-        .filter((q) => q.position === mode.replace("expl-quadrant-", ""))
-        .map((quadrant, index) => {
-          const position = mode.replace("expl-quadrant-", "");
-          return (
-            <div
-              key={index}
-              className="absolute text-white text-[18px] transition-inset"
-              style={{
-                color: quadrant.colorQuadrantActiveText,
-                top:
-                  position === "bottom-right" || position === "bottom-left"
-                    ? "calc(50%)"
-                    : "unset",
-                bottom:
-                  position === "top-right" || position === "top-left"
-                    ? "calc(50%)"
-                    : "unset",
-                right:
-                  position === "top-left" || position === "bottom-left"
-                    ? "calc(50%)"
-                    : "unset",
-                left:
-                  position === "top-right" || position === "bottom-right"
-                    ? "calc(50%)"
-                    : "unset",
-                textAlign:
-                  position === "top-left" || position === "bottom-left"
-                    ? "right"
-                    : "left",
-                paddingTop: 40,
-                paddingBottom: 40,
-                paddingLeft: 15,
-                paddingRight: 15,
-                opacity: mode.startsWith("expl-quadrant") ? 1 : 0,
-                maxWidth: innerWidth / 2 - 20,
-              }}
-            >
-              {
-                quadrantHeadlines[
-                  quadrant.position as keyof typeof quadrantHeadlines
-                ]
-              }
-            </div>
-          );
-        })}
+      {/* Quadrant text on explanation modes (this placement depends on the horizontal and vertical margins being identical) */}
+      {!mobile &&
+        quadrantData
+          .filter((q) => q.position === mode.replace("expl-quadrant-", ""))
+          .map((quadrant, index) => {
+            const position = mode.replace("expl-quadrant-", "");
+            return (
+              <div
+                key={index}
+                className="absolute text-white text-[18px] transition-inset"
+                style={{
+                  color: quadrant.colorQuadrantActiveText,
+                  top:
+                    position === "bottom-right" || position === "bottom-left"
+                      ? "calc(50%)"
+                      : "unset",
+                  bottom:
+                    position === "top-right" || position === "top-left"
+                      ? "calc(50%)"
+                      : "unset",
+                  right:
+                    position === "top-left" || position === "bottom-left"
+                      ? "calc(50%)"
+                      : "unset",
+                  left:
+                    position === "top-right" || position === "bottom-right"
+                      ? "calc(50%)"
+                      : "unset",
+                  textAlign:
+                    position === "top-left" || position === "bottom-left"
+                      ? "right"
+                      : "left",
+                  paddingTop: 40,
+                  paddingBottom: 40,
+                  paddingLeft: 15,
+                  paddingRight: 15,
+                  opacity: mode.startsWith("expl-quadrant") ? 1 : 0,
+                  maxWidth: innerWidth / 2 - 20,
+                }}
+              >
+                {
+                  quadrantHeadlines[
+                    quadrant.position as keyof typeof quadrantHeadlines
+                  ]
+                }
+              </div>
+            );
+          })}
       {/* Quadrant tooltip */}
       <div
         className="absolute bg-grey-text text-black-blue text-[14px] transition-inset rounded-[3px]"
