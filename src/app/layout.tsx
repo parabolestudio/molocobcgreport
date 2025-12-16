@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MuseoModerno } from "next/font/google";
+import { MuseoModerno, Montserrat } from "next/font/google";
 import "./globals.css";
 import { DevLinkProvider } from "@/devlink/DevLinkProvider";
 import { CopyProvider } from "@/contexts/CopyContext";
@@ -8,6 +8,13 @@ import { copyData } from "@/data/copyData";
 const museoModerno = MuseoModerno({
   variable: "--font-museo-moderno",
   subsets: ["latin"],
+});
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -22,7 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${museoModerno.variable} antialiased bg-[#0F0E45]`}>
+      <body
+        className={`${museoModerno.variable} ${montserrat.variable} antialiased bg-[#0F0E45]`}
+      >
         <CopyProvider data={copyData}>
           <DevLinkProvider>
             {/* Add here any Navbar or Header you want to be present on all pages */}

@@ -289,7 +289,7 @@ const Card = React.forwardRef<
       <div
         className={`relative flex flex-col flex-1 ${
           isExpanded ? "bg-grey-text max-h-full" : "bg-bright-green"
-        } rounded-[20px] rounded-bl-none pl-[60px] pr-[30px] py-[30px] transition-colors`}
+        } rounded-[20px] rounded-bl-none px-[30px] pb-[30px] pt-[40px] transition-colors`}
       >
         <div
           className="text-[24px] md:text-[32px] font-bold font-museo-moderno leading-[108%] mb-8 shrink-0"
