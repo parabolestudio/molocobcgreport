@@ -221,3 +221,7 @@ button {
 .method-tooltip {
   @apply absolute text-black-blue bg-grey-text text-[18px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%] z-1;
 }
+
+.card .bg-grey-text li {
+  color: var(--black-blue);
+}
