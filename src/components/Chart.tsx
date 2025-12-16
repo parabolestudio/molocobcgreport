@@ -63,6 +63,7 @@ export default function Chart({
   const [hoveredQuadrant, setHoveredQuadrant] = useState<{
     quadrant: string;
   } | null>(null);
+  const [showSelectionPrompt, setShowSelectionPrompt] = useState(true);
 
   // Call all quadrant headline hooks at top level to avoid conditional hook calls
   const quadrantHeadlines = {
@@ -102,7 +103,6 @@ export default function Chart({
     loadSVGs();
   }, []);
 
-  // console.log("Rendering Chart", mode, verticalsData);
   const [containerWidth, setContainerWidth] = useState(860);
   const [containerHeight, setContainerHeight] = useState(860);
 
@@ -115,16 +115,8 @@ export default function Chart({
 
     const updateDimensions = () => {
       const rect = visContainer.getBoundingClientRect();
-      console.log("visContainer dimensions:", {
-        clientWidth: visContainer.clientWidth,
-        offsetWidth: visContainer.offsetWidth,
-        boundingWidth: rect.width,
-        boundingHeight: rect.height,
-      });
-      const w = rect.width || 860;
-      const h = rect.height || 860;
-      setContainerWidth(w);
-      setContainerHeight(h);
+      setContainerWidth(rect.width || 860);
+      setContainerHeight(rect.height || 860);
     };
 
     // Initial measurement with a slight delay to ensure layout is complete
@@ -166,16 +158,6 @@ export default function Chart({
   const innerWidth = chartWidth - margin.left - margin.right;
   const innerHeight = chartHeight - margin.top - margin.bottom;
 
-  console.log("Chart dimensions:", {
-    containerWidth,
-    containerHeight,
-    chartWidth,
-    chartHeight,
-    innerWidth,
-    innerHeight,
-    circleDiameter,
-  });
-
   const xScale = scaleLinear().domain([4.5, 10.5]).range([0, innerWidth]);
   const yScale = scaleLinear().domain([10, 1.5]).range([0, innerHeight]);
 
@@ -183,6 +165,11 @@ export default function Chart({
     <div
       id="chart-container"
       className="w-full h-full overflow-hidden relative mb-2 md:mb-0"
+      onClick={() => {
+        if (showSelectionPrompt) {
+          setShowSelectionPrompt(false);
+        }
+      }}
     >
       <svg
         viewBox={`0 0 ${chartWidth} ${chartHeight}`}
@@ -562,6 +549,7 @@ export default function Chart({
                   transform={`translate(${x},${y})`}
                   onClick={(e) => {
                     e.stopPropagation();
+                    setShowSelectionPrompt(false);
                     selectVertical(d.vertical);
                   }}
                   onMouseEnter={(e) => {
@@ -734,6 +722,34 @@ export default function Chart({
           ]
         }
       </div>
+      {showSelectionPrompt && mode === "data-filled" && (
+        <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-bright-green text-black-blue rounded-[10px]">
+          <div className="w-full h-full relative ">
+            <div className="w-full h-full p-12 flex gap-8">
+              <img
+                src={`${basePath}/icons/cursor.svg`}
+                alt="Cursor Icon"
+                width={46}
+                height={51}
+              />
+              <span className="font-bold text-[18px] max-w-[180px]">
+                Select a vertical to explore details.
+              </span>
+            </div>
+
+            <img
+              src={`${basePath}/icons/cross_blue.svg`}
+              alt="Cross blue icon to close"
+              width={25}
+              height={28}
+              className="absolute right-2.5 top-2.5 cursor-pointer"
+              onClick={() => {
+                setShowSelectionPrompt(false);
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
