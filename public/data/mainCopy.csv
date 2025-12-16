@@ -49,16 +49,15 @@ qu_expl_x_description,Quadrant X axis description,"<b>AI Disruption</b> <green>(
 - Service Disruption: The ability for customers to use AI/LLM without having a direct relationship with a company
 - Discovery Disruption: Consumers going to LLMs for discovery rather than using traditional channels"
 qu_expl_y_description,Quadrant Y axis description,"<b>Customer Relationship Strength</b> <green>(y-axis)</green> scores strength from high to low based on reliance on paid user acquisition, ability to drive loyalty, and how much customers engage on platforms like apps (higher engagement) vs. the web (lower)."
-qu_info,"Info message (is now the source, to remain the same throughout)","Source: Moloco and BCG (2025). Based on surveys and interviews with 250 senior marketing leaders (CMOs & VPs) across 15 verticals, plus performance data from 3,000+ apps representing 200B+ downloads."
-qu_info_short,Info message short (short source),Source: Moloco and BCG (2025).
+qu_info,"Info message (is now the source, to remain the same throughout)","Moloco and BCG (2025). Based on surveys and interviews with 250 senior marketing leaders (CMOs & VPs) across 15 verticals, plus performance data from 3,000+ apps representing 200B+ downloads."
+qu_info_short,Info message short (short source),Moloco and BCG (2025).
 qu_bottom_left_title,"Quadrant, step 1 title",<b>Breached</b>
 qu_bottom_left_headline,"Quadrant, step 1 headline",High AI disruption and weak customer relationships leave these verticals highly vulnerable to being disintermediated by LLMs.
 qu_bottom_left_description,"Quadrant, step 1 body text","They need to fundamentally <b>rebuild the relationship layer</b>, including:
 
-- Bringing more of the journey into their owned ecosystems and mobile app through things like loyalty programs, deeper engagement, and personalized experiences 
-- Building LLM-like offerings into their mobile app and other owned experiences to offer greater value,  including  product comparisons, discovery, and customer assistance
-- Making the most of first-party data and closed-loop systems to make their platforms indispensable
-- Diversifying media spend to account for instability in traditional discovery channels "
+- Bringing more of the journey into their owned ecosystems and mobile app through things like loyalty programs, specialized engagement that leads to deeper connections, and personalized experiences 
+- Combine first-party data with LLM-like offerings in mobile apps and other owned experiences to offer greater value, including personalized deals and deep dives, contextually relevant product comparisons and discovery, and customer assistance
+- Diversifying media spend to account for instability in traditional discovery channels and find pockets of growth"
 qu_top_left_title,"Quadrant, step 2 title",<b>Undefended</b>
 qu_top_left_headline,"Quadrant, step 2 headline","Low AI disruption today, but weak customer relationships, mean these verticals lack long-term defensibility."
 qu_top_left_description,"Quadrant, step 2 body text","They need to <b>build future-proof foundations</b>, including: 
@@ -92,7 +91,7 @@ closure_card_1_text,Closure card 1 text,"<b>More Disrupted</b>
 - Paid Search: Transitioning from blue links to AI-native formats with compressed options surfaced by AI platforms. While search won't disappear, the format and visibility are changing dramatically.
 - Open Web Auctions: Non-proprietary web inventory faces the greatest risk as AI overviews reduce click-throughs and open auctions decline in favor of direct deals.
 - Utility Apps/Websites: Low-engagement, transactional surfaces are ones that AI can easily replicate.
-Low-Consideration Commerce: Retail platforms built on simple transactions face direct AI substitution.
+- Low-Consideration Commerce: Retail platforms built on simple transactions face direct AI substitution.
 
 <b>More Resilient</b>
 
