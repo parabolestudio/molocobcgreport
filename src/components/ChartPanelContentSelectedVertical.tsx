@@ -213,8 +213,8 @@ function LoopedAppLogos({
                 if (contentWidth > containerWidth) {
                   setAnimationDistance(animationDistance);
                   // Calculate duration based on distance to maintain consistent speed
-                  // Speed: 35 pixels per second
-                  const pixelsPerSecond = 50;
+                  // Speed: 40 pixels per second
+                  const pixelsPerSecond = 40;
                   const duration = animationDistance / pixelsPerSecond;
                   setAnimationDuration(duration);
                   setTimeout(() => {
@@ -256,11 +256,11 @@ function LoopedAppLogos({
     <div className="relative overflow-hidden max-h-6 mt-2 pb-3">
       <div ref={setContainerRef} className="flex flex-row items-center">
         <div
-          className="logos-content flex flex-row gap-8 h-6"
+          className="logos-content flex flex-row gap-8 h-5"
           style={
             isScrolling && animationDistance && animationDuration
               ? {
-                  animation: `logoScroll ${animationDuration}s linear infinite`,
+                  animation: `logoScroll ${animationDuration}s linear forwards`,
                   width: "fit-content",
                 }
               : undefined
