@@ -24,11 +24,27 @@ export default function ClosureSection({
   // Set initial visibility based on currentStep
   useEffect(() => {
     if (currentStep === 0) {
-      gsap.set(screen1Ref.current, { autoAlpha: 1 });
-      gsap.set(screen2Ref.current, { autoAlpha: 0 });
+      gsap.set(screen1Ref.current, {
+        autoAlpha: 1,
+        xPercent: -50,
+        yPercent: -50,
+      });
+      gsap.set(screen2Ref.current, {
+        autoAlpha: 0,
+        xPercent: -50,
+        yPercent: -50,
+      });
     } else if (currentStep === 1) {
-      gsap.set(screen1Ref.current, { autoAlpha: 0 });
-      gsap.set(screen2Ref.current, { autoAlpha: 1 });
+      gsap.set(screen1Ref.current, {
+        autoAlpha: 0,
+        xPercent: -50,
+        yPercent: -50,
+      });
+      gsap.set(screen2Ref.current, {
+        autoAlpha: 1,
+        xPercent: -50,
+        yPercent: -50,
+      });
     }
     // Set cards initial state
     cardsRef.current.forEach((card) => {
@@ -76,7 +92,7 @@ export default function ClosureSection({
     // Hide all screens immediately except current and previous
     screens.forEach((screen, i) => {
       if (i !== currentStep && i !== previousStep) {
-        gsap.set(screen, { autoAlpha: 0 });
+        gsap.set(screen, { autoAlpha: 0, xPercent: -50, yPercent: -50 });
       }
     });
 
@@ -147,7 +163,7 @@ export default function ClosureSection({
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={screen1Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[1100px] py-8 opacity-0 invisible"
+          className="absolute left-1/2 top-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[1100px] py-8 opacity-0 invisible"
         >
           <div className="relative flex flex-col justify-start items-start h-full w-full gap-16">
             <h3 className="text-[40px] md:text-[96px] max-w-[1000px] text-grey-text text-balance font-museo-moderno font-light leading-[114%]">
@@ -160,13 +176,13 @@ export default function ClosureSection({
         </div>
         <div
           ref={screen2Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[90%] px-8 h-full md:max-h-[90%] py-8 opacity-0 invisible"
+          className="absolute left-1/2 top-1/2 w-full md:max-w-[90%] px-8 h-full md:max-h-[90%] py-8 opacity-0 invisible"
         >
-          <div className="relative flex flex-col items-start h-full w-full gap-4 overflow-y-scroll overflow-x-visible">
+          <div className="relative flex flex-col items-start h-full w-full gap-4">
             <div className="text-[18px] md:text-[32px] max-w-[1000px] font-museo-moderno mb-12">
               {useCopy("closure_paragraph_2")}
             </div>
-            <div className="flex flex-row gap-8">
+            <div className="flex flex-row gap-8 items-start overflow-visible">
               <Card
                 cardIndex={1}
                 ref={(el) => {
@@ -266,21 +282,26 @@ const Card = React.forwardRef<
   }
 >(({ cardIndex, isExpanded, onExpand, onCollapse }, ref) => {
   return (
-    <div ref={ref} className="card flex flex-col items-start">
+    <div
+      ref={ref}
+      className={`card flex flex-col self-stretch ${
+        isExpanded ? "flex-1" : "w-[calc(80%/3)]"
+      }`}
+    >
       <div
-        className={`relative ${
-          isExpanded ? "bg-grey-text" : "bg-bright-green"
-        } rounded-[20px] rounded-bl-none pl-[60px] pr-[30px] py-[30px] transition`}
+        className={`relative flex flex-col flex-1 ${
+          isExpanded ? "bg-grey-text max-h-full" : "bg-bright-green"
+        } rounded-[20px] rounded-bl-none pl-[60px] pr-[30px] py-[30px] transition-colors`}
       >
-        <p
-          className="text-[24px] md:text-[32px] font-bold font-museo-moderno leading-[108%]"
-          style={{ color: "var(--black-blue)", marginBottom: "32px" }}
+        <div
+          className="text-[24px] md:text-[32px] font-bold font-museo-moderno leading-[108%] mb-8 shrink-0"
+          style={{ color: "var(--black-blue)" }}
         >
           {useCopy("closure_card_" + cardIndex + "_title")}
-        </p>
+        </div>
         {isExpanded && (
           <div
-            className="text-[14px] md:text-[18px] copy-text"
+            className="text-[14px] md:text-[18px] copy-text overflow-y-auto flex-1 pr-2"
             style={{ color: "var(--black-blue)" }}
           >
             {useCopy("closure_card_" + cardIndex + "_text")}
@@ -305,11 +326,11 @@ const Card = React.forwardRef<
         </div>
       </div>
       <div
-        className={`uppercase ${
+        className={`uppercase self-start ${
           isExpanded
             ? "bg-bright-green text-black-blue"
             : "bg-black-blue text-grey-text"
-        } rounded-bl-xl rounded-br-xl py-4 px-8 flex gap-2 items-center justify-between font-semibold text-[14px] cursor-pointer transition`}
+        } rounded-bl-xl rounded-br-xl py-4 px-8 flex gap-2 items-center justify-between font-semibold text-[14px] cursor-pointer transition-colors`}
         onClick={isExpanded ? onCollapse : onExpand}
       >
         <span>{isExpanded ? "Summary" : "Details"}</span>
