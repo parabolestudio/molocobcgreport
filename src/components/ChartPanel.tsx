@@ -210,11 +210,11 @@ export default function ChartPanel({
         transform: isFlipping ? "rotateY(90deg)" : "rotateY(0deg)",
       }}
     >
-      <div className="p-0 md:p-6 flex-1 min-h-0 flex flex-col">
+      <div className="p-0 md:p-6 flex-1">
         <div
           className={`panel-content ${
             isExplanation ? "panel-content-explanation" : ""
-          } max-h-[185px] md:max-h-none flex-1 min-h-0 flex flex-col overflow-y-auto pr-2 ${backgroundColorInner} rounded-[3px] p-4 md:p-0`}
+          } max-h-[185px] md:max-h-none flex-1 overflow-y-auto pr-2 ${backgroundColorInner} rounded-[3px] p-4 md:p-0`}
           style={{ scrollbarGutter: "stable" }}
         >
           {contentMap[mode]}
