@@ -210,7 +210,7 @@ export default function ChartPanel({
         transform: isFlipping ? "rotateY(90deg)" : "rotateY(0deg)",
       }}
     >
-      <div className="p-0 md:p-6 flex-1">
+      <div className="p-0 md:p-6 flex-1 min-h-0 flex flex-col">
         <div
           className={`panel-content ${
             isExplanation ? "panel-content-explanation" : ""
