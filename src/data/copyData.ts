@@ -54,6 +54,7 @@ export const copyData: CopyData = {
   "qu_top_right_headline": "Low AI disruption and strong customer relationships combine to create resilience.",
   "qu_top_right_description": "These verticals need to <b>defend and differentiate</b>, including:\n\n- Reimagining customer connection with AI-powered experiences, shifting from generic loyalty to personalized, proactive relationships \n- Continue diversifying media spend to reach people where they are",
   "qu_data_nudge": "Select a vertical to explore details.",
+  "qu_data_nudge_mobile": "The details for the selected vertical will appear here.",
   "closure_title": "<b>Customer relationships are the durable asset of the AI future.</b>",
   "closure_paragraph_1": "While the implications of the AI future will vary by vertical, there’s one strategic principle that’s consistent. And that’s the need to own more of the customer relationship. Because while journeys shift, relationships endure.",
   "closure_paragraph_2": "Many forward-looking CMOs are turning to a hidden gem of their arsenal – their mobile app. At a time when brands are getting disintermediated, surfaces where you own the customer relationship become a primary competitive advantage.",

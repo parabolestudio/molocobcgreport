@@ -12,14 +12,16 @@ export default function ChartPanelContentSelectedVertical({
   shownSide,
   onShownSideChange,
   copy,
+  mobile = false,
 }: {
   selectedVertical: string | null;
   selectVertical: (vertical: string | null) => void;
   shownSide: "summary" | "details";
   onShownSideChange: (side: "summary" | "details") => void;
   copy: Copy | undefined;
+  mobile: boolean;
 }) {
-  if (!selectedVertical) {
+  if (!selectedVertical && !mobile) {
     return (
       <div>
         <h3 className="panel-heading">{useCopy("qu_expl_title")}</h3>
@@ -31,6 +33,23 @@ export default function ChartPanelContentSelectedVertical({
             height={24}
           />
           <p>{useCopy("qu_data_nudge")}</p>
+        </div>
+      </div>
+    );
+  }
+  if (!selectedVertical && mobile) {
+    return (
+      <div>
+        <div className="flex gap-3">
+          <img
+            src={`${basePath}/icons/hand.svg`}
+            alt="hand icon"
+            width={17}
+            height={19}
+          />
+          <p className="text-grey-text text-[14px] font-light">
+            {useCopy("qu_data_nudge_mobile")}
+          </p>
         </div>
       </div>
     );

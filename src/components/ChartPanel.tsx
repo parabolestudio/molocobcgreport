@@ -4,7 +4,7 @@ import type { ChartMode } from "@/helpers/chart";
 import { isChartModeExplanation } from "@/helpers/chart";
 import { JSX, useEffect, useState } from "react";
 import ChartPanelContentSelectedVertical from "./ChartPanelContentSelectedVertical";
-import { basePath, isMobile } from "@/helpers/general";
+import { basePath } from "@/helpers/general";
 import { csv } from "d3-fetch";
 import { useCopy } from "@/contexts/CopyContext";
 
@@ -44,6 +44,7 @@ export default function ChartPanel({
   scrollNext,
   scrollBack,
   scrollToDataMode,
+  mobile,
 }: {
   mode: ChartMode;
   selectedVertical: string | null;
@@ -51,16 +52,11 @@ export default function ChartPanel({
   scrollNext: Function;
   scrollBack: Function;
   scrollToDataMode: Function;
+  mobile: boolean;
 }) {
   const [shownSide, setShownSide] = useState<"summary" | "details">("summary");
   const [isFlipping, setIsFlipping] = useState(false);
   const isExplanation = isChartModeExplanation(mode);
-  const [mobile, setMobile] = useState(false);
-
-  // Detect mobile after hydration to avoid SSR mismatch
-  useEffect(() => {
-    setMobile(isMobile());
-  }, []);
 
   const handleSideChange = (newSide: "summary" | "details") => {
     if (newSide !== shownSide) {
@@ -372,6 +368,7 @@ const getContentMap = (
       shownSide={shownSide}
       onShownSideChange={handleSideChange}
       copy={copy}
+      mobile={mobile}
     />
   ),
 });

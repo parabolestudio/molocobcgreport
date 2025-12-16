@@ -300,6 +300,7 @@ export default function QuadrantSection({
                   mode={chartMode}
                   selectedVertical={selectedVertical}
                   selectVertical={(vertical) => setSelectedVertical(vertical)}
+                  mobile={mobile}
                 />
               </div>
               <div ref={chartPanelRef}>
@@ -325,6 +326,7 @@ export default function QuadrantSection({
                     // Jump to data-filled mode (step 7)
                     scrollToSection(2, 7);
                   }}
+                  mobile={mobile}
                 />
               </div>
             </div>
@@ -353,6 +355,7 @@ export default function QuadrantSection({
                     // Jump to data-filled mode (step 7)
                     scrollToSection(2, 7);
                   }}
+                  mobile={mobile}
                 />
               </div>
               <div ref={chartRef} className="h-full overflow-hidden">

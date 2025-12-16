@@ -5,7 +5,7 @@ import { csv } from "d3-fetch";
 import { scaleLinear } from "d3-scale";
 import type { ChartMode } from "@/helpers/chart";
 import { verticalsMap } from "@/helpers/chart";
-import { basePath, isMobile } from "@/helpers/general";
+import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 
 interface VerticalData {
@@ -53,22 +53,18 @@ export default function Chart({
   mode,
   selectedVertical,
   selectVertical,
+  mobile = false,
 }: {
   mode: ChartMode;
   selectedVertical: string | null;
   selectVertical: (vertical: string) => void;
+  mobile?: boolean;
 }) {
   const [verticalsData, setVerticalsData] = useState<VerticalData[]>([]);
   const [svgCache, setSvgCache] = useState<SVGCache>({});
   const [hoveredQuadrant, setHoveredQuadrant] = useState<{
     quadrant: string;
   } | null>(null);
-  const [mobile, setMobile] = useState(false);
-
-  // Detect mobile after hydration to avoid SSR mismatch
-  useEffect(() => {
-    setMobile(isMobile());
-  }, []);
 
   // Call all quadrant headline hooks at top level to avoid conditional hook calls
   const quadrantHeadlines = {
