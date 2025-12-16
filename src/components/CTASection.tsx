@@ -14,6 +14,13 @@ export default function CTASection({ isActive }: { isActive: boolean }) {
       <div className="relative w-full h-full flex items-center justify-center">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-8">
           <div className="w-full h-full flex flex-col items-center justify-center gap-15">
+            <img
+              src={`${basePath}/logos/moloco.svg`}
+              alt="Moloco logo"
+              width={150}
+              height={40}
+              className="max-w-[117px]"
+            />
             <h3 className="font-extralight text-[40px] md:text-[96px] font-museo-moderno leading-[100%] text-center max-w-[600px] text-balance">
               {useCopy("cta_text")}
             </h3>

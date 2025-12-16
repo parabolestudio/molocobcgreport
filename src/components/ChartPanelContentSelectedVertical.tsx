@@ -270,12 +270,6 @@ function LoopedAppLogos({
           {isScrolling && logosContent}
         </div>
       </div>
-      {/* {isScrolling && (
-        <>
-          <div className="absolute top-0 left-0 h-full w-8 bg-linear-to-r from-[#0b3766] to-transparent pointer-events-none" />
-          <div className="absolute top-0 right-0 h-full w-8 bg-linear-to-l from-[#0b3766] to-transparent pointer-events-none" />
-        </>
-      )} */}
       <style jsx global>{`
         @keyframes logoScroll {
           0% {
