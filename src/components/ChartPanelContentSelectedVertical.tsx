@@ -113,17 +113,7 @@ function SummaryCopy({ copy }: { copy: Copy }) {
         {/* Example apps */}
         <div>
           <p className="text-[14px]">Example apps in category</p>
-          <div className="flex flex-row gap-8 overflow-y-scroll max-h-10 mt-2 pb-3">
-            {copy.exampleApps.map((app) => (
-              <img
-                key={app}
-                src={`${basePath}/appLogos/${copy.vertical}/${app
-                  .trim()
-                  .replaceAll(" ", "_")
-                  .replace("'", "_")}.svg`}
-              />
-            ))}
-          </div>
+          <LoopedAppLogos apps={copy.exampleApps} vertical={copy.vertical} />
         </div>
 
         {/* Intro */}
@@ -165,6 +155,137 @@ function SummaryCopy({ copy }: { copy: Copy }) {
           }}
         />
       </div>
+    </div>
+  );
+}
+
+function LoopedAppLogos({
+  apps,
+  vertical,
+}: {
+  apps: string[];
+  vertical: string;
+}) {
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+  const [animationDistance, setAnimationDistance] = useState<number | null>(
+    null
+  );
+  const [animationDuration, setAnimationDuration] = useState<number | null>(
+    null
+  );
+
+  // Reset animation state when apps change
+  useEffect(() => {
+    setIsScrolling(false);
+    setAnimationDistance(null);
+    setAnimationDuration(null);
+  }, [apps]);
+
+  useEffect(() => {
+    if (!containerRef) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Wait for all images to load before measuring
+            const contentDiv = containerRef.querySelector(
+              ".logos-content"
+            ) as HTMLElement;
+            if (contentDiv) {
+              const images = contentDiv.querySelectorAll("img");
+              const imagePromises = Array.from(images).map((img) => {
+                if (img.complete) {
+                  return Promise.resolve();
+                }
+                return new Promise((resolve) => {
+                  img.addEventListener("load", resolve);
+                  img.addEventListener("error", resolve);
+                });
+              });
+
+              Promise.all(imagePromises).then(() => {
+                // Now measure after all images are loaded
+                const contentWidth = contentDiv.scrollWidth;
+                const containerWidth = containerRef.clientWidth;
+                const animationDistance = contentWidth + 32; // Including gap
+                if (contentWidth > containerWidth) {
+                  setAnimationDistance(animationDistance);
+                  // Calculate duration based on distance to maintain consistent speed
+                  // Speed: 35 pixels per second
+                  const pixelsPerSecond = 50;
+                  const duration = animationDistance / pixelsPerSecond;
+                  setAnimationDuration(duration);
+                  setTimeout(() => {
+                    setIsScrolling(true);
+                  }, 800);
+                }
+              });
+            }
+          } else {
+            setIsScrolling(false);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+      }
+    );
+
+    observer.observe(containerRef);
+
+    return () => {
+      observer.unobserve(containerRef);
+    };
+  }, [containerRef, apps]);
+
+  const logosContent = apps.map((app) => (
+    <img
+      key={app}
+      src={`${basePath}/appLogos/${vertical}/${app
+        .trim()
+        .replaceAll(" ", "_")
+        .replace("'", "_")}.svg`}
+      alt={app}
+      className="shrink-0"
+    />
+  ));
+
+  return (
+    <div className="relative overflow-hidden max-h-6 mt-2 pb-3">
+      <div ref={setContainerRef} className="flex flex-row items-center">
+        <div
+          className="logos-content flex flex-row gap-8 h-6"
+          style={
+            isScrolling && animationDistance && animationDuration
+              ? {
+                  animation: `logoScroll ${animationDuration}s linear infinite`,
+                  width: "fit-content",
+                }
+              : undefined
+          }
+        >
+          {logosContent}
+          {isScrolling && logosContent}
+        </div>
+      </div>
+      {/* {isScrolling && (
+        <>
+          <div className="absolute top-0 left-0 h-full w-8 bg-linear-to-r from-[#0b3766] to-transparent pointer-events-none" />
+          <div className="absolute top-0 right-0 h-full w-8 bg-linear-to-l from-[#0b3766] to-transparent pointer-events-none" />
+        </>
+      )} */}
+      <style jsx global>{`
+        @keyframes logoScroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-${animationDistance || 0}px);
+          }
+        }
+      `}</style>
     </div>
   );
 }
