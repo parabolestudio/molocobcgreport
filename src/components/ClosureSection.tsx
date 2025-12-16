@@ -163,16 +163,14 @@ export default function ClosureSection({
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={screen1Ref}
-          className="absolute left-1/2 top-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[1100px] py-8 opacity-0 invisible"
+          className="absolute left-1/2 top-1/2 w-full md:max-w-[1000px] px-8 h-full max-h-[1100px] py-8 opacity-0 invisible flex flex-col gap-16 justify-center items-center"
         >
-          <div className="relative flex flex-col justify-start items-start h-full w-full gap-16">
-            <h3 className="text-[40px] md:text-[96px] max-w-[1000px] text-grey-text text-balance font-museo-moderno font-light leading-[114%]">
-              {useCopy("closure_title")}
-            </h3>
-            <p className="text-[18px] md:text-[32px] max-w-[1000px]">
-              {useCopy("closure_paragraph_1")}
-            </p>
-          </div>
+          <h3 className="text-[40px] md:text-[96px] text-grey-text text-center font-museo-moderno font-light leading-[114%]">
+            {useCopy("closure_title")}
+          </h3>
+          <p className="text-[18px] md:text-[32px] text-center">
+            {useCopy("closure_paragraph_1")}
+          </p>
         </div>
         <div
           ref={screen2Ref}
