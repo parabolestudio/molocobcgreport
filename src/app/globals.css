@@ -5,13 +5,6 @@
 @import "../devlink/global.css" layer(webflow);
 @import "tailwindcss";
 
-/* Override Webflow Montserrat font to use Next.js optimized version */
-@layer base {
-  * {
-    font-family: var(--font-montserrat), Helvetica, sans-serif;
-  }
-}
-
 :root {
   --black-blue: #04033a;
   --grey-text: #f2f2f2;
@@ -60,6 +53,10 @@ body {
 b,
 strong {
   font-weight: 700;
+}
+
+.font-montserrat b {
+  font-family: var(--font-montserrat) !important;
 }
 
 p {

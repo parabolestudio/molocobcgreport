@@ -79,7 +79,7 @@ export default function HookSection({
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8 text-center flex flex-col items-center justify-between gap-20 h-[80vh]"
         >
           <button className="bg-grey-blue flex items-center justify-center gap-2 opacity-0"></button>
-          <p className="text-[18px] md:text-[32px] leading-[125%] font-normal">
+          <p className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat">
             {useCopy("hooks_1_text")}
           </p>
           <button
@@ -101,7 +101,7 @@ export default function HookSection({
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8 text-center flex flex-col items-center justify-center gap-20"
           style={{ opacity: 0, visibility: "hidden" }}
         >
-          <p className="text-[18px] md:text-[32px] leading-[125%] font-normal">
+          <p className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat">
             {useCopy("hooks_2_text")}
           </p>
         </div>
@@ -111,7 +111,7 @@ export default function HookSection({
           className="absolute inset-0 w-full h-full px-8 text-center flex flex-col items-center justify-center gap-32 md:gap-32 py-8 overflow-y-auto"
           style={{ opacity: 0, visibility: "hidden" }}
         >
-          <h1 className="text-[40px] md:text-[128px] text-bright-green font-museo-moderno uppercase leading-[0.99] font-extralight text-balance">
+          <h1 className="text-[40px] md:text-[128px] max-w-[1700px] text-balance text-bright-green font-museo-moderno uppercase leading-[0.99] font-extralight">
             {useCopy("hooks_title")}
           </h1>
           <div className="shrink-0">
