@@ -1,18 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { csv } from "d3-fetch";
 import { scaleLinear } from "d3-scale";
 import type { ChartMode } from "@/helpers/chart";
 import { verticalsMap } from "@/helpers/chart";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
-
-interface VerticalData {
-  vertical: string;
-  consumerStrength: number;
-  aiDisruption: number;
-}
 
 interface SVGCache {
   [key: string]: string;
@@ -54,13 +47,18 @@ export default function Chart({
   selectedVertical,
   selectVertical,
   mobile = false,
+  verticalsData,
 }: {
   mode: ChartMode;
   selectedVertical: string | null;
   selectVertical: (vertical: string) => void;
   mobile?: boolean;
+  verticalsData: {
+    vertical: string;
+    consumerStrength: number;
+    aiDisruption: number;
+  }[];
 }) {
-  const [verticalsData, setVerticalsData] = useState<VerticalData[]>([]);
   const [svgCache, setSvgCache] = useState<SVGCache>({});
   const [hoveredQuadrant, setHoveredQuadrant] = useState<{
     quadrant: string;
@@ -73,21 +71,6 @@ export default function Chart({
     "bottom-left": useCopy("qu_bottom_left_headline"),
     "bottom-right": useCopy("qu_bottom_right_headline"),
   };
-
-  useEffect(() => {
-    csv(`${basePath}/data/verticalsData.csv`).then((data) => {
-      const processedData = data.map((d) => ({
-        vertical: d["Vertical"],
-        consumerStrength: d["Strength of customer relationship"]
-          ? +d["Strength of customer relationship"]
-          : 0,
-        aiDisruption: d["Risk of AI disruption"]
-          ? +d["Risk of AI disruption"]
-          : 0,
-      }));
-      setVerticalsData(processedData as VerticalData[]);
-    });
-  }, []);
 
   useEffect(() => {
     // Load all SVG files
@@ -199,7 +182,7 @@ export default function Chart({
   return (
     <div
       id="chart-container"
-      className="w-full h-full overflow-hidden relative"
+      className="w-full h-full overflow-hidden relative mb-2 md:mb-0"
     >
       <svg
         viewBox={`0 0 ${chartWidth} ${chartHeight}`}
@@ -207,7 +190,6 @@ export default function Chart({
           width: "100%",
           height: "100%",
           overflow: "visible",
-          // backgroundColor: "pink",
         }}
       >
         {/* <rect

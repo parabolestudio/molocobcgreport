@@ -8,6 +8,13 @@ import type { ChartMode } from "@/helpers/chart";
 import { basePath, isMobile } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 import { fadeOut } from "@/helpers/scroll";
+import { csv } from "d3-fetch";
+
+interface VerticalData {
+  vertical: string;
+  consumerStrength: number;
+  aiDisruption: number;
+}
 
 export default function QuadrantSection({
   isActive,
@@ -19,12 +26,14 @@ export default function QuadrantSection({
   scrollToSection: (sectionIndex: number, localStep?: number) => void;
 }) {
   const [mobile, setMobile] = useState(false);
+  const [verticalsData, setVerticalsData] = useState<VerticalData[]>([]);
 
   const introTextRef = useRef<HTMLDivElement>(null);
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartPanelRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<HTMLDivElement>(null);
   const mobileHeaderRef = useRef<HTMLDivElement>(null);
+  const mobileVerticalSelectRef = useRef<HTMLDivElement>(null);
   const [selectedVertical, setSelectedVertical] = useState<string | null>(null);
   const previousStepRef = useRef(-1);
   const [sourceExpandedMobile, setSourceExpandedMobile] = useState(false);
@@ -50,6 +59,7 @@ export default function QuadrantSection({
   const chartMode: ChartMode =
     currentStep === 0 ? chartModes[0] : chartModes[currentStep - 1];
 
+  console.log("mmmmmmmmobile:", mobile);
   // Handle clicking outside to deselect vertical
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -73,14 +83,16 @@ export default function QuadrantSection({
       setSelectedVertical(null);
     };
 
-    window.addEventListener("click", handleClickOutside);
+    if (!mobile) {
+      window.addEventListener("click", handleClickOutside);
+    }
     return () => window.removeEventListener("click", handleClickOutside);
-  }, []);
+  }, [mobile]);
 
   // Reset selected vertical when mode changes
-  useEffect(() => {
-    setSelectedVertical(null);
-  }, [chartMode]);
+  // useEffect(() => {
+  //   setSelectedVertical(null);
+  // }, [chartMode]);
 
   // Set initial visibility
   useEffect(() => {
@@ -88,6 +100,7 @@ export default function QuadrantSection({
     const chartPanel = chartPanelRef.current;
     const chart = chartRef.current;
     const mobileHeader = mobileHeaderRef.current;
+    const mobileVerticalSelect = mobileVerticalSelectRef.current;
 
     if (!introText || !chartPanel || !chart) return;
 
@@ -97,11 +110,15 @@ export default function QuadrantSection({
       gsap.set(chartPanel, { autoAlpha: 0, y: 30 });
       gsap.set(chart, { autoAlpha: 0, y: 0 });
       if (mobileHeader) gsap.set(mobileHeader, { autoAlpha: 0, y: 30 });
+      if (mobileVerticalSelect)
+        gsap.set(mobileVerticalSelect, { autoAlpha: 0, y: 30 });
     } else {
       gsap.set(introText, { autoAlpha: 0, y: -30 });
       gsap.set(chartPanel, { autoAlpha: 1, y: 0 });
       gsap.set(chart, { autoAlpha: 1, y: 0 });
       if (mobileHeader) gsap.set(mobileHeader, { autoAlpha: 1, y: 0 });
+      if (mobileVerticalSelect)
+        gsap.set(mobileVerticalSelect, { autoAlpha: 1, y: 0 });
     }
   }, []);
 
@@ -114,6 +131,7 @@ export default function QuadrantSection({
     const chartPanel = chartPanelRef.current;
     const chart = chartRef.current;
     const mobileHeader = mobileHeaderRef.current;
+    const mobileVerticalSelect = mobileVerticalSelectRef.current;
 
     if (!introText || !chartPanel || !chart) return;
 
@@ -152,10 +170,22 @@ export default function QuadrantSection({
             overwrite: true,
           });
         }
+        if (mobileVerticalSelect) {
+          gsap.killTweensOf(mobileVerticalSelect);
+          gsap.to(mobileVerticalSelect, {
+            autoAlpha: 0,
+            y: -30,
+            duration: 0.4,
+            ease: "power2.in",
+            overwrite: true,
+          });
+        }
       } else {
         gsap.set(chart, { autoAlpha: 0 });
         gsap.set(chartPanel, { autoAlpha: 0 });
         if (mobileHeader) gsap.set(mobileHeader, { autoAlpha: 0 });
+        if (mobileVerticalSelect)
+          gsap.set(mobileVerticalSelect, { autoAlpha: 0 });
       }
 
       // Fade in intro text with overwrite to cancel any ongoing animations
@@ -225,21 +255,56 @@ export default function QuadrantSection({
             }
           );
         }
+        if (mobileVerticalSelect) {
+          gsap.fromTo(
+            mobileVerticalSelect,
+            { autoAlpha: 0, y: 30 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.4,
+              ease: "power2.out",
+              delay: 0.4, // Same timing as chart
+              overwrite: true,
+            }
+          );
+        }
       } else {
         // Between steps 1-7, ensure intro is hidden and charts stay visible
         gsap.killTweensOf(introText);
         gsap.set(introText, { autoAlpha: 0, y: -30 });
         gsap.set([chartPanel, chart], { autoAlpha: 1, y: 0 });
         if (mobileHeader) gsap.set(mobileHeader, { autoAlpha: 1, y: 0 });
+        if (mobileVerticalSelect) {
+          gsap.set(mobileVerticalSelect, { autoAlpha: 1, y: 0 });
+        }
       }
     }
 
     previousStepRef.current = currentStep;
   }, [isActive, currentStep]);
 
+  useEffect(() => {
+    csv(`${basePath}/data/verticalsData.csv`).then((data) => {
+      const processedData = data.map((d) => ({
+        vertical: d["Vertical"],
+        consumerStrength: d["Strength of customer relationship"]
+          ? +d["Strength of customer relationship"]
+          : 0,
+        aiDisruption: d["Risk of AI disruption"]
+          ? +d["Risk of AI disruption"]
+          : 0,
+      }));
+      setVerticalsData(processedData as VerticalData[]);
+    });
+  }, []);
+
   const quadrantExplTitle = useCopy("qu_expl_title");
   const sourceShort = useCopy("qu_info_short");
   const sourceFull = useCopy("qu_info");
+
+  console.log("Verticals Data:", verticalsData);
+  console.log("Selected Vertical:", selectedVertical);
 
   return (
     <div
@@ -282,7 +347,11 @@ export default function QuadrantSection({
                     width={25}
                     height={28}
                   />
-                  <p className="text-[12px] text-grey-text">
+                  <p
+                    className={`text-[12px] text-grey-text ${
+                      sourceExpandedMobile ? "absolute left-[33px]" : ""
+                    }`}
+                  >
                     {sourceExpandedMobile ? sourceFull : sourceShort}{" "}
                     <span
                       className="underline cursor-pointer"
@@ -295,39 +364,68 @@ export default function QuadrantSection({
                   </p>
                 </div>
               </div>
-              <div ref={chartRef}>
-                <Chart
-                  mode={chartMode}
-                  selectedVertical={selectedVertical}
-                  selectVertical={(vertical) => setSelectedVertical(vertical)}
-                  mobile={mobile}
-                />
+              <div ref={mobileVerticalSelectRef}>
+                <p className="font-bold text-[14px] leading-[125%]">
+                  Select vertical
+                </p>
+                <select
+                  onChange={(v) => {
+                    console.log("----select vertical", v.target.value);
+                    setSelectedVertical(v.target.value);
+                  }}
+                  className="w-full mt-2 p-2 border border-grey-border rounded-md text-[14px]"
+                  value={
+                    selectedVertical === null
+                      ? "all-verticals"
+                      : selectedVertical
+                  }
+                >
+                  <option key="all-verticals" value={"all-verticals"}>
+                    All verticals
+                  </option>
+                  {verticalsData.map((vd) => (
+                    <option key={vd.vertical} value={vd.vertical}>
+                      {vd.vertical}
+                    </option>
+                  ))}
+                </select>
               </div>
-              <div ref={chartPanelRef}>
-                <ChartPanel
-                  mode={chartMode}
-                  selectedVertical={selectedVertical}
-                  selectVertical={(vertical) => setSelectedVertical(vertical)}
-                  scrollNext={() => {
-                    // QuadrantSection is section 2, advance to next step
-                    const nextStep = currentStep + 1;
-                    if (nextStep <= 7) {
-                      scrollToSection(2, nextStep);
-                    }
-                  }}
-                  scrollBack={() => {
-                    // Go to previous step
-                    const prevStep = currentStep - 1;
-                    if (prevStep >= 0) {
-                      scrollToSection(2, prevStep);
-                    }
-                  }}
-                  scrollToDataMode={() => {
-                    // Jump to data-filled mode (step 7)
-                    scrollToSection(2, 7);
-                  }}
-                  mobile={mobile}
-                />
+              <div>
+                <div ref={chartRef}>
+                  <Chart
+                    mode={chartMode}
+                    selectedVertical={selectedVertical}
+                    selectVertical={(vertical) => setSelectedVertical(vertical)}
+                    mobile={mobile}
+                    verticalsData={verticalsData}
+                  />
+                </div>
+                <div ref={chartPanelRef}>
+                  <ChartPanel
+                    mode={chartMode}
+                    selectedVertical={selectedVertical}
+                    selectVertical={(vertical) => setSelectedVertical(vertical)}
+                    scrollNext={() => {
+                      // QuadrantSection is section 2, advance to next step
+                      const nextStep = currentStep + 1;
+                      if (nextStep <= 7) {
+                        scrollToSection(2, nextStep);
+                      }
+                    }}
+                    scrollBack={() => {
+                      // Go to previous step
+                      const prevStep = currentStep - 1;
+                      if (prevStep >= 0) {
+                        scrollToSection(2, prevStep);
+                      }
+                    }}
+                    scrollToDataMode={() => {
+                      // Jump to data-filled mode (step 7)
+                      scrollToSection(2, 7);
+                    }}
+                    mobile={mobile}
+                  />
+                </div>
               </div>
             </div>
           ) : (
@@ -363,6 +461,7 @@ export default function QuadrantSection({
                   mode={chartMode}
                   selectedVertical={selectedVertical}
                   selectVertical={(vertical) => setSelectedVertical(vertical)}
+                  verticalsData={verticalsData}
                 />
               </div>
             </div>
