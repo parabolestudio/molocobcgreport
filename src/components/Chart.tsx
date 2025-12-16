@@ -442,8 +442,16 @@ export default function Chart({
               const endY = centerY + radius * Math.sin(angles.end);
 
               const slicePath = `M ${centerX} ${centerY} L ${startX} ${startY} A ${radius} ${radius} 0 0 1 ${endX} ${endY} Z`;
+
               const isQuadrantActive =
                 mode === `expl-quadrant-${quadrant.position}`;
+
+              let isQuadrantActiveFromVertical = false;
+              if (selectedVertical) {
+                isQuadrantActiveFromVertical =
+                  (verticalsMap[selectedVertical] as any)?.quadrant ===
+                  quadrant.position;
+              }
 
               const isQuadrantHovered =
                 hoveredQuadrant?.quadrant === quadrant.position;
@@ -456,7 +464,13 @@ export default function Chart({
                   <path
                     d={slicePath}
                     fill={quadrant.colorQuadrant}
-                    opacity={isQuadrantActive || isQuadrantHovered ? 1 : 0}
+                    opacity={
+                      isQuadrantHovered || isQuadrantActive
+                        ? 1
+                        : isQuadrantActiveFromVertical
+                        ? 0.75
+                        : 0
+                    }
                     className="transition"
                   />
                   <text
@@ -487,7 +501,9 @@ export default function Chart({
                     textAnchor={quadrant.titleAnchor}
                     style={{
                       fill:
-                        isQuadrantActive || isQuadrantHovered
+                        isQuadrantActive ||
+                        isQuadrantHovered ||
+                        isQuadrantActiveFromVertical
                           ? quadrant.colorQuadrantActiveText
                           : "var(--grey-blue)",
                     }}
@@ -528,6 +544,18 @@ export default function Chart({
               const iconName = verticalInfo.icon;
               const svgContent = svgCache[iconName];
 
+              let isQuadrantHovered = false;
+              if (hoveredQuadrant) {
+                isQuadrantHovered =
+                  hoveredQuadrant.quadrant === verticalInfo.quadrant;
+              }
+              let isQuadrantActiveFromVertical = false;
+              if (selectedVertical) {
+                isQuadrantActiveFromVertical =
+                  (verticalsMap[selectedVertical] as any)?.quadrant ===
+                  verticalInfo.quadrant;
+              }
+
               return (
                 <g
                   key={i}
@@ -544,13 +572,11 @@ export default function Chart({
                     }
                   }}
                   style={{ cursor: "pointer" }}
-                  className={`verticalGroup ${
-                    selectedVertical === d.vertical ? "selected" : ""
-                  } ${
-                    hoveredQuadrant?.quadrant === verticalInfo.quadrant
+                  className={`verticalGroup  ${
+                    isQuadrantHovered || isQuadrantActiveFromVertical
                       ? "quadrantHovered"
                       : ""
-                  }`}
+                  } ${selectedVertical === d.vertical ? "selected" : ""}`}
                 >
                   {!mobile && svgContent && (
                     <g

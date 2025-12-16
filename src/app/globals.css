@@ -124,11 +124,11 @@ button {
   transition: fill 0.3s, color 0.3s;
 }
 
-.verticals .quadrantHovered text,
-.verticals .quadrantHovered rect {
+.verticals .quadrantHovered:not(.selected) text,
+.verticals .quadrantHovered:not(.selected) rect {
   @apply fill-black-blue;
 }
-.verticals .quadrantHovered path {
+.verticals .quadrantHovered:not(.selected) path {
   fill: #9494aa;
 }
 
