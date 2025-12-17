@@ -53,7 +53,7 @@ export const copyData: CopyData = {
   "qu_top_right_title": "<b>Secured</b>",
   "qu_top_right_headline": "Low AI disruption and strong customer relationships combine to create resilience.",
   "qu_top_right_description": "These verticals need to <b>defend and differentiate</b>, including:\n\n- Reimagining customer connection with AI-powered experiences, shifting from generic loyalty to personalized, proactive relationships \n- Continue diversifying media spend to reach people where they are",
-  "qu_data_nudge": "Select a vertical to explore details.",
+  "qu_data_nudge": "Selected vertical details will appear here.",
   "qu_data_nudge_mobile": "The details for the selected vertical will appear here.",
   "closure_title": "While journeys shift, <b>relationships endure</b>",
   "closure_paragraph_1": "Every vertical and company will face a unique set of opportunities and challenges, but there’s one strategic principle that’s consistent. Customer relationships are the durable asset of the AI future.",

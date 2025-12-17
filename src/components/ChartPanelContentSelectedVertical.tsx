@@ -26,12 +26,12 @@ export default function ChartPanelContentSelectedVertical({
       <div>
         <h3 className="panel-heading">{useCopy("qu_expl_title")}</h3>
         <div className="flex gap-3">
-          <img
+          {/* <img
             src={`${basePath}/icons/mouse.svg`}
             alt="Mouse icon"
             width={24}
             height={24}
-          />
+          /> */}
           <p>{useCopy("qu_data_nudge")}</p>
         </div>
       </div>
