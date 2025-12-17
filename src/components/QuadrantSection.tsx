@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Chart from "./Chart";
 import ChartPanel from "./ChartPanel";
-import type { ChartMode } from "@/helpers/chart";
+import { verticalsMap, type ChartMode } from "@/helpers/chart";
 import { basePath, isMobile } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 import { fadeOut } from "@/helpers/scroll";
@@ -101,6 +101,7 @@ export default function QuadrantSection({
   // Reset selected vertical when mode changes
   useEffect(() => {
     setSelectedVertical(null);
+    setSourceExpandedMobile(false);
   }, [chartMode]);
 
   // Set initial visibility
@@ -374,35 +375,16 @@ export default function QuadrantSection({
                 <div
                   className={`${
                     chartMode === "data-filled" ? "opacity-100" : "opacity-0"
-                  }`}
+                  } max-w-[300px]`}
                 >
                   <p className="font-bold text-[14px] leading-[125%]">
                     Select vertical
                   </p>
-                  <select
-                    onChange={(v) => {
-                      if (v.target.value === "all-verticals") {
-                        setSelectedVertical(null);
-                      } else {
-                        setSelectedVertical(v.target.value);
-                      }
-                    }}
-                    className="w-full mt-2 p-2 border border-grey-border rounded-md text-[14px]"
-                    value={
-                      selectedVertical === null
-                        ? "all-verticals"
-                        : selectedVertical
-                    }
-                  >
-                    <option key="all-verticals" value={"all-verticals"}>
-                      All verticals
-                    </option>
-                    {verticalsData.map((vd) => (
-                      <option key={vd.vertical} value={vd.vertical}>
-                        {vd.vertical}
-                      </option>
-                    ))}
-                  </select>
+                  <VerticalSelector
+                    selectedVertical={selectedVertical}
+                    setSelectedVertical={setSelectedVertical}
+                    verticalsData={verticalsData}
+                  />
                 </div>
               </div>
               <div ref={chartRef}>
@@ -515,6 +497,82 @@ export default function QuadrantSection({
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+function VerticalSelector({
+  selectedVertical,
+  setSelectedVertical,
+  verticalsData,
+}: {
+  selectedVertical: string | null;
+  setSelectedVertical: (vertical: string | null) => void;
+  verticalsData: VerticalData[];
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  let option = "All verticals";
+  let iconName = "all_verticals";
+  if (selectedVertical) {
+    const verticalInfo = verticalsMap[selectedVertical] as any;
+    option = verticalInfo.label;
+    iconName = verticalInfo.icon;
+  }
+
+  return (
+    <div className="relative mt-2">
+      <div className="flex w-full">
+        <img
+          src={`${basePath}/verticals/${iconName}.svg`}
+          alt=""
+          className="z-1"
+          width={33}
+          height={33}
+        />
+        <div
+          className="flex-1 border border-grey-text rounded-[5px] flex justify-between items-center gap-4 px-3 pl-5 -ml-2.5 h-[31px] mt-[1px]"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <span className="text-[14px]">
+            {selectedVertical || "All verticals"}
+          </span>
+          <img
+            src={`${basePath}/icons/triangle.svg`}
+            alt=""
+            className=""
+            width={11}
+            height={7}
+          />
+        </div>
+      </div>
+      {isOpen && (
+        <div className="max-h-[170px] h-[170px] overflow-y-auto bg-grey-text rounded-[5px]">
+          <div
+            className={`px-3 py-2 text-[14px] cursor-pointer text-black-blue border-b border-black-blue`}
+            onClick={() => {
+              setSelectedVertical(null);
+              setIsOpen(false);
+            }}
+          >
+            All verticals
+          </div>
+          {verticalsData
+            .sort((a, b) => a.vertical.localeCompare(b.vertical))
+            .map((vd) => (
+              <div
+                key={vd.vertical}
+                className={`px-3 py-2 text-[14px] cursor-pointer text-black-blue border-b border-black-blue`}
+                onClick={() => {
+                  setSelectedVertical(vd.vertical);
+                  setIsOpen(false);
+                }}
+              >
+                {vd.vertical}
+              </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 }
