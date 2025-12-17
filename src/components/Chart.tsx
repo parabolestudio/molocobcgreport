@@ -722,17 +722,19 @@ export default function Chart({
           ]
         }
       </div>
+      {/* Prompt to select a vertical on initial load */}
       {showSelectionPrompt && mode === "data-filled" && (
         <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-bright-green text-black-blue rounded-[10px]">
-          <div className="w-full h-full relative ">
-            <div className="w-full h-full p-12 flex gap-8">
+          <div className="w-full h-full relative">
+            <div className="w-full h-full p-6 md:p-12 flex items-center gap-3 md:gap-8">
               <img
                 src={`${basePath}/icons/cursor.svg`}
                 alt="Cursor Icon"
                 width={46}
                 height={51}
+                className="h-6 md:h-[51px] w-auto"
               />
-              <span className="font-bold text-[18px] max-w-[180px]">
+              <span className="font-bold text-[14px] md:text-[18px] w-[200px] md:max-w-[180px]">
                 Select a vertical to explore details.
               </span>
             </div>
