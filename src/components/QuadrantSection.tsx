@@ -40,7 +40,17 @@ export default function QuadrantSection({
 
   // Detect mobile after hydration to avoid SSR mismatch
   useEffect(() => {
-    setMobile(isMobile());
+    if (typeof window === "undefined") return;
+    const update = () => setMobile(isMobile());
+    // run once after hydration
+    update();
+    // update on resize/orientation changes
+    window.addEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+    };
   }, []);
 
   const chartModes: ChartMode[] = [
@@ -302,8 +312,7 @@ export default function QuadrantSection({
   const sourceShort = useCopy("qu_info_short");
   const sourceFull = useCopy("qu_info");
 
-  console.log("Verticals Data:", verticalsData);
-  console.log("Selected Vertical:", selectedVertical);
+  console.log("mobile:", mobile);
 
   return (
     <div
