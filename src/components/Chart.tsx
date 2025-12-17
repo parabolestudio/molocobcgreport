@@ -446,12 +446,24 @@ export default function Chart({
               const isQuadrantHovered =
                 hoveredQuadrant?.quadrant === quadrant.position;
 
-              const offsetX = mobile ? 26 : 12;
-              const offsetY = mobile ? 14 : 20;
+              const offsetX = mobile
+                ? mode === "data-filled"
+                  ? 26
+                  : 8
+                : mode === "data-filled"
+                ? 32
+                : 12;
+              const offsetY = mobile
+                ? mode === "data-filled"
+                  ? 13
+                  : 14
+                : mode === "data-filled"
+                ? 18
+                : 20;
               // mobile only
-              const infoIconSize = 12;
-              const offsetXInfoIcon = 14;
-              const offsetYInfoIcon = 14;
+              const infoIconSize = mobile ? 12 : 18;
+              const offsetXInfoIcon = mobile ? 14 : 16;
+              const offsetYInfoIcon = mobile ? 14 : 18;
 
               return (
                 <g key={index}>
@@ -518,8 +530,11 @@ export default function Chart({
                   >
                     {quadrant.title}
                   </text>
-                  {mobile && mode === "data-filled" && (
+                  {mode === "data-filled" && (
                     <image
+                      className={`transition ${
+                        mode === "data-filled" ? "cursor-pointer" : ""
+                      }`}
                       href={`${basePath}/icons/info_tiny_filled${
                         isQuadrantHovered || isQuadrantActiveFromVertical
                           ? "_blue"
@@ -541,6 +556,12 @@ export default function Chart({
                       }
                       width={infoIconSize}
                       height={infoIconSize}
+                      onMouseEnter={() => {
+                        if (mode === "data-filled") {
+                          setHoveredQuadrant({ quadrant: quadrant.position });
+                        }
+                      }}
+                      onMouseLeave={() => setHoveredQuadrant(null)}
                       onClick={(e) => {
                         e.stopPropagation();
                         if (mode === "data-filled") {

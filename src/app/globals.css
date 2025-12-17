@@ -113,7 +113,7 @@ button {
 
 .panel-content p:not([class*="text-"]),
 .panel-content li {
-  @apply text-[14px] md:text-[18px] text-black-blue md:text-grey-text;
+  @apply text-[14px] md:text-[18px] text-grey-text;
 }
 
 .verticals .selected text,

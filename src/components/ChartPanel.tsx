@@ -219,7 +219,11 @@ export default function ChartPanel({
           className={`panel-content ${
             isExplanation ? "panel-content-explanation" : ""
           } max-h-[185px] md:max-h-none flex-1 overflow-y-auto pr-2 ${backgroundColorInner} rounded-[3px] p-4 md:p-0`}
-          style={{ scrollbarGutter: "stable" }}
+          style={{
+            scrollbarGutter: "stable",
+            // maxHeight:
+            //   mobile && mode === "data-filled" ? "fit-content" : undefined,
+          }}
         >
           {contentMap[mode]}
         </div>
