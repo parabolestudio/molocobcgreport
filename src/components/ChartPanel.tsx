@@ -203,7 +203,44 @@ export default function ChartPanel({
     }
   }, [selectedVertical]);
 
-  const isBackButtonDisabled = mode === "expl-y-axis";
+  if (mobile && selectedVertical === null) {
+    return (
+      <div className="panel-content-expl-mobile h-full flex flex-col justify-end overflow-hidden">
+        <div
+          className={`${
+            isExplanation
+              ? "bg-grey-text rounded-[3px]"
+              : "bg-panel-background-blue rounded-[10px]"
+          } p-4 text-black-blue overflow-y-auto`}
+        >
+          {contentMap[mode]}
+        </div>
+        {isExplanation && (
+          <NavigationButtons
+            scrollBack={scrollBack}
+            scrollToDataMode={scrollToDataMode}
+            scrollNext={scrollNext}
+            isBackButtonDisabled={mode === "expl-y-axis"}
+            mobile={mobile}
+          />
+        )}
+      </div>
+    );
+  }
+  if (mobile && selectedVertical !== null) {
+    return (
+      <div
+        className={`h-full p-4 rounded-[20px] flex flex-col overflow-y-auto ${backgroundColor}`}
+        style={{
+          transformStyle: "preserve-3d",
+          transition: "transform 0.3s",
+          transform: isFlipping ? "rotateY(90deg)" : "rotateY(0deg)",
+        }}
+      >
+        {contentMap[mode]}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -214,87 +251,38 @@ export default function ChartPanel({
         transform: isFlipping ? "rotateY(90deg)" : "rotateY(0deg)",
       }}
     >
-      <div className="p-0 md:p-6 flex-1 min-h-0 flex flex-col">
+      <div className="md:p-6 flex-1 min-h-0 flex flex-col">
         <div
           className={`panel-content ${
             isExplanation ? "panel-content-explanation" : ""
-          } max-h-[185px] md:max-h-none flex-1 overflow-y-auto pr-2 ${backgroundColorInner} rounded-[3px] p-4 md:p-0`}
+          } flex-1 overflow-y-auto ${backgroundColorInner} rounded-[3px] p-4 md:p-0`}
           style={{
             scrollbarGutter: "stable",
-            // maxHeight:
-            //   mobile && mode === "data-filled" ? "fit-content" : undefined,
           }}
         >
           {contentMap[mode]}
         </div>
         {isExplanation && (
-          <div className="flex gap-4 mt-4 shrink-0">
-            <button
-              className={`bg-grey-blue flex items-center justify-center gap-2 disabled:text-[#9494AA] ${
-                isBackButtonDisabled ? "" : "hover:bg-[#9494AA]"
-              } transition grow`}
-              onClick={() => scrollBack()}
-              disabled={isBackButtonDisabled}
-              style={{ fontSize: mobile ? "12px" : "14px" }}
-            >
-              <svg
-                width="17"
-                height="14"
-                viewBox="0 0 17 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0.100586 6.7002C0.100586 6.60875 0.118874 6.51782 0.155274 6.43359C0.19161 6.34965 0.244961 6.27379 0.311524 6.20996L6.46484 0.301758C6.59935 0.172612 6.7812 0.100671 6.96973 0.100586C7.15837 0.100586 7.34003 0.172536 7.47461 0.301758C7.60932 0.431112 7.68652 0.607239 7.68652 0.791992C7.68647 0.976678 7.60928 1.15292 7.47461 1.28223L2.5498 6.00977L15.585 6.00977C15.7732 6.00979 15.9545 6.08111 16.0889 6.20996C16.2234 6.33918 16.2998 6.51563 16.2998 6.7002C16.2998 6.88476 16.2234 7.06121 16.0889 7.19043C15.9545 7.31928 15.7732 7.3906 15.585 7.39063L2.5498 7.39063L7.47461 12.1182C7.60928 12.2475 7.68647 12.4237 7.68652 12.6084C7.68652 12.7932 7.60932 12.9693 7.47461 13.0986C7.34003 13.2279 7.15837 13.2998 6.96973 13.2998C6.7812 13.2997 6.59935 13.2278 6.46484 13.0986L0.311524 7.19043C0.244961 7.1266 0.19161 7.05074 0.155274 6.9668C0.118874 6.88257 0.100586 6.79164 0.100586 6.7002Z"
-                  strokeWidth="0.2"
-                  className={`
-                    transition
-                    ${
-                      isBackButtonDisabled
-                        ? "stroke-[#9494AA] fill-[#9494AA]"
-                        : "stroke-[#F2F2F2] fill-[#F2F2F2]"
-                    }  `}
-                />
-              </svg>
-              <span>Back</span>
-            </button>
-            <button
-              className="bg-medium-blue grow"
-              onClick={() => scrollToDataMode()}
-              style={{ fontSize: mobile ? "12px" : "14px" }}
-            >
-              Skip to index
-            </button>
-            <button
-              className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition grow"
-              onClick={() => scrollNext()}
-              style={{ fontSize: mobile ? "12px" : "14px" }}
-            >
-              <span>Next</span>
-              <img
-                src={`${basePath}/icons/arrow.svg`}
-                alt="arrow"
-                width={16}
-                height={13}
-                style={{ transform: "rotate(180deg)" }}
-              />
-            </button>
-          </div>
+          <NavigationButtons
+            scrollBack={scrollBack}
+            scrollToDataMode={scrollToDataMode}
+            scrollNext={scrollNext}
+            isBackButtonDisabled={mode === "expl-y-axis"}
+            mobile={mobile}
+          />
         )}
       </div>
-      {!mobile && (
-        <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3 shrink-0 items-start">
-          <img
-            src={`${basePath}/icons/moloco_small.svg`}
-            alt="Information"
-            width={25}
-            height={28}
-          />
-          <p className="text-[14px] leading-[108%] text-grey-text m-0">
-            {copyTexts.qu_info}
-          </p>
-        </div>
-      )}
+      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3 shrink-0 items-start">
+        <img
+          src={`${basePath}/icons/moloco_small.svg`}
+          alt="Information"
+          width={25}
+          height={28}
+        />
+        <p className="text-[14px] leading-[108%] text-grey-text m-0">
+          {copyTexts.qu_info}
+        </p>
+      </div>
     </div>
   );
 }
@@ -408,3 +396,72 @@ const getContentMap = (
     />
   ),
 });
+
+function NavigationButtons({
+  scrollBack,
+  scrollToDataMode,
+  scrollNext,
+  isBackButtonDisabled,
+  mobile,
+}: {
+  scrollBack: Function;
+  scrollToDataMode: Function;
+  scrollNext: Function;
+  isBackButtonDisabled: boolean;
+  mobile: boolean;
+}) {
+  return (
+    <div className="flex gap-4 mt-2 md:mt-4 shrink-0">
+      <button
+        className={`bg-grey-blue flex items-center justify-center gap-2 disabled:text-[#9494AA] ${
+          isBackButtonDisabled ? "" : "hover:bg-[#9494AA]"
+        } transition grow`}
+        onClick={() => scrollBack()}
+        disabled={isBackButtonDisabled}
+        style={{ fontSize: mobile ? "12px" : "14px" }}
+      >
+        <svg
+          width="17"
+          height="14"
+          viewBox="0 0 17 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0.100586 6.7002C0.100586 6.60875 0.118874 6.51782 0.155274 6.43359C0.19161 6.34965 0.244961 6.27379 0.311524 6.20996L6.46484 0.301758C6.59935 0.172612 6.7812 0.100671 6.96973 0.100586C7.15837 0.100586 7.34003 0.172536 7.47461 0.301758C7.60932 0.431112 7.68652 0.607239 7.68652 0.791992C7.68647 0.976678 7.60928 1.15292 7.47461 1.28223L2.5498 6.00977L15.585 6.00977C15.7732 6.00979 15.9545 6.08111 16.0889 6.20996C16.2234 6.33918 16.2998 6.51563 16.2998 6.7002C16.2998 6.88476 16.2234 7.06121 16.0889 7.19043C15.9545 7.31928 15.7732 7.3906 15.585 7.39063L2.5498 7.39063L7.47461 12.1182C7.60928 12.2475 7.68647 12.4237 7.68652 12.6084C7.68652 12.7932 7.60932 12.9693 7.47461 13.0986C7.34003 13.2279 7.15837 13.2998 6.96973 13.2998C6.7812 13.2997 6.59935 13.2278 6.46484 13.0986L0.311524 7.19043C0.244961 7.1266 0.19161 7.05074 0.155274 6.9668C0.118874 6.88257 0.100586 6.79164 0.100586 6.7002Z"
+            strokeWidth="0.2"
+            className={`
+                    transition
+                    ${
+                      isBackButtonDisabled
+                        ? "stroke-[#9494AA] fill-[#9494AA]"
+                        : "stroke-[#F2F2F2] fill-[#F2F2F2]"
+                    }  `}
+          />
+        </svg>
+        <span>Back</span>
+      </button>
+      <button
+        className="bg-medium-blue grow"
+        onClick={() => scrollToDataMode()}
+        style={{ fontSize: mobile ? "12px" : "14px" }}
+      >
+        Skip to index
+      </button>
+      <button
+        className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition grow"
+        onClick={() => scrollNext()}
+        style={{ fontSize: mobile ? "12px" : "14px" }}
+      >
+        <span>Next</span>
+        <img
+          src={`${basePath}/icons/arrow.svg`}
+          alt="arrow"
+          width={16}
+          height={13}
+          style={{ transform: "rotate(180deg)" }}
+        />
+      </button>
+    </div>
+  );
+}

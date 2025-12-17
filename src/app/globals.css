@@ -130,7 +130,14 @@ button {
 
 .panel-content p:not([class*="text-"]),
 .panel-content li {
-  @apply text-[14px] md:text-[18px] text-grey-text;
+  @apply text-[14px] md:text-[18px];
+}
+
+.panel-content-expl-mobile .panel-heading,
+.panel-content-expl-mobile .panel-text,
+.panel-content-expl-mobile .panel-text span,
+.panel-content-expl-mobile .panel-text li {
+  @apply text-black-blue;
 }
 
 .verticals .selected text,

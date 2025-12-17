@@ -312,8 +312,6 @@ export default function QuadrantSection({
   const sourceShort = useCopy("qu_info_short");
   const sourceFull = useCopy("qu_info");
 
-  console.log("mobile:", mobile);
-
   return (
     <div
       className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
@@ -340,11 +338,10 @@ export default function QuadrantSection({
         {/* Chart components - visible from step 1 onwards */}
         <div
           ref={chartContainerRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-5 md:px-10 h-full py-8"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-5 md:px-10 h-full py-5 md:py-8"
         >
           {mobile ? (
-            <div className="h-full flex flex-col justify-between">
-              {/* <div className="flex flex-col gap-4"> */}
+            <div className="h-full flex flex-col justify-between gap-5 relative overflow-hidden">
               <div ref={mobileHeaderRef}>
                 <h3 className="font-museo-moderno text-[24px] leading-[115%] text-grey-text mb-2">
                   {quadrantExplTitle}
@@ -408,82 +405,75 @@ export default function QuadrantSection({
                   </select>
                 </div>
               </div>
-              {/* </div> */}
-              <div className="relative">
-                <div ref={chartRef}>
-                  <Chart
+              <div ref={chartRef}>
+                <Chart
+                  mode={chartMode}
+                  selectedVertical={selectedVertical}
+                  selectVertical={(vertical) => setSelectedVertical(vertical)}
+                  mobile={mobile}
+                  verticalsData={verticalsData}
+                />
+              </div>
+              <div ref={chartPanelRef} className="h-full overflow-hidden">
+                <div
+                  className={`w-full h-full ${
+                    selectedVertical !== null ? "opacity-0" : ""
+                  }`}
+                >
+                  <ChartPanel
                     mode={chartMode}
                     selectedVertical={selectedVertical}
                     selectVertical={(vertical) => setSelectedVertical(vertical)}
+                    scrollNext={() => {
+                      // QuadrantSection is section 2, advance to next step
+                      const nextStep = currentStep + 1;
+                      if (nextStep <= 7) {
+                        scrollToSection(2, nextStep);
+                      }
+                    }}
+                    scrollBack={() => {
+                      // Go to previous step
+                      const prevStep = currentStep - 1;
+                      if (prevStep >= 0) {
+                        scrollToSection(2, prevStep);
+                      }
+                    }}
+                    scrollToDataMode={() => {
+                      // Jump to data-filled mode (step 7)
+                      scrollToSection(2, 7);
+                    }}
                     mobile={mobile}
-                    verticalsData={verticalsData}
                   />
                 </div>
-                <div ref={chartPanelRef}>
-                  <div
-                    className={`w-full h-full ${
-                      selectedVertical !== null ? "opacity-0" : ""
-                    }`}
-                  >
-                    <ChartPanel
-                      mode={chartMode}
-                      selectedVertical={selectedVertical}
-                      selectVertical={(vertical) =>
-                        setSelectedVertical(vertical)
-                      }
-                      scrollNext={() => {
-                        // QuadrantSection is section 2, advance to next step
-                        const nextStep = currentStep + 1;
-                        if (nextStep <= 7) {
-                          scrollToSection(2, nextStep);
-                        }
-                      }}
-                      scrollBack={() => {
-                        // Go to previous step
-                        const prevStep = currentStep - 1;
-                        if (prevStep >= 0) {
-                          scrollToSection(2, prevStep);
-                        }
-                      }}
-                      scrollToDataMode={() => {
-                        // Jump to data-filled mode (step 7)
-                        scrollToSection(2, 7);
-                      }}
-                      mobile={mobile}
-                    />
-                  </div>
-                </div>
-                {selectedVertical !== null && (
-                  <div className="absolute top-0 bottom-0 h-full w-full">
-                    <ChartPanel
-                      mode={chartMode}
-                      selectedVertical={selectedVertical}
-                      selectVertical={(vertical) =>
-                        setSelectedVertical(vertical)
-                      }
-                      scrollNext={() => {
-                        // QuadrantSection is section 2, advance to next step
-                        const nextStep = currentStep + 1;
-                        if (nextStep <= 7) {
-                          scrollToSection(2, nextStep);
-                        }
-                      }}
-                      scrollBack={() => {
-                        // Go to previous step
-                        const prevStep = currentStep - 1;
-                        if (prevStep >= 0) {
-                          scrollToSection(2, prevStep);
-                        }
-                      }}
-                      scrollToDataMode={() => {
-                        // Jump to data-filled mode (step 7)
-                        scrollToSection(2, 7);
-                      }}
-                      mobile={mobile}
-                    />
-                  </div>
-                )}
               </div>
+              {selectedVertical !== null && (
+                <div className="extraChartPanel absolute top-[170px] bottom-0 right-0 w-full">
+                  <ChartPanel
+                    mode={chartMode}
+                    selectedVertical={selectedVertical}
+                    selectVertical={(vertical) => setSelectedVertical(vertical)}
+                    scrollNext={() => {
+                      // QuadrantSection is section 2, advance to next step
+                      const nextStep = currentStep + 1;
+                      if (nextStep <= 7) {
+                        scrollToSection(2, nextStep);
+                      }
+                    }}
+                    scrollBack={() => {
+                      // Go to previous step
+                      const prevStep = currentStep - 1;
+                      if (prevStep >= 0) {
+                        scrollToSection(2, prevStep);
+                      }
+                    }}
+                    scrollToDataMode={() => {
+                      // Jump to data-filled mode (step 7)
+                      scrollToSection(2, 7);
+                    }}
+                    mobile={mobile}
+                  />
+                </div>
+              )}
             </div>
           ) : (
             <div className="h-full grid grid-cols-[0.3fr_0.7fr] gap-8">
