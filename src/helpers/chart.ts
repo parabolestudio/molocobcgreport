@@ -137,4 +137,9 @@ export const verticalsMap: Record<string, Object> = {
     icon: "rmg",
     quadrant: "top-left",
   },
+  "All verticals": {
+    label: "All verticals",
+    icon: "all_verticals",
+    // quadrant: "center",
+  },
 };

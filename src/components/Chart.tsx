@@ -7,10 +7,6 @@ import { verticalsMap } from "@/helpers/chart";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 
-interface SVGCache {
-  [key: string]: string;
-}
-
 const quadrantData = [
   {
     position: "bottom-left",
@@ -48,6 +44,7 @@ export default function Chart({
   selectVertical,
   mobile = false,
   verticalsData,
+  svgCache,
 }: {
   mode: ChartMode;
   selectedVertical: string | null;
@@ -58,8 +55,8 @@ export default function Chart({
     consumerStrength: number;
     aiDisruption: number;
   }[];
+  svgCache: { [key: string]: string };
 }) {
-  const [svgCache, setSvgCache] = useState<SVGCache>({});
   const [hoveredQuadrant, setHoveredQuadrant] = useState<{
     quadrant: string;
   } | null>(null);
@@ -72,36 +69,6 @@ export default function Chart({
     "bottom-left": useCopy("qu_bottom_left_headline"),
     "bottom-right": useCopy("qu_bottom_right_headline"),
   };
-
-  useEffect(() => {
-    // Load all SVG files
-    const loadSVGs = async () => {
-      const svgPromises = Object.entries(verticalsMap).map(
-        async ([key, value]) => {
-          const iconName = (value as any).icon;
-          try {
-            const response = await fetch(
-              `${basePath}/verticals/${iconName}.svg`
-            );
-            const svgText = await response.text();
-            return [iconName, svgText];
-          } catch (error) {
-            console.error(`Failed to load SVG for ${iconName}:`, error);
-            return [iconName, ""];
-          }
-        }
-      );
-
-      const results = await Promise.all(svgPromises);
-      const cache: SVGCache = {};
-      results.forEach(([iconName, svgText]) => {
-        cache[iconName as string] = svgText as string;
-      });
-      setSvgCache(cache);
-    };
-
-    loadSVGs();
-  }, []);
 
   const [containerWidth, setContainerWidth] = useState(860);
   const [containerHeight, setContainerHeight] = useState(860);

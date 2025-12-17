@@ -15,6 +15,9 @@ interface VerticalData {
   consumerStrength: number;
   aiDisruption: number;
 }
+interface SVGCache {
+  [key: string]: string;
+}
 
 export default function QuadrantSection({
   isActive,
@@ -27,6 +30,7 @@ export default function QuadrantSection({
 }) {
   const [mobile, setMobile] = useState(false);
   const [verticalsData, setVerticalsData] = useState<VerticalData[]>([]);
+  const [svgCache, setSvgCache] = useState<SVGCache>({});
 
   const introTextRef = useRef<HTMLDivElement>(null);
   const chartContainerRef = useRef<HTMLDivElement>(null);
@@ -103,6 +107,36 @@ export default function QuadrantSection({
     setSelectedVertical(null);
     setSourceExpandedMobile(false);
   }, [chartMode]);
+
+  useEffect(() => {
+    // Load all SVG files
+    const loadSVGs = async () => {
+      const svgPromises = Object.entries(verticalsMap).map(
+        async ([key, value]) => {
+          const iconName = (value as any).icon;
+          try {
+            const response = await fetch(
+              `${basePath}/verticals/${iconName}.svg`
+            );
+            const svgText = await response.text();
+            return [iconName, svgText];
+          } catch (error) {
+            console.error(`Failed to load SVG for ${iconName}:`, error);
+            return [iconName, ""];
+          }
+        }
+      );
+
+      const results = await Promise.all(svgPromises);
+      const cache: SVGCache = {};
+      results.forEach(([iconName, svgText]) => {
+        cache[iconName as string] = svgText as string;
+      });
+      setSvgCache(cache);
+    };
+
+    loadSVGs();
+  }, []);
 
   // Set initial visibility
   useEffect(() => {
@@ -384,6 +418,7 @@ export default function QuadrantSection({
                     selectedVertical={selectedVertical}
                     setSelectedVertical={setSelectedVertical}
                     verticalsData={verticalsData}
+                    svgCache={svgCache}
                   />
                 </div>
               </div>
@@ -394,6 +429,7 @@ export default function QuadrantSection({
                   selectVertical={(vertical) => setSelectedVertical(vertical)}
                   mobile={mobile}
                   verticalsData={verticalsData}
+                  svgCache={svgCache}
                 />
               </div>
               <div ref={chartPanelRef} className="h-full overflow-hidden">
@@ -491,6 +527,7 @@ export default function QuadrantSection({
                   selectedVertical={selectedVertical}
                   selectVertical={(vertical) => setSelectedVertical(vertical)}
                   verticalsData={verticalsData}
+                  svgCache={svgCache}
                 />
               </div>
             </div>
@@ -505,10 +542,12 @@ function VerticalSelector({
   selectedVertical,
   setSelectedVertical,
   verticalsData,
+  svgCache,
 }: {
   selectedVertical: string | null;
   setSelectedVertical: (vertical: string | null) => void;
   verticalsData: VerticalData[];
+  svgCache: SVGCache;
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -519,19 +558,19 @@ function VerticalSelector({
     option = verticalInfo.label;
     iconName = verticalInfo.icon;
   }
+  const svgContent = svgCache[iconName];
 
   return (
     <div className="relative mt-2">
       <div className="flex w-full">
-        <img
-          src={`${basePath}/verticals/${iconName}.svg`}
-          alt=""
-          className="z-1"
+        <svg
+          className="z-1 vertical-selector-icon"
           width={33}
           height={33}
-        />
+          dangerouslySetInnerHTML={{ __html: svgContent || "" }}
+        ></svg>
         <div
-          className="flex-1 border border-grey-text rounded-[5px] flex justify-between items-center gap-4 px-3 pl-5 -ml-2.5 h-[31px] mt-[1px]"
+          className="flex-1 border border-grey-text rounded-[5px] flex justify-between items-center gap-4 px-3 pl-5 -ml-2.5 h-[32px]"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span className="text-[14px]">
