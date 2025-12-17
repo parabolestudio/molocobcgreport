@@ -41,12 +41,12 @@ export default function ChartPanelContentSelectedVertical({
     return (
       <div>
         <div className="flex gap-3">
-          <img
+          {/* <img
             src={`${basePath}/icons/hand.svg`}
             alt="hand icon"
             width={17}
             height={19}
-          />
+          /> */}
           <p className="text-grey-text text-[14px] font-light">
             {useCopy("qu_data_nudge_mobile")}
           </p>

@@ -169,6 +169,9 @@ export default function Chart({
         if (showSelectionPrompt) {
           setShowSelectionPrompt(false);
         }
+        if (mode === "data-filled" && hoveredQuadrant) {
+          setHoveredQuadrant(null);
+        }
       }}
     >
       <svg
@@ -437,14 +440,18 @@ export default function Chart({
               if (selectedVertical) {
                 isQuadrantActiveFromVertical =
                   (verticalsMap[selectedVertical] as any)?.quadrant ===
-                  quadrant.position;
+                    quadrant.position && !mobile;
               }
 
               const isQuadrantHovered =
                 hoveredQuadrant?.quadrant === quadrant.position;
 
-              const offsetX = mobile ? 8 : 12;
+              const offsetX = mobile ? 26 : 12;
               const offsetY = mobile ? 14 : 20;
+              // mobile only
+              const infoIconSize = 12;
+              const offsetXInfoIcon = 14;
+              const offsetYInfoIcon = 14;
 
               return (
                 <g key={index}>
@@ -461,7 +468,9 @@ export default function Chart({
                     className="transition"
                   />
                   <text
-                    className={`chart-text-base  transition cursor-pointer ${
+                    className={`chart-text-base  transition ${
+                      mode === "data-filled" ? "cursor-pointer" : ""
+                    } ${
                       mobile
                         ? isQuadrantActive
                           ? "text-[14px] font-bold"
@@ -494,13 +503,52 @@ export default function Chart({
                           ? quadrant.colorQuadrantActiveText
                           : "var(--grey-blue)",
                     }}
-                    onMouseEnter={() =>
-                      setHoveredQuadrant({ quadrant: quadrant.position })
-                    }
+                    onMouseEnter={() => {
+                      if (mode === "data-filled") {
+                        setHoveredQuadrant({ quadrant: quadrant.position });
+                      }
+                    }}
                     onMouseLeave={() => setHoveredQuadrant(null)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (mode === "data-filled") {
+                        setHoveredQuadrant({ quadrant: quadrant.position });
+                      }
+                    }}
                   >
                     {quadrant.title}
                   </text>
+                  {mobile && mode === "data-filled" && (
+                    <image
+                      href={`${basePath}/icons/info_tiny_filled${
+                        isQuadrantHovered || isQuadrantActiveFromVertical
+                          ? "_blue"
+                          : "_grey"
+                      }.svg`}
+                      x={
+                        innerWidth / 2 +
+                        (quadrant.position === "bottom-left" ||
+                        quadrant.position === "top-left"
+                          ? -offsetXInfoIcon - infoIconSize / 2
+                          : offsetXInfoIcon - infoIconSize / 2)
+                      }
+                      y={
+                        innerHeight / 2 +
+                        (quadrant.position === "bottom-left" ||
+                        quadrant.position === "bottom-right"
+                          ? offsetYInfoIcon - infoIconSize / 2
+                          : -offsetYInfoIcon - infoIconSize / 2)
+                      }
+                      width={infoIconSize}
+                      height={infoIconSize}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (mode === "data-filled") {
+                          setHoveredQuadrant({ quadrant: quadrant.position });
+                        }
+                      }}
+                    />
+                  )}
                 </g>
               );
             })}
@@ -705,14 +753,14 @@ export default function Chart({
             hoveredQuadrant?.quadrant === "bottom-left"
               ? "right"
               : "left",
-          marginTop: -10,
-          marginBottom: -10,
-          marginLeft: 10,
-          marginRight: 10,
+          marginTop: mobile ? 0 : -10,
+          marginBottom: mobile ? 0 : -10,
+          marginLeft: mobile ? 0 : 10,
+          marginRight: mobile ? 0 : 10,
           padding: 10,
           opacity: hoveredQuadrant && mode === "data-filled" ? 1 : 0,
           width: "fit-content",
-          maxWidth: innerWidth / 2 - 40,
+          maxWidth: mobile ? innerWidth : innerWidth / 2 - 40,
           pointerEvents: "none",
         }}
       >
