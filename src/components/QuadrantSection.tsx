@@ -332,7 +332,7 @@ export default function QuadrantSection({
           <h2 className="font-museo-moderno text-bright-green text-[40px] md:text-[96px] leading-[125%] md:leading-[114px] font-extralight text-center">
             {useCopy("climax_1_title")}
           </h2>
-          <p className="text-[18px] md:text-[32px] w-[615px] text-center">
+          <p className="text-[18px] md:text-[32px] max-w-[615px] text-center w-full">
             {useCopy("climax_1_paragraph")}
           </p>
         </div>
@@ -374,33 +374,39 @@ export default function QuadrantSection({
                 </div>
               </div>
               <div ref={mobileVerticalSelectRef}>
-                <p className="font-bold text-[14px] leading-[125%]">
-                  Select vertical
-                </p>
-                <select
-                  onChange={(v) => {
-                    if (v.target.value === "all-verticals") {
-                      setSelectedVertical(null);
-                    } else {
-                      setSelectedVertical(v.target.value);
-                    }
-                  }}
-                  className="w-full mt-2 p-2 border border-grey-border rounded-md text-[14px]"
-                  value={
-                    selectedVertical === null
-                      ? "all-verticals"
-                      : selectedVertical
-                  }
+                <div
+                  className={`${
+                    chartMode === "data-filled" ? "opacity-100" : "opacity-0"
+                  }`}
                 >
-                  <option key="all-verticals" value={"all-verticals"}>
-                    All verticals
-                  </option>
-                  {verticalsData.map((vd) => (
-                    <option key={vd.vertical} value={vd.vertical}>
-                      {vd.vertical}
+                  <p className="font-bold text-[14px] leading-[125%]">
+                    Select vertical
+                  </p>
+                  <select
+                    onChange={(v) => {
+                      if (v.target.value === "all-verticals") {
+                        setSelectedVertical(null);
+                      } else {
+                        setSelectedVertical(v.target.value);
+                      }
+                    }}
+                    className="w-full mt-2 p-2 border border-grey-border rounded-md text-[14px]"
+                    value={
+                      selectedVertical === null
+                        ? "all-verticals"
+                        : selectedVertical
+                    }
+                  >
+                    <option key="all-verticals" value={"all-verticals"}>
+                      All verticals
                     </option>
-                  ))}
-                </select>
+                    {verticalsData.map((vd) => (
+                      <option key={vd.vertical} value={vd.vertical}>
+                        {vd.vertical}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
               {/* </div> */}
               <div className="relative">

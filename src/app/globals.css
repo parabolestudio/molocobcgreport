@@ -144,7 +144,7 @@ button {
 }
 
 .panel-content .panel-heading {
-  @apply text-black-blue md:text-grey-text font-museo-moderno mb-4 md:mb-8 text-[18px] md:text-[40px];
+  @apply text-black-blue md:text-grey-text font-museo-moderno mb-0 md:mb-8 text-[18px] md:text-[40px];
 }
 
 .panel-content.panel-content-explanation .panel-text,
