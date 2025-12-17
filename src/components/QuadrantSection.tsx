@@ -454,7 +454,7 @@ export default function QuadrantSection({
                   </div>
                 </div>
                 {selectedVertical !== null && (
-                  <div className="absolute top-0 bottom-0 bg-green-400/10 h-full w-full">
+                  <div className="absolute top-0 bottom-0 h-full w-full">
                     <ChartPanel
                       mode={chartMode}
                       selectedVertical={selectedVertical}

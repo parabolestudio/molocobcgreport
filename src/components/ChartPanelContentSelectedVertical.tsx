@@ -25,47 +25,40 @@ export default function ChartPanelContentSelectedVertical({
     return (
       <div>
         <h3 className="panel-heading">{useCopy("qu_expl_title")}</h3>
-        <div className="flex gap-3">
-          {/* <img
-            src={`${basePath}/icons/mouse.svg`}
-            alt="Mouse icon"
-            width={24}
-            height={24}
-          /> */}
-          <p>{useCopy("qu_data_nudge")}</p>
-        </div>
+        <p>{useCopy("qu_data_nudge")}</p>
       </div>
     );
   }
   if (!selectedVertical && mobile) {
     return (
       <div>
-        <div className="flex gap-3">
-          {/* <img
-            src={`${basePath}/icons/hand.svg`}
-            alt="hand icon"
-            width={17}
-            height={19}
-          /> */}
-          <p className="text-grey-text text-[14px] font-light">
-            {useCopy("qu_data_nudge_mobile")}
-          </p>
-        </div>
+        <p className="text-grey-text text-[14px] font-light">
+          {useCopy("qu_data_nudge_mobile")}
+        </p>
       </div>
     );
   }
   return (
     <div className="flex flex-col h-full">
-      <div className="absolute top-8 right-8 cursor-pointer">
+      {mobile && (
+        <div className="absolute top-4 right-12">
+          <SideSwitchButton
+            shownSide={shownSide}
+            onShownSideChange={onShownSideChange}
+            mobile={mobile}
+          />
+        </div>
+      )}
+      <div className="absolute top-4 right-4 md:top-8 md:right-8 cursor-pointer">
         <img
           src={`${basePath}/icons/cross.svg`}
           alt="Close"
-          width={25}
-          height={28}
+          width={mobile ? 20 : 25}
+          height={mobile ? 20 : 25}
           onClick={() => selectVertical(null)}
         />
       </div>
-      <h3 className="text-grey-text font-museo-moderno mb-0 text-[40px] mr-10 shrink-0 font-bold">
+      <h3 className="text-grey-text font-museo-moderno mb-0 text-[18px] md:text-[40px] mr-[150px] md:mr-10 shrink-0 font-bold">
         {selectedVertical}
       </h3>
       <div
@@ -80,27 +73,52 @@ export default function ChartPanelContentSelectedVertical({
           <DetailsCopy copy={copy} />
         )}
       </div>
-      <div className="shrink-0 mt-6">
-        <button
-          className={`${
-            shownSide === "summary" ? "bg-bright-green" : "bg-medium-blue"
-          } transition flex items-center justify-center gap-2`}
-          onClick={() =>
-            onShownSideChange(shownSide === "summary" ? "details" : "summary")
-          }
-        >
-          <span className="text-black-blue">
-            {shownSide === "summary" ? "Details" : "Summary"}
-          </span>
-          <img
-            src={`${basePath}/icons/switch.svg`}
-            alt="switch"
-            width={18}
-            height={18}
-          />
-        </button>
+      <div
+        className="shrink-0 mt-6"
+        style={{ display: mobile ? "none" : "block" }}
+      >
+        <SideSwitchButton
+          shownSide={shownSide}
+          onShownSideChange={onShownSideChange}
+          mobile={mobile}
+        />
       </div>
     </div>
+  );
+}
+
+function SideSwitchButton({
+  shownSide,
+  onShownSideChange,
+  mobile,
+}: {
+  shownSide: "summary" | "details";
+  onShownSideChange: (side: "summary" | "details") => void;
+  mobile?: boolean;
+}) {
+  return (
+    <button
+      className={`${
+        shownSide === "summary" ? "bg-bright-green" : "bg-medium-blue"
+      } transition flex items-center justify-center gap-2`}
+      style={{
+        padding: mobile ? "6px 12px" : undefined,
+        borderRadius: mobile ? 5 : 20,
+      }}
+      onClick={() =>
+        onShownSideChange(shownSide === "summary" ? "details" : "summary")
+      }
+    >
+      <span className="text-black-blue text-[12px] md:text-[18px]">
+        {shownSide === "summary" ? "Details" : "Summary"}
+      </span>
+      <img
+        src={`${basePath}/icons/switch.svg`}
+        alt="switch"
+        width={mobile ? 12 : 18}
+        height={mobile ? 12 : 18}
+      />
+    </button>
   );
 }
 
@@ -112,18 +130,14 @@ function SummaryCopy({ copy }: { copy: Copy }) {
       <div className="flex flex-col gap-6">
         {/* Example apps */}
         <div>
-          <p className="text-[14px]">Example apps in category</p>
+          <p className="text-[12px] md:text-[14px]">Example apps in category</p>
           <LoopedAppLogos apps={copy.exampleApps} vertical={copy.vertical} />
         </div>
 
         {/* Intro */}
         <p>
           {copy.intro.split("\n\n").map((paragraph, index) => (
-            <span key={index}>
-              {paragraph}
-              <br />
-              <br />
-            </span>
+            <span key={index}>{paragraph}</span>
           ))}
         </p>
       </div>
@@ -131,7 +145,7 @@ function SummaryCopy({ copy }: { copy: Copy }) {
       {/* Quotes */}
       <div className="bg-[#05284D] rounded-[20px] p-5 pb-8 text-[18px] relative">
         <p className="font-bold pb-4">{copy.quotes[shownQuoteIndex]?.text}</p>
-        <p>{copy.quotes[shownQuoteIndex]?.credit}</p>
+        <p>— {copy.quotes[shownQuoteIndex]?.credit}</p>
         <img
           className="absolute bottom-0 left-0 cursor-pointer"
           src={`${basePath}/icons/arrow_pill.svg`}
@@ -289,8 +303,10 @@ function DetailsCopy({ copy }: { copy: Copy }) {
     <div>
       <div className="border-b border-b-bright-green pb-5 border-dashed gap-4 flex flex-col">
         <div>
-          <p className="font-bold text-[24px]">AI Disruption Risk</p>
-          <p>{copy.ai_risk_intro}</p>
+          <p className="font-bold text-[18px] md:text-[24px]">
+            AI Disruption Risk
+          </p>
+          <p className="text-[14px] md:text-[18px]">{copy.ai_risk_intro}</p>
         </div>
         <div>
           <p className="font-bold">
@@ -299,7 +315,9 @@ function DetailsCopy({ copy }: { copy: Copy }) {
               {copy.ai_discovery_risk_level}
             </span>
           </p>
-          <p className="text-[14px]">{copy.ai_discovery_risk_intro}</p>
+          <p className="text-[12px] md:text-[14px]">
+            {copy.ai_discovery_risk_intro}
+          </p>
         </div>
         <div>
           <p className="font-bold">
@@ -308,22 +326,26 @@ function DetailsCopy({ copy }: { copy: Copy }) {
               {copy.ai_service_risk_level}
             </span>
           </p>
-          <p className="text-[14px]">{copy.ai_service_risk_intro}</p>
+          <p className="text-[12px] md:text-[14px]">
+            {copy.ai_service_risk_intro}
+          </p>
         </div>
         <div>
           <p className="font-bold">
             Data Access & Regulatory |{" "}
             <span className="text-bright-green">{copy.ai_data_risk_level}</span>
           </p>
-          <p className="text-[14px]">{copy.ai_data_risk_intro}</p>
+          <p className="text-[12px] md:text-[14px]">
+            {copy.ai_data_risk_intro}
+          </p>
         </div>
       </div>
       <div className="py-5 border-dashed gap-5 flex flex-col">
         <div>
-          <p className="font-bold text-[24px]">
+          <p className="font-bold text-[18px] md:text-[24px">
             Strength of Customer Relationship
           </p>
-          <p>{copy.customer_intro}</p>
+          <p className="text-[12px] md:text-[14px]">{copy.customer_intro}</p>
         </div>
         <ScoreDisplay
           title="Acquisition Strength"
@@ -386,7 +408,7 @@ function ScoreDisplay({
     <div className="w-full">
       <div className="grid grid-cols-[35%_65%] w-full">
         <div className="min-w-0">
-          <p className="font-bold text-[18px]">{title}</p>
+          <p className="font-bold text-[14px] md:text-[18px]">{title}</p>
           <p className="text-[14px] italic">{note}</p>
         </div>
         <div className="min-w-0" id={id}>
@@ -397,7 +419,7 @@ function ScoreDisplay({
                 y1={midLine}
                 x2={innerWidth}
                 y2={midLine}
-                className="stroke-forest-green"
+                className="stroke-black-blue md:stroke-forest-green"
                 strokeWidth={1.5}
                 strokeLinecap="round"
               />
@@ -409,7 +431,7 @@ function ScoreDisplay({
                     y1={midLine - 10}
                     x2={xScale(tickValue)}
                     y2={midLine}
-                    className="stroke-forest-green"
+                    className="stroke-black-blue md:stroke-forest-green"
                     strokeWidth={0.5}
                   />
                 ))}
@@ -446,13 +468,13 @@ function ScoreDisplay({
                     x2="0"
                     y1={midLine + 20}
                     y2={midLine}
-                    className="stroke-forest-green"
+                    className="stroke-black-blue md:stroke-forest-green"
                     strokeWidth={1.5}
                   />
                   <text
                     dx="-3"
                     y={midLine + 15}
-                    className="fill-forest-green text-[14px]"
+                    className="fill-black-blue md:fill-forest-green text-[14px]"
                     textAnchor="end"
                     dominantBaseline="middle"
                   >
@@ -464,7 +486,7 @@ function ScoreDisplay({
           </svg>
         </div>
       </div>
-      <p className="text-[14px] pt-3 w-full">{description}</p>
+      <p className="text-[12px] md:text-[14px] pt-3 w-full">{description}</p>
     </div>
   );
 }

@@ -33,9 +33,19 @@
     transparent
   );
   --color-panel-background-blue: color-mix(in srgb, #0b3766 80%, transparent);
+  --color-panel-background-blue-mobile: color-mix(
+    in srgb,
+    #0b3766 95%,
+    transparent
+  );
   --color-panel-background-green: color-mix(
     in srgb,
     var(--color-forest-green) 50%,
+    transparent
+  );
+  --color-panel-background-green-mobile: color-mix(
+    in srgb,
+    var(--color-forest-green) 95%,
     transparent
   );
   --color-medium-blue: var(--blue-2, #0280fb);
@@ -43,6 +53,13 @@
   --font-montserrat: var(--font-montserrat);
 
   --default-transition-duration: 300ms;
+}
+
+.bg-panel-background-green {
+  @apply bg-panel-background-green-mobile md:bg-panel-background-green;
+}
+.bg-panel-background-blue {
+  @apply bg-panel-background-blue-mobile md:bg-panel-background-blue;
 }
 
 body {
