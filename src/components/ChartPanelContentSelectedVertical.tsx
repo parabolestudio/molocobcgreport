@@ -130,7 +130,9 @@ function SummaryCopy({ copy }: { copy: Copy }) {
       <div className="flex flex-col gap-6">
         {/* Example apps */}
         <div>
-          <p className="text-[12px] md:text-[14px]">Example apps in category</p>
+          <p className="text-[12px] md:text-[14px]">
+            {useCopy("qu_chart_logo_text")}
+          </p>
           <LoopedAppLogos apps={copy.exampleApps} vertical={copy.vertical} />
         </div>
 
