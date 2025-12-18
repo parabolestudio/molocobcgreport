@@ -14,7 +14,9 @@ export interface DistributedRingsFormationConfig {
   smoothing: number; // Smoothing factor for position transition - Default: 0.08
 
   // Distribution settings
-  distributionZoneAngle: number; // Angle range (in radians) around horizontal center where distribution occurs - Default: PI/3 (60 degrees on each side)
+  distributionZoneAngle: number; // Angle range (in radians) for single ring OR base angle if inner/outer not set - Default: PI/3 (60 degrees on each side)
+  distributionZoneAngleInner?: number; // Angle range for innermost ring - if set, overrides distributionZoneAngle and interpolates to outer
+  distributionZoneAngleOuter?: number; // Angle range for outermost ring - used with distributionZoneAngleInner for gradient effect
   distributionMinRadius: number; // Minimum outward distribution distance - Default: 20
   distributionMaxRadius: number; // Maximum outward distribution distance - Default: 120
   distributionSeed: number; // Seed for consistent random distribution pattern - Default: 42
@@ -35,6 +37,9 @@ export interface DistributedRingsFormationConfig {
  * 4. Adjust distributionZoneAngle to control how wide the horizontal distribution zone is
  *    - Smaller values (PI/6) = narrow horizontal band
  *    - Larger values (PI/2) = wider distribution area
+ *    - Or use distributionZoneAngleInner + distributionZoneAngleOuter for gradient:
+ *      distributionZoneAngleInner: PI/6 (narrow for inner rings)
+ *      distributionZoneAngleOuter: PI/2 (wide for outer rings)
  * 5. Set distributionMinRadius and distributionMaxRadius to control scatter range
  * 6. Change distributionSeed for different random patterns
  *
@@ -88,8 +93,7 @@ export class DistributedRingsFormation implements Formation {
    * Check if an angle is within the horizontal distribution zone
    * Horizontal center is at 0 (right) and PI (left)
    */
-  private isInDistributionZone(angle: number): boolean {
-    const { distributionZoneAngle } = this.config;
+  private isInDistributionZone(angle: number, zoneAngle: number): boolean {
     const normalizedAngle = angle % (Math.PI * 2);
 
     // Right zone (around 0 or 2*PI)
@@ -103,7 +107,7 @@ export class DistributedRingsFormation implements Formation {
     const leftDiff = Math.abs(normalizedAngle - leftCenter);
 
     return (
-      rightDiff <= distributionZoneAngle || leftDiff <= distributionZoneAngle
+      rightDiff <= zoneAngle || leftDiff <= zoneAngle
     );
   }
 
@@ -169,6 +173,9 @@ export class DistributedRingsFormation implements Formation {
       radiusStep,
       circleSize,
       smoothing,
+      distributionZoneAngle,
+      distributionZoneAngleInner,
+      distributionZoneAngleOuter,
     } = this.config;
 
     let circleIndex = 0;
@@ -180,6 +187,17 @@ export class DistributedRingsFormation implements Formation {
       ringIndex++
     ) {
       const radius = innerRadius + innerRadiusOffset + ringIndex * radiusStep;
+      
+      // Calculate distribution zone angle for this ring
+      let currentZoneAngle: number;
+      if (distributionZoneAngleInner !== undefined && distributionZoneAngleOuter !== undefined) {
+        // Interpolate between inner and outer angles
+        const progress = ringsCount > 1 ? ringIndex / (ringsCount - 1) : 0;
+        currentZoneAngle = distributionZoneAngleInner + (distributionZoneAngleOuter - distributionZoneAngleInner) * progress;
+      } else {
+        // Use the base angle
+        currentZoneAngle = distributionZoneAngle;
+      }
       const circumference = p5.TWO_PI * radius;
 
       // Calculate how many circles fit on this ring with the desired arc spacing
@@ -200,7 +218,7 @@ export class DistributedRingsFormation implements Formation {
         let targetY = centerY + p5.sin(angle) * radius;
 
         // Check if this circle should be distributed
-        if (this.isInDistributionZone(angle)) {
+        if (this.isInDistributionZone(angle, currentZoneAngle)) {
           const offset = this.getDistributionOffset(circleIndex, angle);
           targetX += offset.deltaX;
           targetY += offset.deltaY;

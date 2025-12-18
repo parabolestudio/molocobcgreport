@@ -24,6 +24,8 @@ export interface SubsectionConfig {
     circleSize?: number; // Fixed size of circles - Default: 8
     arcSpacing?: number; // Arc length spacing between circles - Default: 30
     distributionZoneAngle?: number; // Angle range around horizontal center - Default: PI/3
+    distributionZoneAngleInner?: number; // Angle for innermost ring (use with distributionZoneAngleOuter for gradient)
+    distributionZoneAngleOuter?: number; // Angle for outermost ring (creates gradient with distributionZoneAngleInner)
     distributionMinRadius?: number; // Min scatter distance - Default: 20
     distributionMaxRadius?: number; // Max scatter distance - Default: 120
     distributionSeed?: number; // Random seed - Default: 42
@@ -40,10 +42,12 @@ const configDistributedRingsCenterFullScreen = {
 
   distributedRingsConfig: {
     innerRadius: "screenHeight" as const, // Dynamically use screen height
-    innerRadiusOffset: -60, // Start 60px inside the chart circle
-    ringsCount: 4,
-    radiusStep: 40,
-    distributionZoneAngle: Math.PI / 4, // 45 degrees
+    innerRadiusOffset: -(30 * 3 + 30 / 2), // Start 60px inside the chart circle
+    ringsCount: 6,
+    radiusStep: 30,
+    // distributionZoneAngle: Math.PI / 4, // 45 degrees
+    distributionZoneAngleInner: Math.PI / 8, // ~22.5° for innermost ring
+    distributionZoneAngleOuter: Math.PI / 3, // ~60° for outermost ring
     distributionMinRadius: 30,
     distributionMaxRadius: 250,
   },
