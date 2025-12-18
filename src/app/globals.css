@@ -175,15 +175,11 @@ button {
 .panel-content.panel-content-explanation .panel-text span {
   @apply text-black-blue md:text-grey-text text-[14px] md:text-[18px];
 }
-
-.panel-content .highlighted-axis .text-bright-green {
-  color: var(--bright-green);
-}
-.panel-content .highlighted-axis .text-bright-green {
-  color: var(--bright-green);
-}
-.panel-content .non-highlighted-axis .text-bright-green {
-  color: var(--grey-text);
+.panel-content.panel-content-explanation
+  .panel-text.highlighted-axis
+  span.text-bright-green
+  span {
+  @apply text-bright-green;
 }
 
 .vertical-selector-icon rect {
