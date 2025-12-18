@@ -21,7 +21,7 @@ export default function CTASection({ isActive }: { isActive: boolean }) {
               height={40}
               className="max-w-[117px]"
             />
-            <h3 className="font-extralight text-[40px] md:text-[96px] font-museo-moderno leading-[100%] text-center max-w-[600px] text-balance">
+            <h3 className="font-extralight text-[40px] md:text-[96px] font-museo-moderno leading-[115%] text-center max-w-[600px] text-balance">
               {useCopy("cta_text")}
             </h3>
 
