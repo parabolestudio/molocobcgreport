@@ -17,6 +17,10 @@
   --background: var(--black-blue);
   --dark-background: #020223;
   --foreground: var(--grey-text);
+
+  /* Mobile-safe viewport height - updated by JS */
+  --vh: 1vh;
+  --app-height: 100vh;
 }
 
 @theme {

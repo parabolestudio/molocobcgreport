@@ -25,10 +25,15 @@ export default function HookSection({
 
   // Set initial visibility
   useEffect(() => {
-    // Set step 0 (text1) visible, others hidden
-    gsap.set(text1Ref.current, { autoAlpha: 1 });
-    gsap.set(text2Ref.current, { autoAlpha: 0 });
-    gsap.set(titleRef.current, { autoAlpha: 0 });
+    if (text1Ref.current) {
+      gsap.set(text1Ref.current, { opacity: 1, visibility: "visible" });
+    }
+    if (text2Ref.current) {
+      gsap.set(text2Ref.current, { opacity: 0, visibility: "hidden" });
+    }
+    if (titleRef.current) {
+      gsap.set(titleRef.current, { opacity: 0, visibility: "hidden" });
+    }
   }, []);
 
   // Handle step transitions
@@ -47,7 +52,7 @@ export default function HookSection({
     // Hide all texts immediately except current and previous
     texts.forEach((text, i) => {
       if (i !== currentStep && i !== previousStep) {
-        gsap.set(text, { autoAlpha: 0 });
+        gsap.set(text, { opacity: 0, visibility: "hidden" });
       }
     });
 
@@ -76,7 +81,8 @@ export default function HookSection({
       <div className="relative w-full h-full flex items-center justify-center">
         <div
           ref={text1Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8 text-center flex flex-col items-center justify-between gap-20 h-[80vh]"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8 text-center flex flex-col items-center justify-between gap-20"
+          style={{ height: "calc(var(--vh, 1vh) * 80)" }}
         >
           <button className="bg-grey-blue flex items-center justify-center gap-2 opacity-0"></button>
           <p className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat">

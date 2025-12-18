@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useLayoutEffect } from "react";
 import HookSection from "@/components/HookSection";
 import JourneySection from "@/components/JourneySection";
 import QuadrantSection from "@/components/QuadrantSection";
@@ -21,6 +21,59 @@ export default function Home() {
   const mainContainerRef = useRef<HTMLDivElement>(null);
   const [currentSection, setCurrentSection] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Fix mobile viewport height issue with browser toolbars
+  // Set CSS variables BEFORE any rendering using useLayoutEffect
+  useLayoutEffect(() => {
+    const getViewportHeight = () => {
+      // Use visualViewport if available (more reliable on mobile)
+      // Otherwise fall back to window.innerHeight
+      return window.visualViewport?.height || window.innerHeight;
+    };
+
+    // Set viewport height immediately
+    const viewportHeight = getViewportHeight();
+    const vh = viewportHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+    document.documentElement.style.setProperty(
+      "--app-height",
+      `${viewportHeight}px`
+    );
+
+    // Mark as initialized after setting variables
+    requestAnimationFrame(() => {
+      setIsInitialized(true);
+    });
+
+    const setViewportHeight = () => {
+      const viewportHeight = getViewportHeight();
+      const vh = viewportHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+      document.documentElement.style.setProperty(
+        "--app-height",
+        `${viewportHeight}px`
+      );
+
+      // Refresh ScrollTrigger after viewport changes
+      ScrollTrigger.refresh();
+    };
+
+    // Listen to visualViewport resize if available
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", setViewportHeight);
+    }
+    window.addEventListener("resize", setViewportHeight);
+    window.addEventListener("orientationchange", setViewportHeight);
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", setViewportHeight);
+      }
+      window.removeEventListener("resize", setViewportHeight);
+      window.removeEventListener("orientationchange", setViewportHeight);
+    };
+  }, []);
 
   // Single ScrollTrigger for entire page
   const { scrollToSection } = useGlobalScrollTrigger({
@@ -85,8 +138,12 @@ export default function Home() {
       ></div>
       <div
         ref={mainContainerRef}
-        className="relative h-screen"
-        style={{ zIndex: 10 }}
+        className="relative transition-opacity duration-200"
+        style={{
+          zIndex: 10,
+          height: "var(--app-height)",
+          opacity: isInitialized ? 1 : 0,
+        }}
       >
         <HookSection
           isActive={currentSection === 0}
