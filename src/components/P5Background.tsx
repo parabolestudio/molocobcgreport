@@ -236,6 +236,19 @@ export default function P5Background({
           };
         }
 
+        // Resolve innerRadius based on configuration
+        let resolvedInnerRadius: number | undefined;
+        const configuredInnerRadius =
+          activeSubsectionDR.distributedRingsConfig?.innerRadius;
+
+        if (configuredInnerRadius === "chartRadius") {
+          resolvedInnerRadius = chartDataInit.innerRadius;
+        } else if (configuredInnerRadius === "screenHeight") {
+          resolvedInnerRadius = p5.height / 2;
+        } else if (typeof configuredInnerRadius === "number") {
+          resolvedInnerRadius = configuredInnerRadius;
+        }
+
         // Apply distributed rings formation
         data.distributedRingsFormation.apply(
           data.circleManager.circles,
@@ -245,8 +258,8 @@ export default function P5Background({
             ...activeSubsectionDR.distributedRingsConfig,
             centerX: chartDataInit.centerX,
             centerY: chartDataInit.centerY,
-            ...(chartDataInit.innerRadius !== undefined && {
-              innerRadius: chartDataInit.innerRadius,
+            ...(resolvedInnerRadius !== undefined && {
+              innerRadius: resolvedInnerRadius,
             }),
           }
         );
@@ -446,6 +459,19 @@ export default function P5Background({
               };
             }
 
+            // Resolve innerRadius based on configuration
+            let resolvedInnerRadius: number | undefined;
+            const configuredInnerRadius =
+              currentConfig.distributedRingsConfig?.innerRadius;
+
+            if (configuredInnerRadius === "chartRadius") {
+              resolvedInnerRadius = chartData.innerRadius;
+            } else if (configuredInnerRadius === "screenHeight") {
+              resolvedInnerRadius = p5.height / 2;
+            } else if (typeof configuredInnerRadius === "number") {
+              resolvedInnerRadius = configuredInnerRadius;
+            }
+
             // Apply distributed rings formation
             data.distributedRingsFormation.apply(
               data.circleManager.circles,
@@ -455,8 +481,8 @@ export default function P5Background({
                 ...currentConfig.distributedRingsConfig,
                 centerX: chartData.centerX,
                 centerY: chartData.centerY,
-                ...(chartData.innerRadius !== undefined && {
-                  innerRadius: chartData.innerRadius,
+                ...(resolvedInnerRadius !== undefined && {
+                  innerRadius: resolvedInnerRadius,
                 }),
               }
             );

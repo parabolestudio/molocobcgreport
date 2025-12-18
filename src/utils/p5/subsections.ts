@@ -17,7 +17,7 @@ export interface SubsectionConfig {
   alpha?: number; // Base opacity for circles (0-1) - Default: 0.6
   // DistributedRings formation configuration
   distributedRingsConfig?: {
-    innerRadius?: number; // Starting radius for the first ring - Default: 200
+    innerRadius?: number | "screenHeight" | "chartRadius"; // Starting radius: direct number, "screenHeight" for screen height, or "chartRadius" for chart circle radius - Default: 200
     innerRadiusOffset?: number; // Offset to add/subtract from innerRadius (e.g., -40 to start inside, +40 to start outside) - Default: 0
     ringsCount?: number; // Number of concentric rings (3-5 recommended) - Default: 4
     radiusStep?: number; // Distance between each ring - Default: 60
@@ -39,8 +39,8 @@ const configDistributedRingsCenterFullScreen = {
   ringCenter: { x: 0.5, y: 0.5 },
 
   distributedRingsConfig: {
-    innerRadius: 380,
-    innerRadiusOffset: 0,
+    innerRadius: "screenHeight" as const, // Dynamically use screen height
+    innerRadiusOffset: -60, // Start 60px inside the chart circle
     ringsCount: 4,
     radiusStep: 40,
     distributionZoneAngle: Math.PI / 4, // 45 degrees
@@ -87,7 +87,7 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
       formation: "distributedRings",
       ringCenter: "chartCenter",
       distributedRingsConfig: {
-        // innerRadius: 380, // Matches the chart circle radius (innerWidth/2 = 760/2 = 380px)
+        innerRadius: "chartRadius", // Use chart circle radius
         innerRadiusOffset: -60, // Start 60px inside the chart circle
         ringsCount: 4,
         radiusStep: 40,

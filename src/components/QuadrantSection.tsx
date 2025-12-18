@@ -591,7 +591,7 @@ function VerticalSelector({
           dangerouslySetInnerHTML={{ __html: svgContent || "" }}
         ></svg>
         <div
-          className="flex-1 border border-grey-text rounded-[5px] flex justify-between items-center gap-4 px-3 pl-5 -ml-2.5 h-[32px]"
+          className="flex-1 border border-grey-text rounded-[5px] flex justify-between items-center gap-4 px-3 pl-5 -ml-2.5 h-8"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span className="text-[14px]">{option}</span>
