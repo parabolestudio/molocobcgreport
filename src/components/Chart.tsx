@@ -102,6 +102,13 @@ export default function Chart({
     };
   }, []);
 
+  // hide selection prompt if vertical is selected
+  useEffect(() => {
+    if (selectedVertical) {
+      setShowSelectionPrompt(false);
+    }
+  }, [selectedVertical]);
+
   const margin = {
     top: mobile ? 30 : 50,
     bottom: mobile ? 30 : 50,

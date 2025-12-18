@@ -377,7 +377,7 @@ export default function QuadrantSection({
         >
           {mobile ? (
             <div className="h-full flex flex-col justify-between gap-5 relative overflow-hidden">
-              <div ref={mobileHeaderRef}>
+              <div ref={mobileHeaderRef} className="relative z-70">
                 <h3 className="font-museo-moderno text-[24px] leading-[115%] text-grey-text mb-2">
                   {quadrantExplTitle}
                 </h3>
@@ -389,8 +389,10 @@ export default function QuadrantSection({
                     height={28}
                   />
                   <p
-                    className={`text-[12px] text-grey-text ${
-                      sourceExpandedMobile ? "absolute left-[33px]" : ""
+                    className={`text-[12px] text-grey-text p-1 ${
+                      sourceExpandedMobile
+                        ? "absolute left-[33px] bg-dark-background"
+                        : ""
                     }`}
                   >
                     {sourceExpandedMobile ? sourceFull : sourceShort}{" "}
@@ -405,7 +407,7 @@ export default function QuadrantSection({
                   </p>
                 </div>
               </div>
-              <div ref={mobileVerticalSelectRef}>
+              <div ref={mobileVerticalSelectRef} className="relative z-50">
                 <div
                   className={`${
                     chartMode === "data-filled" ? "opacity-100" : "opacity-0"
@@ -422,7 +424,7 @@ export default function QuadrantSection({
                   />
                 </div>
               </div>
-              <div ref={chartRef}>
+              <div ref={chartRef} className="relative z-40">
                 <Chart
                   mode={chartMode}
                   selectedVertical={selectedVertical}
@@ -465,7 +467,7 @@ export default function QuadrantSection({
                 </div>
               </div>
               {selectedVertical !== null && (
-                <div className="extraChartPanel absolute top-[170px] bottom-0 right-0 w-full">
+                <div className="extraChartPanel absolute top-[170px] bottom-0 right-0 w-full z-45">
                   <ChartPanel
                     mode={chartMode}
                     selectedVertical={selectedVertical}
@@ -560,6 +562,25 @@ function VerticalSelector({
   }
   const svgContent = svgCache[iconName];
 
+  // close vertical selector when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      const selectorElement = document.querySelector(
+        ".vertical-selector-icon"
+      )?.parentElement;
+
+      if (selectorElement && !selectorElement.contains(target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener("click", handleClickOutside);
+    }
+    return () => window.removeEventListener("click", handleClickOutside);
+  }, [isOpen]);
+
   return (
     <div className="relative mt-2">
       <div className="flex w-full">
@@ -573,9 +594,7 @@ function VerticalSelector({
           className="flex-1 border border-grey-text rounded-[5px] flex justify-between items-center gap-4 px-3 pl-5 -ml-2.5 h-[32px]"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <span className="text-[14px]">
-            {selectedVertical || "All verticals"}
-          </span>
+          <span className="text-[14px]">{option}</span>
           <img
             src={`${basePath}/icons/triangle.svg`}
             alt=""
@@ -586,7 +605,7 @@ function VerticalSelector({
         </div>
       </div>
       {isOpen && (
-        <div className="max-h-[170px] h-[170px] overflow-y-auto bg-grey-text rounded-[5px]">
+        <div className="max-h-[170px] h-[170px] overflow-y-auto bg-grey-text rounded-[5px] absolute left-0 right-0 z-50">
           <div
             className={`px-3 py-2 text-[14px] cursor-pointer text-black-blue border-b border-black-blue`}
             onClick={() => {
