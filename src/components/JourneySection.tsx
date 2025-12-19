@@ -238,11 +238,11 @@ export default function JourneySection({
         </div>
 
         {/* Stats screens with grid */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1600px] px-8 md:px-10 h-full max-h-[1200px] py-8 pointer-events-none flex flex-col">
-          <div className="grow grid grid-cols-[0_auto_0] md:grid-cols-[1fr_1.5fr_1fr] gap-0 md:gap-10 h-full w-full">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1600px] px-8 md:px-10 h-full max-h-[1200px] py-16 md:py-8 pointer-events-none">
+          <div className="grid grid-cols-[auto] grid-rows-[1fr_auto] gap-16 md:gap-y-20 h-full w-full">
             <div
               ref={journeyPathRef}
-              style={{ gridArea: "1 / 1 / 2 / 4" }}
+              style={{ gridArea: "2 / 1 / 3 / 2" }}
               className="opacity-0 invisible"
             >
               <JourneyPath step={currentStep} />
@@ -335,23 +335,38 @@ function StatDisplay({
   return (
     <div ref={passRef} style={{ display: "contents" }}>
       <div
-        className="stat-content flex flex-col justify-around opacity-0 invisible"
+        className="stat-content flex flex-col gap-10 justify-between md:justify-start opacity-0 invisible"
         style={{
-          gridArea: "2 / 2 / 3 / 3",
+          gridArea: "1 / 1 / 2 / 2",
         }}
       >
-        <div>
-          <div className="text-bright-green text-[18px] md:text-[24px] text-center font-bold mb-3">
-            {useCopy(`journey_${step}_stat_headline`)}
-          </div>
-          <div className="text-bright-green text-[128px] md:text-[260px] text-center font-semibold leading-none font-museo-moderno uppercase">
+        <div className="text-bright-green text-[40px] md:text-[96px] text-center text-balance font-extralight mb-3 leading-[115%] font-museo-moderno">
+          {useCopy(`journey_${step}_stat_headline`)}
+        </div>
+        <div
+          className={`flex flex-col md:flex-row gap-0 md:gap-10 justify-center items-center mx-auto ${
+            step === 2 ? "max-w-[820px] " : "max-w-[680px]"
+          }`}
+        >
+          <div className="text-bright-green text-[96px] md:text-[160px] text-center font-semibold font-museo-moderno uppercase leading-[125%]">
             {useCopy(`journey_${step}_stat_number`)}
           </div>
-          <div className="text-bright-green text-[18px] md:text-[24px] text-center text-balance mt-5">
+          <div className="text-bright-green text-[18px] md:text-[32px] text-center text-balance md:text-left leading-[100%]">
             {useCopy(`journey_${step}_stat_text`)}
           </div>
+          <div
+            className={`md:hidden mt-8 text-[#9494AA] text-[14px] md:text-center text-balance leading-[100%] ${
+              step === 4 ? "max-w-[700px] " : "max-w-[680px]"
+            } mx-auto`}
+          >
+            {useCopy(`journey_${step}_stat_source`)}
+          </div>
         </div>
-        <div className="text-[#9494AA] text-[12px] md:text-center text-balance">
+        <div
+          className={`hidden md:block text-[#9494AA] text-[14px] md:text-center text-balance leading-[100%] ${
+            step === 4 ? "max-w-[700px] " : "max-w-[680px]"
+          } mx-auto`}
+        >
           {useCopy(`journey_${step}_stat_source`)}
         </div>
       </div>
@@ -364,7 +379,7 @@ function JourneyPath({ step }: { step: number }) {
     // Desktop
     <>
       <div
-        className={`hidden md:block w-full max-w-[90%] mx-auto journey-path current-step-${step}`}
+        className={`hidden md:block w-full journey-path current-step-${step}`}
       >
         <svg
           viewBox="0 0 1502 250"

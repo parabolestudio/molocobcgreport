@@ -24,12 +24,14 @@ This report leverages insights from multiple research methodologies conducted wi
 Moloco app performance data from 3000+ apps representing 200B+ downloads, analyzing retention rates, engagement patterns, and acquisition channels (Moloco/Sensor Tower/Semrush)..",,,
 ,Consumer journey title,AI and the new consumer journey,,,
 journey_1_title,"Consumer journey, step 1 title",Inspiration,,,
-journey_1_stat_headline,"Consumer journey, step 1 headline",<green>Inspiration now starts <b>with AI</b></green>,,,
+journey_1_stat_headline,"Consumer journey, step 1 headline","<green>Inspiration now 
+starts <b>with AI</b></green>",,,
 journey_1_stat_number,"Consumer journey, step 1 stat",1/3,,,
 journey_1_stat_text,"Consumer journey, step 1 body text",U.S. adults now discover brands via personal AI agents,,,
 journey_1_stat_source,"Consumer journey, step 1 source","Source: Cordial, “Brands Battle for Attention as AI Redefines the Funnel” conducted by Dynata, Aug 2025. 1,000 US Adults surveyed by Dynata",,,
 journey_2_title,"Consumer journey, step 2 title",Discovery,,,
-journey_2_stat_headline,"Consumer journey, step 2 headline",<green>Discovery has been <b>upended</b></green>,,,
+journey_2_stat_headline,"Consumer journey, step 2 headline","<green>Discovery has
+ been <b>upended</b></green>",,,
 journey_2_stat_number,"Consumer journey, step 2 stat",80%,,,
 journey_2_stat_text,"Consumer journey, step 2 body text",of Google searches now end without a click when AI Overview is present,,,
 journey_2_stat_source,"Consumer journey, step 2 source","Source: Similarweb, “Zero-Click Searched And How They Impact Traffic”, May 2025",,,
@@ -121,7 +123,7 @@ closure_card_2_text,Closure card 2 text,"<b>Key strategies</b> to make the most 
 - Use AI to activate first-party data for personalization at scale.
 - Reduce dependency on data from walled gardens by investing in unique customer intelligence.",,,
 closure_card_3_title,Closure card 3 title,<b>Investing in the App Advantage</b>,,,
-closure_card_3_summary,Closure card 3 summary,"While everyone fights for visibility in the AI-disrupted world, forward-looking brands are differentiating their offerings and building customer relationships on surfaces they own. Not every brand needs an app, but brands with loyal customers, frequent engagement, complex service needs, or strong communities are investing in this unique surface that AI can’t disintermediate. Apps offer marketers valuable first-party data, closed-loop measurement, and most importantly, deeper connections with customers. ",,,
+closure_card_3_summary,Closure card 3 summary,"While everyone fights for visibility, forward-looking brands are building customer relationships on surfaces they own. Not every brand needs an app, but for brands who can offer frequent engagement, complex service, or community ecosystems, investing in a mobile app has huge upsides. For marketers that means first-party data, closed-loop measurement, and most importantly, deeper connections with customers. ",,,
 closure_card_3_text,Closure card 3 text,"<b>Building your App Advantage</b> can include:	
 
 - Personalized content and discovery that learns from user behaviors and preferences
