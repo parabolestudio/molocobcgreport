@@ -350,91 +350,32 @@ const getContentMap = (
     </div>
   ),
   "expl-quadrant-bottom-left": (
-    <div>
-      <h3 className="panel-heading">{copyTexts.qu_bottom_left_title}</h3>
-      {mobile && (
-        <>
-          <br />
-          <b>
-            <div className="panel-text">
-              {copyTexts.qu_bottom_left_headline}
-            </div>
-          </b>
-          <br />
-        </>
-      )}
-      <div className="panel-text">{copyTexts.qu_bottom_left_y_level}</div>
-      <br />
-
-      <div className="panel-text">{copyTexts.qu_bottom_left_x_level}</div>
-      <br />
-
-      <div className="panel-text">{copyTexts.qu_bottom_left_description}</div>
-    </div>
+    <QuadrantExplanationContent
+      copyTexts={copyTexts}
+      mobile={mobile}
+      quadrant="bottom_left"
+    />
   ),
   "expl-quadrant-top-left": (
-    <div>
-      <h3 className="panel-heading">{copyTexts.qu_top_left_title}</h3>
-      {mobile && (
-        <>
-          <br />
-          <b>
-            <div className="panel-text">{copyTexts.qu_top_left_headline}</div>
-          </b>
-          <br />
-        </>
-      )}
-      <div className="panel-text">{copyTexts.qu_top_left_y_level}</div>
-      <br />
-
-      <div className="panel-text">{copyTexts.qu_top_left_x_level}</div>
-      <br />
-
-      <div className="panel-text">{copyTexts.qu_top_left_description}</div>
-    </div>
+    <QuadrantExplanationContent
+      copyTexts={copyTexts}
+      mobile={mobile}
+      quadrant="top_left"
+    />
   ),
   "expl-quadrant-top-right": (
-    <div>
-      <h3 className="panel-heading">{copyTexts.qu_top_right_title}</h3>
-      {mobile && (
-        <>
-          <br />
-          <b>
-            <div className="panel-text">{copyTexts.qu_top_right_headline}</div>
-          </b>
-          <br />
-        </>
-      )}
-      <div className="panel-text">{copyTexts.qu_top_right_y_level}</div>
-      <br />
-
-      <div className="panel-text">{copyTexts.qu_top_right_x_level}</div>
-      <br />
-
-      <div className="panel-text">{copyTexts.qu_top_right_description}</div>
-    </div>
+    <QuadrantExplanationContent
+      copyTexts={copyTexts}
+      mobile={mobile}
+      quadrant="top_right"
+    />
   ),
   "expl-quadrant-bottom-right": (
-    <div>
-      <h3 className="panel-heading">{copyTexts.qu_bottom_right_title}</h3>
-      {mobile && (
-        <>
-          <br />
-          <b>
-            <div className="panel-text">
-              {copyTexts.qu_bottom_right_headline}
-            </div>
-          </b>
-          <br />
-        </>
-      )}
-      <div className="panel-text">{copyTexts.qu_bottom_right_y_level}</div>
-      <br />
-
-      <div className="panel-text">{copyTexts.qu_bottom_right_x_level}</div>
-      <br />
-      <div className="panel-text">{copyTexts.qu_bottom_right_description}</div>
-    </div>
+    <QuadrantExplanationContent
+      copyTexts={copyTexts}
+      mobile={mobile}
+      quadrant="bottom_right"
+    />
   ),
   "data-filled": (
     <ChartPanelContentSelectedVertical
@@ -447,6 +388,49 @@ const getContentMap = (
     />
   ),
 });
+
+function QuadrantExplanationContent({
+  copyTexts,
+  mobile,
+  quadrant,
+}: {
+  copyTexts: any;
+  mobile: boolean;
+  quadrant: string;
+}) {
+  return (
+    <div>
+      <h3 className="panel-heading">
+        {copyTexts["qu_" + quadrant + "_title"]}
+      </h3>
+      {mobile && (
+        <>
+          <br />
+          <b>
+            <div className="panel-text">
+              {copyTexts["qu_" + quadrant + "_headline"]}
+            </div>
+          </b>
+          <br />
+        </>
+      )}
+      <div className="panel-text">
+        {copyTexts["qu_" + quadrant + "_y_level"]}
+      </div>
+      <br />
+
+      <div className="panel-text">
+        {copyTexts["qu_" + quadrant + "_x_level"]}
+      </div>
+      <br />
+      <div className="h-px border-t-[#9494AA] border-t-[1.5px] border-dashed w-full" />
+      <br />
+      <div className="panel-text">
+        {copyTexts["qu_" + quadrant + "_description"]}
+      </div>
+    </div>
+  );
+}
 
 function NavigationButtons({
   scrollBack,
