@@ -91,15 +91,23 @@ export default function ChartPanel({
     qu_expl_x_description: useCopy("qu_expl_x_description"),
     qu_bottom_left_title: useCopy("qu_bottom_left_title"),
     qu_bottom_left_headline: useCopy("qu_bottom_left_headline"),
+    qu_bottom_left_y_level: useCopy("qu_bottom_left_y_level"),
+    qu_bottom_left_x_level: useCopy("qu_bottom_left_x_level"),
     qu_bottom_left_description: useCopy("qu_bottom_left_description"),
     qu_top_left_title: useCopy("qu_top_left_title"),
     qu_top_left_headline: useCopy("qu_top_left_headline"),
+    qu_top_left_y_level: useCopy("qu_top_left_y_level"),
+    qu_top_left_x_level: useCopy("qu_top_left_x_level"),
     qu_top_left_description: useCopy("qu_top_left_description"),
     qu_top_right_title: useCopy("qu_top_right_title"),
     qu_top_right_headline: useCopy("qu_top_right_headline"),
+    qu_top_right_y_level: useCopy("qu_top_right_y_level"),
+    qu_top_right_x_level: useCopy("qu_top_right_x_level"),
     qu_top_right_description: useCopy("qu_top_right_description"),
     qu_bottom_right_title: useCopy("qu_bottom_right_title"),
     qu_bottom_right_headline: useCopy("qu_bottom_right_headline"),
+    qu_bottom_right_y_level: useCopy("qu_bottom_right_y_level"),
+    qu_bottom_right_x_level: useCopy("qu_bottom_right_x_level"),
     qu_bottom_right_description: useCopy("qu_bottom_right_description"),
     qu_info: useCopy("qu_info"),
   };
@@ -302,15 +310,23 @@ const getContentMap = (
     qu_expl_x_description: React.ReactNode;
     qu_bottom_left_title: React.ReactNode;
     qu_bottom_left_headline: React.ReactNode;
+    qu_bottom_left_y_level: React.ReactNode;
+    qu_bottom_left_x_level: React.ReactNode;
     qu_bottom_left_description: React.ReactNode;
     qu_top_left_title: React.ReactNode;
     qu_top_left_headline: React.ReactNode;
+    qu_top_left_y_level: React.ReactNode;
+    qu_top_left_x_level: React.ReactNode;
     qu_top_left_description: React.ReactNode;
     qu_top_right_title: React.ReactNode;
     qu_top_right_headline: React.ReactNode;
+    qu_top_right_y_level: React.ReactNode;
+    qu_top_right_x_level: React.ReactNode;
     qu_top_right_description: React.ReactNode;
     qu_bottom_right_title: React.ReactNode;
     qu_bottom_right_headline: React.ReactNode;
+    qu_bottom_right_y_level: React.ReactNode;
+    qu_bottom_right_x_level: React.ReactNode;
     qu_bottom_right_description: React.ReactNode;
     qu_info: React.ReactNode;
   }
@@ -338,10 +354,21 @@ const getContentMap = (
       <h3 className="panel-heading">{copyTexts.qu_bottom_left_title}</h3>
       {mobile && (
         <>
-          <div className="panel-text">{copyTexts.qu_bottom_left_headline}</div>
+          <br />
+          <b>
+            <div className="panel-text">
+              {copyTexts.qu_bottom_left_headline}
+            </div>
+          </b>
           <br />
         </>
       )}
+      <div className="panel-text">{copyTexts.qu_bottom_left_y_level}</div>
+      <br />
+
+      <div className="panel-text">{copyTexts.qu_bottom_left_x_level}</div>
+      <br />
+
       <div className="panel-text">{copyTexts.qu_bottom_left_description}</div>
     </div>
   ),
@@ -350,10 +377,19 @@ const getContentMap = (
       <h3 className="panel-heading">{copyTexts.qu_top_left_title}</h3>
       {mobile && (
         <>
-          <div className="panel-text">{copyTexts.qu_top_left_headline}</div>
+          <br />
+          <b>
+            <div className="panel-text">{copyTexts.qu_top_left_headline}</div>
+          </b>
           <br />
         </>
       )}
+      <div className="panel-text">{copyTexts.qu_top_left_y_level}</div>
+      <br />
+
+      <div className="panel-text">{copyTexts.qu_top_left_x_level}</div>
+      <br />
+
       <div className="panel-text">{copyTexts.qu_top_left_description}</div>
     </div>
   ),
@@ -362,10 +398,19 @@ const getContentMap = (
       <h3 className="panel-heading">{copyTexts.qu_top_right_title}</h3>
       {mobile && (
         <>
-          <div className="panel-text">{copyTexts.qu_top_right_headline}</div>
+          <br />
+          <b>
+            <div className="panel-text">{copyTexts.qu_top_right_headline}</div>
+          </b>
           <br />
         </>
       )}
+      <div className="panel-text">{copyTexts.qu_top_right_y_level}</div>
+      <br />
+
+      <div className="panel-text">{copyTexts.qu_top_right_x_level}</div>
+      <br />
+
       <div className="panel-text">{copyTexts.qu_top_right_description}</div>
     </div>
   ),
@@ -374,10 +419,20 @@ const getContentMap = (
       <h3 className="panel-heading">{copyTexts.qu_bottom_right_title}</h3>
       {mobile && (
         <>
-          <div className="panel-text">{copyTexts.qu_bottom_right_headline}</div>
+          <br />
+          <b>
+            <div className="panel-text">
+              {copyTexts.qu_bottom_right_headline}
+            </div>
+          </b>
           <br />
         </>
       )}
+      <div className="panel-text">{copyTexts.qu_bottom_right_y_level}</div>
+      <br />
+
+      <div className="panel-text">{copyTexts.qu_bottom_right_x_level}</div>
+      <br />
       <div className="panel-text">{copyTexts.qu_bottom_right_description}</div>
     </div>
   ),

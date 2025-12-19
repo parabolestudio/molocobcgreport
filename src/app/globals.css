@@ -139,9 +139,13 @@ button {
 
 .panel-content-expl-mobile .panel-heading,
 .panel-content-expl-mobile .panel-text,
-.panel-content-expl-mobile .panel-text span,
+.panel-content-expl-mobile .panel-text span:not(.text-bright-green),
 .panel-content-expl-mobile .panel-text li {
   @apply text-black-blue;
+}
+
+.panel-content-expl-mobile .panel-text span.text-bright-green span {
+  @apply text-bright-green;
 }
 
 .verticals .selected text,
@@ -180,7 +184,7 @@ button {
   @apply text-black-blue md:text-grey-text text-[14px] md:text-[18px];
 }
 .panel-content.panel-content-explanation
-  .panel-text.highlighted-axis
+  .panel-text
   span.text-bright-green
   span {
   @apply text-bright-green;
