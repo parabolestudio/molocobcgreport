@@ -124,18 +124,12 @@ export default function HookSection({
             <p className="text-[18px] md:text-[24px] leading-[125%] font-normal">
               {useCopy("hooks_subline")}
             </p>
-            <div className="flex  mt-4 justify-center max-h-[25px] md:max-h-10 md:gap-11">
+            <div className="mt-4">
               <img
-                src={`${basePath}/logos/moloco.svg`}
-                alt="Moloco logo"
-                width={150}
-                height={40}
-              />
-              <img
-                src={`${basePath}/logos/bcg.svg`}
-                alt="BCG logo"
-                width={92}
-                height={40}
+                src={`${basePath}/logos/moloco_bcg.svg`}
+                alt="Moloco logo and BCG logo"
+                width={291}
+                height={51}
               />
             </div>
           </div>

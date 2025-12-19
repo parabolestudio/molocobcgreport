@@ -103,21 +103,6 @@ export default function Home() {
   }
   const bgClass = getBackgroundColorClass(currentSection, currentStep);
 
-  // function isTexturedBackgroundVisible(
-  //   currentSection: number,
-  //   currentStep: number
-  // ) {
-  //   // Show textured background for all sections except Quadrant section
-  //   if (currentSection === 2 && currentStep > 0) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
-  // const isTextureVisible = isTexturedBackgroundVisible(
-  //   currentSection,
-  //   currentStep
-  // );
-
   return (
     <main className={`relative ${bgClass} transition-background`}>
       <P5Background
@@ -136,6 +121,15 @@ export default function Home() {
           zIndex: 1,
         }}
       ></div>
+      <img
+        className={`fixed top-10 md:top-20 right-5 md:right-20 pointer-events-none transition-opacity ${
+          currentSection === 1 || currentSection === 3
+            ? "opacity-50"
+            : "opacity-0"
+        } w-7 h-[26px] md:w-[34px] md:h-[31px]`}
+        src={`${basePath}/logos/moloco_small_without_border.svg`}
+        alt="Moloco small logo without border"
+      />
       <div
         ref={mainContainerRef}
         className="relative transition-opacity duration-200"

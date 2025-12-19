@@ -272,14 +272,15 @@ export default function ChartPanel({
           />
         )}
       </div>
-      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3 shrink-0 items-start">
+      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3 shrink-0 items-start ">
         <img
-          src={`${basePath}/icons/moloco_small.svg`}
-          alt="Information"
-          width={25}
-          height={28}
+          src={`${basePath}/logos/moloco_small_without_border.svg`}
+          alt="Moloco logo"
+          width={27}
+          height={25}
+          className="opacity-50"
         />
-        <p className="text-[14px] leading-[108%] text-grey-text m-0">
+        <p className="text-[14px] leading-[108%] text-grey-text m-0 opacity-50">
           {copyTexts.qu_info}
         </p>
       </div>

@@ -383,17 +383,19 @@ export default function QuadrantSection({
                 </h3>
                 <div className="flex gap-2 items-start">
                   <img
-                    src={`${basePath}/icons/moloco_small.svg`}
-                    alt="Information"
-                    width={25}
-                    height={28}
+                    src={`${basePath}/logos/moloco_small_without_border.svg`}
+                    alt="Moloco logo"
+                    width={17}
+                    height={15}
+                    className=" opacity-50 pt-1"
                   />
                   <p
-                    className={`text-[12px] text-grey-text p-1 ${
-                      sourceExpandedMobile
-                        ? "absolute left-[33px] bg-dark-background"
-                        : ""
+                    className={`text-[12px] text-grey-text p-1 absolute left-[25px]${
+                      sourceExpandedMobile ? " bg-dark-background" : ""
                     }`}
+                    style={{
+                      color: "rgba(242, 242, 242, 0.5)",
+                    }}
                   >
                     {sourceExpandedMobile ? sourceFull : sourceShort}{" "}
                     <span

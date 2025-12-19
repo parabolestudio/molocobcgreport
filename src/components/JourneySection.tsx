@@ -171,7 +171,7 @@ export default function JourneySection({
         {/* Intro screen */}
         <div
           ref={introRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[1000px] py-8 opacity-0 invisible flex flex-col justify-between items-start"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[1000px] py-20 md:py-8 opacity-0 invisible flex flex-col justify-between items-start"
         >
           {/* Desktop */}
           <div className="hidden md:flex relative flex-col justify-between items-start h-full w-full">
