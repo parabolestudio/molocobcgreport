@@ -268,3 +268,28 @@ button {
 .card .bg-grey-text li {
   color: var(--black-blue);
 }
+
+.styled-ordered-list {
+  counter-reset: list-counter;
+  list-style: none;
+  padding-left: 0;
+}
+
+.styled-ordered-list li {
+  counter-increment: list-counter;
+  position: relative;
+  padding-left: 2.5em;
+}
+
+.styled-ordered-list li::before {
+  content: counter(list-counter);
+  position: absolute;
+  left: 0;
+  border-radius: 5px;
+  padding: 0.2em 0.5em;
+  font-weight: bold;
+  font-family: "MuseoModerno", sans-serif;
+  font-size: 18px;
+
+  @apply border border-black-blue md:border-grey-text;
+}

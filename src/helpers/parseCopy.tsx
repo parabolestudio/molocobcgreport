@@ -7,6 +7,7 @@ const TAG_MAPPINGS: Record<string, { element: string; className?: string }> = {
   green: { element: "span", className: "text-bright-green" },
   b: { element: "b" },
   ul: { element: "ul" },
+  ol: { element: "ol", className: "styled-ordered-list" },
   li: { element: "li" },
   i: { element: "i" },
 };
@@ -131,8 +132,8 @@ function nodesToReact(nodes: ParsedNode[], key: string = ""): ReactNode {
 export function parseCopy(text: string): ReactNode {
   if (!text) return null;
 
-  // First, detect and convert bullet lists to <ul> tags
-  const processedText = convertBulletLists(text);
+  // First, detect and convert bullet and ordered lists to <ul>/<ol> tags
+  const processedText = convertLists(text);
 
   const nodes = parseMarkup(processedText);
   return nodesToReact(nodes);
@@ -140,29 +141,44 @@ export function parseCopy(text: string): ReactNode {
 
 /**
  * Converts bullet lists (lines starting with "- ") into <ul><li> markup
+ * and ordered lists (lines starting with "1. ", "2. ", etc.) into <ol><li> markup
  */
-function convertBulletLists(text: string): string {
+function convertLists(text: string): string {
   const lines = text.split("\n");
   let result = "";
-  let inList = false;
+  let inList: "ul" | "ol" | null = null;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     const trimmedLine = line.trim();
 
-    if (trimmedLine.startsWith("- ")) {
+    // Check for ordered list item (e.g., "1. " or "1 ")
+    const orderedMatch = trimmedLine.match(/^(\d+)\.?\s+(.*)/);
+    const isBullet = trimmedLine.startsWith("- ");
+
+    if (orderedMatch) {
+      // This is a numbered list item
+      if (inList !== "ol") {
+        if (inList) result += `</${inList}>`;
+        result += "<ol>";
+        inList = "ol";
+      }
+      // Wrap content in <li>
+      result += `<li>${orderedMatch[2]}</li>`;
+    } else if (isBullet) {
       // This is a bullet point
-      if (!inList) {
+      if (inList !== "ul") {
+        if (inList) result += `</${inList}>`;
         result += "<ul>";
-        inList = true;
+        inList = "ul";
       }
       // Remove the "- " prefix and wrap in <li>
       result += `<li>${trimmedLine.substring(2)}</li>`;
     } else {
-      // Not a bullet point
+      // Not a list item
       if (inList) {
-        result += "</ul>";
-        inList = false;
+        result += `</${inList}>`;
+        inList = null;
       }
       result += line;
       if (i < lines.length - 1) {
@@ -173,7 +189,7 @@ function convertBulletLists(text: string): string {
 
   // Close list if we ended while in a list
   if (inList) {
-    result += "</ul>";
+    result += `</${inList}>`;
   }
 
   return result;
