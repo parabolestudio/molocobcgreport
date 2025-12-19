@@ -145,7 +145,7 @@ button {
 }
 
 .panel-content-expl-mobile .panel-text span.text-bright-green span {
-  @apply text-bright-green;
+  color: var(--color-forest-green);
 }
 
 .verticals .selected text,
