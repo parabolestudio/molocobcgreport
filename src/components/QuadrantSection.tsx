@@ -390,7 +390,7 @@ export default function QuadrantSection({
                     className=" opacity-50 pt-1"
                   />
                   <p
-                    className={`text-[12px] text-grey-text p-1 absolute left-[25px]${
+                    className={`text-[12px] text-grey-text p-1 absolute left-[25px] ${
                       sourceExpandedMobile ? " bg-dark-background" : ""
                     }`}
                     style={{
