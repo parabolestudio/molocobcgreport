@@ -117,7 +117,7 @@ export default function HookSection({
           className="absolute inset-0 w-full h-full px-8 text-center flex flex-col items-center justify-center gap-32 md:gap-32 py-8 overflow-y-auto"
           style={{ opacity: 0, visibility: "hidden" }}
         >
-          <h1 className="text-[40px] md:text-[128px] leading-[115%] max-w-[1700px] text-balance text-bright-green font-museo-moderno uppercase leading-[0.99] font-extralight">
+          <h1 className="text-[40px] md:text-[128px] max-w-[1700px] text-balance text-bright-green font-museo-moderno uppercase leading-[0.99] font-extralight">
             {useCopy("hooks_title")}
           </h1>
           <div className="shrink-0">
