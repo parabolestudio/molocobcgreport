@@ -328,11 +328,6 @@ const getContentMap = (
     <div className="flex flex-col gap-4">
       <h3 className="panel-heading mb-0">{copyTexts.qu_expl_title}</h3>
       <p className="panel-text">{copyTexts.qu_expl_subline}</p>
-      {!mobile && (
-        <div className="panel-text non-highlighted-axis">
-          {copyTexts.qu_expl_y_description}
-        </div>
-      )}
       <div className="panel-text highlighted-axis">
         {copyTexts.qu_expl_x_description}
       </div>
