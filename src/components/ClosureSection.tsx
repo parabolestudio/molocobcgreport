@@ -283,7 +283,7 @@ const Card = React.forwardRef<
     <div
       ref={ref}
       className={`card flex flex-col self-stretch ${
-        isExpanded ? "flex-1" : "w-[calc(80%/3)]"
+        isExpanded ? "flex-1" : "flex-1"
       }`}
     >
       <div
@@ -292,7 +292,7 @@ const Card = React.forwardRef<
         } rounded-[20px] rounded-bl-none px-[30px] pb-[30px] pt-10 transition-colors`}
       >
         <div
-          className="text-[24px] md:text-[32px] font-bold font-museo-moderno leading-[108%] mb-8 shrink-0"
+          className="text-[24px] md:text-[32px] font-bold font-museo-moderno leading-[108%] mb-5 shrink-0"
           style={{ color: "var(--black-blue)" }}
         >
           {useCopy("closure_card_" + cardIndex + "_title")}
