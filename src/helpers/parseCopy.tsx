@@ -1,4 +1,5 @@
 import { ReactNode, createElement } from "react";
+import { Tooltip } from "@/components/InlineContentTooltip";
 
 /**
  * Mapping of custom tags to React className or element
@@ -10,6 +11,7 @@ const TAG_MAPPINGS: Record<string, { element: string; className?: string }> = {
   ol: { element: "ol", className: "styled-ordered-list" },
   li: { element: "li" },
   i: { element: "i" },
+  info: { element: "info" }, // Special handling for tooltip
 };
 
 interface ParsedNode {
@@ -110,6 +112,13 @@ function nodesToReact(nodes: ParsedNode[], key: string = ""): ReactNode {
       return nodesToReact(node.children || [], nodeKey);
     }
 
+    // Special handling for info (tooltip) tag
+    if (node.tag === "info") {
+      // Extract the text content from children
+      const tooltipContent = extractTextContent(node.children || []);
+      return <Tooltip key={nodeKey} content={tooltipContent} />;
+    }
+
     const props: { key: string; className?: string } = { key: nodeKey };
 
     if (mapping.className) {
@@ -122,6 +131,20 @@ function nodesToReact(nodes: ParsedNode[], key: string = ""): ReactNode {
       nodesToReact(node.children || [], nodeKey)
     );
   });
+}
+
+/**
+ * Extracts plain text content from parsed nodes (for tooltip content)
+ */
+function extractTextContent(nodes: ParsedNode[]): string {
+  return nodes
+    .map((node) => {
+      if (node.type === "text") {
+        return node.content;
+      }
+      return extractTextContent(node.children || []);
+    })
+    .join("");
 }
 
 /**

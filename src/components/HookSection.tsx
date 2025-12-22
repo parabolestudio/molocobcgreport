@@ -107,9 +107,9 @@ export default function HookSection({
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8 text-center flex flex-col items-center justify-center gap-20"
           style={{ opacity: 0, visibility: "hidden" }}
         >
-          <p className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat">
+          <div className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat">
             {useCopy("hooks_2_text")}
-          </p>
+          </div>
         </div>
 
         <div
@@ -121,9 +121,9 @@ export default function HookSection({
             {useCopy("hooks_title")}
           </h1>
           <div className="shrink-0">
-            <p className="text-[18px] md:text-[24px] leading-[125%] font-normal">
+            <div className="text-[18px] md:text-[24px] leading-[125%] font-normal">
               {useCopy("hooks_subline")}
-            </p>
+            </div>
             <div className="mt-4">
               <img
                 src={`${basePath}/logos/moloco_bcg.svg`}

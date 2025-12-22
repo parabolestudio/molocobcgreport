@@ -6,7 +6,7 @@ export type CopyData = Record<string, string>;
 export const copyData: CopyData = {
   "hooks_1_text": "The biggest shifts in AI today aren’t technological, <b><green>they’re behavioral</green></b>.",
   "hooks_1_button": "scroll",
-  "hooks_2_text": "Consumer behavior is shifting faster than marketing budgets can follow, and this will only continue to accelerate.\n\nNew research on AI/LLM disruption, done in partnership with BCG, dives deep into the <green><b>current state of play for marketers</b></green>, and where we go from here.",
+  "hooks_2_text": "Consumer behavior is shifting faster than marketing budgets can follow, and this will only continue to accelerate.\n\nNew research on AI/LLM disruption<info>Here AI/LLM refers to AI chatbots, assistants, and agents, which we’ll refer to as “AI” throughout the report for simplicity’s sake.</info>, done in partnership with BCG, dives deep into the <green><b>current state of play for marketers</b></green>, and where we go from here.",
   "hooks_title": "<green>The <b>AI Disruption Index</b></green>",
   "hooks_subline": "Report by",
   "context_intro": "<b>In partnership with BCG, we surveyed 283 marketing leaders across 15 verticals and 5 regions, interviewed 15 executives from leading companies, and analyzed first-party Moloco app performance data from 3,000+ apps representing 200 billion downloads.</b>",
