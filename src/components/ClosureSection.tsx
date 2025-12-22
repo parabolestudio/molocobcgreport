@@ -196,7 +196,7 @@ export default function ClosureSection({
           className="absolute left-1/2 top-1/2 w-full md:max-w-[90%] md:px-0 px-5  h-full md:max-h-[90%] py-8 opacity-0 invisible"
         >
           <div className="relative flex flex-col items-start h-full w-full gap-4">
-            <div className="text-[24px] md:text-[32px] max-w-[1000px] font-museo-moderno mb-4 md:mb-6 mt-8 md:mt-0">
+            <div className="text-[24px] md:text-[32px] max-w-[1000px] font-museo-moderno mb-0 md:mb-6">
               {useCopy("closure_paragraph_2")}
             </div>
             <div className="hidden md:flex flex-row gap-8 items-start overflow-visible">
@@ -205,7 +205,6 @@ export default function ClosureSection({
                 ref={(el) => {
                   cardsRef.current[0] = el;
                 }}
-                isExpanded={expandedCardIndex === 1}
                 setExpandedCardIndex={setExpandedCardIndex}
                 onMobileCardCardContentShownChange={() => {}}
                 expandedCardIndex={expandedCardIndex}
@@ -220,7 +219,6 @@ export default function ClosureSection({
                 ref={(el) => {
                   cardsRef.current[1] = el;
                 }}
-                isExpanded={expandedCardIndex === 2}
                 setExpandedCardIndex={setExpandedCardIndex}
                 onMobileCardCardContentShownChange={() => {}}
                 expandedCardIndex={expandedCardIndex}
@@ -235,7 +233,6 @@ export default function ClosureSection({
                 ref={(el) => {
                   cardsRef.current[2] = el;
                 }}
-                isExpanded={expandedCardIndex === 3}
                 setExpandedCardIndex={setExpandedCardIndex}
                 onMobileCardCardContentShownChange={() => {}}
                 expandedCardIndex={expandedCardIndex}
@@ -246,13 +243,12 @@ export default function ClosureSection({
                 }}
               />
             </div>
-            <div className="md:hidden bg-red-300/60 h-full w-full flex-1 overflow-y-auto flex flex-col gap-4">
+            <div className="md:hidden h-full w-full flex-1 overflow-hidden flex flex-col gap-4">
               <Card
                 cardIndex={1}
                 ref={(el) => {
                   cardsRef.current[0] = el;
                 }}
-                isExpanded={expandedCardIndex === 1}
                 onMobileCardCardContentShownChange={() =>
                   setMobileCardContentShown(1)
                 }
@@ -271,7 +267,6 @@ export default function ClosureSection({
                 ref={(el) => {
                   cardsRef.current[1] = el;
                 }}
-                isExpanded={expandedCardIndex === 2}
                 setExpandedCardIndex={setExpandedCardIndex}
                 onMobileCardCardContentShownChange={() =>
                   setMobileCardContentShown(2)
@@ -290,7 +285,6 @@ export default function ClosureSection({
                 ref={(el) => {
                   cardsRef.current[2] = el;
                 }}
-                isExpanded={expandedCardIndex === 3}
                 setExpandedCardIndex={setExpandedCardIndex}
                 onMobileCardCardContentShownChange={() =>
                   setMobileCardContentShown(3)
@@ -305,7 +299,7 @@ export default function ClosureSection({
                 }}
               />
             </div>
-            <div className="md:hidden">
+            <div className="md:hidden w-full">
               <CTAButtons
                 showMethodTooltip={showMethodTooltip}
                 setShowMethodTooltip={setShowMethodTooltip}
@@ -338,7 +332,7 @@ function CTAButtons({
   return (
     <div className="flex flex-col items-center md:items-start gap-2 md:gap-4">
       <p className="text-[14px] font-bold">Explore:</p>
-      <div className="flex gap-4">
+      <div className="flex gap-4 w-full">
         <button
           className="flex-1 bg-grey-text flex items-center justify-between gap-2 hover:bg-bright-green/80 transition text-black-blue"
           onClick={() => {
@@ -397,8 +391,6 @@ const Card = React.forwardRef<
   HTMLDivElement,
   {
     cardIndex: number;
-    isExpanded: boolean;
-
     setExpandedCardIndex: (index: number | null) => void;
     onMobileCardCardContentShownChange?: (index: number | null) => void;
     expandedCardIndex: number | null;
@@ -414,7 +406,6 @@ const Card = React.forwardRef<
   (
     {
       cardIndex,
-      isExpanded,
       setExpandedCardIndex,
       onMobileCardCardContentShownChange,
       expandedCardIndex,
@@ -424,12 +415,16 @@ const Card = React.forwardRef<
     },
     ref
   ) => {
+    const isExpanded = expandedCardIndex === cardIndex;
+    const isShownOnMobile = mobile && mobileCardContentShown === cardIndex;
     return (
       <div
         ref={ref}
         className={`card flex flex-col ${
-          expandedCardIndex === null ? "self-stretch" : ""
-        } ${isExpanded ? "basis-[45%]" : "md:flex-1"}`}
+          !mobile && expandedCardIndex === null ? "h-full" : ""
+        } ${mobile && expandedCardIndex === null ? "self-stretch" : ""} ${
+          isExpanded ? "basis-[45%]" : "md:flex-1"
+        } ${mobile && isShownOnMobile ? "flex-1 min-h-0 mt-6" : ""}`}
         onClick={() => {
           if (onMobileCardCardContentShownChange) {
             onMobileCardCardContentShownChange(cardIndex);
@@ -440,38 +435,46 @@ const Card = React.forwardRef<
         }}
       >
         <div
-          className={`relative flex flex-col flex-1 ${
+          className={`relative flex flex-col md:flex-1 md:min-h-0 ${
+            isShownOnMobile ? "flex-1 min-h-0" : ""
+          } ${
             isExpanded ? "bg-grey-text max-h-full" : "bg-bright-green"
           } rounded-[20px] md:rounded-bl-none px-5 md:px-[30px] pb-5 md:pb-[30px] ${
-            mobile && mobileCardContentShown === cardIndex ? "pt-10" : "pt-5"
+            isShownOnMobile ? "pt-7" : "pt-5"
           } md:pt-10 transition-colors`}
         >
           <div
             className={`text-[24px] md:text-[32px] font-bold font-museo-moderno leading-[108%] ${
-              mobileCardContentShown === cardIndex ? "mb-5" : ""
+              mobileCardContentShown === cardIndex ? "mb-2" : ""
             } md:mb-5 shrink-0`}
             style={{ color: "var(--black-blue)" }}
           >
             {copy.title}
           </div>
-          {(!mobile && !isExpanded) ||
-          (mobile && mobileCardContentShown === cardIndex && !isExpanded) ? (
-            <p
-              className="text-[14px] md:text-[18px]"
-              style={{ color: "var(--black-blue)" }}
-            >
-              {copy.summary}
-            </p>
-          ) : null}
-          {(!mobile && isExpanded) ||
-          (mobile && mobileCardContentShown === cardIndex && isExpanded) ? (
-            <div
-              className="text-[14px] md:text-[18px] copy-text overflow-y-auto flex-1 pr-2"
-              style={{ color: "var(--black-blue)" }}
-            >
-              {copy.text}
-            </div>
-          ) : null}
+          <div
+            className={`overflow-y-auto md:flex-1 md:min-h-0 ${
+              isShownOnMobile ? "flex-1 min-h-0" : ""
+            }`}
+          >
+            {(!mobile && !isExpanded) ||
+            (mobile && mobileCardContentShown === cardIndex && !isExpanded) ? (
+              <p
+                className="text-[14px] md:text-[18px]"
+                style={{ color: "var(--black-blue)" }}
+              >
+                {copy.summary}
+              </p>
+            ) : null}
+            {(!mobile && isExpanded) ||
+            (mobile && mobileCardContentShown === cardIndex && isExpanded) ? (
+              <div
+                className="text-[14px] md:text-[18px] copy-text overflow-y-auto flex-1 pr-2"
+                style={{ color: "var(--black-blue)" }}
+              >
+                {copy.text}
+              </div>
+            ) : null}
+          </div>
 
           {!mobile || (mobile && mobileCardContentShown === cardIndex) ? (
             <div

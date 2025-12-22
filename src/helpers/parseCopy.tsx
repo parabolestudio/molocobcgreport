@@ -152,8 +152,8 @@ function convertLists(text: string): string {
     const line = lines[i];
     const trimmedLine = line.trim();
 
-    // Check for ordered list item (e.g., "1. " or "1 ")
-    const orderedMatch = trimmedLine.match(/^(\d+)\.?\s+(.*)/);
+    // Check for ordered list item (e.g., "1. ", requires dot after number)
+    const orderedMatch = trimmedLine.match(/^(\d+)\.\s+(.*)/);
     const isBullet = trimmedLine.startsWith("- ");
 
     if (orderedMatch) {
