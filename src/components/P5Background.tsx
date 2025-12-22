@@ -234,12 +234,26 @@ export default function P5Background({
           data.mobile
         );
 
+        // Resolve ringsCount if provided
+        const ringsCount = data.resolveResponsive(
+          activeSubsection.ringsCount,
+          data.mobile
+        );
+
+        // Resolve baseSize if provided
+        const baseSize = data.resolveResponsive(
+          activeSubsection.baseSize,
+          data.mobile
+        );
+
         // Apply rings formation with initial config
         data.ringsFormation.apply(data.circleManager.circles, p5, p5.millis(), {
           centerX: ringCenterX,
           centerY: ringCenterY,
           pulseIntensity: 0, // No pulse during initial setup
           ...(innerRadius !== undefined && { innerRadius }),
+          ...(ringsCount !== undefined && { ringsCount }),
+          ...(baseSize !== undefined && { baseSizeNoPulse: baseSize }),
         });
         break;
       case "distributedRings":
@@ -468,11 +482,27 @@ export default function P5Background({
               ringCenterY = p5.height * ringCenterConfig.y;
             }
 
-            const ringPulseIntensity = currentConfig.pulseIntensity ?? 0;
+            // Resolve pulseIntensity
+            const ringPulseIntensity = data.resolveResponsive(
+              currentConfig.pulseIntensity,
+              data.mobile
+            ) ?? 0;
 
             // Resolve innerRadius if provided
             const innerRadius = data.resolveResponsive(
               currentConfig.innerRadius,
+              data.mobile
+            );
+
+            // Resolve ringsCount if provided
+            const ringsCount = data.resolveResponsive(
+              currentConfig.ringsCount,
+              data.mobile
+            );
+
+            // Resolve baseSize if provided
+            const baseSize = data.resolveResponsive(
+              currentConfig.baseSize,
               data.mobile
             );
 
@@ -486,6 +516,11 @@ export default function P5Background({
                 centerY: ringCenterY,
                 pulseIntensity: ringPulseIntensity,
                 ...(innerRadius !== undefined && { innerRadius }),
+                ...(ringsCount !== undefined && { ringsCount }),
+                ...(baseSize !== undefined && {
+                  baseSize,
+                  baseSizeNoPulse: baseSize,
+                }),
               }
             );
           } else if (data.currentFormation === "distributedRings") {

@@ -15,10 +15,12 @@ export interface SubsectionConfig {
   // Or an object with x, y values (0-1, relative to canvas size)
   // Default is {x: 0.5, y: 0.5} (center of screen)
   ringCenter?: ResponsiveValue<"chartCenter" | { x: number; y: number }>;
-  // Optional inner radius for rings formation
-  innerRadius?: ResponsiveValue<number>;
+  // Optional properties for rings formation
+  innerRadius?: ResponsiveValue<number>; // Starting radius for the first ring
+  ringsCount?: ResponsiveValue<number>; // Number of concentric rings
+  baseSize?: ResponsiveValue<number>; // Base size of circles
   // Animation properties
-  pulseIntensity?: number;
+  pulseIntensity?: ResponsiveValue<number>;
   alpha?: number; // Base opacity for circles (0-1) - Default: 0.6
   // DistributedRings formation configuration
   distributedRingsConfig?: {
@@ -135,7 +137,9 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
         mobile: 150,
         desktop: 260,
       },
-      pulseIntensity: 0.8,
+      ringsCount: { mobile: 3, desktop: 5 },
+      baseSize: { mobile: 10, desktop: 15 },
+      pulseIntensity: { mobile: 0.5, desktop: 0.8 },
       color: defaultColor,
     },
     {

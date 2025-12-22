@@ -294,9 +294,8 @@ function MethodologyButton({
         {useCopy("context_button_method")}
       </span>
       <svg
-        width="30"
-        height="18"
         viewBox="0 0 30 18"
+        className="w-[15px] h-2 md:w-[30px] md:h-[18px]"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
