@@ -67,35 +67,68 @@ export function resolveDistributedRingsConfig(
 ) {
   if (!config) return {};
 
-  return {
-    innerRadius: resolveResponsive(config.innerRadius, mobile),
-    innerRadiusOffset: resolveResponsive(config.innerRadiusOffset, mobile),
-    ringsCount: resolveResponsive(config.ringsCount, mobile),
-    radiusStep: resolveResponsive(config.radiusStep, mobile),
-    circleSize: resolveResponsive(config.circleSize, mobile),
-    arcSpacing: resolveResponsive(config.arcSpacing, mobile),
-    distributionZoneAngle: resolveResponsive(
+  const resolved: any = {};
+
+  // Only include properties that are actually defined
+  if (config.innerRadius !== undefined) {
+    resolved.innerRadius = resolveResponsive(config.innerRadius, mobile);
+  }
+  if (config.innerRadiusOffset !== undefined) {
+    resolved.innerRadiusOffset = resolveResponsive(
+      config.innerRadiusOffset,
+      mobile
+    );
+  }
+  if (config.ringsCount !== undefined) {
+    resolved.ringsCount = resolveResponsive(config.ringsCount, mobile);
+  }
+  if (config.radiusStep !== undefined) {
+    resolved.radiusStep = resolveResponsive(config.radiusStep, mobile);
+  }
+  if (config.circleSize !== undefined) {
+    resolved.circleSize = resolveResponsive(config.circleSize, mobile);
+  }
+  if (config.arcSpacing !== undefined) {
+    resolved.arcSpacing = resolveResponsive(config.arcSpacing, mobile);
+  }
+  if (config.distributionZoneAngle !== undefined) {
+    resolved.distributionZoneAngle = resolveResponsive(
       config.distributionZoneAngle,
       mobile
-    ),
-    distributionZoneAngleInner: resolveResponsive(
+    );
+  }
+  if (config.distributionZoneAngleInner !== undefined) {
+    resolved.distributionZoneAngleInner = resolveResponsive(
       config.distributionZoneAngleInner,
       mobile
-    ),
-    distributionZoneAngleOuter: resolveResponsive(
+    );
+  }
+  if (config.distributionZoneAngleOuter !== undefined) {
+    resolved.distributionZoneAngleOuter = resolveResponsive(
       config.distributionZoneAngleOuter,
       mobile
-    ),
-    distributionMinRadius: resolveResponsive(
+    );
+  }
+  if (config.distributionMinRadius !== undefined) {
+    resolved.distributionMinRadius = resolveResponsive(
       config.distributionMinRadius,
       mobile
-    ),
-    distributionMaxRadius: resolveResponsive(
+    );
+  }
+  if (config.distributionMaxRadius !== undefined) {
+    resolved.distributionMaxRadius = resolveResponsive(
       config.distributionMaxRadius,
       mobile
-    ),
-    distributionSeed: resolveResponsive(config.distributionSeed, mobile),
-  };
+    );
+  }
+  if (config.distributionSeed !== undefined) {
+    resolved.distributionSeed = resolveResponsive(
+      config.distributionSeed,
+      mobile
+    );
+  }
+
+  return resolved;
 }
 
 const configDistributedRingsCenterFullScreen = {

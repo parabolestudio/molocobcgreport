@@ -483,10 +483,11 @@ export default function P5Background({
             }
 
             // Resolve pulseIntensity
-            const ringPulseIntensity = data.resolveResponsive(
-              currentConfig.pulseIntensity,
-              data.mobile
-            ) ?? 0;
+            const ringPulseIntensity =
+              data.resolveResponsive(
+                currentConfig.pulseIntensity,
+                data.mobile
+              ) ?? 0;
 
             // Resolve innerRadius if provided
             const innerRadius = data.resolveResponsive(
