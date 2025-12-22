@@ -239,7 +239,7 @@ export default function JourneySection({
 
         {/* Stats screens with grid */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1600px] px-8 md:px-10 h-full max-h-[1200px] py-16 md:py-8 pointer-events-none">
-          <div className="grid grid-cols-[auto] grid-rows-[1fr_auto] gap-16 md:gap-y-20 h-full w-full">
+          <div className="grid grid-cols-[auto] grid-rows-[1fr_auto] gap-16 md:gap-y-0 h-full w-full">
             <div
               ref={journeyPathRef}
               style={{ gridArea: "2 / 1 / 3 / 2" }}
@@ -335,7 +335,7 @@ function StatDisplay({
   return (
     <div ref={passRef} style={{ display: "contents" }}>
       <div
-        className="stat-content flex flex-col gap-10 justify-between md:justify-start opacity-0 invisible"
+        className="stat-content flex flex-col gap-10 md:gap-0 justify-between md:justify-start opacity-0 invisible"
         style={{
           gridArea: "1 / 1 / 2 / 2",
         }}
@@ -389,6 +389,7 @@ function JourneyPath({ step }: { step: number }) {
           preserveAspectRatio="xMidYMid meet"
           style={{
             maxHeight: "250px",
+            maxWidth: "1502px",
           }}
         >
           <g className="Group 2381">
