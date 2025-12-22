@@ -5,8 +5,9 @@ import {
   SECTION_STEPS,
   SECTION_NAMES,
 } from "@/helpers/scroll";
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useRef, useMemo, useState } from "react";
 import type P5 from "p5";
+import { isMobile } from "@/helpers/general";
 
 export default function P5Background({
   activeSection,
@@ -20,6 +21,24 @@ export default function P5Background({
   // Calculate derived values from props
   const sectionSteps = SECTION_STEPS[sectionName];
   const sectionProgress = currentStep / sectionSteps;
+
+  // Detect mobile screen size
+  const [mobile, setMobile] = useState(false);
+
+  // Detect mobile after hydration to avoid SSR mismatch
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const update = () => setMobile(isMobile());
+    // run once after hydration
+    update();
+    // update on resize/orientation changes
+    window.addEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+    };
+  }, []);
 
   // Calculate global step
   const globalStep = useMemo(() => {
@@ -94,10 +113,20 @@ export default function P5Background({
     getActiveFormation: any;
     getActiveSubsectionIndex: any;
     subsectionConfigs: any;
+    resolveResponsive: any;
+    resolveDistributedRingsConfig: any;
+    mobile: boolean;
     fadeState: "normal" | "fadeOut" | "fadeIn";
     fadeProgress: number;
     pendingFormation: string | null;
   } | null>(null);
+
+  // Update mobile in sketch data
+  useEffect(() => {
+    if (sketchDataRef.current) {
+      sketchDataRef.current.mobile = mobile;
+    }
+  }, [mobile]);
 
   // Update section and formation when they change
   useEffect(() => {
@@ -182,10 +211,10 @@ export default function P5Background({
         );
         const activeSubsection =
           data.subsectionConfigs[data.currentSection][subsectionIndex];
-        const ringCenterConfig = activeSubsection.ringCenter || {
-          x: 0.5,
-          y: 0.5,
-        };
+        const ringCenterConfig = data.resolveResponsive(
+          activeSubsection.ringCenter,
+          data.mobile
+        ) || { x: 0.5, y: 0.5 };
 
         let ringCenterX: number;
         let ringCenterY: number;
@@ -199,11 +228,18 @@ export default function P5Background({
           ringCenterY = p5.height * ringCenterConfig.y;
         }
 
+        // Resolve innerRadius if provided
+        const innerRadius = data.resolveResponsive(
+          activeSubsection.innerRadius,
+          data.mobile
+        );
+
         // Apply rings formation with initial config
         data.ringsFormation.apply(data.circleManager.circles, p5, p5.millis(), {
           centerX: ringCenterX,
           centerY: ringCenterY,
           pulseIntensity: 0, // No pulse during initial setup
+          ...(innerRadius !== undefined && { innerRadius }),
         });
         break;
       case "distributedRings":
@@ -214,10 +250,10 @@ export default function P5Background({
         );
         const activeSubsectionDR =
           data.subsectionConfigs[data.currentSection][subsectionIndexDR];
-        const ringCenterConfigDR = activeSubsectionDR.ringCenter || {
-          x: 0.5,
-          y: 0.5,
-        };
+        const ringCenterConfigDR = data.resolveResponsive(
+          activeSubsectionDR.ringCenter,
+          data.mobile
+        ) || { x: 0.5, y: 0.5 };
 
         let chartDataInit: {
           centerX: number;
@@ -236,10 +272,15 @@ export default function P5Background({
           };
         }
 
+        // Resolve all distributedRingsConfig properties
+        const resolvedConfig = data.resolveDistributedRingsConfig(
+          activeSubsectionDR.distributedRingsConfig,
+          data.mobile
+        );
+
         // Resolve innerRadius based on configuration
         let resolvedInnerRadius: number | undefined;
-        const configuredInnerRadius =
-          activeSubsectionDR.distributedRingsConfig?.innerRadius;
+        const configuredInnerRadius = resolvedConfig.innerRadius;
 
         if (configuredInnerRadius === "chartRadius") {
           resolvedInnerRadius = chartDataInit.innerRadius;
@@ -255,7 +296,7 @@ export default function P5Background({
           p5,
           p5.millis(),
           {
-            ...activeSubsectionDR.distributedRingsConfig,
+            ...resolvedConfig,
             centerX: chartDataInit.centerX,
             centerY: chartDataInit.centerY,
             ...(resolvedInnerRadius !== undefined && {
@@ -334,6 +375,10 @@ export default function P5Background({
             getActiveFormation: subsectionModule.getActiveFormation,
             getActiveSubsectionIndex: subsectionModule.getActiveSubsectionIndex,
             subsectionConfigs: subsectionModule.subsectionConfigs,
+            resolveResponsive: subsectionModule.resolveResponsive,
+            resolveDistributedRingsConfig:
+              subsectionModule.resolveDistributedRingsConfig,
+            mobile: window.innerWidth < 768,
             fadeState: "normal",
             fadeProgress: 0,
             pendingFormation: null,
@@ -406,10 +451,10 @@ export default function P5Background({
               p5.millis()
             );
           } else if (data.currentFormation === "rings") {
-            const ringCenterConfig = currentConfig.ringCenter || {
-              x: 0.5,
-              y: 0.5,
-            };
+            const ringCenterConfig = data.resolveResponsive(
+              currentConfig.ringCenter,
+              data.mobile
+            ) || { x: 0.5, y: 0.5 };
 
             let ringCenterX: number;
             let ringCenterY: number;
@@ -425,6 +470,12 @@ export default function P5Background({
 
             const ringPulseIntensity = currentConfig.pulseIntensity ?? 0;
 
+            // Resolve innerRadius if provided
+            const innerRadius = data.resolveResponsive(
+              currentConfig.innerRadius,
+              data.mobile
+            );
+
             // Apply rings formation with pulse intensity
             data.ringsFormation.apply(
               data.circleManager.circles,
@@ -434,13 +485,14 @@ export default function P5Background({
                 centerX: ringCenterX,
                 centerY: ringCenterY,
                 pulseIntensity: ringPulseIntensity,
+                ...(innerRadius !== undefined && { innerRadius }),
               }
             );
           } else if (data.currentFormation === "distributedRings") {
-            const ringCenterConfig = currentConfig.ringCenter || {
-              x: 0.5,
-              y: 0.5,
-            };
+            const ringCenterConfig = data.resolveResponsive(
+              currentConfig.ringCenter,
+              data.mobile
+            ) || { x: 0.5, y: 0.5 };
 
             let chartData: {
               centerX: number;
@@ -459,10 +511,15 @@ export default function P5Background({
               };
             }
 
+            // Resolve all distributedRingsConfig properties
+            const resolvedConfig = data.resolveDistributedRingsConfig(
+              currentConfig.distributedRingsConfig,
+              data.mobile
+            );
+
             // Resolve innerRadius based on configuration
             let resolvedInnerRadius: number | undefined;
-            const configuredInnerRadius =
-              currentConfig.distributedRingsConfig?.innerRadius;
+            const configuredInnerRadius = resolvedConfig.innerRadius;
 
             if (configuredInnerRadius === "chartRadius") {
               resolvedInnerRadius = chartData.innerRadius;
@@ -478,7 +535,7 @@ export default function P5Background({
               p5,
               p5.millis(),
               {
-                ...currentConfig.distributedRingsConfig,
+                ...resolvedConfig,
                 centerX: chartData.centerX,
                 centerY: chartData.centerY,
                 ...(resolvedInnerRadius !== undefined && {

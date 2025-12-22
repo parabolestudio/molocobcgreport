@@ -3,6 +3,9 @@ import { SECTION_STEPS } from "@/helpers/scroll";
 
 export type FormationType = "grid" | "rings" | "distributedRings" | "invisible";
 
+// Type for values that can differ between mobile and desktop
+export type ResponsiveValue<T> = T | { mobile: T; desktop: T };
+
 export interface SubsectionConfig {
   progressStart: number; // 0-1 within the section
   progressEnd: number; // 0-1 within the section
@@ -11,30 +14,87 @@ export interface SubsectionConfig {
   // Can be 'chartCenter' to use the chart circle center from DOM
   // Or an object with x, y values (0-1, relative to canvas size)
   // Default is {x: 0.5, y: 0.5} (center of screen)
-  ringCenter?: "chartCenter" | { x: number; y: number };
+  ringCenter?: ResponsiveValue<"chartCenter" | { x: number; y: number }>;
+  // Optional inner radius for rings formation
+  innerRadius?: ResponsiveValue<number>;
   // Animation properties
   pulseIntensity?: number;
   alpha?: number; // Base opacity for circles (0-1) - Default: 0.6
   // DistributedRings formation configuration
   distributedRingsConfig?: {
-    innerRadius?: number | "screenHeight" | "chartRadius"; // Starting radius: direct number, "screenHeight" for screen height, or "chartRadius" for chart circle radius - Default: 200
-    innerRadiusOffset?: number; // Offset to add/subtract from innerRadius (e.g., -40 to start inside, +40 to start outside) - Default: 0
-    ringsCount?: number; // Number of concentric rings (3-5 recommended) - Default: 4
-    radiusStep?: number; // Distance between each ring - Default: 60
-    circleSize?: number; // Fixed size of circles - Default: 8
-    arcSpacing?: number; // Arc length spacing between circles - Default: 30
-    distributionZoneAngle?: number; // Angle range around horizontal center - Default: PI/3
-    distributionZoneAngleInner?: number; // Angle for innermost ring (use with distributionZoneAngleOuter for gradient)
-    distributionZoneAngleOuter?: number; // Angle for outermost ring (creates gradient with distributionZoneAngleInner)
-    distributionMinRadius?: number; // Min scatter distance - Default: 20
-    distributionMaxRadius?: number; // Max scatter distance - Default: 120
-    distributionSeed?: number; // Random seed - Default: 42
+    innerRadius?: ResponsiveValue<number | "screenHeight" | "chartRadius">; // Starting radius: direct number, "screenHeight" for screen height, or "chartRadius" for chart circle radius - Default: 200
+    innerRadiusOffset?: ResponsiveValue<number>; // Offset to add/subtract from innerRadius (e.g., -40 to start inside, +40 to start outside) - Default: 0
+    ringsCount?: ResponsiveValue<number>; // Number of concentric rings (3-5 recommended) - Default: 4
+    radiusStep?: ResponsiveValue<number>; // Distance between each ring - Default: 60
+    circleSize?: ResponsiveValue<number>; // Fixed size of circles - Default: 8
+    arcSpacing?: ResponsiveValue<number>; // Arc length spacing between circles - Default: 30
+    distributionZoneAngle?: ResponsiveValue<number>; // Angle range around horizontal center - Default: PI/3
+    distributionZoneAngleInner?: ResponsiveValue<number>; // Angle for innermost ring (use with distributionZoneAngleOuter for gradient)
+    distributionZoneAngleOuter?: ResponsiveValue<number>; // Angle for outermost ring (creates gradient with distributionZoneAngleInner)
+    distributionMinRadius?: ResponsiveValue<number>; // Min scatter distance - Default: 20
+    distributionMaxRadius?: ResponsiveValue<number>; // Max scatter distance - Default: 120
+    distributionSeed?: ResponsiveValue<number>; // Random seed - Default: 42
   };
   color: string;
 }
 
 const defaultColor = "48, 48, 97"; // Default deep blue
 const brightGreen = "96, 226, 183";
+
+// Helper to resolve responsive values based on screen size
+export function resolveResponsive<T>(
+  value: ResponsiveValue<T> | undefined,
+  mobile: boolean
+): T | undefined {
+  if (value === undefined) return undefined;
+  if (
+    value &&
+    typeof value === "object" &&
+    "mobile" in value &&
+    "desktop" in value
+  ) {
+    return mobile ? value.mobile : value.desktop;
+  }
+  return value as T;
+}
+
+// Helper to resolve all responsive properties in distributedRingsConfig
+export function resolveDistributedRingsConfig(
+  config: SubsectionConfig["distributedRingsConfig"],
+  mobile: boolean
+) {
+  if (!config) return {};
+
+  return {
+    innerRadius: resolveResponsive(config.innerRadius, mobile),
+    innerRadiusOffset: resolveResponsive(config.innerRadiusOffset, mobile),
+    ringsCount: resolveResponsive(config.ringsCount, mobile),
+    radiusStep: resolveResponsive(config.radiusStep, mobile),
+    circleSize: resolveResponsive(config.circleSize, mobile),
+    arcSpacing: resolveResponsive(config.arcSpacing, mobile),
+    distributionZoneAngle: resolveResponsive(
+      config.distributionZoneAngle,
+      mobile
+    ),
+    distributionZoneAngleInner: resolveResponsive(
+      config.distributionZoneAngleInner,
+      mobile
+    ),
+    distributionZoneAngleOuter: resolveResponsive(
+      config.distributionZoneAngleOuter,
+      mobile
+    ),
+    distributionMinRadius: resolveResponsive(
+      config.distributionMinRadius,
+      mobile
+    ),
+    distributionMaxRadius: resolveResponsive(
+      config.distributionMaxRadius,
+      mobile
+    ),
+    distributionSeed: resolveResponsive(config.distributionSeed, mobile),
+  };
+}
 
 const configDistributedRingsCenterFullScreen = {
   formation: "distributedRings" as FormationType,
@@ -67,7 +127,14 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
       progressStart: 0,
       progressEnd: 1 / SECTION_STEPS.journey,
       formation: "rings",
-      ringCenter: { x: 0.8, y: 0.5 }, // 80% to the right, centered vertically
+      ringCenter: {
+        mobile: { x: 1, y: 0.65 },
+        desktop: { x: 0.8, y: 0.5 },
+      },
+      innerRadius: {
+        mobile: 150,
+        desktop: 260,
+      },
       pulseIntensity: 0.8,
       color: defaultColor,
     },
