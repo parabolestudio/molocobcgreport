@@ -43,7 +43,11 @@ export function Tooltip({ content, children }: TooltipProps) {
         aria-label={content}
       >
         {children || (
-          <svg width="17" height="19" fill="none" viewBox="0 0 17 19">
+          <svg
+            fill="none"
+            viewBox="0 0 17 19"
+            className="w-3 h-3.5 md:w-[17px] md:h-[19px]"
+          >
             <g>
               <rect
                 width="15.523"
