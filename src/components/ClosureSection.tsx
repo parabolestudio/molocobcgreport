@@ -174,10 +174,10 @@ export default function ClosureSection({
         </div>
         <div
           ref={screen2Ref}
-          className="absolute left-1/2 top-1/2 w-full md:max-w-[90%] px-8 h-full md:max-h-[90%] py-8 opacity-0 invisible"
+          className="absolute left-1/2 top-1/2 w-full md:max-w-[90%]  h-full md:max-h-[90%] py-8 opacity-0 invisible"
         >
           <div className="relative flex flex-col items-start h-full w-full gap-4">
-            <div className="text-[18px] md:text-[32px] max-w-[1000px] font-museo-moderno mb-12">
+            <div className="text-[18px] md:text-[32px] max-w-[1000px] font-museo-moderno mb-6">
               {useCopy("closure_paragraph_2")}
             </div>
             <div className="flex flex-row gap-8 items-start overflow-visible">
@@ -189,6 +189,7 @@ export default function ClosureSection({
                 isExpanded={expandedCardIndex === 1}
                 onExpand={() => setExpandedCardIndex(1)}
                 onCollapse={() => setExpandedCardIndex(null)}
+                expandedCardIndex={expandedCardIndex}
               />
               <Card
                 cardIndex={2}
@@ -198,6 +199,7 @@ export default function ClosureSection({
                 isExpanded={expandedCardIndex === 2}
                 onExpand={() => setExpandedCardIndex(2)}
                 onCollapse={() => setExpandedCardIndex(null)}
+                expandedCardIndex={expandedCardIndex}
               />
               <Card
                 cardIndex={3}
@@ -207,10 +209,11 @@ export default function ClosureSection({
                 isExpanded={expandedCardIndex === 3}
                 onExpand={() => setExpandedCardIndex(3)}
                 onCollapse={() => setExpandedCardIndex(null)}
+                expandedCardIndex={expandedCardIndex}
               />
             </div>
           </div>
-          <div className="absolute bottom-0 right-0 flex flex-col items-start gap-4 pb-8">
+          <div className="absolute bottom-0 right-0 flex flex-col items-start gap-4 pb-0">
             <p className="text-[14px] font-bold">Explore:</p>
             <div className="flex flew-row gap-4">
               <button
@@ -277,14 +280,15 @@ const Card = React.forwardRef<
     isExpanded: boolean;
     onExpand: () => void;
     onCollapse: () => void;
+    expandedCardIndex: number | null;
   }
->(({ cardIndex, isExpanded, onExpand, onCollapse }, ref) => {
+>(({ cardIndex, isExpanded, onExpand, onCollapse, expandedCardIndex }, ref) => {
   return (
     <div
       ref={ref}
-      className={`card flex flex-col self-stretch ${
-        isExpanded ? "flex-1" : "flex-1"
-      }`}
+      className={`card flex flex-col ${
+        expandedCardIndex === null ? "self-stretch" : ""
+      } ${isExpanded ? "basis-[45%]" : "flex-1"}`}
     >
       <div
         className={`relative flex flex-col flex-1 ${
@@ -328,7 +332,7 @@ const Card = React.forwardRef<
           isExpanded
             ? "bg-bright-green text-black-blue"
             : "bg-black-blue text-grey-text"
-        } rounded-bl-xl rounded-br-xl py-4 px-8 flex gap-2 items-center justify-between font-semibold text-[14px] cursor-pointer transition-colors`}
+        } rounded-bl-xl rounded-br-xl py-4 px-8 flex gap-2 items-center justify-between font-semibold text-[14px] cursor-pointer`}
         onClick={isExpanded ? onCollapse : onExpand}
       >
         <span>{isExpanded ? "Summary" : "Details"}</span>
