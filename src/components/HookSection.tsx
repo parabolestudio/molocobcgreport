@@ -92,7 +92,7 @@ export default function HookSection({
             className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
             onClick={() => scrollToSection(0, 1)}
           >
-            <span>scroll</span>
+            <span>{useCopy("hooks_1_button")}</span>
             <img
               src={`${basePath}/icons/arrow.svg`}
               alt="arrow"

@@ -126,7 +126,7 @@ export default function ClosureSection({
         // Determine which cards to animate based on mobile state
         const startIndex = mobile ? 3 : 0;
         const endIndex = mobile ? 6 : 3;
-        
+
         // Reset cards first
         for (let i = startIndex; i < endIndex; i++) {
           const card = cardsRef.current[i];
@@ -531,7 +531,11 @@ const Card = React.forwardRef<
                   }
             }
           >
-            <span>{isExpanded ? "Summary" : "Details"}</span>
+            <span>
+              {isExpanded
+                ? useCopy("qu_panel_button_summary")
+                : useCopy("qu_panel_button_details")}
+            </span>
             {isExpanded ? (
               <img
                 src={`${basePath}/icons/minus.svg`}

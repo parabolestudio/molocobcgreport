@@ -2,9 +2,11 @@
 
 import { basePath } from "@/helpers/general";
 import { Copy } from "./ChartPanel";
-import { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { scaleLinear } from "d3-scale";
 import { useCopy } from "@/contexts/CopyContext";
+import { copyData } from "@/data/copyData";
+import { parseCopy } from "@/helpers/parseCopy";
 
 export default function ChartPanelContentSelectedVertical({
   selectedVertical,
@@ -65,9 +67,7 @@ export default function ChartPanelContentSelectedVertical({
         className="flex-1 overflow-y-auto mt-2 pr-2"
         style={{ scrollbarGutter: "stable" }}
       >
-        {!copy ? (
-          <p>No details for this vertical.</p>
-        ) : shownSide === "summary" ? (
+        {!copy ? null : shownSide === "summary" ? (
           <SummaryCopy copy={copy} />
         ) : (
           <DetailsCopy copy={copy} />
@@ -110,7 +110,9 @@ function SideSwitchButton({
       }
     >
       <span className="text-black-blue text-[12px] md:text-[18px]">
-        {shownSide === "summary" ? "Details" : "Summary"}
+        {shownSide === "summary"
+          ? useCopy("qu_panel_button_summary")
+          : useCopy("qu_panel_button_details")}
       </span>
       <img
         src={`${basePath}/icons/switch.svg`}
@@ -308,13 +310,13 @@ function DetailsCopy({ copy }: { copy: Copy }) {
       <div className="border-b border-b-bright-green pb-5 border-dashed gap-4 flex flex-col">
         <div>
           <p className="font-bold font-montserrat text-[18px] md:text-[24px]">
-            AI Disruption Risk
+            {useCopy("qu_panel_ai_risk")}
           </p>
           <p className="text-[14px] md:text-[18px]">{copy.ai_risk_intro}</p>
         </div>
         <div>
           <p className="font-bold font-montserrat">
-            Discovery |{" "}
+            {useCopy("qu_panel_ai_risk_discovery")} |{" "}
             <span className="text-bright-green">
               {copy.ai_discovery_risk_level}
             </span>
@@ -325,7 +327,7 @@ function DetailsCopy({ copy }: { copy: Copy }) {
         </div>
         <div>
           <p className="font-bold font-montserrat">
-            Service Disruption |{" "}
+            {useCopy("qu_panel_ai_risk_service_disruption")} |{" "}
             <span className="text-bright-green">
               {copy.ai_service_risk_level}
             </span>
@@ -336,7 +338,7 @@ function DetailsCopy({ copy }: { copy: Copy }) {
         </div>
         <div>
           <p className="font-bold font-montserrat">
-            Data Access & Regulatory |{" "}
+            {useCopy("qu_panel_ai_risk_data")} |{" "}
             <span className="text-bright-green">{copy.ai_data_risk_level}</span>
           </p>
           <p className="text-[12px] md:text-[14px]">
@@ -347,27 +349,30 @@ function DetailsCopy({ copy }: { copy: Copy }) {
       <div className="py-5 border-dashed gap-5 flex flex-col">
         <div>
           <p className="font-bold font-montserrat text-[18px] md:text-[24px]">
-            Strength of Customer Relationship
+            {useCopy("qu_panel_customer")}
           </p>
           <p className="text-[12px] md:text-[14px]">{copy.customer_intro}</p>
         </div>
         <ScoreDisplay
-          title="Acquisition Strength"
-          note="% of non-paid traffic share"
+          id="customer_acquisition"
+          title={useCopy("qu_panel_customer_acquisition")}
+          note={useCopy("qu_panel_customer_acquisition_note")}
           score={copy.customer_acquisition_score}
           description={copy.customer_acquisition_intro}
           avgScore={copy.avgAcquisitionScore || null}
         />
         <ScoreDisplay
-          title="Loyalty Strength"
-          note="d30/d7 retention ratio"
+          id="loyalty_strength"
+          title={useCopy("qu_panel_customer_loyalty")}
+          note={useCopy("qu_panel_customer_loyalty_note")}
           score={copy.customer_loyalty_score}
           description={copy.customer_loyalty_intro}
           avgScore={copy.avgLoyaltyScore || null}
         />
         <ScoreDisplay
-          title="Platform Engagement"
-          note="share of time spent on app vs. web"
+          id="platform_engagement"
+          title={useCopy("qu_panel_customer_engagement")}
+          note={useCopy("qu_panel_customer_engagement_note")}
           score={copy.customer_engagement_score}
           description={copy.customer_engagement_intro}
           avgScore={copy.avgEngagementScore || null}
@@ -378,14 +383,16 @@ function DetailsCopy({ copy }: { copy: Copy }) {
 }
 
 function ScoreDisplay({
+  id,
   title,
   note,
   score,
   description,
   avgScore,
 }: {
-  title: string;
-  note: string;
+  id: string;
+  title: React.ReactNode;
+  note: React.ReactNode;
   score: number;
   description: string;
   avgScore: number | null;
@@ -393,10 +400,12 @@ function ScoreDisplay({
   const [width, setWidth] = useState(230);
   const height = 90;
 
-  const id = `chart-container-${title.replace(/\s+/g, "")}`;
+  const containerId = `chart-container-${id}`;
 
   useEffect(() => {
-    const visContainer = document.querySelector(`#${id}`) as HTMLElement;
+    const visContainer = document.querySelector(
+      `#${containerId}`
+    ) as HTMLElement;
     const w = visContainer?.offsetWidth || 230;
     setWidth(w);
   }, []);
@@ -417,7 +426,7 @@ function ScoreDisplay({
           </p>
           <p className="text-[14px]">{note}</p>
         </div>
-        <div className="min-w-0" id={id}>
+        <div className="min-w-0" id={containerId}>
           <svg width={width} height={height}>
             <g transform={`translate(${margin.left},${margin.top})`}>
               <line
@@ -484,7 +493,7 @@ function ScoreDisplay({
                     textAnchor="end"
                     dominantBaseline="middle"
                   >
-                    avg.
+                    {parseCopy(copyData.qu_score_display_average, true)}
                   </text>
                 </g>
               )}

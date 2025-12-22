@@ -157,6 +157,8 @@ export default function Chart({
   const xScale = scaleLinear().domain([4.5, 10.5]).range([0, innerWidth]);
   const yScale = scaleLinear().domain([10, 1.5]).range([0, innerHeight]);
 
+  const promptOverlayText = useCopy("qu_select_vertical_prompt");
+
   return (
     <div
       id="chart-container"
@@ -818,19 +820,16 @@ export default function Chart({
                 className="h-6 md:h-[51px] w-auto"
               />
               <span className="font-bold text-[14px] md:text-[18px] w-[200px] md:max-w-[180px]">
-                Select a vertical to explore details.
+                {promptOverlayText}
               </span>
             </div>
-
             <img
               src={`${basePath}/icons/cross_blue.svg`}
               alt="Cross blue icon to close"
               width={25}
               height={28}
               className="absolute right-2.5 top-2.5 cursor-pointer"
-              onClick={() => {
-                setShowSelectionPrompt(false);
-              }}
+              onClick={() => setShowSelectionPrompt(false)}
             />
           </div>
         </div>

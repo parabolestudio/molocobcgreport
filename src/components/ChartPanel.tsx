@@ -478,21 +478,21 @@ function NavigationButtons({
                     }  `}
           />
         </svg>
-        <span>Back</span>
+        <span>{useCopy("qu_button_back")}</span>
       </button>
       <button
         className="bg-medium-blue grow"
         onClick={() => scrollToDataMode()}
         style={{ fontSize: mobile ? "12px" : "14px" }}
       >
-        Skip to index
+        {useCopy("qu_button_index")}
       </button>
       <button
         className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition grow"
         onClick={() => scrollNext()}
         style={{ fontSize: mobile ? "12px" : "14px" }}
       >
-        <span>Next</span>
+        <span>{useCopy("qu_button_next")}</span>
         <img
           src={`${basePath}/icons/arrow.svg`}
           alt="arrow"
