@@ -114,9 +114,7 @@ export class DistributedRingsFormation implements Formation {
     const leftCenter = Math.PI;
     const leftDiff = Math.abs(normalizedAngle - leftCenter);
 
-    return (
-      rightDiff <= zoneAngle || leftDiff <= zoneAngle
-    );
+    return rightDiff <= zoneAngle || leftDiff <= zoneAngle;
   }
 
   /**
@@ -200,13 +198,18 @@ export class DistributedRingsFormation implements Formation {
       ringIndex++
     ) {
       const radius = innerRadius + innerRadiusOffset + ringIndex * radiusStep;
-      
+
       // Calculate distribution zone angle for this ring
       let currentZoneAngle: number;
-      if (distributionZoneAngleInner !== undefined && distributionZoneAngleOuter !== undefined) {
+      if (
+        distributionZoneAngleInner !== undefined &&
+        distributionZoneAngleOuter !== undefined
+      ) {
         // Interpolate between inner and outer angles
         const progress = ringsCount > 1 ? ringIndex / (ringsCount - 1) : 0;
-        currentZoneAngle = distributionZoneAngleInner + (distributionZoneAngleOuter - distributionZoneAngleInner) * progress;
+        currentZoneAngle =
+          distributionZoneAngleInner +
+          (distributionZoneAngleOuter - distributionZoneAngleInner) * progress;
       } else {
         // Use the base angle
         currentZoneAngle = distributionZoneAngle;
