@@ -64,6 +64,10 @@ export default function ClosureSection({
           fadeOut(card);
         }
       });
+      // Reset states when leaving the section
+      setMobileCardContentShown(null);
+      setExpandedCardIndex(null);
+      setShowMethodTooltip(false);
       previousActiveRef.current = false;
       return;
     }
@@ -119,31 +123,46 @@ export default function ClosureSection({
 
       // If transitioning to screen2 (step 1), animate cards
       if (currentStep === 1) {
+        // Determine which cards to animate based on mobile state
+        const startIndex = mobile ? 3 : 0;
+        const endIndex = mobile ? 6 : 3;
+        
         // Reset cards first
-        cardsRef.current.forEach((card) => {
+        for (let i = startIndex; i < endIndex; i++) {
+          const card = cardsRef.current[i];
           if (card) {
             gsap.set(card, { autoAlpha: 0, y: 30 });
           }
-        });
+        }
 
         // Then animate them in with stagger
-        cardsRef.current.forEach((card, index) => {
+        for (let i = startIndex; i < endIndex; i++) {
+          const card = cardsRef.current[i];
+          const relativeIndex = i - startIndex;
           if (card) {
             gsap.to(card, {
               autoAlpha: 1,
               y: 0,
               duration: 0.4,
-              delay: 0.6 + index * 0.3,
+              delay: 0.6 + relativeIndex * 0.3,
               ease: "power2.inout",
               overwrite: true,
+              onComplete: () => {
+                // After the last card animates in on mobile, show first card content
+                if (mobile && relativeIndex === 2) {
+                  setTimeout(() => {
+                    setMobileCardContentShown(1);
+                  }, 200);
+                }
+              },
             });
           }
-        });
+        }
       }
     }
 
     previousStepRef.current = currentStep;
-  }, [isActive, currentStep]);
+  }, [isActive, currentStep, mobile]);
 
   // Detect mobile after hydration to avoid SSR mismatch
   useEffect(() => {
@@ -168,7 +187,7 @@ export default function ClosureSection({
   );
   const [mobileCardContentShown, setMobileCardContentShown] = useState<
     number | null
-  >(2);
+  >(null);
 
   return (
     <div
@@ -247,7 +266,7 @@ export default function ClosureSection({
               <Card
                 cardIndex={1}
                 ref={(el) => {
-                  cardsRef.current[0] = el;
+                  cardsRef.current[3] = el;
                 }}
                 onMobileCardCardContentShownChange={() =>
                   setMobileCardContentShown(1)
@@ -265,7 +284,7 @@ export default function ClosureSection({
               <Card
                 cardIndex={2}
                 ref={(el) => {
-                  cardsRef.current[1] = el;
+                  cardsRef.current[4] = el;
                 }}
                 setExpandedCardIndex={setExpandedCardIndex}
                 onMobileCardCardContentShownChange={() =>
@@ -283,7 +302,7 @@ export default function ClosureSection({
               <Card
                 cardIndex={3}
                 ref={(el) => {
-                  cardsRef.current[2] = el;
+                  cardsRef.current[5] = el;
                 }}
                 setExpandedCardIndex={setExpandedCardIndex}
                 onMobileCardCardContentShownChange={() =>
@@ -305,6 +324,12 @@ export default function ClosureSection({
                 setShowMethodTooltip={setShowMethodTooltip}
                 tooltipText={tooltipText}
               />
+              {/* Mobile tooltip */}
+              {showMethodTooltip && (
+                <div className="copy-text absolute bottom-[54px] mb-2 right-0 left-0 text-black-blue bg-grey-text text-[18px] w-auto p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%]">
+                  {tooltipText}
+                </div>
+              )}
             </div>
           </div>
           <div className="hidden md:block absolute bottom-0 right-0  pb-0">
@@ -352,6 +377,7 @@ function CTAButtons({
           className="flex-1 button-grey-text-hover border border-grey-text flex items-center justify-between gap-2 hover:bg-grey-text transition text-grey-text hover:text-black-blue relative"
           onMouseEnter={() => setShowMethodTooltip(true)}
           onMouseLeave={() => setShowMethodTooltip(false)}
+          onClick={() => setShowMethodTooltip(!showMethodTooltip)}
         >
           <span>{useCopy("cta_text_button_2")}</span>
           <svg
@@ -376,8 +402,9 @@ function CTAButtons({
               strokeLinejoin="round"
             />
           </svg>
+          {/* Desktop tooltip */}
           {showMethodTooltip && (
-            <div className="copy-text absolute bottom-[54px] mb-2 -right-px text-black-blue bg-grey-text text-[18px] w-[600px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%]">
+            <div className="copy-text hidden md:block absolute bottom-[54px] mb-2 -right-px text-black-blue bg-grey-text text-[18px] w-[600px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%]">
               {tooltipText}
             </div>
           )}
