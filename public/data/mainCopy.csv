@@ -4,7 +4,6 @@ hooks_1_button,"Hook, screen 1 button",scroll,,,
 hooks_2_text,"Hook, screen 2","Consumer behavior is shifting faster than marketing budgets can follow, and this will only continue to accelerate.
 
 New research on AI/LLM disruption<info>Here AI/LLM refers to AI chatbots, assistants, and agents, which we’ll refer to as “AI” throughout the report for simplicity’s sake.</info>, done in partnership with BCG, dives deep into the <green><b>current state of play for marketers</b></green>, and where we go from here.",,,
-,AI/LLM disruption tooltip text,"Here AI/LLM refers to AI chatbots, assistants, and agents, which we’ll refer to as “AI” throughout the report for simplicity’s sake.",,,
 hooks_title,Title,<green>The <b>AI Disruption Index</b></green>,,,
 hooks_subline,Title sub-line,Report by,,,
 context_intro,Context paragraph 1,"<b>In partnership with BCG, we surveyed 283 marketing leaders across 15 verticals and 5 regions, interviewed 15 executives from leading companies, and analyzed first-party Moloco app performance data from 3,000+ apps representing 200 billion downloads.</b>",,,
@@ -102,6 +101,10 @@ qu_top_right_description,"Quadrant, step 4 body text","Secured companies can <b>
 qu_data_nudge,Vertical selection nudge,Selected vertical details will appear here.,,,
 qu_data_nudge_mobile,Vertical selection nudge (on mobile without selection possibilities),The details for the selected vertical will appear here.,,,
 qu_chart_logo_text,Text to introduce app / company logos,Example companies in category,,,
+qu_axis_x_title,X axis title,Strength of customer relationship,,,
+qu_axis_y_title,Y axis title,Risk of AI disruption,,,
+qu_axis_low,Axis minimum label,Low,,,
+qu_axis_high,Axis maximum label,High,,,
 closure_title,Closure title,"While journeys shift, <b>relationships endure</b>",,,
 closure_paragraph_1,Closure paragraph 1,"Every vertical and company will face a unique set of opportunities and challenges, but there’s one strategic principle that’s consistent. Customer relationships are the durable asset of the AI future.",,,
 closure_paragraph_2,Closure paragraph 3,<b>Here are the critical strategies forward-looking CMOs are using to drive connections:</b>,,,

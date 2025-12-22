@@ -4,7 +4,13 @@ import { Tooltip } from "@/components/InlineContentTooltip";
 /**
  * Mapping of custom tags to React className or element
  */
-const TAG_MAPPINGS: Record<string, { element: string; className?: string }> = {
+type TagMapping = {
+  element: string;
+  className?: string;
+  style?: React.CSSProperties;
+};
+
+const TAG_MAPPINGS: Record<string, TagMapping> = {
   green: { element: "span", className: "text-bright-green" },
   b: { element: "b" },
   ul: { element: "ul" },
@@ -12,6 +18,15 @@ const TAG_MAPPINGS: Record<string, { element: string; className?: string }> = {
   li: { element: "li" },
   i: { element: "i" },
   info: { element: "info" }, // Special handling for tooltip
+};
+
+/**
+ * Mapping for SVG-compatible elements (used inside SVG <text> elements)
+ */
+const SVG_TAG_MAPPINGS: Record<string, TagMapping> = {
+  green: { element: "tspan", style: { fill: "var(--bright-green)" } },
+  b: { element: "tspan", style: { fontWeight: "bold" } },
+  i: { element: "tspan", style: { fontStyle: "italic" } },
 };
 
 interface ParsedNode {
@@ -90,12 +105,21 @@ function parseMarkup(text: string): ParsedNode[] {
 /**
  * Converts parsed nodes into React elements
  */
-function nodesToReact(nodes: ParsedNode[], key: string = ""): ReactNode {
+function nodesToReact(
+  nodes: ParsedNode[],
+  key: string = "",
+  svg: boolean = false
+): ReactNode {
   return nodes.map((node, index) => {
     const nodeKey = `${key}-${index}`;
 
     if (node.type === "text") {
-      // Preserve line breaks in text
+      // For SVG mode, return plain text (no spans or breaks)
+      if (svg) {
+        return node.content;
+      }
+
+      // Preserve line breaks in text for HTML mode
       const parts = node.content.split("\n");
       return parts.map((part, i) => (
         <span key={`${nodeKey}-${i}`}>
@@ -106,29 +130,37 @@ function nodesToReact(nodes: ParsedNode[], key: string = ""): ReactNode {
     }
 
     // Element node
-    const mapping = TAG_MAPPINGS[node.tag!];
+    const mapping = svg ? SVG_TAG_MAPPINGS[node.tag!] : TAG_MAPPINGS[node.tag!];
+
     if (!mapping) {
       // Unknown tag, render content as-is
-      return nodesToReact(node.children || [], nodeKey);
+      return nodesToReact(node.children || [], nodeKey, svg);
     }
 
-    // Special handling for info (tooltip) tag
-    if (node.tag === "info") {
+    // Special handling for info (tooltip) tag - only in HTML mode
+    if (node.tag === "info" && !svg) {
       // Extract the text content from children
       const tooltipContent = extractTextContent(node.children || []);
       return <Tooltip key={nodeKey} content={tooltipContent} />;
     }
 
-    const props: { key: string; className?: string } = { key: nodeKey };
+    // Skip unsupported tags in SVG mode (like lists, info)
+    if (svg && !SVG_TAG_MAPPINGS[node.tag!]) {
+      return nodesToReact(node.children || [], nodeKey, svg);
+    }
 
-    if (mapping.className) {
-      props.className = mapping.className;
+    const props: any = { key: nodeKey };
+
+    if (svg && mapping.style) {
+      props.style = mapping.style;
+    } else if (!svg && (mapping as any).className) {
+      props.className = (mapping as any).className;
     }
 
     return createElement(
       mapping.element,
       props,
-      nodesToReact(node.children || [], nodeKey)
+      nodesToReact(node.children || [], nodeKey, svg)
     );
   });
 }
@@ -150,16 +182,17 @@ function extractTextContent(nodes: ParsedNode[]): string {
 /**
  * Parses copy text with custom markup and returns React elements
  * @param text - Text with markup like <green>text</green> or <b>text</b>
+ * @param svg - If true, returns SVG-compatible elements (tspan instead of span)
  * @returns React elements with proper styling
  */
-export function parseCopy(text: string): ReactNode {
+export function parseCopy(text: string, svg: boolean = false): ReactNode {
   if (!text) return null;
 
-  // First, detect and convert bullet and ordered lists to <ul>/<ol> tags
-  const processedText = convertLists(text);
+  // Skip list conversion in SVG mode
+  const processedText = svg ? text : convertLists(text);
 
   const nodes = parseMarkup(processedText);
-  return nodesToReact(nodes);
+  return nodesToReact(nodes, "", svg);
 }
 
 /**

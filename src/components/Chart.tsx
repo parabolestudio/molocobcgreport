@@ -6,6 +6,8 @@ import type { ChartMode } from "@/helpers/chart";
 import { verticalsMap } from "@/helpers/chart";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
+import { parseCopy } from "@/helpers/parseCopy";
+import { copyData } from "@/data/copyData";
 
 const quadrantData = [
   {
@@ -265,7 +267,7 @@ export default function Chart({
                     : "var(--grey-blue)",
               }}
             >
-              Strength of customer relationship
+              {parseCopy(copyData.qu_axis_x_title, true)}
             </text>
             <text
               className="chart-text uppercase transition"
@@ -281,7 +283,7 @@ export default function Chart({
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
-              low
+              {parseCopy(copyData.qu_axis_low, true)}
             </text>
             <text
               className="chart-text uppercase transition"
@@ -299,7 +301,7 @@ export default function Chart({
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
-              high
+              {parseCopy(copyData.qu_axis_high, true)}
             </text>
           </g>
           <g className="y-axis">
@@ -345,7 +347,7 @@ export default function Chart({
                     : "var(--grey-blue)",
               }}
             >
-              Risk of AI disruption
+              {parseCopy(copyData.qu_axis_y_title, true)}
             </text>
             <text
               className="chart-text uppercase transition"
@@ -363,7 +365,7 @@ export default function Chart({
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
-              low
+              {parseCopy(copyData.qu_axis_low, true)}
             </text>
             <text
               className="chart-text uppercase transition"
@@ -381,7 +383,7 @@ export default function Chart({
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
-              high
+              {parseCopy(copyData.qu_axis_high, true)}
             </text>
           </g>
           <g className="quadrants">
