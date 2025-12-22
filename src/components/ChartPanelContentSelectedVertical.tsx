@@ -146,7 +146,9 @@ function SummaryCopy({ copy }: { copy: Copy }) {
 
       {/* Quotes */}
       <div className="bg-[#05284D] rounded-[20px] p-5 pb-8 text-[18px] relative">
-        <p className="font-bold pb-4">{copy.quotes[shownQuoteIndex]?.text}</p>
+        <p className="font-bold font-montserrat pb-4">
+          {copy.quotes[shownQuoteIndex]?.text}
+        </p>
         <p>— {copy.quotes[shownQuoteIndex]?.credit}</p>
         <img
           className="absolute bottom-0 left-0 cursor-pointer"
@@ -305,13 +307,13 @@ function DetailsCopy({ copy }: { copy: Copy }) {
     <div>
       <div className="border-b border-b-bright-green pb-5 border-dashed gap-4 flex flex-col">
         <div>
-          <p className="font-bold text-[18px] md:text-[24px]">
+          <p className="font-bold font-montserrat text-[18px] md:text-[24px]">
             AI Disruption Risk
           </p>
           <p className="text-[14px] md:text-[18px]">{copy.ai_risk_intro}</p>
         </div>
         <div>
-          <p className="font-bold">
+          <p className="font-bold font-montserrat">
             Discovery |{" "}
             <span className="text-bright-green">
               {copy.ai_discovery_risk_level}
@@ -322,7 +324,7 @@ function DetailsCopy({ copy }: { copy: Copy }) {
           </p>
         </div>
         <div>
-          <p className="font-bold">
+          <p className="font-bold font-montserrat">
             Service Disruption |{" "}
             <span className="text-bright-green">
               {copy.ai_service_risk_level}
@@ -333,7 +335,7 @@ function DetailsCopy({ copy }: { copy: Copy }) {
           </p>
         </div>
         <div>
-          <p className="font-bold">
+          <p className="font-bold font-montserrat">
             Data Access & Regulatory |{" "}
             <span className="text-bright-green">{copy.ai_data_risk_level}</span>
           </p>
@@ -344,7 +346,7 @@ function DetailsCopy({ copy }: { copy: Copy }) {
       </div>
       <div className="py-5 border-dashed gap-5 flex flex-col">
         <div>
-          <p className="font-bold text-[18px] md:text-[24px">
+          <p className="font-bold font-montserrat text-[18px] md:text-[24px]">
             Strength of Customer Relationship
           </p>
           <p className="text-[12px] md:text-[14px]">{copy.customer_intro}</p>
@@ -410,8 +412,10 @@ function ScoreDisplay({
     <div className="w-full">
       <div className="grid grid-cols-[35%_65%] w-full">
         <div className="min-w-0">
-          <p className="font-bold text-[14px] md:text-[18px]">{title}</p>
-          <p className="text-[14px] italic">{note}</p>
+          <p className="font-bold font-montserrat text-[14px] md:text-[18px]">
+            {title}
+          </p>
+          <p className="text-[14px]">{note}</p>
         </div>
         <div className="min-w-0" id={id}>
           <svg width={width} height={height}>

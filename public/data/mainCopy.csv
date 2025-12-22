@@ -65,9 +65,9 @@ qu_bottom_left_x_level,"Quadrant, step 1, x axis description","<b>Customer relat
 Low customer relationship strength due to a combination of weak loyalty, higher reliance paid traffic, and more engagement on the web (vs. mobile app).",,,
 qu_bottom_left_description,"Quadrant, step 1 body text","They need to fundamentally <b>rebuild the relationship layer</b>:
 
-1 Build stronger customer relationships by investing in owned services like mobile apps, creating loyalty programs, personalized experiences, and community ecosystems
-2 Make the most of first-party data and integrate AI-like offerings to create personalized deals, contextually relevant product comparisons, and AI-driven customer assistance
-3 Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps",,,
+1. Build stronger customer relationships by investing in owned services like mobile apps, creating loyalty programs, personalized experiences, and community ecosystems
+2. Make the most of first-party data and integrate AI-like offerings to create personalized deals, contextually relevant product comparisons, and AI-driven customer assistance
+3. Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps",,,
 qu_top_left_title,"Quadrant, step 2 title",<b>Undefended</b>,,,
 qu_top_left_headline,"Quadrant, step 2 headline","Low AI disruption today, but weak customer ties mean these verticals need to pivot strategies for the long term.",,,
 qu_top_left_y_level,"Quadrant, step 2, y axis description","<b>AI disruption | <green>Moderate to Low</green></b>
@@ -76,8 +76,8 @@ qu_top_left_x_level,"Quadrant, step 2, x axis description","<b>Customer relation
 Low customer relationship strength is due to a combination of weak loyalty, higher reliance on paid traffic, and more engagement on the web (vs. mobile app).",,,
 qu_top_left_description,"Quadrant, step 2 body text","They need to <b>build future-proof foundations</b>: 
 
-1 Build stronger customer relationships by investing in owned services like mobile apps, creating loyalty programs, personalized experiences, and community ecosystems
-2 Make the most of first-party data and integrate AI-like offerings to create personalized deals, contextually relevant product comparisons, and AI-driven customer assistance",,,
+1. Build stronger customer relationships by investing in owned services like mobile apps, creating loyalty programs, personalized experiences, and community ecosystems
+2. Make the most of first-party data and integrate AI-like offerings to create personalized deals, contextually relevant product comparisons, and AI-driven customer assistance",,,
 qu_bottom_right_title,"Quadrant, step 3 title",<b>Contested</b>,,,
 qu_bottom_right_headline,"Quadrant, step 3 headline","High AI disruption is already reshaping discovery here, but strong loyalty and user intent keep these verticals durable.",,,
 qu_bottom_right_y_level,"Quadrant, step 3, y axis description","<b>AI disruption | <green>High</green></b>
@@ -86,9 +86,9 @@ qu_bottom_right_x_level,"Quadrant, step 3, x axis description","<b>Customer rela
 Deep reliance within daily workflows and a history of organic acquisition signifies  strong customer loyalty.",,,
 qu_bottom_right_description,"Quadrant, step 3 body text","Contested companies need to <b>defend and differentiate</b>:
 
-1 Elevate already existing switching barriers by making AI-enhanced services indispensable within their ecosystem
-2 Shape industry standards by leveraging scale and trust to define how AI integrates into this vertical (i.e.,. data partnerships, proprietary agents)
-3 Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps",,,
+1. Elevate already existing switching barriers by making AI-enhanced services indispensable within their ecosystem
+2. Shape industry standards by leveraging scale and trust to define how AI integrates into this vertical (i.e.,. data partnerships, proprietary agents)
+3. Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps",,,
 qu_top_right_title,"Quadrant, step 4 title",<b>Secured</b>,,,
 qu_top_right_headline,"Quadrant, step 4 headline",Low AI disruption and strong customer relationships combine to create resilience.,,,
 qu_top_right_y_level,"Quadrant, step 4, y axis description","<b>AI disruption | <green>Moderate to Low</green></b>
@@ -97,8 +97,8 @@ qu_top_right_x_level,"Quadrant, step 4, x axis description","<b>Customer relatio
 Habitual engagements, organic pull, and trust all drive high customer loyalty. ",,,
 qu_top_right_description,"Quadrant, step 4 body text","Secured companies can <b>accelerate their advantage</b>:
 
-1 Reimagine customer connection with AI-powered experiences, shifting from generic loyalty to personalized, proactive relationships 
-2 Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps",,,
+1. Reimagine customer connection with AI-powered experiences, shifting from generic loyalty to personalized, proactive relationships 
+2. Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps",,,
 qu_data_nudge,Vertical selection nudge,Selected vertical details will appear here.,,,
 qu_data_nudge_mobile,Vertical selection nudge (on mobile without selection possibilities),The details for the selected vertical will appear here.,,,
 qu_chart_logo_text,Text to introduce app / company logos,Example companies in category,,,
