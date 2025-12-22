@@ -333,7 +333,9 @@ const getContentMap = (
 ): Record<ChartMode, JSX.Element> => ({
   "expl-y-axis": (
     <div className="flex flex-col gap-4 text-grey-text">
-      <h3 className="panel-heading">{copyTexts.qu_expl_title}</h3>
+      {mobile ? null : (
+        <h3 className="panel-heading">{copyTexts.qu_expl_title}</h3>
+      )}
       <p className="panel-text">{copyTexts.qu_expl_subline}</p>
       <div className="panel-text highlighted-axis">
         {copyTexts.qu_expl_y_description}
@@ -342,7 +344,9 @@ const getContentMap = (
   ),
   "expl-x-axis": (
     <div className="flex flex-col gap-4">
-      <h3 className="panel-heading mb-0">{copyTexts.qu_expl_title}</h3>
+      {mobile ? null : (
+        <h3 className="panel-heading mb-0">{copyTexts.qu_expl_title}</h3>
+      )}
       <p className="panel-text">{copyTexts.qu_expl_subline}</p>
       <div className="panel-text highlighted-axis">
         {copyTexts.qu_expl_x_description}
