@@ -13,6 +13,11 @@ export interface DistributedRingsFormationConfig {
   circleSize: number; // Fixed size of circles (no pulsing) - Default: 8
   smoothing: number; // Smoothing factor for position transition - Default: 0.08
 
+  // Pulse animation properties
+  pulseIntensity: number; // Pulse animation intensity (0 = no pulse, 1 = full pulse) - Default: 0
+  pulseSpeed: number; // Speed of the pulse animation - Default: 0.0025
+  pulseAmount: number; // Maximum pulse size variation - Default: 4
+
   // Distribution settings
   distributionZoneAngle: number; // Angle range (in radians) for single ring OR base angle if inner/outer not set - Default: PI/3 (60 degrees on each side)
   distributionZoneAngleInner?: number; // Angle range for innermost ring - if set, overrides distributionZoneAngle and interpolates to outer
@@ -73,6 +78,9 @@ export class DistributedRingsFormation implements Formation {
       radiusStep: 60,
       circleSize: 8,
       smoothing: 0.08,
+      pulseIntensity: 0,
+      pulseSpeed: 0.0025,
+      pulseAmount: 4,
       distributionZoneAngle: Math.PI / 3, // 60 degrees
       distributionMinRadius: 20,
       distributionMaxRadius: 120,
@@ -173,10 +181,15 @@ export class DistributedRingsFormation implements Formation {
       radiusStep,
       circleSize,
       smoothing,
+      pulseIntensity,
+      pulseSpeed,
+      pulseAmount,
       distributionZoneAngle,
       distributionZoneAngleInner,
       distributionZoneAngleOuter,
     } = this.config;
+
+    const effectivePulseAmount = pulseAmount * pulseIntensity;
 
     let circleIndex = 0;
 
@@ -227,9 +240,21 @@ export class DistributedRingsFormation implements Formation {
         circle.targetX = targetX;
         circle.targetY = targetY;
 
-        // Set fixed size (no pulsing)
-        circle.targetSize = circleSize;
-        circle.size = circleSize;
+        // Apply pulsing animation if pulseIntensity > 0
+        if (pulseIntensity > 0) {
+          // Use sine wave with randomized offset per circle for variety
+          const randomOffset = circleIndex * 2.7; // Prime-like number for pseudo-random distribution
+          const randomSpeed = 1 + (circleIndex % 7) * 0.15; // Vary speed per circle
+          const pulse =
+            p5.sin(time * pulseSpeed * randomSpeed + randomOffset) *
+            effectivePulseAmount;
+          const targetSize = circleSize + pulse;
+          // Smoothly interpolate towards target size
+          circle.size += (targetSize - circle.size) * smoothing;
+        } else {
+          // No pulse, use fixed size
+          circle.size = circleSize;
+        }
 
         circleIndex++;
       }

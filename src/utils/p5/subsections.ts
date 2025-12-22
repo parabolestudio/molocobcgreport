@@ -30,6 +30,7 @@ export interface SubsectionConfig {
     radiusStep?: ResponsiveValue<number>; // Distance between each ring - Default: 60
     circleSize?: ResponsiveValue<number>; // Fixed size of circles - Default: 8
     arcSpacing?: ResponsiveValue<number>; // Arc length spacing between circles - Default: 30
+    pulseIntensity?: ResponsiveValue<number>; // Pulse animation intensity (0 = no pulse, 1 = full pulse) - Default: 0
     distributionZoneAngle?: ResponsiveValue<number>; // Angle range around horizontal center - Default: PI/3
     distributionZoneAngleInner?: ResponsiveValue<number>; // Angle for innermost ring (use with distributionZoneAngleOuter for gradient)
     distributionZoneAngleOuter?: ResponsiveValue<number>; // Angle for outermost ring (creates gradient with distributionZoneAngleInner)
@@ -91,6 +92,9 @@ export function resolveDistributedRingsConfig(
   if (config.arcSpacing !== undefined) {
     resolved.arcSpacing = resolveResponsive(config.arcSpacing, mobile);
   }
+  if (config.pulseIntensity !== undefined) {
+    resolved.pulseIntensity = resolveResponsive(config.pulseIntensity, mobile);
+  }
   if (config.distributionZoneAngle !== undefined) {
     resolved.distributionZoneAngle = resolveResponsive(
       config.distributionZoneAngle,
@@ -145,6 +149,7 @@ const configDistributedRingsCenterFullScreen = {
     distributionZoneAngleOuter: Math.PI / 3, // ~60° for outermost ring
     distributionMinRadius: 30,
     distributionMaxRadius: 250,
+    pulseIntensity: { mobile: 0.5, desktop: 0.8 },
   },
 };
 
@@ -202,6 +207,7 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
         distributionZoneAngle: Math.PI / 4, // 45 degrees
         distributionMinRadius: 30,
         distributionMaxRadius: 140,
+        pulseIntensity: 0,
       },
       alpha: 0.4,
       color: defaultColor,
