@@ -63,6 +63,8 @@ export default function Chart({
     quadrant: string;
   } | null>(null);
   const [showSelectionPrompt, setShowSelectionPrompt] = useState(true);
+  const [xAxisTitleWidth, setXAxisTitleWidth] = useState(0);
+  const [yAxisTitleWidth, setYAxisTitleWidth] = useState(0);
 
   // Call all quadrant headline hooks at top level to avoid conditional hook calls
   const quadrantHeadlines = {
@@ -111,6 +113,24 @@ export default function Chart({
     }
   }, [selectedVertical]);
 
+  // Measure x-axis title width
+  useEffect(() => {
+    const textElement = document.getElementById("x-axis-title-text");
+    if (textElement) {
+      const bbox = (textElement as unknown as SVGTextElement).getBBox();
+      setXAxisTitleWidth(bbox.width);
+    }
+  }, [mode, mobile]);
+
+  // Measure y-axis title width
+  useEffect(() => {
+    const textElement = document.getElementById("y-axis-title-text");
+    if (textElement) {
+      const bbox = (textElement as unknown as SVGTextElement).getBBox();
+      setYAxisTitleWidth(bbox.width);
+    }
+  }, [mode, mobile]);
+
   const margin = {
     top: mobile ? 30 : 50,
     bottom: mobile ? 30 : 50,
@@ -158,39 +178,6 @@ export default function Chart({
           overflow: "visible",
         }}
       >
-        {/* <rect
-          x="0"
-          y="0"
-          width={chartWidth}
-          height={margin.top}
-          fill="orange"
-          fillOpacity={0.3}
-        />
-        <rect
-          x="0"
-          y={margin.top + innerHeight}
-          width={chartWidth}
-          height={margin.bottom}
-          fill="orange"
-          fillOpacity={0.3}
-        />
-        <rect
-          x="0"
-          y="0"
-          width={margin.left}
-          height={chartHeight}
-          fill="yellow"
-          fillOpacity={0.3}
-        />
-        <rect
-          x={margin.left + innerWidth}
-          y="0"
-          width={margin.right}
-          height={chartHeight}
-          fill="yellow"
-          fillOpacity={0.3}
-        /> */}
-
         <g transform={`translate(${margin.left},${margin.top})`}>
           <g className="structure">
             <circle
@@ -244,31 +231,49 @@ export default function Chart({
                   : "var(--grey-blue)"
               }
             />
-            <text
-              className="chart-text-bold transition"
-              x={innerWidth / 2}
-              y={innerHeight + margin.bottom / 2}
-              dominantBaseline="middle"
-              textAnchor="middle"
-              style={{
-                fontSize:
-                  mode === "expl-x-axis"
-                    ? mobile
-                      ? "14px"
-                      : "18px"
-                    : mobile
-                    ? "12px"
-                    : "14px",
-                fill:
-                  mode === "expl-x-axis"
-                    ? "var(--bright-green)"
-                    : mode.startsWith("expl-quadrant-")
-                    ? "var(--grey-text)"
-                    : "var(--grey-blue)",
-              }}
-            >
-              {parseCopy(copyData.qu_axis_x_title, true)}
-            </text>
+            <g>
+              {xAxisTitleWidth > 0 && (
+                <rect
+                  x={innerWidth / 2 - xAxisTitleWidth / 2 - 4}
+                  y={innerHeight + margin.bottom / 2 - (mobile ? 10 : 14)}
+                  width={xAxisTitleWidth + 4 * 2}
+                  height={mobile ? 18 : 28}
+                  rx={4}
+                  fill={
+                    mode === "expl-x-axis"
+                      ? "var(--bright-green)"
+                      : "transparent"
+                  }
+                  className="transition"
+                />
+              )}
+              <text
+                id="x-axis-title-text"
+                className="chart-text-bold transition"
+                x={innerWidth / 2}
+                y={innerHeight + margin.bottom / 2}
+                dominantBaseline="middle"
+                textAnchor="middle"
+                style={{
+                  fontSize:
+                    mode === "expl-x-axis"
+                      ? mobile
+                        ? "14px"
+                        : "18px"
+                      : mobile
+                      ? "12px"
+                      : "14px",
+                  fill:
+                    mode === "expl-x-axis"
+                      ? "var(--black-blue)"
+                      : mode.startsWith("expl-quadrant-")
+                      ? "var(--grey-text)"
+                      : "var(--grey-blue)",
+                }}
+              >
+                {parseCopy(copyData.qu_axis_x_title, true)}
+              </text>
+            </g>
             <text
               className="chart-text uppercase transition"
               y={innerHeight + margin.bottom / 2}
@@ -322,33 +327,66 @@ export default function Chart({
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            <text
-              className="chart-text-bold transition"
-              x={innerWidth}
-              y={mobile ? -margin.top / 2 : innerHeight / 2 + margin.right / 2}
-              dominantBaseline="middle"
-              textAnchor={mobile ? "end" : "middle"}
-              style={{
-                transform: mobile ? "" : `rotate(-90deg)`,
-                transformOrigin: `${innerWidth}px ${innerHeight / 2}px`,
-                fontSize:
-                  mode === "expl-y-axis"
-                    ? mobile
-                      ? "14px"
-                      : "18px"
-                    : mobile
-                    ? "12px"
-                    : "14px",
-                fill:
-                  mode === "expl-y-axis"
-                    ? "var(--bright-green)"
-                    : mode.startsWith("expl-quadrant-")
-                    ? "var(--grey-text)"
-                    : "var(--grey-blue)",
-              }}
-            >
-              {parseCopy(copyData.qu_axis_y_title, true)}
-            </text>
+            <g>
+              {yAxisTitleWidth > 0 && !mobile && (
+                <rect
+                  x={innerWidth + 14}
+                  y={innerHeight / 2 - yAxisTitleWidth / 2 - 4}
+                  width={28}
+                  height={yAxisTitleWidth + 8}
+                  rx={4}
+                  fill={
+                    mode === "expl-y-axis"
+                      ? "var(--bright-green)"
+                      : "transparent"
+                  }
+                  className="transition"
+                />
+              )}
+              {yAxisTitleWidth > 0 && mobile && (
+                <rect
+                  x={innerWidth - yAxisTitleWidth - 4 - 4}
+                  y={-margin.top / 2 - (mode === "expl-y-axis" ? 10 : 8)}
+                  width={yAxisTitleWidth + 8}
+                  height={mode === "expl-y-axis" ? 18 : 16}
+                  rx={4}
+                  fill={
+                    mode === "expl-y-axis"
+                      ? "var(--bright-green)"
+                      : "transparent"
+                  }
+                  className="transition"
+                />
+              )}
+              <text
+                id="y-axis-title-text"
+                className="chart-text-bold transition"
+                x={innerWidth - (mobile ? 4 : 0)}
+                y={mobile ? -margin.top / 2 : innerHeight / 2 + 14 + 15}
+                dominantBaseline="middle"
+                textAnchor={mobile ? "end" : "middle"}
+                style={{
+                  transform: mobile ? "" : `rotate(-90deg)`,
+                  transformOrigin: `${innerWidth}px ${innerHeight / 2}px`,
+                  fontSize:
+                    mode === "expl-y-axis"
+                      ? mobile
+                        ? "14px"
+                        : "18px"
+                      : mobile
+                      ? "12px"
+                      : "14px",
+                  fill:
+                    mode === "expl-y-axis"
+                      ? "var(--black-blue)"
+                      : mode.startsWith("expl-quadrant-")
+                      ? "var(--grey-text)"
+                      : "var(--grey-blue)",
+                }}
+              >
+                {parseCopy(copyData.qu_axis_y_title, true)}
+              </text>
+            </g>
             <text
               className="chart-text uppercase transition"
               x={mobile ? innerWidth - 5 : innerWidth + 10}
