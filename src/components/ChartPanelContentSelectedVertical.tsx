@@ -147,7 +147,7 @@ function SummaryCopy({ copy }: { copy: Copy }) {
       {/* Quotes */}
       <div className="bg-[#05284D] rounded-[20px] p-5 pb-8 text-[18px] relative">
         <p className="font-bold font-montserrat pb-4">
-          {copy.quotes[shownQuoteIndex]?.text}
+          “{copy.quotes[shownQuoteIndex]?.text}”
         </p>
         <p>— {copy.quotes[shownQuoteIndex]?.credit}</p>
         <img
