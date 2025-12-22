@@ -212,6 +212,12 @@ export default function JourneySection({
                   {useCopy("context_buttons_text")}
                 </div>
               </div>
+              <div className="-ml-8">
+                <img
+                  src={`${basePath}/icons/contextPathMobile.svg`}
+                  alt="Context Path"
+                />
+              </div>
               <MethodologyButton
                 tooltipText={tooltipText}
                 setShowMethodTooltip={setShowMethodTooltip}
@@ -225,7 +231,7 @@ export default function JourneySection({
               )}
             </div>
             <div
-              className="absolute top-1/2 -translate-y-1/2"
+              className="hidden md:block absolute top-1/2 -translate-y-1/2"
               style={{ left: "-160%" }}
             >
               <img
