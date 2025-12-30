@@ -125,8 +125,8 @@ function SideSwitchButton({
     >
       <span className="text-black-blue text-[12px] md:text-[18px]">
         {shownSide === "summary"
-          ? useCopy("qu_panel_button_summary")
-          : useCopy("qu_panel_button_details")}
+          ? useCopy("qu_panel_button_details")
+          : useCopy("qu_panel_button_summary")}
       </span>
       <img
         src={`${basePath}/icons/switch.svg`}
