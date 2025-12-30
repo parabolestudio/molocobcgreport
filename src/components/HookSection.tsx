@@ -128,8 +128,7 @@ export default function HookSection({
               <img
                 src={`${basePath}/logos/moloco_bcg.svg`}
                 alt="Moloco logo and BCG logo"
-                width={291}
-                height={51}
+                className="w-[180px] h-[31px] md:w-[291px] md:h-[51px]"
               />
             </div>
           </div>
