@@ -502,18 +502,30 @@ function StatDisplay({
           {useCopy(`journey_${step}_stat_headline`)}
         </div>
         <div
-          className={`flex flex-col md:flex-row gap-0 md:gap-10 justify-center items-center mx-auto ${
-            step === 2 ? "max-w-[820px] " : "max-w-[680px]"
-          }`}
+          className={`flex flex-col md:flex-row gap-0 md:gap-10 justify-center items-center mx-auto max-w-[820px]`}
         >
-          <div className="text-bright-green text-[96px] md:text-[160px] text-center font-semibold font-museo-moderno uppercase leading-[125%]">
+          <div className="text-bright-green text-[96px] md:text-[160px] text-center font-semibold font-museo-moderno uppercase leading-[125%] shrink-0">
             {useCopy(`journey_${step}_stat_number`)}
           </div>
-          <div className="text-bright-green text-[18px] md:text-[32px] text-center text-balance md:text-left leading-[100%]">
+          <div
+            className="text-bright-green text-[18px] md:text-[32px] text-center text-balance md:text-left leading-[100%]"
+            style={{
+              width:
+                step === 1
+                  ? "clamp(200px, 100%, 310px)"
+                  : step === 2
+                  ? "clamp(200px, 100%, 480px)"
+                  : step === 3
+                  ? "clamp(200px, 100%, 380px)"
+                  : step === 4
+                  ? "clamp(200px, 100%, 315px)"
+                  : "clamp(200px, 100%, 380px)",
+            }}
+          >
             {useCopy(`journey_${step}_stat_text`)}
           </div>
           <div
-            className={`md:hidden mt-8 text-[#9494AA] text-[14px] md:text-center text-balance leading-[100%] ${
+            className={`md:hidden mt-8 text-[#9494AA] text-[14px] text-center text-balance leading-[100%] ${
               step === 4 ? "max-w-[700px] " : "max-w-[680px]"
             } mx-auto`}
           >
