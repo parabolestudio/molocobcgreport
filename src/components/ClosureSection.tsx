@@ -390,13 +390,19 @@ function CTAButtons({
             <path
               d="M1.25 10.25C6.65 -1.75 22.85 -1.75 28.25 10.25"
               strokeWidth="2.5"
-              className="stroke-grey-text no-fill transition"
+              className={`${
+                showMethodTooltip ? "stroke-black-blue" : "stroke-grey-text"
+              } transition`}
               strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path
               d="M14.749 16.2501C14.1581 16.2501 13.5729 16.1337 13.0269 15.9076C12.481 15.6814 11.9849 15.35 11.567 14.9321C11.1492 14.5142 10.8177 14.0182 10.5916 13.4722C10.3654 12.9262 10.249 12.3411 10.249 11.7501C10.249 11.1592 10.3654 10.574 10.5916 10.028C10.8177 9.48208 11.1492 8.986 11.567 8.56814C11.9849 8.15028 12.481 7.81881 13.0269 7.59266C13.5729 7.36652 14.1581 7.25012 14.749 7.25012C15.9425 7.25012 17.0871 7.72423 17.931 8.56814C18.7749 9.41205 19.249 10.5566 19.249 11.7501C19.249 12.9436 18.7749 14.0882 17.931 14.9321C17.0871 15.776 15.9425 16.2501 14.749 16.2501Z"
-              className="stroke-grey-text fill-grey-text with-fill transition"
+              className={`${
+                showMethodTooltip
+                  ? "stroke-black-blue fill-black-blue"
+                  : "stroke-grey-text fill-grey-text"
+              } transition`}
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
