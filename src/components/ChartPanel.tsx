@@ -481,7 +481,7 @@ function NavigationButtons({
         <span>{useCopy("qu_button_back")}</span>
       </button>
       <button
-        className="bg-medium-blue grow"
+        className="bg-medium-blue grow hover:bg-[#65ACF1] hover:text-black-blue transition"
         onClick={() => scrollToDataMode()}
         style={{ fontSize: mobile ? "12px" : "14px" }}
       >

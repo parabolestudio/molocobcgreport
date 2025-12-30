@@ -99,7 +99,9 @@ function SideSwitchButton({
   return (
     <button
       className={`${
-        shownSide === "summary" ? "bg-bright-green" : "bg-medium-blue"
+        shownSide === "summary"
+          ? "bg-bright-green hover:bg-[#A8F7DD]"
+          : "bg-medium-blue hover:bg-[#65ACF1]"
       } transition flex items-center justify-center gap-2`}
       style={{
         padding: mobile ? "6px 12px" : undefined,
