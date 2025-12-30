@@ -123,7 +123,9 @@ export default function Home() {
       ></div>
       <img
         className={`fixed top-10 md:top-20 right-5 md:right-20 pointer-events-none transition-opacity ${
-          currentSection === 1 || currentSection === 3
+          currentSection === 1 ||
+          currentSection === 3 ||
+          (currentSection === 2 && currentStep === 0)
             ? "opacity-50"
             : "opacity-0"
         } w-7 h-[26px] md:w-[34px] md:h-[31px]`}
