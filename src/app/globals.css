@@ -280,6 +280,7 @@ button {
   counter-increment: list-counter;
   position: relative;
   padding-left: 2.5em;
+  margin-bottom: 1em;
 }
 
 .styled-ordered-list li::before {
