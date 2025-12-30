@@ -222,7 +222,7 @@ export default function Chart({
               x2={innerWidth}
               y2={innerHeight}
               strokeWidth={1.5}
-              strokeDasharray="10,10"
+              strokeDasharray="5,5"
               strokeLinecap="round"
               strokeLinejoin="round"
               stroke={
@@ -325,7 +325,7 @@ export default function Chart({
                   : "var(--grey-blue)"
               }
               strokeWidth={1.5}
-              strokeDasharray="10,10"
+              strokeDasharray="5,5"
               strokeLinecap="round"
               strokeLinejoin="round"
             />

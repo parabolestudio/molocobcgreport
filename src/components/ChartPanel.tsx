@@ -289,7 +289,8 @@ export default function ChartPanel({
           />
         )}
       </div>
-      <div className="p-6 pt-7 border-t-[1.5px] border-t-[#9494AA] border-dashed rounded-[20px] flex gap-3 shrink-0 items-start ">
+      <div className="relative p-6 pt-7 rounded-[20px] flex gap-3 shrink-0 items-start">
+        <DashedBorderTop />
         <img
           src={`${basePath}/logos/moloco_small_without_border.svg`}
           alt="Moloco logo"
@@ -431,12 +432,21 @@ function QuadrantExplanationContent({
         {copyTexts["qu_" + quadrant + "_y_level"]}
       </div>
       <br />
-
       <div className="panel-text">
         {copyTexts["qu_" + quadrant + "_x_level"]}
       </div>
       <br />
-      <div className="h-px border-t-[#9494AA] border-t-[1.5px] border-dashed w-full" />
+      <svg viewBox="0 0 750 2" style={{ height: "2px" }}>
+        <line
+          x1="0"
+          y1="0"
+          x2="750"
+          y2="0"
+          stroke="#9494AA"
+          strokeWidth="1.5"
+          strokeDasharray="5,5"
+        />
+      </svg>
       <br />
       <div className="panel-text">
         {copyTexts["qu_" + quadrant + "_description"]}
@@ -510,6 +520,50 @@ function NavigationButtons({
           style={{ transform: "rotate(180deg)" }}
         />
       </button>
+    </div>
+  );
+}
+
+function DashedBorderTop() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setWidth(containerRef.current.offsetWidth - 0.5);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+
+  const borderRadius = 20;
+  const svgHeight = borderRadius + 2; // Need extra height to show the curves
+  const pathData =
+    width > 0
+      ? `M 0 ${borderRadius} Q 0 0 ${borderRadius} 0 L ${
+          width - borderRadius
+        } 0 Q ${width} 0 ${width} ${borderRadius}`
+      : "";
+
+  return (
+    <div
+      ref={containerRef}
+      className="absolute top-0 left-0 w-full pointer-events-none"
+      style={{ height: svgHeight }}
+    >
+      <svg width={width} height={svgHeight} className="absolute top-0 left-0">
+        <path
+          d={pathData}
+          stroke="#9494AA"
+          strokeWidth="1.5"
+          strokeDasharray="5,5"
+          fill="none"
+        />
+      </svg>
     </div>
   );
 }
