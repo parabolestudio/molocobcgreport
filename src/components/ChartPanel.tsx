@@ -2,7 +2,7 @@
 
 import type { ChartMode } from "@/helpers/chart";
 import { isChartModeExplanation } from "@/helpers/chart";
-import { JSX, useEffect, useState } from "react";
+import { JSX, useEffect, useRef, useState } from "react";
 import ChartPanelContentSelectedVertical from "./ChartPanelContentSelectedVertical";
 import { basePath } from "@/helpers/general";
 import { csv } from "d3-fetch";
@@ -57,6 +57,7 @@ export default function ChartPanel({
   const [shownSide, setShownSide] = useState<"summary" | "details">("summary");
   const [isFlipping, setIsFlipping] = useState(false);
   const isExplanation = isChartModeExplanation(mode);
+  const mobileContentBoxRef = useRef<HTMLDivElement>(null);
 
   const handleSideChange = (newSide: "summary" | "details") => {
     if (newSide !== shownSide) {
@@ -211,11 +212,19 @@ export default function ChartPanel({
     }
   }, [selectedVertical]);
 
+  // Reset scroll position of mobile content box when mode changes
+  useEffect(() => {
+    if (mobileContentBoxRef.current) {
+      mobileContentBoxRef.current.scrollTop = 0;
+    }
+  }, [mode]);
+
   if (mobile && selectedVertical === null) {
     return (
       <div className="panel-content-expl-mobile h-full flex flex-col justify-end overflow-hidden">
         <div
-          className={`${
+          ref={mobileContentBoxRef}
+          className={`mobile-content-box ${
             isExplanation
               ? "bg-grey-text rounded-[3px]"
               : "bg-panel-background-blue rounded-[10px]"
