@@ -206,7 +206,7 @@ export default function ClosureSection({
           <h3 className="text-[40px] md:text-[96px] text-grey-text text-center font-museo-moderno font-light leading-[114%]">
             {useCopy("closure_title")}
           </h3>
-          <p className="text-[18px] md:text-[32px] text-center">
+          <p className="text-[18px] md:text-[32px] text-center text-pretty">
             {useCopy("closure_paragraph_1")}
           </p>
         </div>

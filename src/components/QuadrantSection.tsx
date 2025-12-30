@@ -365,7 +365,7 @@ export default function QuadrantSection({
           <h2 className="font-museo-moderno text-bright-green text-[40px] md:text-[96px] leading-[125%] md:leading-[114px] font-extralight text-center">
             {useCopy("climax_1_title")}
           </h2>
-          <p className="text-[18px] md:text-[32px] max-w-[780px] text-center w-full">
+          <p className="text-[18px] md:text-[32px] max-w-[780px] text-center w-full text-pretty">
             {useCopy("climax_1_paragraph")}
           </p>
         </div>

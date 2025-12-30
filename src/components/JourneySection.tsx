@@ -278,12 +278,12 @@ export default function JourneySection({
           {/* Desktop */}
           <div className="hidden md:flex relative flex-col justify-between items-start h-full w-full py-2">
             <div className="w-full">
-              <div className="text-[18px] md:text-[32px] max-w-[900px]">
+              <div className="text-[18px] md:text-[32px] max-w-[900px] text-pretty">
                 {useCopy("context_intro")}
               </div>
             </div>
             <div className="w-full flex justify-between items-end gap-2">
-              <div className="text-[18px] md:text-[32px] max-w-[900px]">
+              <div className="text-[18px] md:text-[32px] max-w-[900px] text-pretty">
                 {useCopy("context_buttons_text")}
               </div>
               <MethodologyButton
@@ -338,10 +338,10 @@ export default function JourneySection({
           <div className="flex md:hidden relative flex-col justify-between items-start h-full w-full">
             <div className="w-full h-full flex flex-col justify-between items-start">
               <div className="flex flex-col gap-8">
-                <div className="text-[18px] md:text-[32px] max-w-[900px]">
+                <div className="text-[18px] md:text-[32px] max-w-[900px] text-pretty">
                   {useCopy("context_intro")}
                 </div>
-                <div className="text-[18px] md:text-[32px] max-w-[900px]">
+                <div className="text-[18px] md:text-[32px] max-w-[900px] text-pretty">
                   {useCopy("context_buttons_text")}
                 </div>
               </div>
