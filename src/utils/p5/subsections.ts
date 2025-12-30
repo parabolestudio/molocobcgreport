@@ -226,7 +226,6 @@ export const subsectionConfigs: Record<SectionName, SubsectionConfig[]> = {
     {
       progressStart: 0,
       progressEnd: 1,
-      alpha: 0.2,
       color: defaultColor,
       ...configDistributedRingsCenterFullScreen,
     },

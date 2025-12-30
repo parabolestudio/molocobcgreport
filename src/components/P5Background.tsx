@@ -146,38 +146,48 @@ export default function P5Background({
 
     const newFormation = data.getActiveFormation(sectionName, sectionProgress);
 
-    console.log(
-      "Current formation:",
-      data.currentFormation,
-      "-> New formation:",
-      newFormation
-    );
+    // console.log(
+    //   "Current formation:",
+    //   data.currentFormation,
+    //   "-> New formation:",
+    //   newFormation
+    // );
 
     // Check if section changed
     if (data.currentSection !== sectionName) {
       data.lastSection = data.currentSection;
       data.currentSection = sectionName;
-      data.lastFormation = data.currentFormation;
       data.transitionProgress = 0;
 
-      console.log(
-        "✅ Section changed - initiating fade transition to:",
-        newFormation
-      );
-      // Start fade out transition
-      data.fadeState = "fadeOut";
-      data.fadeProgress = 0;
-      data.pendingFormation = newFormation;
+      // Only trigger fade if formation type is actually changing
+      if (data.currentFormation !== newFormation) {
+        data.lastFormation = data.currentFormation;
+        // console.log(
+        //   "✅ Section changed with formation change - initiating fade transition to:",
+        //   newFormation
+        // );
+        // Start fade out transition
+        data.fadeState = "fadeOut";
+        data.fadeProgress = 0;
+        data.pendingFormation = newFormation;
+      } else {
+        // Same formation type, just smooth position transition
+        // console.log(
+        //   "✅ Section changed but same formation - smooth transition:",
+        //   newFormation
+        // );
+        data.currentFormation = newFormation;
+      }
     }
     // Check if formation changed within same section
     else if (data.currentFormation !== newFormation) {
       data.lastFormation = data.currentFormation;
       data.transitionProgress = 0;
 
-      console.log(
-        "✅ Formation changed within section - initiating fade transition to:",
-        newFormation
-      );
+      // console.log(
+      //   "✅ Formation changed within section - initiating fade transition to:",
+      //   newFormation
+      // );
       // Start fade out transition
       data.fadeState = "fadeOut";
       data.fadeProgress = 0;
