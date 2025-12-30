@@ -391,7 +391,7 @@ function JourneyPath({ step }: { step: number }) {
 
   const NUM_CIRCLES = 80; // Number of circles moving along the path
   const CIRCLE_RADIUS = 9.5; // Radius of each circle (matches the static circles in the SVG)
-  const ANIMATION_DURATION = 30; // Duration in seconds for one complete loop along the path
+  const ANIMATION_DURATION = 40; // Duration in seconds for one complete loop along the path
   // Lower value = faster movement, Higher value = slower movement
   // Examples: 10 = fast, 20 = medium, 40 = slow
   const CIRCLE_OPACITY = 1; // Opacity of the moving circles (0 to 1)
