@@ -45,6 +45,8 @@ export default function ChartPanel({
   scrollBack,
   scrollToDataMode,
   mobile,
+  mobileExplanationExpanded,
+  setMobileExplanationExpanded,
 }: {
   mode: ChartMode;
   selectedVertical: string | null;
@@ -53,6 +55,8 @@ export default function ChartPanel({
   scrollBack: Function;
   scrollToDataMode: Function;
   mobile: boolean;
+  mobileExplanationExpanded: boolean;
+  setMobileExplanationExpanded: (expanded: boolean) => void;
 }) {
   const [shownSide, setShownSide] = useState<"summary" | "details">("summary");
   const [isFlipping, setIsFlipping] = useState(false);
@@ -222,13 +226,32 @@ export default function ChartPanel({
   if (mobile && selectedVertical === null) {
     return (
       <div className="panel-content-expl-mobile h-full flex flex-col justify-end overflow-hidden">
+        {mode !== "data-filled" && (
+          <div
+            className="bg-[#9494AA] uppercase rounded-tl-[5px] rounded-tr-[5px] text-grey-text text-[12px] font-semibold py-1 px-2 inline-block w-fit self-end"
+            onClick={() =>
+              setMobileExplanationExpanded(!mobileExplanationExpanded)
+            }
+          >
+            <span>{mobileExplanationExpanded ? "Reduce" : "Expand"}</span>
+            <img
+              src={`${basePath}/icons/arrow.svg`}
+              alt="arrow"
+              width={12}
+              height={10}
+              className={`inline-block ml-1 rotate-90 ${
+                mobileExplanationExpanded ? "rotate-270" : "rotate-90"
+              }`}
+            />
+          </div>
+        )}
         <div
           ref={mobileContentBoxRef}
           className={`mobile-content-box ${
             isExplanation
               ? "bg-grey-text rounded-[3px]"
               : "bg-panel-background-blue rounded-[10px]"
-          } p-4 text-black-blue overflow-y-auto`}
+          } p-4 text-black-blue overflow-y-auto overflow-x-hidden`}
         >
           {contentMap[mode]}
         </div>

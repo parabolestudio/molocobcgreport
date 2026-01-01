@@ -41,6 +41,8 @@ export default function QuadrantSection({
   const [selectedVertical, setSelectedVertical] = useState<string | null>(null);
   const previousStepRef = useRef(-1);
   const [sourceExpandedMobile, setSourceExpandedMobile] = useState(false);
+  const [mobileExplanationExpanded, setMobileExplanationExpanded] =
+    useState(false);
 
   // Detect mobile after hydration to avoid SSR mismatch
   useEffect(() => {
@@ -465,10 +467,13 @@ export default function QuadrantSection({
                       scrollToSection(2, 7);
                     }}
                     mobile={mobile}
+                    mobileExplanationExpanded={mobileExplanationExpanded}
+                    setMobileExplanationExpanded={setMobileExplanationExpanded}
                   />
                 </div>
               </div>
-              {selectedVertical !== null && (
+              {selectedVertical !== null ||
+              (chartMode !== "data-filled" && mobileExplanationExpanded) ? (
                 <div className="extraChartPanel absolute top-[170px] bottom-0 right-0 w-full z-45">
                   <ChartPanel
                     mode={chartMode}
@@ -493,9 +498,11 @@ export default function QuadrantSection({
                       scrollToSection(2, 7);
                     }}
                     mobile={mobile}
+                    mobileExplanationExpanded={mobileExplanationExpanded}
+                    setMobileExplanationExpanded={setMobileExplanationExpanded}
                   />
                 </div>
-              )}
+              ) : null}
             </div>
           ) : (
             <div className="h-full grid grid-cols-[0.3fr_0.7fr] gap-8">
@@ -523,6 +530,8 @@ export default function QuadrantSection({
                     scrollToSection(2, 7);
                   }}
                   mobile={mobile}
+                  mobileExplanationExpanded={mobileExplanationExpanded}
+                  setMobileExplanationExpanded={setMobileExplanationExpanded}
                 />
               </div>
               <div ref={chartRef} className="h-full overflow-hidden">
