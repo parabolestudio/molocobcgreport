@@ -349,6 +349,25 @@ export default function QuadrantSection({
   const sourceShort = useCopy("qu_info_short");
   const sourceFull = useCopy("qu_info");
 
+  const scrollToDataMode = () => {
+    // Jump to data-filled mode (step 7)
+    scrollToSection(2, 7);
+  };
+  const scrollNext = () => {
+    // QuadrantSection is section 2, advance to next step
+    const nextStep = currentStep + 1;
+    // if (nextStep <= 7) {
+    scrollToSection(2, nextStep);
+    // }
+  };
+  const scrollBack = () => {
+    // Go to previous step
+    const prevStep = currentStep - 1;
+    if (prevStep >= 0) {
+      scrollToSection(2, prevStep);
+    }
+  };
+
   return (
     <div
       className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
@@ -406,7 +425,7 @@ export default function QuadrantSection({
                         setSourceExpandedMobile(!sourceExpandedMobile)
                       }
                     >
-                      Show {sourceExpandedMobile ? "less" : "more"}
+                      {sourceExpandedMobile ? " Show less" : "Show more"}
                     </span>
                   </p>
                 </div>
@@ -448,24 +467,9 @@ export default function QuadrantSection({
                     mode={chartMode}
                     selectedVertical={selectedVertical}
                     selectVertical={(vertical) => setSelectedVertical(vertical)}
-                    scrollNext={() => {
-                      // QuadrantSection is section 2, advance to next step
-                      const nextStep = currentStep + 1;
-                      if (nextStep <= 7) {
-                        scrollToSection(2, nextStep);
-                      }
-                    }}
-                    scrollBack={() => {
-                      // Go to previous step
-                      const prevStep = currentStep - 1;
-                      if (prevStep >= 0) {
-                        scrollToSection(2, prevStep);
-                      }
-                    }}
-                    scrollToDataMode={() => {
-                      // Jump to data-filled mode (step 7)
-                      scrollToSection(2, 7);
-                    }}
+                    scrollNext={scrollNext}
+                    scrollBack={scrollBack}
+                    scrollToDataMode={scrollToDataMode}
                     mobile={mobile}
                     mobileExplanationExpanded={mobileExplanationExpanded}
                     setMobileExplanationExpanded={setMobileExplanationExpanded}
@@ -479,24 +483,9 @@ export default function QuadrantSection({
                     mode={chartMode}
                     selectedVertical={selectedVertical}
                     selectVertical={(vertical) => setSelectedVertical(vertical)}
-                    scrollNext={() => {
-                      // QuadrantSection is section 2, advance to next step
-                      const nextStep = currentStep + 1;
-                      if (nextStep <= 7) {
-                        scrollToSection(2, nextStep);
-                      }
-                    }}
-                    scrollBack={() => {
-                      // Go to previous step
-                      const prevStep = currentStep - 1;
-                      if (prevStep >= 0) {
-                        scrollToSection(2, prevStep);
-                      }
-                    }}
-                    scrollToDataMode={() => {
-                      // Jump to data-filled mode (step 7)
-                      scrollToSection(2, 7);
-                    }}
+                    scrollNext={scrollNext}
+                    scrollBack={scrollBack}
+                    scrollToDataMode={scrollToDataMode}
                     mobile={mobile}
                     mobileExplanationExpanded={mobileExplanationExpanded}
                     setMobileExplanationExpanded={setMobileExplanationExpanded}
@@ -511,24 +500,9 @@ export default function QuadrantSection({
                   mode={chartMode}
                   selectedVertical={selectedVertical}
                   selectVertical={(vertical) => setSelectedVertical(vertical)}
-                  scrollNext={() => {
-                    // QuadrantSection is section 2, advance to next step
-                    const nextStep = currentStep + 1;
-                    if (nextStep <= 7) {
-                      scrollToSection(2, nextStep);
-                    }
-                  }}
-                  scrollBack={() => {
-                    // Go to previous step
-                    const prevStep = currentStep - 1;
-                    if (prevStep >= 0) {
-                      scrollToSection(2, prevStep);
-                    }
-                  }}
-                  scrollToDataMode={() => {
-                    // Jump to data-filled mode (step 7)
-                    scrollToSection(2, 7);
-                  }}
+                  scrollNext={scrollNext}
+                  scrollBack={scrollBack}
+                  scrollToDataMode={scrollToDataMode}
                   mobile={mobile}
                   mobileExplanationExpanded={mobileExplanationExpanded}
                   setMobileExplanationExpanded={setMobileExplanationExpanded}
