@@ -25,9 +25,11 @@ export default function HookSection({
 
   // Set initial visibility
   useEffect(() => {
-    if (text1Ref.current) {
-      gsap.set(text1Ref.current, { opacity: 1, visibility: "visible" });
-    }
+    // Don't touch text1 with GSAP - let CSS handle it to avoid transform conflicts
+    // if (text1Ref.current) {
+    //   gsap.set(text1Ref.current, { opacity: 1, visibility: "visible" });
+    // }
+    // Just ensure other texts are hidden
     if (text2Ref.current) {
       gsap.set(text2Ref.current, { opacity: 0, visibility: "hidden" });
     }
@@ -92,7 +94,7 @@ export default function HookSection({
             className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
             onClick={() => scrollToSection(0, 1)}
           >
-            <span>{useCopy("hooks_1_button")}</span>
+            <span>scroll</span>
             <img
               src={`${basePath}/icons/arrow.svg`}
               alt="arrow"
@@ -107,9 +109,9 @@ export default function HookSection({
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8 text-center flex flex-col items-center justify-center gap-20"
           style={{ opacity: 0, visibility: "hidden" }}
         >
-          <div className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat block text-pretty">
+          <p className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat">
             {useCopy("hooks_2_text")}
-          </div>
+          </p>
         </div>
 
         <div
@@ -121,14 +123,15 @@ export default function HookSection({
             {useCopy("hooks_title")}
           </h1>
           <div className="shrink-0">
-            <div className="text-[18px] md:text-[24px] leading-[125%] font-normal">
+            <p className="text-[18px] md:text-[24px] leading-[125%] font-normal">
               {useCopy("hooks_subline")}
-            </div>
+            </p>
             <div className="mt-4">
               <img
                 src={`${basePath}/logos/moloco_bcg.svg`}
                 alt="Moloco logo and BCG logo"
-                className="w-[180px] h-[31px] md:w-[291px] md:h-[51px]"
+                width={291}
+                height={51}
               />
             </div>
           </div>
