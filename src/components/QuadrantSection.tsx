@@ -348,6 +348,9 @@ export default function QuadrantSection({
   const quadrantExplTitle = useCopy("qu_expl_title");
   const sourceShort = useCopy("qu_info_short");
   const sourceFull = useCopy("qu_info");
+  const showLess = useCopy("qu_button_show_less");
+  const showMore = useCopy("qu_button_show_more");
+  const verticalDropdownLabel = useCopy("qu_vertical_dropdown");
 
   const scrollToDataMode = () => {
     // Jump to data-filled mode (step 7)
@@ -425,7 +428,7 @@ export default function QuadrantSection({
                         setSourceExpandedMobile(!sourceExpandedMobile)
                       }
                     >
-                      {sourceExpandedMobile ? " Show less" : "Show more"}
+                      {sourceExpandedMobile ? showLess : showMore}
                     </span>
                   </p>
                 </div>
@@ -437,7 +440,7 @@ export default function QuadrantSection({
                   } max-w-[300px]`}
                 >
                   <p className="font-bold text-[14px] leading-[125%]">
-                    Select vertical
+                    {verticalDropdownLabel}
                   </p>
                   <VerticalSelector
                     selectedVertical={selectedVertical}
