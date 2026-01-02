@@ -101,6 +101,7 @@ export const copyData: CopyData = {
   "closure_card_3_title": "<b>Investing in the App Advantage</b>",
   "closure_card_3_summary": "While everyone fights for visibility, forward-looking brands are building customer relationships on surfaces they own. Investing in a mobile app can mean access to actionable first-party data, closed-loop measurement, and most importantly, deeper connections with customers.",
   "closure_card_3_text": "Not every brand needs an app, but for brands who can offer frequent engagement, complex service, or community ecosystems, investing in a mobile app has huge upsides. \n\n<b>Building your App Advantage</b> can include:\t\n- Personalized content and discovery that learns from user behaviors and preferences\n- AI-driven browsing, comparison, and assistance \n- Gamified interactions and exclusive access/rewards\n- Community ecosystems and interactions that increase stickiness",
+  "closure_explore": "Explore:",
   "cta_text": "<green>Let’s <b>grow your app</b></green>",
   "cta_text_button_1": "BCG report",
   "cta_text_button_2": "methodology",

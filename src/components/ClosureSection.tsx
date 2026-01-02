@@ -356,7 +356,7 @@ function CTAButtons({
 }) {
   return (
     <div className="flex flex-col items-center md:items-start gap-2 md:gap-4">
-      <p className="text-[14px] font-bold">Explore:</p>
+      <p className="text-[14px] font-bold">{useCopy("closure_explore")}</p>
       <div className="flex gap-4 w-full">
         <button
           className="flex-1 bg-grey-text flex items-center justify-between gap-2 hover:bg-bright-green/80 transition text-black-blue"
