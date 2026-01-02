@@ -2,12 +2,13 @@
 
 import { ReactNode, useState, useRef, useEffect } from "react";
 
-interface TooltipProps {
+export function Tooltip({
+  content,
+  children,
+}: {
   content: string;
   children?: ReactNode;
-}
-
-export function Tooltip({ content, children }: TooltipProps) {
+}) {
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState<"top" | "bottom">("top");
   const triggerRef = useRef<HTMLSpanElement>(null);
@@ -73,7 +74,7 @@ export function Tooltip({ content, children }: TooltipProps) {
       </span>
 
       {isVisible && (
-        <div
+        <span
           ref={tooltipRef}
           className={`
             absolute z-50 px-4 py-4 text-[14px] leading-[115%]
@@ -99,7 +100,7 @@ export function Tooltip({ content, children }: TooltipProps) {
           `}
         >
           {content}
-        </div>
+        </span>
       )}
     </span>
   );
