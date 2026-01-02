@@ -1,7 +1,30 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
+import { fadeIn } from "@/helpers/scroll";
 
 export default function CTASection({ isActive }: { isActive: boolean }) {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Set initial visibility
+  useEffect(() => {
+    if (contentRef.current) {
+      gsap.set(contentRef.current, { opacity: 0, visibility: "hidden" });
+    }
+  }, []);
+
+  // Fade in when section becomes active
+  useEffect(() => {
+    if (!contentRef.current) return;
+
+    if (isActive) {
+      fadeIn(contentRef.current);
+    }
+  }, [isActive]);
+
   return (
     <div
       className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
@@ -12,8 +35,13 @@ export default function CTASection({ isActive }: { isActive: boolean }) {
       data-section="cta"
     >
       <div className="relative w-full h-full flex items-center justify-center">
+        {/* Outer wrapper for positioning (Tailwind), inner wrapper for animations (GSAP) */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-8">
-          <div className="w-full h-full flex flex-col items-center justify-center gap-15">
+          <div
+            ref={contentRef}
+            className="w-full h-full flex flex-col items-center justify-center gap-15"
+            style={{ opacity: 0, visibility: "hidden" }}
+          >
             <img
               src={`${basePath}/logos/moloco.svg`}
               alt="Moloco logo"

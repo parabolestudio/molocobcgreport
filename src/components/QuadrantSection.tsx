@@ -381,147 +381,156 @@ export default function QuadrantSection({
       data-section="quadrant"
     >
       <div className="relative w-full h-full flex items-center justify-center">
-        {/* Intro text - only visible on step 0 */}
-        <div
-          ref={introTextRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[900px] px-8 h-full max-h-[1000px] py-8 flex flex-col justify-center items-center gap-12"
-        >
-          <h2 className="font-museo-moderno text-bright-green text-[40px] md:text-[96px] leading-[125%] md:leading-[114px] font-extralight text-center">
-            {useCopy("climax_1_title")}
-          </h2>
-          <p className="text-[18px] md:text-[32px] max-w-[780px] text-center w-full text-pretty">
-            {useCopy("climax_1_paragraph")}
-          </p>
+        {/* Intro text - only visible on step 0 - Outer wrapper for positioning (Tailwind), inner wrapper for animation (GSAP) */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[900px] px-8 h-full max-h-[1000px] py-8">
+          <div
+            ref={introTextRef}
+            className="flex flex-col justify-center items-center gap-12 h-full"
+          >
+            <h2 className="font-museo-moderno text-bright-green text-[40px] md:text-[96px] leading-[125%] md:leading-[114px] font-extralight text-center">
+              {useCopy("climax_1_title")}
+            </h2>
+            <p className="text-[18px] md:text-[32px] max-w-[780px] text-center w-full text-pretty">
+              {useCopy("climax_1_paragraph")}
+            </p>
+          </div>
         </div>
 
-        {/* Chart components - visible from step 1 onwards */}
-        <div
-          ref={chartContainerRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-5 md:px-10 h-full py-5 md:py-8"
-        >
-          {mobile ? (
-            <div className="h-full flex flex-col justify-between gap-5 relative overflow-hidden">
-              <div ref={mobileHeaderRef} className="relative z-70">
-                <h3 className="font-museo-moderno text-[24px] leading-[115%] text-grey-text mb-2">
-                  {quadrantExplTitle}
-                </h3>
-                <div className="flex gap-2 items-start">
-                  <img
-                    src={`${basePath}/logos/moloco_small_without_border.svg`}
-                    alt="Moloco logo"
-                    width={17}
-                    height={15}
-                    className=" opacity-50 pt-1"
-                  />
-                  <p
-                    className={`text-[12px] text-grey-text p-1 absolute left-[25px] ${
-                      sourceExpandedMobile ? " bg-dark-background" : ""
-                    }`}
-                    style={{
-                      color: "rgba(242, 242, 242, 0.5)",
-                    }}
-                  >
-                    {sourceExpandedMobile ? sourceFull : sourceShort}{" "}
-                    <span
-                      className="underline cursor-pointer"
-                      onClick={() =>
-                        setSourceExpandedMobile(!sourceExpandedMobile)
-                      }
+        {/* Chart components - visible from step 1 onwards - Outer wrapper for positioning (Tailwind), inner wrapper for animation (GSAP) */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-5 md:px-10 h-full py-5 md:py-8">
+          <div ref={chartContainerRef} className="h-full">
+            {mobile ? (
+              <div className="h-full flex flex-col justify-between gap-5 relative overflow-hidden">
+                <div ref={mobileHeaderRef} className="relative z-70">
+                  <h3 className="font-museo-moderno text-[24px] leading-[115%] text-grey-text mb-2">
+                    {quadrantExplTitle}
+                  </h3>
+                  <div className="flex gap-2 items-start">
+                    <img
+                      src={`${basePath}/logos/moloco_small_without_border.svg`}
+                      alt="Moloco logo"
+                      width={17}
+                      height={15}
+                      className=" opacity-50 pt-1"
+                    />
+                    <p
+                      className={`text-[12px] text-grey-text p-1 absolute left-[25px] ${
+                        sourceExpandedMobile ? " bg-dark-background" : ""
+                      }`}
+                      style={{
+                        color: "rgba(242, 242, 242, 0.5)",
+                      }}
                     >
-                      {sourceExpandedMobile ? showLess : showMore}
-                    </span>
-                  </p>
+                      {sourceExpandedMobile ? sourceFull : sourceShort}{" "}
+                      <span
+                        className="underline cursor-pointer"
+                        onClick={() =>
+                          setSourceExpandedMobile(!sourceExpandedMobile)
+                        }
+                      >
+                        {sourceExpandedMobile ? showLess : showMore}
+                      </span>
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div ref={mobileVerticalSelectRef} className="relative z-50">
-                <div
-                  className={`${
-                    chartMode === "data-filled" ? "opacity-100" : "opacity-0"
-                  } max-w-[300px]`}
-                >
-                  <p className="font-bold text-[14px] leading-[125%]">
-                    {verticalDropdownLabel}
-                  </p>
-                  <VerticalSelector
+                <div ref={mobileVerticalSelectRef} className="relative z-50">
+                  <div
+                    className={`${
+                      chartMode === "data-filled" ? "opacity-100" : "opacity-0"
+                    } max-w-[300px]`}
+                  >
+                    <p className="font-bold text-[14px] leading-[125%]">
+                      {verticalDropdownLabel}
+                    </p>
+                    <VerticalSelector
+                      selectedVertical={selectedVertical}
+                      setSelectedVertical={setSelectedVertical}
+                      verticalsData={verticalsData}
+                      svgCache={svgCache}
+                    />
+                  </div>
+                </div>
+                <div ref={chartRef} className="relative z-40">
+                  <Chart
+                    mode={chartMode}
                     selectedVertical={selectedVertical}
-                    setSelectedVertical={setSelectedVertical}
+                    selectVertical={(vertical) => setSelectedVertical(vertical)}
+                    mobile={mobile}
+                    verticalsData={verticalsData}
+                    svgCache={svgCache}
+                  />
+                </div>
+                <div ref={chartPanelRef} className="h-full overflow-hidden">
+                  <div
+                    className={`w-full h-full ${
+                      selectedVertical !== null ? "opacity-0" : ""
+                    }`}
+                  >
+                    <ChartPanel
+                      mode={chartMode}
+                      selectedVertical={selectedVertical}
+                      selectVertical={(vertical) =>
+                        setSelectedVertical(vertical)
+                      }
+                      scrollNext={scrollNext}
+                      scrollBack={scrollBack}
+                      scrollToDataMode={scrollToDataMode}
+                      mobile={mobile}
+                      mobileExplanationExpanded={mobileExplanationExpanded}
+                      setMobileExplanationExpanded={
+                        setMobileExplanationExpanded
+                      }
+                    />
+                  </div>
+                </div>
+                {selectedVertical !== null ||
+                (chartMode !== "data-filled" && mobileExplanationExpanded) ? (
+                  <div className="extraChartPanel absolute top-[170px] bottom-0 right-0 w-full z-45">
+                    <ChartPanel
+                      mode={chartMode}
+                      selectedVertical={selectedVertical}
+                      selectVertical={(vertical) =>
+                        setSelectedVertical(vertical)
+                      }
+                      scrollNext={scrollNext}
+                      scrollBack={scrollBack}
+                      scrollToDataMode={scrollToDataMode}
+                      mobile={mobile}
+                      mobileExplanationExpanded={mobileExplanationExpanded}
+                      setMobileExplanationExpanded={
+                        setMobileExplanationExpanded
+                      }
+                    />
+                  </div>
+                ) : null}
+              </div>
+            ) : (
+              <div className="h-full grid grid-cols-[0.3fr_0.7fr] gap-8">
+                <div ref={chartPanelRef} className="h-full overflow-hidden">
+                  <ChartPanel
+                    mode={chartMode}
+                    selectedVertical={selectedVertical}
+                    selectVertical={(vertical) => setSelectedVertical(vertical)}
+                    scrollNext={scrollNext}
+                    scrollBack={scrollBack}
+                    scrollToDataMode={scrollToDataMode}
+                    mobile={mobile}
+                    mobileExplanationExpanded={mobileExplanationExpanded}
+                    setMobileExplanationExpanded={setMobileExplanationExpanded}
+                  />
+                </div>
+                <div ref={chartRef} className="h-full overflow-hidden">
+                  <Chart
+                    mode={chartMode}
+                    selectedVertical={selectedVertical}
+                    selectVertical={(vertical) => setSelectedVertical(vertical)}
                     verticalsData={verticalsData}
                     svgCache={svgCache}
                   />
                 </div>
               </div>
-              <div ref={chartRef} className="relative z-40">
-                <Chart
-                  mode={chartMode}
-                  selectedVertical={selectedVertical}
-                  selectVertical={(vertical) => setSelectedVertical(vertical)}
-                  mobile={mobile}
-                  verticalsData={verticalsData}
-                  svgCache={svgCache}
-                />
-              </div>
-              <div ref={chartPanelRef} className="h-full overflow-hidden">
-                <div
-                  className={`w-full h-full ${
-                    selectedVertical !== null ? "opacity-0" : ""
-                  }`}
-                >
-                  <ChartPanel
-                    mode={chartMode}
-                    selectedVertical={selectedVertical}
-                    selectVertical={(vertical) => setSelectedVertical(vertical)}
-                    scrollNext={scrollNext}
-                    scrollBack={scrollBack}
-                    scrollToDataMode={scrollToDataMode}
-                    mobile={mobile}
-                    mobileExplanationExpanded={mobileExplanationExpanded}
-                    setMobileExplanationExpanded={setMobileExplanationExpanded}
-                  />
-                </div>
-              </div>
-              {selectedVertical !== null ||
-              (chartMode !== "data-filled" && mobileExplanationExpanded) ? (
-                <div className="extraChartPanel absolute top-[170px] bottom-0 right-0 w-full z-45">
-                  <ChartPanel
-                    mode={chartMode}
-                    selectedVertical={selectedVertical}
-                    selectVertical={(vertical) => setSelectedVertical(vertical)}
-                    scrollNext={scrollNext}
-                    scrollBack={scrollBack}
-                    scrollToDataMode={scrollToDataMode}
-                    mobile={mobile}
-                    mobileExplanationExpanded={mobileExplanationExpanded}
-                    setMobileExplanationExpanded={setMobileExplanationExpanded}
-                  />
-                </div>
-              ) : null}
-            </div>
-          ) : (
-            <div className="h-full grid grid-cols-[0.3fr_0.7fr] gap-8">
-              <div ref={chartPanelRef} className="h-full overflow-hidden">
-                <ChartPanel
-                  mode={chartMode}
-                  selectedVertical={selectedVertical}
-                  selectVertical={(vertical) => setSelectedVertical(vertical)}
-                  scrollNext={scrollNext}
-                  scrollBack={scrollBack}
-                  scrollToDataMode={scrollToDataMode}
-                  mobile={mobile}
-                  mobileExplanationExpanded={mobileExplanationExpanded}
-                  setMobileExplanationExpanded={setMobileExplanationExpanded}
-                />
-              </div>
-              <div ref={chartRef} className="h-full overflow-hidden">
-                <Chart
-                  mode={chartMode}
-                  selectedVertical={selectedVertical}
-                  selectVertical={(vertical) => setSelectedVertical(vertical)}
-                  verticalsData={verticalsData}
-                  svgCache={svgCache}
-                />
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>

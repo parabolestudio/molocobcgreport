@@ -270,128 +270,132 @@ export default function JourneySection({
       data-section="journey"
     >
       <div className="relative w-full h-full flex items-center justify-center">
-        {/* Intro screen */}
-        <div
-          ref={introRef}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[1000px] py-20 md:py-8 opacity-0 invisible flex flex-col justify-between items-start"
-        >
-          {/* Desktop */}
-          <div className="hidden md:flex relative flex-col justify-between items-start h-full w-full py-2">
-            <div className="w-full">
-              <div className="text-[18px] md:text-[32px] max-w-[900px] text-pretty">
-                {useCopy("context_intro")}
-              </div>
-            </div>
-            <div className="w-full flex justify-between items-end gap-2">
-              <div className="text-[18px] md:text-[32px] max-w-[900px] text-pretty">
-                {useCopy("context_buttons_text")}
-              </div>
-              <MethodologyButton
-                tooltipText={tooltipText}
-                setShowMethodTooltip={setShowMethodTooltip}
-                showMethodTooltip={showMethodTooltip}
-              />
-            </div>
-            <div
-              className="absolute top-1/2 -translate-y-1/2"
-              style={{ left: "-8%", right: "-8%" }}
-            >
-              <svg
-                fill="none"
-                viewBox="0 0 1610 264"
-                style={{
-                  width: "80%",
-                  marginLeft: "-0.2%",
-                  overflow: "visible",
-                }}
-              >
-                <g>
-                  {/* Animated circles */}
-                  <g ref={introCirclesDesktopRef}>
-                    {!mobile &&
-                      Array.from({ length: NUM_INTRO_CIRCLES }).map((_, i) => (
-                        <circle
-                          key={i}
-                          className="intro-circle fill-bright-green"
-                          r={7}
-                        />
-                      ))}
-                  </g>
-                  <circle
-                    cx="7"
-                    cy="7"
-                    r="7"
-                    fill="#60E2B7"
-                    transform="matrix(-1 0 0 1 1609.75 141.75)"
-                  />
-                  <path
-                    stroke="#60E2B7"
-                    strokeWidth="1.5"
-                    d="M.75 172.65v-99.4c0-40 32.4-72.4 72.3-72.4s72.3 32.4 72.3 72.4v117.2c0 40.1 32.5 72.7 72.6 72.7 40.1 0 72.6-32.5 72.6-72.7V72.95c0-39.9 32.3-72.2 72.1-72.2s72.1 32.3 72.1 72.2v117.7c0 40 32.4 72.5 72.3 72.5s72.3-32.4 72.3-72.5V73.55c0-40.2 32.5-72.7 72.6-72.7 40.1 0 72.6 32.6 72.6 72.7v116.9c0 40.1 32.5 72.7 72.7 72.7s72.7-32.5 72.7-72.7V72.95c0-39.9 32.3-72.2 72.2-72.2 39.9 0 72.2 32.3 72.2 72.2v117.7c0 40 32.4 72.5 72.5 72.5s72.5-32.4 72.5-72.5V73.55c0-40.2 32.6-72.7 72.7-72.7s72.7 33 72.7 73.2 33 74.2 73.7 74.2h223.8"
-                    className="context_path_desktop"
-                  />
-                </g>
-              </svg>
-            </div>
-          </div>
-          {/* Mobile */}
-          <div className="flex md:hidden relative flex-col justify-between items-start h-full w-full">
-            <div className="w-full h-full flex flex-col justify-between items-start">
-              <div className="flex flex-col gap-8">
+        {/* Intro screen - Outer wrapper for positioning (Tailwind), inner wrapper for animation (GSAP) */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[1000px] py-20 md:py-8">
+          <div
+            ref={introRef}
+            className="opacity-0 invisible flex flex-col justify-between items-start h-full"
+          >
+            {/* Desktop */}
+            <div className="hidden md:flex relative flex-col justify-between items-start h-full w-full py-2">
+              <div className="w-full">
                 <div className="text-[18px] md:text-[32px] max-w-[900px] text-pretty">
                   {useCopy("context_intro")}
                 </div>
+              </div>
+              <div className="w-full flex justify-between items-end gap-2">
                 <div className="text-[18px] md:text-[32px] max-w-[900px] text-pretty">
                   {useCopy("context_buttons_text")}
                 </div>
+                <MethodologyButton
+                  tooltipText={tooltipText}
+                  setShowMethodTooltip={setShowMethodTooltip}
+                  showMethodTooltip={showMethodTooltip}
+                />
               </div>
-              <div className="-ml-8 w-full">
+              <div
+                className="absolute top-1/2 -translate-y-1/2"
+                style={{ left: "-8%", right: "-8%" }}
+              >
                 <svg
                   fill="none"
-                  viewBox="0 0 379 109"
-                  style={{ width: "110%", overflow: "visible" }}
+                  viewBox="0 0 1610 264"
+                  style={{
+                    width: "80%",
+                    marginLeft: "-0.2%",
+                    overflow: "visible",
+                  }}
                 >
                   <g>
                     {/* Animated circles */}
-                    <g ref={introCirclesMobileRef}>
-                      {mobile &&
+                    <g ref={introCirclesDesktopRef}>
+                      {!mobile &&
                         Array.from({ length: NUM_INTRO_CIRCLES }).map(
                           (_, i) => (
                             <circle
                               key={i}
                               className="intro-circle fill-bright-green"
-                              r={3.8}
+                              r={7}
                             />
                           )
                         )}
                     </g>
                     <circle
-                      cx="3.8"
-                      cy="3.8"
-                      r="3.8"
+                      cx="7"
+                      cy="7"
+                      r="7"
                       fill="#60E2B7"
-                      transform="matrix(-1 0 0 1 378.6 57.75)"
+                      transform="matrix(-1 0 0 1 1609.75 141.75)"
                     />
                     <path
                       stroke="#60E2B7"
                       strokeWidth="1.5"
-                      d="M0 .79c16.415 0 29.718 13.294 29.718 29.646v47.669c0 16.352 13.304 29.645 29.76 29.645 16.455 0 29.76-13.253 29.76-29.645V30.19c0-16.27 13.221-29.441 29.554-29.441s29.554 13.171 29.554 29.441v47.995c0 16.311 13.263 29.564 29.678 29.564s29.677-13.212 29.677-29.564v-47.75c0-16.393 13.345-29.645 29.76-29.645 16.414 0 29.759 13.456 29.759 29.849 0 16.392 13.508 30.257 30.169 30.257H374.5"
-                      className="context_path_mobile"
+                      d="M.75 172.65v-99.4c0-40 32.4-72.4 72.3-72.4s72.3 32.4 72.3 72.4v117.2c0 40.1 32.5 72.7 72.6 72.7 40.1 0 72.6-32.5 72.6-72.7V72.95c0-39.9 32.3-72.2 72.1-72.2s72.1 32.3 72.1 72.2v117.7c0 40 32.4 72.5 72.3 72.5s72.3-32.4 72.3-72.5V73.55c0-40.2 32.5-72.7 72.6-72.7 40.1 0 72.6 32.6 72.6 72.7v116.9c0 40.1 32.5 72.7 72.7 72.7s72.7-32.5 72.7-72.7V72.95c0-39.9 32.3-72.2 72.2-72.2 39.9 0 72.2 32.3 72.2 72.2v117.7c0 40 32.4 72.5 72.5 72.5s72.5-32.4 72.5-72.5V73.55c0-40.2 32.6-72.7 72.7-72.7s72.7 33 72.7 73.2 33 74.2 73.7 74.2h223.8"
+                      className="context_path_desktop"
                     />
                   </g>
                 </svg>
               </div>
-              <MethodologyButton
-                tooltipText={tooltipText}
-                setShowMethodTooltip={setShowMethodTooltip}
-                showMethodTooltip={showMethodTooltip}
-              />
-              {/* Mobile Tooltip */}
-              {showMethodTooltip && (
-                <div className="method-tooltip block md:hidden absolute bottom-[54px] left-0 right-0 copy-text">
-                  {tooltipText}
+            </div>
+            {/* Mobile */}
+            <div className="flex md:hidden relative flex-col justify-between items-start h-full w-full">
+              <div className="w-full h-full flex flex-col justify-between items-start">
+                <div className="flex flex-col gap-8">
+                  <div className="text-[18px] md:text-[32px] max-w-[900px] text-pretty">
+                    {useCopy("context_intro")}
+                  </div>
+                  <div className="text-[18px] md:text-[32px] max-w-[900px] text-pretty">
+                    {useCopy("context_buttons_text")}
+                  </div>
                 </div>
-              )}
+                <div className="-ml-8 w-full">
+                  <svg
+                    fill="none"
+                    viewBox="0 0 379 109"
+                    style={{ width: "110%", overflow: "visible" }}
+                  >
+                    <g>
+                      {/* Animated circles */}
+                      <g ref={introCirclesMobileRef}>
+                        {mobile &&
+                          Array.from({ length: NUM_INTRO_CIRCLES }).map(
+                            (_, i) => (
+                              <circle
+                                key={i}
+                                className="intro-circle fill-bright-green"
+                                r={3.8}
+                              />
+                            )
+                          )}
+                      </g>
+                      <circle
+                        cx="3.8"
+                        cy="3.8"
+                        r="3.8"
+                        fill="#60E2B7"
+                        transform="matrix(-1 0 0 1 378.6 57.75)"
+                      />
+                      <path
+                        stroke="#60E2B7"
+                        strokeWidth="1.5"
+                        d="M0 .79c16.415 0 29.718 13.294 29.718 29.646v47.669c0 16.352 13.304 29.645 29.76 29.645 16.455 0 29.76-13.253 29.76-29.645V30.19c0-16.27 13.221-29.441 29.554-29.441s29.554 13.171 29.554 29.441v47.995c0 16.311 13.263 29.564 29.678 29.564s29.677-13.212 29.677-29.564v-47.75c0-16.393 13.345-29.645 29.76-29.645 16.414 0 29.759 13.456 29.759 29.849 0 16.392 13.508 30.257 30.169 30.257H374.5"
+                        className="context_path_mobile"
+                      />
+                    </g>
+                  </svg>
+                </div>
+                <MethodologyButton
+                  tooltipText={tooltipText}
+                  setShowMethodTooltip={setShowMethodTooltip}
+                  showMethodTooltip={showMethodTooltip}
+                />
+                {/* Mobile Tooltip */}
+                {showMethodTooltip && (
+                  <div className="method-tooltip block md:hidden absolute bottom-[54px] left-0 right-0 copy-text">
+                    {tooltipText}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

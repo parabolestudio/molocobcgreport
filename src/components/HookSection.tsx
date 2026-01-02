@@ -25,8 +25,10 @@ export default function HookSection({
 
   // Set initial visibility
   useEffect(() => {
-    // Don't touch text1 at all - let CSS handle everything
-    // Just ensure other texts are hidden
+    // Hide all texts initially except the first one
+    if (text1Ref.current) {
+      gsap.set(text1Ref.current, { opacity: 1, visibility: "visible" });
+    }
     if (text2Ref.current) {
       gsap.set(text2Ref.current, { opacity: 0, visibility: "hidden" });
     }
@@ -55,37 +57,15 @@ export default function HookSection({
       }
     });
 
-    // Special handling for text1 (index 0):
-    // - When entering step 0: just show it without animation to avoid positioning issues
-    // - When leaving step 0: fade it out normally
-    if (currentStep === 0 && text1Ref.current) {
-      // Entering step 0: show text1 with a tiny delay to ensure layout is settled
-      gsap.to(text1Ref.current, {
-        opacity: 1,
-        visibility: "visible",
-        duration: 0,
-        delay: 0.3,
-      });
-    } else if (previousStep === 0 && text1Ref.current) {
-      // Leaving step 0: fade out text1
-      fadeOut(text1Ref.current);
-    }
-
-    // Fade out previous text (skip if it's text1, handled above)
-    if (
-      previousStep >= 0 &&
-      previousStep !== currentStep &&
-      previousStep !== 0
-    ) {
+    // Fade out previous text
+    if (previousStep >= 0 && previousStep !== currentStep) {
       const previousText = texts[previousStep];
       if (previousText) fadeOut(previousText);
     }
 
-    // Fade in current text (skip if it's text1, handled above)
-    if (currentStep !== 0) {
-      const currentText = texts[currentStep];
-      if (currentText) fadeIn(currentText);
-    }
+    // Fade in current text
+    const currentText = texts[currentStep];
+    if (currentText) fadeIn(currentText);
 
     previousStepRef.current = currentStep;
   }, [isActive, currentStep]);
@@ -100,39 +80,47 @@ export default function HookSection({
       data-section="hook"
     >
       <div className="relative w-full h-full flex items-center justify-center">
-        <div
-          ref={text1Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8 text-center flex flex-col items-center justify-between gap-20"
-          style={{ height: "calc(var(--vh, 1vh) * 80)" }}
-        >
-          <button className="bg-grey-blue flex items-center justify-center gap-2 opacity-0"></button>
-          <p className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat">
-            {useCopy("hooks_1_text")}
-          </p>
-          <button
-            className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
-            onClick={() => scrollToSection(0, 1)}
+        {/* Outer wrapper for positioning (Tailwind), inner wrapper for animation (GSAP) */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8">
+          <div
+            ref={text1Ref}
+            className="text-center flex flex-col items-center justify-between gap-20"
+            style={{ height: "calc(var(--vh, 1vh) * 80)" }}
           >
-            <span>scroll</span>
-            <img
-              src={`${basePath}/icons/arrow.svg`}
-              alt="arrow"
-              width={16}
-              height={13}
-              style={{ transform: "rotate(-90deg)" }}
-            />
-          </button>
-        </div>
-        <div
-          ref={text2Ref}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8 text-center flex flex-col items-center justify-center gap-20"
-          style={{ opacity: 0, visibility: "hidden" }}
-        >
-          <p className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat">
-            {useCopy("hooks_2_text")}
-          </p>
+            <button className="bg-grey-blue flex items-center justify-center gap-2 opacity-0"></button>
+            <p className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat">
+              {useCopy("hooks_1_text")}
+            </p>
+            <button
+              className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
+              onClick={() => scrollToSection(0, 1)}
+            >
+              <span>{useCopy("hooks_1_button")}</span>
+              <img
+                src={`${basePath}/icons/arrow.svg`}
+                alt="arrow"
+                width={16}
+                height={13}
+                style={{ transform: "rotate(-90deg)" }}
+              />
+            </button>
+          </div>
         </div>
 
+        {/* Outer wrapper for positioning (Tailwind), inner wrapper for animation (GSAP) */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[960px] px-16 md:px-8">
+          <div
+            ref={text2Ref}
+            className="text-center flex flex-col items-center justify-center gap-20"
+            style={{ opacity: 0, visibility: "hidden" }}
+          >
+            <p className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat">
+              {useCopy("hooks_2_text")}
+            </p>
+          </div>
+        </div>
+
+        {/* titleRef uses inset-0 so doesn't need wrapper separation */}
         <div
           ref={titleRef}
           className="absolute inset-0 w-full h-full px-8 text-center flex flex-col items-center justify-center gap-32 md:gap-32 py-8 overflow-y-auto"
