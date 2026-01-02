@@ -60,6 +60,12 @@ export function useGlobalScrollTrigger({
   // Store callback in ref to avoid recreating ScrollTrigger
   const onSectionChangeRef = useRef(onSectionChange);
 
+  // Track programmatic scrolling target to prevent conflicts
+  const programmaticTargetRef = useRef<{
+    section: number;
+    step: number;
+  } | null>(null);
+
   useEffect(() => {
     onSectionChangeRef.current = onSectionChange;
   }, [onSectionChange]);
@@ -96,7 +102,18 @@ export function useGlobalScrollTrigger({
           sections
         );
 
-        // console.log("Active section/step:", { sectionIndex, localStep });
+        // If we have a programmatic target, ignore any updates that don't match it
+        if (programmaticTargetRef.current) {
+          if (
+            sectionIndex !== programmaticTargetRef.current.section ||
+            localStep !== programmaticTargetRef.current.step
+          ) {
+            // Ignore this update - it's during transition to our target
+            return;
+          }
+          // We've reached our target, clear it
+          programmaticTargetRef.current = null;
+        }
 
         // Only trigger callback if section or step changed
         if (
@@ -150,10 +167,30 @@ export function useGlobalScrollTrigger({
       const scrollPosition =
         trigger.start + (trigger.end - trigger.start) * targetProgress;
 
+      // Set the target to filter out intermediate scroll updates
+      programmaticTargetRef.current = {
+        section: sectionIndex,
+        step: clampedStep,
+      };
+
+      // Update state immediately for instant visual feedback
+      scrollStateRef.current = {
+        currentSection: sectionIndex,
+        currentStep: clampedStep,
+        progress: targetProgress,
+      };
+      onSectionChangeRef.current?.(sectionIndex, clampedStep);
+
       gsap.to(window, {
         scrollTo: scrollPosition,
         duration: 0.8,
         ease: "power2.inOut",
+        onComplete: () => {
+          // Clear the target after a small delay to let scroll settle
+          setTimeout(() => {
+            programmaticTargetRef.current = null;
+          }, 50);
+        },
       });
     }
   };
