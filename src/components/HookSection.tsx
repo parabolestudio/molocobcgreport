@@ -25,10 +25,7 @@ export default function HookSection({
 
   // Set initial visibility
   useEffect(() => {
-    // Don't touch text1 with GSAP - let CSS handle it to avoid transform conflicts
-    // if (text1Ref.current) {
-    //   gsap.set(text1Ref.current, { opacity: 1, visibility: "visible" });
-    // }
+    // Don't touch text1 at all - let CSS handle everything
     // Just ensure other texts are hidden
     if (text2Ref.current) {
       gsap.set(text2Ref.current, { opacity: 0, visibility: "hidden" });
@@ -58,15 +55,37 @@ export default function HookSection({
       }
     });
 
-    // Fade out previous text
-    if (previousStep >= 0 && previousStep !== currentStep) {
+    // Special handling for text1 (index 0):
+    // - When entering step 0: just show it without animation to avoid positioning issues
+    // - When leaving step 0: fade it out normally
+    if (currentStep === 0 && text1Ref.current) {
+      // Entering step 0: show text1 with a tiny delay to ensure layout is settled
+      gsap.to(text1Ref.current, {
+        opacity: 1,
+        visibility: "visible",
+        duration: 0,
+        delay: 0.3,
+      });
+    } else if (previousStep === 0 && text1Ref.current) {
+      // Leaving step 0: fade out text1
+      fadeOut(text1Ref.current);
+    }
+
+    // Fade out previous text (skip if it's text1, handled above)
+    if (
+      previousStep >= 0 &&
+      previousStep !== currentStep &&
+      previousStep !== 0
+    ) {
       const previousText = texts[previousStep];
       if (previousText) fadeOut(previousText);
     }
 
-    // Fade in current text
-    const currentText = texts[currentStep];
-    if (currentText) fadeIn(currentText);
+    // Fade in current text (skip if it's text1, handled above)
+    if (currentStep !== 0) {
+      const currentText = texts[currentStep];
+      if (currentText) fadeIn(currentText);
+    }
 
     previousStepRef.current = currentStep;
   }, [isActive, currentStep]);
