@@ -295,7 +295,7 @@ export default function ChartPanel({
         <div
           className={`panel-content ${
             isExplanation ? "panel-content-explanation" : ""
-          } flex-1 overflow-y-auto ${backgroundColorInner} rounded-[3px] p-4 md:p-0`}
+          } flex-1 overflow-y-auto overflow-x-hidden ${backgroundColorInner} rounded-[3px] p-4 md:p-0`}
           style={{
             scrollbarGutter: "stable",
           }}
