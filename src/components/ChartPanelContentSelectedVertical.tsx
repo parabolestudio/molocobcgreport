@@ -5,7 +5,7 @@ import { Copy } from "./ChartPanel";
 import React, { use, useEffect, useState } from "react";
 import { scaleLinear } from "d3-scale";
 import { useCopy } from "@/contexts/CopyContext";
-import { copyData } from "@/data/copyData";
+import { useCopyRaw } from "@/contexts/CopyContext";
 import { parseCopy } from "@/helpers/parseCopy";
 
 export default function ChartPanelContentSelectedVertical({
@@ -413,6 +413,7 @@ function ScoreDisplay({
 }) {
   const [width, setWidth] = useState(230);
   const height = 90;
+  const scoreAverage = useCopyRaw("qu_score_display_average");
 
   const containerId = `chart-container-${id}`;
 
@@ -507,7 +508,7 @@ function ScoreDisplay({
                     textAnchor="end"
                     dominantBaseline="middle"
                   >
-                    {parseCopy(copyData.qu_score_display_average, true)}
+                    {parseCopy(scoreAverage, true)}
                   </text>
                 </g>
               )}

@@ -5,9 +5,8 @@ import { scaleLinear } from "d3-scale";
 import type { ChartMode } from "@/helpers/chart";
 import { verticalsMap } from "@/helpers/chart";
 import { basePath } from "@/helpers/general";
-import { useCopy } from "@/contexts/CopyContext";
+import { useCopy, useCopyRaw } from "@/contexts/CopyContext";
 import { parseCopy } from "@/helpers/parseCopy";
-import { copyData } from "@/data/copyData";
 
 const quadrantData = [
   {
@@ -73,6 +72,12 @@ export default function Chart({
     "bottom-left": useCopy("qu_bottom_left_headline"),
     "bottom-right": useCopy("qu_bottom_right_headline"),
   };
+
+  // Get axis copy
+  const axisXTitle = useCopyRaw("qu_axis_x_title");
+  const axisYTitle = useCopyRaw("qu_axis_y_title");
+  const axisLow = useCopyRaw("qu_axis_low");
+  const axisHigh = useCopyRaw("qu_axis_high");
 
   const [containerWidth, setContainerWidth] = useState(860);
   const [containerHeight, setContainerHeight] = useState(860);
@@ -273,7 +278,7 @@ export default function Chart({
                       : "var(--grey-blue)",
                 }}
               >
-                {parseCopy(copyData.qu_axis_x_title, true)}
+                {parseCopy(axisXTitle, true)}
               </text>
             </g>
             <text
@@ -290,7 +295,7 @@ export default function Chart({
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
-              {parseCopy(copyData.qu_axis_low, true)}
+              {parseCopy(axisLow, true)}
             </text>
             <text
               className="chart-text uppercase transition"
@@ -308,7 +313,7 @@ export default function Chart({
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
-              {parseCopy(copyData.qu_axis_high, true)}
+              {parseCopy(axisHigh, true)}
             </text>
           </g>
           <g className="y-axis">
@@ -386,7 +391,7 @@ export default function Chart({
                       : "var(--grey-blue)",
                 }}
               >
-                {parseCopy(copyData.qu_axis_y_title, true)}
+                {parseCopy(axisYTitle, true)}
               </text>
             </g>
             <text
@@ -405,7 +410,7 @@ export default function Chart({
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
-              {parseCopy(copyData.qu_axis_low, true)}
+              {parseCopy(axisLow, true)}
             </text>
             <text
               className="chart-text uppercase transition"
@@ -423,7 +428,7 @@ export default function Chart({
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
-              {parseCopy(copyData.qu_axis_high, true)}
+              {parseCopy(axisHigh, true)}
             </text>
           </g>
           <g className="quadrants">
