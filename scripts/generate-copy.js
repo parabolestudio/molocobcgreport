@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
-// Hard-coded language
-const LANGUAGE = "English";
+// All supported languages
+const LANGUAGES = ["English", "Japanese", "Korean", "Chinese"];
 
 function parseCSV(csvContent) {
   const rows = [];
@@ -61,44 +61,61 @@ function generateCopyData() {
   }
 
   const headers = rows[0];
-  const languageColumnIndex = headers.findIndex(
-    (header) => header.trim() === LANGUAGE
-  );
+  const allLanguageData = {};
 
-  if (languageColumnIndex === -1) {
-    console.error(`Language column "${LANGUAGE}" not found`);
-    return;
-  }
+  // Generate copy data for each language
+  LANGUAGES.forEach((language) => {
+    const languageColumnIndex = headers.findIndex(
+      (header) => header.trim() === language
+    );
 
-  const copyData = {};
+    if (languageColumnIndex === -1) {
+      console.warn(`Language column "${language}" not found`);
+      return;
+    }
 
-  for (let i = 1; i < rows.length; i++) {
-    const row = rows[i];
-    if (row.length > languageColumnIndex) {
-      const key = row[0].trim();
-      const text = row[languageColumnIndex].trim();
+    const copyData = {};
 
-      if (key && key.length > 0) {
-        copyData[key] = text;
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (row.length > languageColumnIndex) {
+        const key = row[0].trim();
+        const text = row[languageColumnIndex].trim();
+
+        if (key && key.length > 0) {
+          copyData[key] = text;
+        }
       }
     }
-  }
+
+    allLanguageData[language] = copyData;
+    console.log(`  - ${language}: ${Object.keys(copyData).length} entries`);
+  });
 
   const output = `// This file is auto-generated from mainCopy.csv
 // Do not edit manually - run 'npm run generate:copy' to regenerate
 
 export type CopyData = Record<string, string>;
 
-export const copyData: CopyData = ${JSON.stringify(copyData, null, 2)};
+export type MultiLanguageCopy = {
+  English: CopyData;
+  Japanese: CopyData;
+  Korean: CopyData;
+  Chinese: CopyData;
+};
+
+export const copyData: MultiLanguageCopy = ${JSON.stringify(
+    allLanguageData,
+    null,
+    2
+  )};
 `;
 
   const outputPath = path.join(process.cwd(), "src/data/copyData.ts");
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, output, "utf-8");
 
-  console.log(
-    `✅ Generated copy data: ${Object.keys(copyData).length} entries`
-  );
+  console.log(`✅ Generated copy data for ${LANGUAGES.length} languages`);
 }
 
 generateCopyData();
