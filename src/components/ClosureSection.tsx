@@ -230,7 +230,7 @@ export default function ClosureSection({
         </div>
         <div
           ref={screen2Ref}
-          className="absolute left-1/2 top-1/2 w-full lg:max-w-[1728px] md:max-w-[90%] md:px-0 px-5  h-full md:max-h-[90%] py-8 opacity-0 invisible"
+          className="absolute left-1/2 top-1/2 w-full md:max-w-[calc(min(90%,1728px))] md:px-0 px-5  h-full md:max-h-[90%] py-8 opacity-0 invisible"
         >
           <div className="relative flex flex-col items-start h-full w-full gap-4">
             <div className="text-[24px] md:text-[32px] max-w-[1000px] font-museo-moderno mb-0 md:mb-6">
