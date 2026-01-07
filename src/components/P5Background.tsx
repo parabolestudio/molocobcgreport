@@ -704,7 +704,7 @@ export default function P5Background({
                 {(totalProgress * 100).toFixed(1)}%
               </span>
             </div>
-            {sketchDataRef.current && (
+            {/* {sketchDataRef.current && (
               <>
                 <div className="border-t border-gray-700 my-2 pt-2 font-bold mb-2 text-sm">
                   Background Debug
@@ -734,7 +734,7 @@ export default function P5Background({
                   </span>
                 </div>
               </>
-            )}
+            )} */}
           </div>
         </div>
       )}

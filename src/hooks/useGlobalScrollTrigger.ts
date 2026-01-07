@@ -79,7 +79,15 @@ export function useGlobalScrollTrigger({
     const sections = sectionsRef.current;
     const totalSteps = sectionSteps.reduce((sum, steps) => sum + steps, 0);
 
-    // console.log("Creating ScrollTrigger with:", { totalSteps, sections });
+    // ScrollTrigger.config({ ignoreMobileResize: true });
+
+    // Enable ScrollTrigger's normalizeScroll for better mobile handling
+    // Allow nested scroll so users can scroll within containers like chart panels
+    ScrollTrigger.normalizeScroll({
+      allowNestedScroll: true, // Allow scrolling within nested containers
+      lockAxis: true,
+      type: "touch,wheel,pointer",
+    });
 
     // Create a single ScrollTrigger for the entire page
     const trigger = ScrollTrigger.create({
@@ -87,11 +95,18 @@ export function useGlobalScrollTrigger({
       start: "top top",
       end: calculateScrollEnd(totalSteps),
       pin: true,
+      // scrub: 0.8,
       scrub: false,
+      // preventOverlaps: true, // Prevent conflicts with other scroll triggers
+      // fastScrollEnd: true, // Reach end state quickly when fast scrolling
+      // Disable snap for now - may be causing conflicts with programmatic scrolling
+      // especially in sections with special navigation logic like QuadrantSection
       // snap: {
       //   snapTo: generateSnapPoints(totalSteps),
-      //   duration: SCROLL_CONFIG.SNAP_DURATION,
-      //   ease: SCROLL_CONFIG.SNAP_EASE,
+      //   duration: { min: 0.5, max: 1.2 },
+      //   delay: 0.3,
+      //   ease: "power3.out",
+      //   inertia: false,
       // },
       onUpdate: (self) => {
         const progress = self.progress;
@@ -126,22 +141,15 @@ export function useGlobalScrollTrigger({
             progress,
           };
 
-          //   console.log("Triggering onSectionChange:", {
-          //     sectionIndex,
-          //     localStep,
-          //   });
           onSectionChangeRef.current?.(sectionIndex, localStep);
         }
       },
-      onEnter: () => console.log("ScrollTrigger: onEnter"),
-      onLeave: () => console.log("ScrollTrigger: onLeave"),
-      onEnterBack: () => console.log("ScrollTrigger: onEnterBack"),
-      onLeaveBack: () => console.log("ScrollTrigger: onLeaveBack"),
     });
 
     return () => {
       //   console.log("Killing ScrollTrigger");
       trigger.kill();
+      ScrollTrigger.normalizeScroll(false); // Clean up normalizeScroll
     };
   }, [containerRef, enabled]);
 

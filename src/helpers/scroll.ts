@@ -28,8 +28,8 @@ export const SECTION_STEPS: Record<SectionName, number> = {
  * Shared scroll configuration constants for consistent behavior across all sections
  */
 export const SCROLL_CONFIG = {
-  // Each step should take 100vh of scroll
-  SCROLL_PER_STEP: 100,
+  // Balanced scroll distance for mobile - not too sensitive, not too sluggish
+  SCROLL_PER_STEP: 100, // for Android 200
 
   // Animation timings
   TRANSITION_DURATION: 0.4,

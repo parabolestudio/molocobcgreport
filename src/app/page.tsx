@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useLayoutEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import HookSection from "@/components/HookSection";
 import JourneySection from "@/components/JourneySection";
 import QuadrantSection from "@/components/QuadrantSection";
@@ -21,59 +21,34 @@ export default function Home() {
   const mainContainerRef = useRef<HTMLDivElement>(null);
   const [currentSection, setCurrentSection] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
-  const [isInitialized, setIsInitialized] = useState(false);
 
-  // Fix mobile viewport height issue with browser toolbars
-  // Set CSS variables BEFORE any rendering using useLayoutEffect
-  useLayoutEffect(() => {
-    const getViewportHeight = () => {
-      // Use visualViewport if available (more reliable on mobile)
-      // Otherwise fall back to window.innerHeight
-      return window.visualViewport?.height || window.innerHeight;
-    };
+  // // Prevent toolbar hiding on iOS by forcing fixed viewport
+  // useEffect(() => {
+  //   // Force viewport to stay at initial size to prevent toolbar changes
+  //   const meta = document.querySelector('meta[name="viewport"]');
+  //   if (meta) {
+  //     meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
+  //   }
 
-    // Set viewport height immediately
-    const viewportHeight = getViewportHeight();
-    const vh = viewportHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-    document.documentElement.style.setProperty(
-      "--app-height",
-      `${viewportHeight}px`
-    );
+  //   // Prevent default scroll behavior that could trigger toolbar
+  //   const preventToolbarHide = (e: Event) => {
+  //     // Only prevent if at the document level, not nested scrolls
+  //     const target = e.target as HTMLElement;
+  //     if (target === document.documentElement || target === document.body) {
+  //       if (window.scrollY === 0 || window.scrollY >= document.documentElement.scrollHeight - window.innerHeight - 1) {
+  //         e.preventDefault();
+  //       }
+  //     }
+  //   };
 
-    // Mark as initialized after setting variables
-    requestAnimationFrame(() => {
-      setIsInitialized(true);
-    });
+  //   document.addEventListener('scroll', preventToolbarHide, { passive: false });
+  //   document.addEventListener('touchmove', preventToolbarHide, { passive: false });
 
-    const setViewportHeight = () => {
-      const viewportHeight = getViewportHeight();
-      const vh = viewportHeight * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-      document.documentElement.style.setProperty(
-        "--app-height",
-        `${viewportHeight}px`
-      );
-
-      // Refresh ScrollTrigger after viewport changes
-      ScrollTrigger.refresh();
-    };
-
-    // Listen to visualViewport resize if available
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", setViewportHeight);
-    }
-    window.addEventListener("resize", setViewportHeight);
-    window.addEventListener("orientationchange", setViewportHeight);
-
-    return () => {
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener("resize", setViewportHeight);
-      }
-      window.removeEventListener("resize", setViewportHeight);
-      window.removeEventListener("orientationchange", setViewportHeight);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener('scroll', preventToolbarHide);
+  //     document.removeEventListener('touchmove', preventToolbarHide);
+  //   };
+  // }, []);
 
   // Single ScrollTrigger for entire page
   const { scrollToSection } = useGlobalScrollTrigger({
@@ -134,12 +109,7 @@ export default function Home() {
       />
       <div
         ref={mainContainerRef}
-        className="relative transition-opacity duration-200"
-        style={{
-          zIndex: 10,
-          height: "var(--app-height)",
-          opacity: isInitialized ? 1 : 0,
-        }}
+        className="relative h-dvh z-10" //  height: "100dvh",  Dynamic viewport height (accounts for mobile toolbar)
       >
         <HookSection
           isActive={currentSection === 0}

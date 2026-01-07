@@ -400,12 +400,12 @@ export default function QuadrantSection({
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1728px] px-5 md:px-10 h-full py-5 md:py-8">
           <div ref={chartContainerRef} className="h-full">
             {mobile ? (
-              <div className="h-full flex flex-col justify-between gap-5 relative overflow-hidden">
+              <div className="h-full flex flex-col justify-between gap-1 relative overflow-hidden">
                 <div ref={mobileHeaderRef} className="relative z-70">
-                  <h3 className="font-museo-moderno text-[24px] leading-[115%] text-grey-text mb-2">
+                  <h3 className="font-museo-moderno text-[24px] leading-[115%] text-grey-text mb-0">
                     {quadrantExplTitle}
                   </h3>
-                  <div className="flex gap-2 items-start">
+                  <div className="flex gap-2 items-start mb-2">
                     <img
                       src={`${basePath}/logos/moloco_small_without_border.svg`}
                       alt="Moloco logo"

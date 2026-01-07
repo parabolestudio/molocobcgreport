@@ -69,7 +69,15 @@
 body {
   color: var(--foreground);
   font-family: var(--font-montserrat), Helvetica, sans-serif;
+  /* -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+  position: relative; */
 }
+
+/* html {
+  overscroll-behavior-y: none;
+  position: relative;
+} */
 
 b,
 strong {

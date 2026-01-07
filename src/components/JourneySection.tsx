@@ -271,7 +271,7 @@ export default function JourneySection({
     >
       <div className="relative w-full h-full flex items-center justify-center">
         {/* Intro screen - Outer wrapper for positioning (Tailwind), inner wrapper for animation (GSAP) */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[1000px] py-20 md:py-8">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[90%] px-8 h-full max-h-[90dvh] md:max-h-[1000px] pt-8 pb-0 md:py-8">
           <div
             ref={introRef}
             className="opacity-0 invisible flex flex-col justify-between items-start h-full"
@@ -348,7 +348,7 @@ export default function JourneySection({
                     {useCopy("context_buttons_text")}
                   </div>
                 </div>
-                <div className="-ml-8 w-full">
+                <div className="-ml-8 w-full my-2">
                   <svg
                     fill="none"
                     viewBox="0 0 379 109"
@@ -401,12 +401,12 @@ export default function JourneySection({
         </div>
 
         {/* Stats screens with grid */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1600px] px-8 md:px-10 h-full max-h-[1200px] py-16 md:py-8 pointer-events-none">
-          <div className="grid grid-cols-[auto] grid-rows-[1fr_auto] gap-16 md:gap-y-0 h-full w-full">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1600px] px-2 md:px-10 h-full max-h-[1200px] py-8 md:py-8 pointer-events-none">
+          <div className="grid grid-cols-[auto] grid-rows-[1fr_auto] gap-6 md:gap-y-0 h-full w-full">
             <div
               ref={journeyPathRef}
               style={{ gridArea: "2 / 1 / 3 / 2" }}
-              className="opacity-0 invisible"
+              className="opacity-0 invisible px-6"
             >
               <JourneyPath step={currentStep} />
             </div>
@@ -497,18 +497,18 @@ function StatDisplay({
   return (
     <div ref={passRef} style={{ display: "contents" }}>
       <div
-        className="stat-content flex flex-col gap-10 md:gap-0 justify-between md:justify-start opacity-0 invisible"
+        className="stat-content flex flex-col px-2 gap-3 md:gap-0 justify-center md:justify-start opacity-0 invisible"
         style={{
           gridArea: "1 / 1 / 2 / 2",
         }}
       >
-        <div className="text-bright-green text-[40px] md:text-[96px] text-center text-balance font-extralight mb-3 leading-[115%] font-museo-moderno">
+        <div className="text-bright-green text-[32px] md:text-[96px] text-center text-balance font-extralight mb-2 md:mb-3 leading-[115%] font-museo-moderno">
           {useCopy(`journey_${step}_stat_headline`)}
         </div>
         <div
           className={`flex flex-col md:flex-row gap-0 md:gap-10 justify-center items-center mx-auto max-w-[820px]`}
         >
-          <div className="text-bright-green text-[96px] md:text-[160px] text-center font-semibold font-museo-moderno uppercase leading-[125%] shrink-0">
+          <div className="text-bright-green text-[80px] md:text-[160px] text-center font-semibold font-museo-moderno uppercase leading-[125%] shrink-0">
             {useCopy(`journey_${step}_stat_number`)}
           </div>
           <div
@@ -529,7 +529,7 @@ function StatDisplay({
             {useCopy(`journey_${step}_stat_text`)}
           </div>
           <div
-            className={`md:hidden mt-8 text-[#9494AA] text-[14px] text-center text-balance leading-[100%] ${
+            className={`md:hidden mt-4 text-[#9494AA] text-[12px] text-center text-balance leading-[100%] ${
               step === 4 ? "max-w-[700px] " : "max-w-[680px]"
             } mx-auto`}
           >

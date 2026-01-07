@@ -77,7 +77,10 @@ export default function ChartPanelContentSelectedVertical({
       </h3>
       <div
         className="flex-1 overflow-y-auto mt-2 pr-2"
-        style={{ scrollbarGutter: "stable" }}
+        style={{
+          scrollbarGutter: "stable",
+          overscrollBehavior: "contain",
+        }}
       >
         {!copy ? null : shownSide === "summary" ? (
           <SummaryCopy copy={copy} />

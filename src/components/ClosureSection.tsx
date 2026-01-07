@@ -506,6 +506,9 @@ const Card = React.forwardRef<
             className={`overflow-y-auto md:flex-1 md:min-h-0 ${
               isShownOnMobile ? "flex-1 min-h-0" : ""
             }`}
+            style={{
+              overscrollBehavior: "contain",
+            }}
           >
             {(!mobile && !isExpanded) ||
             (mobile && mobileCardContentShown === cardIndex && !isExpanded) ? (
@@ -520,7 +523,10 @@ const Card = React.forwardRef<
             (mobile && mobileCardContentShown === cardIndex && isExpanded) ? (
               <div
                 className="text-[14px] md:text-[18px] copy-text overflow-y-auto flex-1 pr-2"
-                style={{ color: "var(--black-blue)" }}
+                style={{
+                  color: "var(--black-blue)",
+                  overscrollBehavior: "contain",
+                }}
               >
                 {copy.text}
               </div>

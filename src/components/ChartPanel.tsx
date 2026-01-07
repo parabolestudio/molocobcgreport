@@ -251,7 +251,8 @@ export default function ChartPanel({
             isExplanation
               ? "bg-grey-text rounded-[3px]"
               : "bg-panel-background-blue rounded-[10px]"
-          } p-4 text-black-blue overflow-y-auto overflow-x-hidden`}
+          } px-4 py-2 text-black-blue overflow-y-auto overflow-x-hidden`}
+          style={{ overscrollBehavior: "contain" }}
         >
           {contentMap[mode]}
         </div>
@@ -298,6 +299,7 @@ export default function ChartPanel({
           } flex-1 overflow-y-auto overflow-x-hidden ${backgroundColorInner} rounded-[3px] p-4 md:p-0`}
           style={{
             scrollbarGutter: "stable",
+            overscrollBehavior: "contain",
           }}
         >
           {contentMap[mode]}

@@ -137,8 +137,8 @@ export default function Chart({
   }, [mode, mobile]);
 
   const margin = {
-    top: mobile ? 30 : 50,
-    bottom: mobile ? 30 : 50,
+    top: mobile ? 20 : 50,
+    bottom: mobile ? 25 : 50,
     right: mobile ? 1 : 50,
     left: mobile ? 1 : 50,
   };
@@ -167,7 +167,7 @@ export default function Chart({
   return (
     <div
       id="chart-container"
-      className="w-full h-full overflow-hidden relative mb-2 md:mb-0"
+      className="w-full h-full overflow-visible relative md:mb-0"
       onClick={() => {
         if (showSelectionPrompt) {
           setShowSelectionPrompt(false);
