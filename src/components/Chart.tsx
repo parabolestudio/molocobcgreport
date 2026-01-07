@@ -656,9 +656,18 @@ export default function Chart({
                       : ""
                   } ${selectedVertical === d.vertical ? "selected" : ""}`}
                 >
+                  {/* Transparent clickable area */}
+                  <circle
+                    r={mobile ? 14 : 24}
+                    cx={mobile ? -6 : 0}
+                    cy={mobile ? -6 : 0}
+                    fill="transparent"
+                    style={{ pointerEvents: "all" }}
+                  />
                   {!mobile && svgContent && (
                     <g
                       transform="translate(-16, -16)"
+                      style={{ pointerEvents: "none" }}
                       dangerouslySetInnerHTML={{
                         __html: svgContent
                           .replace(/<svg[^>]*>/, "<g>")
@@ -671,6 +680,7 @@ export default function Chart({
                   {mobile && svgContent && (
                     <g
                       transform="translate(-16, -16) scale(0.6)"
+                      style={{ pointerEvents: "none" }}
                       dangerouslySetInnerHTML={{
                         __html: svgContent
                           .replace(/<svg[^>]*>/, "<g>")
