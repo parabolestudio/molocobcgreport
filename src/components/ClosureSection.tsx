@@ -35,7 +35,7 @@ export default function ClosureSection({
         xPercent: -50,
         yPercent: -50,
       });
-    } else if (currentStep === 1) {
+    } else if (currentStep >= 1) {
       gsap.set(screen1Ref.current, {
         autoAlpha: 0,
         xPercent: -50,
@@ -76,10 +76,10 @@ export default function ClosureSection({
     const justActivated = !previousActiveRef.current && isActive;
     previousActiveRef.current = isActive;
 
-    // Run effect if: step changed OR section just became active on step 1
+    // Run effect if: step changed OR section just became active on step 1 or 2
     const shouldRun =
       currentStep !== previousStepRef.current ||
-      (justActivated && currentStep === 1);
+      (justActivated && currentStep >= 1);
 
     if (!shouldRun) return;
 
@@ -88,6 +88,13 @@ export default function ClosureSection({
 
     const previousStep = previousStepRef.current;
 
+    // Map steps to screen indices (step 0 -> screen 0, steps 1-2 -> screen 1)
+    const getScreenIndex = (step: number) => (step === 0 ? 0 : 1);
+    const currentScreenIndex = getScreenIndex(currentStep);
+    const previousScreenIndex =
+      previousStep >= 0 ? getScreenIndex(previousStep) : -1;
+
+    // Kill all ongoing animations first
     // Kill all ongoing animations first
     screens.forEach((screen) => gsap.killTweensOf(screen));
     cardsRef.current.forEach((card) => {
@@ -96,18 +103,21 @@ export default function ClosureSection({
 
     // Hide all screens immediately except current and previous
     screens.forEach((screen, i) => {
-      if (i !== currentStep && i !== previousStep) {
+      if (i !== currentScreenIndex && i !== previousScreenIndex) {
         gsap.set(screen, { autoAlpha: 0, xPercent: -50, yPercent: -50 });
       }
     });
 
-    // Fade out previous screen
-    if (previousStep >= 0 && previousStep !== currentStep) {
-      const previousScreen = screens[previousStep];
+    // Fade out previous screen (only if it's different from current)
+    if (
+      previousScreenIndex >= 0 &&
+      previousScreenIndex !== currentScreenIndex
+    ) {
+      const previousScreen = screens[previousScreenIndex];
       if (previousScreen) fadeOut(previousScreen);
 
       // Fade out cards when leaving screen2
-      if (previousStep === 1) {
+      if (previousStep >= 1) {
         cardsRef.current.forEach((card) => {
           if (card) {
             fadeOut(card);
@@ -117,12 +127,20 @@ export default function ClosureSection({
     }
 
     // Fade in current screen
-    const currentScreen = screens[currentStep];
+    const currentScreen = screens[currentScreenIndex];
     if (currentScreen) {
-      fadeIn(currentScreen);
+      // Only fade in if transitioning from a different screen
+      if (previousScreenIndex !== currentScreenIndex) {
+        fadeIn(currentScreen);
+      }
 
-      // If transitioning to screen2 (step 1), animate cards
-      if (currentStep === 1) {
+      // Animate cards when entering screen2 (step 1 or 2)
+      // Only animate when transitioning from step 0 or when section just became active
+      const shouldAnimateCards =
+        (currentStep >= 1 && previousStep < 1) || // Scrolling forward from step 0
+        (justActivated && currentStep >= 1); // Section just became active on screen2
+
+      if (shouldAnimateCards) {
         // Determine which cards to animate based on mobile state
         const startIndex = mobile ? 3 : 0;
         const endIndex = mobile ? 6 : 3;
@@ -212,7 +230,7 @@ export default function ClosureSection({
         </div>
         <div
           ref={screen2Ref}
-          className="absolute left-1/2 top-1/2 w-full md:max-w-[90%] md:px-0 px-5  h-full md:max-h-[90%] py-8 opacity-0 invisible"
+          className="absolute left-1/2 top-1/2 w-full lg:max-w-[1728px] md:max-w-[90%] md:px-0 px-5  h-full md:max-h-[90%] py-8 opacity-0 invisible"
         >
           <div className="relative flex flex-col items-start h-full w-full gap-4">
             <div className="text-[24px] md:text-[32px] max-w-[1000px] font-museo-moderno mb-0 md:mb-6">
