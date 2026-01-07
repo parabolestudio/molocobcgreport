@@ -29,7 +29,8 @@ export const SECTION_STEPS: Record<SectionName, number> = {
  */
 export const SCROLL_CONFIG = {
   // Balanced scroll distance for mobile - not too sensitive, not too sluggish
-  SCROLL_PER_STEP: 100, // for Android 200
+  SCROLL_PER_STEP_DEFAULT: 100,
+  SCROLL_PER_STEP_ANDROID: 200,
 
   // Animation timings
   TRANSITION_DURATION: 0.4,
@@ -70,7 +71,18 @@ export const ANIMATION_CONFIG = {
  * @returns CSS percentage string for ScrollTrigger end property
  */
 export function calculateScrollEnd(steps: number): string {
-  return `+=${steps * SCROLL_CONFIG.SCROLL_PER_STEP}%`;
+  // Detect if Android mobile device
+  const isAndroid =
+    typeof window !== "undefined" &&
+    /Android/i.test(window.navigator.userAgent);
+
+  console.log("isAndroid:", isAndroid);
+
+  const scrollPerStep = isAndroid
+    ? SCROLL_CONFIG.SCROLL_PER_STEP_ANDROID
+    : SCROLL_CONFIG.SCROLL_PER_STEP_DEFAULT;
+
+  return `+=${steps * scrollPerStep}%`;
 }
 
 /**
