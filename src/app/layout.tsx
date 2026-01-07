@@ -18,7 +18,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.moloco.com/ai-disruption-index"),
+  metadataBase: new URL("https://www.moloco.com/"),
   title: "The AI Disruption Index",
   description: "Report by Moloco and BCG",
 };
