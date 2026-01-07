@@ -19,7 +19,7 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: "The AI Disruption Index",
-  description: "A story by Moloco and BCG",
+  description: "Report by Moloco and BCG",
 };
 
 export default function RootLayout({
