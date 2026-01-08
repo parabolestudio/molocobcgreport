@@ -161,7 +161,7 @@ export default function HookSection({
           </div>
         </div>
       </div>
-      {currentStep === 0 && <LocaleSwitcher />}
+      {/* {currentStep === 0 && <LocaleSwitcher />} */}
     </div>
   );
 }
