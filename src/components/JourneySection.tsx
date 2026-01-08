@@ -183,7 +183,7 @@ export default function JourneySection({
   const tooltipText = useCopy("context_button_method_tooltip");
 
   const NUM_INTRO_CIRCLES = 9;
-  const INTRO_CIRCLE_DURATION = mobile ? 15 : 30;
+  const INTRO_CIRCLE_DURATION = mobile ? 25 : 50;
 
   // Animate circles along the intro screen paths
   useEffect(() => {
@@ -307,14 +307,15 @@ export default function JourneySection({
                   }}
                 >
                   <g>
-                    {/* Animated circles */}
+                    {/* Animated circles in intro screen */}
                     <g ref={introCirclesDesktopRef}>
                       {!mobile &&
                         Array.from({ length: NUM_INTRO_CIRCLES }).map(
                           (_, i) => (
                             <circle
                               key={i}
-                              className="intro-circle fill-bright-green"
+                              className="intro-circle"
+                              fill="#303061"
                               r={7}
                             />
                           )
@@ -362,7 +363,8 @@ export default function JourneySection({
                             (_, i) => (
                               <circle
                                 key={i}
-                                className="intro-circle fill-bright-green"
+                                className="intro-circle"
+                                fill="#303061"
                                 r={3.8}
                               />
                             )

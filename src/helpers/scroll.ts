@@ -76,8 +76,6 @@ export function calculateScrollEnd(steps: number): string {
     typeof window !== "undefined" &&
     /Android/i.test(window.navigator.userAgent);
 
-  console.log("isAndroid:", isAndroid);
-
   const scrollPerStep = isAndroid
     ? SCROLL_CONFIG.SCROLL_PER_STEP_ANDROID
     : SCROLL_CONFIG.SCROLL_PER_STEP_DEFAULT;
