@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
-import { basePath } from "@/helpers/general";
+import { basePath, isMobile } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 import { fadeOut, fadeIn } from "@/helpers/scroll";
 
@@ -16,12 +16,28 @@ export default function HookSection({
   currentStep: number;
   scrollToSection: (sectionIndex: number, localStep?: number) => void;
 }) {
+  const [mobile, setMobile] = useState(false);
   const text1Ref = useRef<HTMLDivElement>(null);
   const text2Ref = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const previousStepRef = useRef(-1);
 
   const textRefs = [text1Ref, text2Ref, titleRef];
+
+  // Detect mobile after hydration to avoid SSR mismatch
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const update = () => setMobile(isMobile());
+    // run once after hydration
+    update();
+    // update on resize/orientation changes
+    window.addEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+    };
+  }, []);
 
   // Set initial visibility
   useEffect(() => {
@@ -137,8 +153,8 @@ export default function HookSection({
               <img
                 src={`${basePath}/logos/moloco_bcg.svg`}
                 alt="Moloco logo and BCG logo"
-                width={291}
-                height={51}
+                width={mobile ? 180 : 291}
+                height={mobile ? 31 : 51}
               />
             </div>
           </div>
