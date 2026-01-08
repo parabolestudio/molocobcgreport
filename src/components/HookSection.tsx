@@ -101,14 +101,14 @@ export default function HookSection({
           <div
             ref={text1Ref}
             className="text-center flex flex-col items-center justify-between gap-20"
-            // style={{ height: "80dvh" }}
+            style={{ height: "80dvh" }}
           >
             <button className="bg-grey-blue flex items-center justify-center gap-2 opacity-0"></button>
             <p className="text-[18px] md:text-[32px] leading-[125%] font-normal font-montserrat">
               {useCopy("hooks_1_text")}
             </p>
             <button
-              className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition"
+              className="bg-grey-blue flex items-center justify-center gap-2 hover:bg-[#9494AA] transition cursor-pointer"
               onClick={() => scrollToSection(0, 1)}
             >
               <span>{useCopy("hooks_1_button")}</span>
