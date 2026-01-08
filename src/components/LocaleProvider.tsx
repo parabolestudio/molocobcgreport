@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { CopyProvider } from "@/contexts/CopyContext";
 import { copyData, type CopyData } from "@/data/copyData";
 
-type LocaleCode = "JP" | "KO" | "ZH" | "EN";
+type LocaleCode = "JA" | "KO" | "ZH" | "EN";
 type LanguageName = "English" | "Japanese" | "Korean" | "Chinese";
 
 function mapLocaleToLanguage(locale: string | null): LanguageName {
@@ -13,7 +13,7 @@ function mapLocaleToLanguage(locale: string | null): LanguageName {
 
   const code = locale.toUpperCase() as LocaleCode;
   switch (code) {
-    case "JP":
+    case "JA":
       return "Japanese";
     case "KO":
       return "Korean";

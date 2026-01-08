@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { basePath, isMobile } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 import { fadeOut, fadeIn } from "@/helpers/scroll";
+import { LocaleSwitcher } from "./LocaleSwitcher";
 
 export default function HookSection({
   isActive,
@@ -160,6 +161,7 @@ export default function HookSection({
           </div>
         </div>
       </div>
+      {currentStep === 0 && <LocaleSwitcher />}
     </div>
   );
 }
