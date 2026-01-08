@@ -37,7 +37,7 @@ export const copyData: MultiLanguageCopy = {
     "journey_3_stat_text": "of consumers use GenAI to research purchases",
     "journey_3_stat_source": "Source: Attest, “2025 Consumer Adoption of AI Report” , July 2025. \n5,000 Adults in US, UK, Canada and Australia using Attest platform",
     "journey_4_title": "Conversion",
-    "journey_4_stat_headline": "<green>AI is extending from advice to <b>action</b></green>",
+    "journey_4_stat_headline": "<green>AI is extending \nfrom advice to <b>action</b></green>",
     "journey_4_stat_number": "30%",
     "journey_4_stat_text": "feel comfortable letting AI make purchases for them",
     "journey_4_stat_source": "Source: Chain Store Age, “Consumer comfort, interest in AI shopping assistants grows”, June 2025. \n1,000 US Adults surveyed by CouponFollow",
