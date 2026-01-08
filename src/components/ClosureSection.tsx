@@ -61,6 +61,7 @@ export default function ClosureSection({
       // Fade out cards smoothly when leaving the section
       cardsRef.current.forEach((card) => {
         if (card) {
+          gsap.killTweensOf(card);
           fadeOut(card);
         }
       });
@@ -94,11 +95,16 @@ export default function ClosureSection({
     const previousScreenIndex =
       previousStep >= 0 ? getScreenIndex(previousStep) : -1;
 
-    // Kill all ongoing animations first
-    // Kill all ongoing animations first
+    // Kill all ongoing animations first and reset card states
     screens.forEach((screen) => gsap.killTweensOf(screen));
     cardsRef.current.forEach((card) => {
-      if (card) gsap.killTweensOf(card);
+      if (card) {
+        gsap.killTweensOf(card);
+        // Ensure cards are in a known state after killing tweens
+        if (!isActive || currentStep < 1) {
+          gsap.set(card, { autoAlpha: 0, y: 30, clearProps: "all" });
+        }
+      }
     });
 
     // Hide all screens immediately except current and previous
@@ -114,12 +120,16 @@ export default function ClosureSection({
       previousScreenIndex !== currentScreenIndex
     ) {
       const previousScreen = screens[previousScreenIndex];
-      if (previousScreen) fadeOut(previousScreen);
+      if (previousScreen) {
+        gsap.killTweensOf(previousScreen);
+        fadeOut(previousScreen);
+      }
 
       // Fade out cards when leaving screen2
       if (previousStep >= 1) {
         cardsRef.current.forEach((card) => {
           if (card) {
+            gsap.killTweensOf(card);
             fadeOut(card);
           }
         });
@@ -129,9 +139,15 @@ export default function ClosureSection({
     // Fade in current screen
     const currentScreen = screens[currentScreenIndex];
     if (currentScreen) {
+      // Kill any existing animations first
+      gsap.killTweensOf(currentScreen);
+
       // Only fade in if transitioning from a different screen
       if (previousScreenIndex !== currentScreenIndex) {
         fadeIn(currentScreen);
+      } else {
+        // If we're staying on the same screen, ensure it's fully visible
+        gsap.set(currentScreen, { autoAlpha: 1, xPercent: -50, yPercent: -50 });
       }
 
       // Animate cards when entering screen2 (step 1 or 2)
@@ -144,37 +160,41 @@ export default function ClosureSection({
         // Determine which cards to animate based on mobile state
         const startIndex = mobile ? 3 : 0;
         const endIndex = mobile ? 6 : 3;
+        const cardsToAnimate = [];
 
-        // Reset cards first
+        // Reset cards first to ensure clean state
         for (let i = startIndex; i < endIndex; i++) {
           const card = cardsRef.current[i];
           if (card) {
+            gsap.killTweensOf(card);
             gsap.set(card, { autoAlpha: 0, y: 30 });
+            cardsToAnimate.push(card);
           }
         }
 
-        // Then animate them in with stagger
-        for (let i = startIndex; i < endIndex; i++) {
-          const card = cardsRef.current[i];
-          const relativeIndex = i - startIndex;
-          if (card) {
-            gsap.to(card, {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.4,
-              delay: 0.6 + relativeIndex * 0.3,
-              ease: "power2.inout",
-              overwrite: true,
-              onComplete: () => {
-                // After the last card animates in on mobile, show first card content
-                if (mobile && relativeIndex === 2) {
-                  setTimeout(() => {
-                    setMobileCardContentShown(1);
-                  }, 200);
-                }
-              },
-            });
-          }
+        // Then animate them in with stagger using gsap's built-in stagger
+        if (cardsToAnimate.length > 0) {
+          gsap.to(cardsToAnimate, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.4,
+            delay: 0.6,
+            stagger: {
+              each: 0.3,
+              from: "start",
+            },
+            ease: "power2.inout",
+            overwrite: "auto",
+            force3D: true,
+            onComplete: () => {
+              // After the last card animates in on mobile, show first card content
+              if (mobile) {
+                setTimeout(() => {
+                  setMobileCardContentShown(1);
+                }, 200);
+              }
+            },
+          });
         }
       }
     }
