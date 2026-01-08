@@ -1,5 +1,5 @@
 Key,Description for humans,English,Korean,Japanese,Chinese
-hooks_1_text,"Hook, screen 1","The biggest shifts in AI today aren’t technological, <b><green>they’re behavioral</green></b>.","test Korean","test JP","test Chinese"
+hooks_1_text,"Hook, screen 1","The biggest shifts in AI today aren’t technological, <b><green>they’re behavioral</green></b>.",,,
 hooks_1_button,"Hook, screen 1 button",scroll,,,
 hooks_2_text,"Hook, screen 2","Consumer behavior is shifting faster than marketing budgets can follow, and this will only continue to accelerate.
 
@@ -10,7 +10,6 @@ context_intro,Context paragraph 1,"<b>In partnership with BCG, we surveyed 283 m
 context_buttons_text,Context paragraph 2,"We uncovered new insights on AI disruption, vertical strengths and opportunities, and the new customer journey, starting with inspiration.",,,
 context_button_method,Context button 2,methodology,,,
 context_button_method_tooltip,Methodology copy,"<b>About the Research</b>
-
 This report leverages insights from multiple research methodologies conducted with Boston Consulting Group from June to October 2025:
 
 <b>Quantitative Survey</b>
@@ -20,7 +19,7 @@ This report leverages insights from multiple research methodologies conducted wi
 15 senior executives (VP/C-level) from leading companies across key verticals.
 
 <b>Performance Analysis</b>
-Moloco app performance data from 3000+ apps representing 200B+ downloads, analyzing retention rates, engagement patterns, and acquisition channels (Moloco/Sensor Tower/Semrush)..",,,
+Moloco app performance data from 3000+ apps representing 200B+ downloads, analyzing retention rates, engagement patterns, and acquisition channels (Moloco/Sensor Tower/Semrush).",,,
 journey_1_title,"Consumer journey, step 1 title",Inspiration,,,
 journey_1_stat_headline,"Consumer journey, step 1 headline","<green>Inspiration now 
 starts <b>with AI</b></green>",,,
