@@ -499,12 +499,12 @@ function StatDisplay({
   return (
     <div ref={passRef} style={{ display: "contents" }}>
       <div
-        className="stat-content flex flex-col px-2 gap-3 md:gap-10 justify-center md:justify-center opacity-0 invisible"
+        className="stat-content flex flex-col px-2 gap-3 md:gap-0 justify-center md:justify-center opacity-0 invisible"
         style={{
           gridArea: "1 / 1 / 2 / 2",
         }}
       >
-        <div className="text-bright-green text-[32px] md:text-[64px] text-center text-balance font-extralight mb-2 md:mb-0 leading-[115%] font-museo-moderno">
+        <div className="text-bright-green text-[32px] md:text-[64px] text-center text-balance font-extralight mb-2 md:mb-10 leading-[115%] font-museo-moderno">
           {useCopy(`journey_${step}_stat_headline`)}
         </div>
         <div
