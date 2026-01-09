@@ -1,6 +1,6 @@
 "use client";
 
-import { basePath } from "@/helpers/general";
+import { basePath, replaceCertainGlyphs } from "@/helpers/general";
 import { Copy } from "./ChartPanel";
 import React, { use, useEffect, useState } from "react";
 import { scaleLinear } from "d3-scale";
@@ -52,6 +52,10 @@ export default function ChartPanelContentSelectedVertical({
       </div>
     );
   }
+  let verticalDisplayName: React.ReactNode = "";
+  if (selectedVertical) {
+    verticalDisplayName = replaceCertainGlyphs(selectedVertical);
+  }
   return (
     <div className="flex flex-col h-full">
       {mobile && (
@@ -73,7 +77,7 @@ export default function ChartPanelContentSelectedVertical({
         />
       </div>
       <h3 className="text-grey-text font-museo-moderno mb-0 text-[18px] md:text-[40px] mr-[150px] md:mr-10 shrink-0 font-bold">
-        {selectedVertical}
+        {verticalDisplayName}
       </h3>
       <div
         className="flex-1 overflow-y-auto mt-2 pr-2"
