@@ -433,12 +433,13 @@ export default function QuadrantSection({
                     </p>
                   </div>
                 </div>
-                <div ref={mobileVerticalSelectRef} className="relative z-50">
-                  <div
-                    className={`${
-                      chartMode === "data-filled" ? "opacity-100" : "opacity-0"
-                    } max-w-[300px]`}
-                  >
+                <div
+                  ref={mobileVerticalSelectRef}
+                  className={`relative z-50 ${
+                    chartMode === "data-filled" ? "block" : "hidden"
+                  }`}
+                >
+                  <div className={`max-w-[300px]`}>
                     <p className="font-bold text-[14px] leading-[125%]">
                       {verticalDropdownLabel}
                     </p>
