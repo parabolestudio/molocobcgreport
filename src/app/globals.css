@@ -156,19 +156,29 @@ button {
   color: var(--color-forest-green);
 }
 
-.verticals .selected text,
-.verticals .verticalGroup:hover text {
+.verticals.interactive .selected text,
+.verticals.interactive .verticalGroup:hover text {
   fill: white;
   font-weight: 700;
 }
-.verticals .selected rect,
-.verticals .verticalGroup:hover rect {
+.verticals.interactive .selected rect,
+.verticals.interactive .verticalGroup:hover rect {
   fill: white;
 }
-.verticals .selected path,
-.verticals .verticalGroup:hover path {
+.verticals.interactive .selected path,
+.verticals.interactive .verticalGroup:hover path {
   fill: #308267;
 }
+.verticals.non-interactive .verticalGroup path {
+  fill: #5a5a7d;
+}
+.verticals.non-interactive .verticalGroup rect {
+  fill: #242e41;
+}
+.verticals.non-interactive .verticalGroup text {
+  fill: #5a5a7d;
+}
+
 .verticals rect,
 .verticals text,
 .verticals path {

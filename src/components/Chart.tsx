@@ -596,7 +596,18 @@ export default function Chart({
             })}
           </g>
 
-          <g className="verticals" opacity={mode === "data-filled" ? 1 : 0}>
+          <g
+            className={`verticals ${
+              mode === "data-filled" ? "interactive" : "non-interactive"
+            }`}
+            opacity={
+              mode === "data-filled" ||
+              mode === "expl-x-axis" ||
+              mode === "expl-y-axis"
+                ? 1
+                : 0
+            }
+          >
             {verticalsData.map((d, i) => {
               const x = xScale(d.consumerStrength || 0);
               const y = yScale(d.aiDisruption || 0);
@@ -632,6 +643,7 @@ export default function Chart({
                   (verticalsMap[selectedVertical] as any)?.quadrant ===
                   verticalInfo.quadrant;
               }
+              const isDataMode = mode === "data-filled";
 
               return (
                 <g
@@ -639,17 +651,19 @@ export default function Chart({
                   transform={`translate(${x},${y})`}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setShowSelectionPrompt(false);
-                    selectVertical(d.vertical);
+                    if (isDataMode) {
+                      setShowSelectionPrompt(false);
+                      selectVertical(d.vertical);
+                    }
                   }}
                   onMouseEnter={(e) => {
                     // Move this group to the end to render on top (on hover)
                     const parent = e.currentTarget.parentNode;
-                    if (parent) {
+                    if (isDataMode && parent) {
                       parent.appendChild(e.currentTarget);
                     }
                   }}
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: isDataMode ? "pointer" : "default" }}
                   className={`verticalGroup  ${
                     isQuadrantHovered || isQuadrantActiveFromVertical
                       ? "quadrantHovered"
