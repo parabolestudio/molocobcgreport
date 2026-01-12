@@ -281,10 +281,12 @@ function LoopedAppLogos({
     };
   }, [containerRef, apps]);
 
+  const verticalFolderName = vertical.toLowerCase().replaceAll(" ", "_");
+  console.log("Vertical folder name:", vertical, verticalFolderName);
   const logosContent = apps.map((app) => (
     <img
       key={app}
-      src={`${basePath}/appLogos/${vertical}/${app
+      src={`${basePath}/appLogos/${verticalFolderName}/${app
         .trim()
         .replaceAll(" ", "_")
         .replace("'", "_")}.svg`}
