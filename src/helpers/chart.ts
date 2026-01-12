@@ -52,11 +52,11 @@ export const verticalsMap: Record<string, Object> = {
     icon: "auto_marketplace",
     quadrant: "bottom-left",
   },
-  "Retail & Ecommerce": {
-    label: "Retail & Ecommerce",
+  "Retail & eCommerce": {
+    label: "Retail & eCommerce",
     labelFormatted: {
       firstLine: "Retail &",
-      secondLine: "Ecommerce",
+      secondLine: "eCommerce",
     },
     icon: "ecommerce_retail",
     quadrant: "bottom-left",

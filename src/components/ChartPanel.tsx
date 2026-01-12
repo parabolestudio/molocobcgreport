@@ -119,56 +119,69 @@ export default function ChartPanel({
 
   useEffect(() => {
     csv(`${basePath}/data/verticalsCopy.csv`).then((data) => {
+      const language = "English";
       const processedData = data.map((d) => ({
-        vertical: d["Vertical"],
+        vertical: d["Vertical_" + language],
         // summary side
-        intro: d["Vertical Intro"] || "",
-        exampleApps: d["Example Apps"] ? d["Example Apps"].split(",") : [],
+        intro: d["Vertical Intro_" + language] || "",
+        exampleApps: d["Example Apps_" + language]
+          ? d["Example Apps_" + language].split(",")
+          : [],
         quotes: [
-          d["Quote 1 (text)"] && d["Quote 1 (credit)"]
+          d["Quote 1 (text)_" + language] && d["Quote 1 (credit)_" + language]
             ? {
-                text: d["Quote 1 (text)"] || "",
-                credit: d["Quote 1 (credit)"] || "",
+                text: d["Quote 1 (text)_" + language] || "",
+                credit: d["Quote 1 (credit)_" + language] || "",
               }
             : null,
-          d["Quote 2 (text)"] && d["Quote 2 (credit)"]
+          d["Quote 2 (text)_" + language] && d["Quote 2 (credit)_" + language]
             ? {
-                text: d["Quote 2 (text)"] || "",
-                credit: d["Quote 2 (credit)"] || "",
+                text: d["Quote 2 (text)_" + language] || "",
+                credit: d["Quote 2 (credit)_" + language] || "",
               }
             : null,
-          d["Quote 3 (text)"] && d["Quote 3 (credit)"]
+          d["Quote 3 (text)_" + language] && d["Quote 3 (credit)_" + language]
             ? {
-                text: d["Quote 3 (text)"] || "",
-                credit: d["Quote 3 (credit)"] || "",
+                text: d["Quote 3 (text)_" + language] || "",
+                credit: d["Quote 3 (credit)_" + language] || "",
               }
             : null,
         ].filter((q) => q !== null) as Array<{ text: string; credit: string }>,
 
         // details side - AI disruption risk
-        ai_risk_intro: d["AI Disruption Risk Intro"] || "",
-        ai_discovery_risk_intro: d["Discovery Risk (description)"] || "",
-        ai_discovery_risk_level: d["Discovery Risk (score)"] || "",
-        ai_service_risk_intro: d["Service Disruption Risk (description)"] || "",
-        ai_service_risk_level: d["Service Disruption Risk (score)"] || "",
-        ai_data_risk_intro: d["Data Access & Regulatory (description)"] || "",
-        ai_data_risk_level: d["Data Access & Regulatory (score)"] || "",
+        ai_risk_intro: d["AI Disruption Risk Intro_" + language] || "",
+        ai_discovery_risk_intro:
+          d["Discovery Risk (description)_" + language] || "",
+        ai_discovery_risk_level: d["Discovery Risk (score)_" + language] || "",
+        ai_service_risk_intro:
+          d["Service Disruption Risk (description)_" + language] || "",
+        ai_service_risk_level:
+          d["Service Disruption Risk (score)_" + language] || "",
+        ai_data_risk_intro:
+          d["Data Access & Regulatory (description)_" + language] || "",
+        ai_data_risk_level:
+          d["Data Access & Regulatory (score)_" + language] || "",
 
         // details side - customer relationship strength
-        customer_intro: d["Customer Relationship Intro"] || "",
+        customer_intro: d["Customer Relationship Intro_" + language] || "",
         customer_acquisition_intro:
-          d["Acquisition Strength (description)"] || "",
-        customer_acquisition_score: d["Acquisition Strength (score)"]
-          ? +d["Acquisition Strength (score)"]
+          d["Acquisition Strength (description)_" + language] || "",
+        customer_acquisition_score: d[
+          "Acquisition Strength (score)_" + language
+        ]
+          ? +d["Acquisition Strength (score)_" + language]
           : 0,
-        customer_loyalty_intro: d["Loyalty Strength (description)"] || "",
-        customer_loyalty_score: d["Loyalty Strength (score)"]
-          ? +d["Loyalty Strength (score)"]
+        customer_loyalty_intro:
+          d["Loyalty Strength (description)_" + language] || "",
+        customer_loyalty_score: d["Loyalty Strength (score)_" + language]
+          ? +d["Loyalty Strength (score)_" + language]
           : 0,
         customer_engagement_intro:
-          d["Platform Engagement Depth (description)"] || "",
-        customer_engagement_score: d["Platform Engagement Depth (score)"]
-          ? +d["Platform Engagement Depth (score)"]
+          d["Platform Engagement Depth (description)_" + language] || "",
+        customer_engagement_score: d[
+          "Platform Engagement Depth (score)_" + language
+        ]
+          ? +d["Platform Engagement Depth (score)_" + language]
           : 0,
       }));
       // calculate average scores for customer acquisition, loyalty, and engagement across all verticals

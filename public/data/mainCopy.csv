@@ -3,7 +3,7 @@ hooks_1_text,"Hook, screen 1","The biggest shifts in AI today aren’t technolog
 hooks_1_button,"Hook, screen 1 button",scroll,,,
 hooks_2_text,"Hook, screen 2","Consumer behavior is shifting faster than marketing budgets can follow, and this will only continue to accelerate.
 
-New research on AI/LLM disruption<info>Here AI/LLM refers to AI chatbots, assistants, and agents, which we’ll refer to as “AI” throughout the report for simplicity’s sake.</info>, done in partnership with BCG, dives deep into the <green><b>current state of play for marketers</b></green>, and where we go from here.",,,
+New research on AI/LLM disruption<info>Here AI/LLM refers to AI chatbots, assistants, and agents, which we’ll refer to as “AI” throughout the report for simplicity’s sake.</info>, done in partnership with BCG, dives deep into these behavioral shifts, the <green><b>current state of play for marketers</b></green>, and where we go from here.",,,
 hooks_title,Title,<green>The <b>AI Disruption Index</b></green>,,,
 hooks_subline,Title sub-line,Report by,,,
 context_intro,Context paragraph 1,"<b>In partnership with BCG, we surveyed 283 marketing leaders across 15 verticals and 5 regions, interviewed 15 executives from leading companies, and analyzed first-party Moloco app performance data from 3,000+ apps representing 200 billion downloads.</b>",,,
@@ -45,10 +45,10 @@ journey_4_stat_number,"Consumer journey, step 4 stat",30%,,,
 journey_4_stat_text,"Consumer journey, step 4 body text",feel comfortable letting AI make purchases for them,,,
 journey_4_stat_source,"Consumer journey, step 4 source","Source: Contentsquare/Morningstar, December 2025, n=1,300 US adults surveyed by Pollfish.",,,
 climax_1_title,Climax intro title,<green>Understanding disruption on the <b>vertical level</b></green>,,,
-climax_1_paragraph,Climax intro paragraph,"The traditional marketer’s toolkit wasn’t built for AI-driven consumer journeys. It’s a world of less predictability, and more possibility. To explore the risks and opportunities for each vertical, we quantified how exposed brands are to AI-driven disruption, and the strength of their customer relationships.",,,
+climax_1_paragraph,Climax intro paragraph,"The traditional marketer’s toolkit wasn’t built for AI-driven consumer journeys. It’s a world of less predictability, and more possibility. To explore the risks and opportunities for each vertical, we quantified how exposed brands are to AI-driven disruption, and the strength of their customer relationships",,,
 qu_expl_title,Quadrant title,The <b>AI Disruption Index</b>,,,
 qu_expl_subline,Quadrant intro,AI Disruption scores verticals on their level of exposure to:,,,
-qu_expl_y_description,Quadrant X axis description,"<b>AI Disruption</b> <green>(y-axis)</green> indexes verticals from high to low based on their level of exposure to:
+qu_expl_y_description,Quadrant X axis description,"<b>AI Disruption</b> <green>(y-axis)</green>  indexes verticals from high to low based on their level of exposure to:
 - Service Disruption: The risk that AI can replace services that a brand offers 
 - Discovery Disruption: Consumers going to AI for discovery rather than using traditional channels",,,
 qu_expl_x_description,Quadrant Y axis description,"<b>Customer Relationship Strength</b> <green>(x-axis)</green> indexes strength from high to low based on a variety of factors including ability to drive long-term loyalty, reliance on paid user acquisition, and how much customers engage on platforms like apps (higher engagement) vs. the web (lower).",,,
@@ -91,10 +91,10 @@ qu_top_right_headline,"Quadrant, step 4 headline",Low AI disruption and strong c
 qu_top_right_y_level,"Quadrant, step 4, y axis description","<b>AI disruption | <green>Moderate to Low</green></b>
 Discovery disruption is moderate due to a mix of reliance on disrupted and more resilient channels. There’s a low risk of service disruption as core functionalities can’t easily be replicated.",,,
 qu_top_right_x_level,"Quadrant, step 4, x axis description","<b>Customer relationship strength | <green>High</green></b>
-Habitual engagements, organic pull, and trust all drive high customer loyalty.",,,
+Habitual engagements, organic pull, and trust all drive high customer loyalty. ",,,
 qu_top_right_description,"Quadrant, step 4 body text","Secured companies can <b>accelerate their advantage</b>:
 
-1. Reimagine customer connection with AI-powered experiences, shifting from generic engagement to personalized, proactive relationships
+1. Reimagine customer connection with AI-powered experiences, shifting from generic engagement to personalized, proactive relationships 
 2. Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps",,,
 qu_data_nudge,Vertical selection nudge,Selected vertical details will appear here.,,,
 qu_data_nudge_mobile,Vertical selection nudge (on mobile without selection possibilities),The details for the selected vertical will appear here.,,,
@@ -145,11 +145,11 @@ closure_card_2_text,Closure card 2 text,"Customer expectations are higher than e
 - Drive growth by effectively re-engaging lapsed users.",,,
 closure_card_3_title,Closure card 3 title,<b>Investing in the App Advantage</b>,,,
 closure_card_3_summary,Closure card 3 summary,"While everyone fights for visibility, forward-looking brands are building customer relationships on surfaces they own. Investing in a mobile app can mean access to actionable first-party data, closed-loop measurement, and most importantly, deeper connections with customers.",,,
-closure_card_3_text,Closure card 3 text,"Not every brand needs an app, but for brands who can offer frequent engagement, complex service, or community ecosystems, investing in a mobile app has huge upsides.
+closure_card_3_text,Closure card 3 text,"Not every brand needs an app, but for brands who can offer frequent engagement, complex service, or community ecosystems, investing in a mobile app has huge upsides. 
 
 <b>Building your App Advantage</b> can include:        
 - Personalized content and discovery that learns from user behaviors and preferences
-- AI-driven browsing, comparison, and assistance
+- AI-driven browsing, comparison, and assistance 
 - Gamified interactions and exclusive access/rewards
 - Community ecosystems and interactions that increase stickiness",,,
 closure_explore,Label above buttons,Explore:,,,
