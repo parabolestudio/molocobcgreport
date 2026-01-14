@@ -11,7 +11,7 @@ import P5Background from "@/components/P5Background";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { basePath } from "@/helpers/general";
+import { basePath, runSiteGate } from "@/helpers/general";
 import { useGlobalScrollTrigger } from "@/hooks/useGlobalScrollTrigger";
 import { SECTION_NAMES, SECTION_STEPS } from "@/helpers/scroll";
 
@@ -21,6 +21,10 @@ export default function Home() {
   const mainContainerRef = useRef<HTMLDivElement>(null);
   const [currentSection, setCurrentSection] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
+
+  useEffect(() => {
+    runSiteGate();
+  }, []);
 
   // Single ScrollTrigger for entire page
   const { scrollToSection } = useGlobalScrollTrigger({

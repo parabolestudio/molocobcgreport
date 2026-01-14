@@ -51,3 +51,37 @@ export const replaceCertainGlyphs = (text: string): React.ReactElement => {
 
   return React.createElement(React.Fragment, null, ...parts);
 };
+
+export const runSiteGate = (): void => {
+  // Function to check for the presence of query parameters
+  function hasQueryParam(param: string) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.has(param);
+  }
+
+  // Function to check for the presence of local storage items
+  function hasLocalStorageItem(item: string) {
+    return localStorage.getItem(item) !== null;
+  }
+
+  // Check for required query params and local storage items
+  const requiredParamsAndStorage = [
+    "submissionGuid",
+    "submission",
+    "formsubmission",
+    "hs_form_submitted",
+  ];
+  const hasRequiredParamsOrStorage = requiredParamsAndStorage.some(
+    (param) => hasQueryParam(param) || hasLocalStorageItem(param)
+  );
+
+  // Check for the utm_medium=email parameter
+  const isEmailMedium =
+    hasQueryParam("utm_medium") &&
+    new URLSearchParams(window.location.search).get("utm_medium") === "email";
+
+  // Redirect only if required params/storage are absent and utm_medium=email is not present
+  if (!hasRequiredParamsOrStorage && !isEmailMedium) {
+    window.location.href = "https://www.moloco.com/reports/ai-disruption-index";
+  }
+};
