@@ -11,28 +11,24 @@ import { parseCopy } from "@/helpers/parseCopy";
 const quadrantData = [
   {
     position: "bottom-left",
-    title: "Breached",
     titleAnchor: "end" as const,
     colorQuadrant: "#3D5F53",
     colorQuadrantActiveText: "var(--grey-text)",
   },
   {
     position: "top-left",
-    title: "Undefended",
     titleAnchor: "end" as const,
     colorQuadrant: "#308267",
     colorQuadrantActiveText: "var(--grey-text)",
   },
   {
     position: "bottom-right",
-    title: "Contested",
     titleAnchor: "start" as const,
     colorQuadrant: "#60E2B7",
     colorQuadrantActiveText: "var(--black-blue)",
   },
   {
     position: "top-right",
-    title: "Secured",
     titleAnchor: "start" as const,
     colorQuadrant: "#A0EED4",
     colorQuadrantActiveText: "var(--black-blue)",
@@ -71,6 +67,12 @@ export default function Chart({
     "top-right": useCopy("qu_top_right_headline"),
     "bottom-left": useCopy("qu_bottom_left_headline"),
     "bottom-right": useCopy("qu_bottom_right_headline"),
+  };
+  const quadrantTitles = {
+    "top-left": useCopyRaw("qu_top_left_title"),
+    "top-right": useCopyRaw("qu_top_right_title"),
+    "bottom-left": useCopyRaw("qu_bottom_left_title"),
+    "bottom-right": useCopyRaw("qu_bottom_right_title"),
   };
 
   // Get axis copy
@@ -549,7 +551,11 @@ export default function Chart({
                       }
                     }}
                   >
-                    {quadrant.title}
+                    {
+                      quadrantTitles[
+                        quadrant.position as keyof typeof quadrantTitles
+                      ]
+                    }
                   </text>
                   {mode === "data-filled" && (
                     <image
