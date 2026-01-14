@@ -22,9 +22,9 @@ export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
 
-  useEffect(() => {
-    runSiteGate();
-  }, []);
+  // useEffect(() => {
+  //   runSiteGate();
+  // }, []);
 
   // Single ScrollTrigger for entire page
   const { scrollToSection } = useGlobalScrollTrigger({
