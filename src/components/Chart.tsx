@@ -7,6 +7,7 @@ import { verticalsMap } from "@/helpers/chart";
 import { basePath } from "@/helpers/general";
 import { useCopy, useCopyRaw } from "@/contexts/CopyContext";
 import { parseCopy } from "@/helpers/parseCopy";
+import { VerticalData } from "./QuadrantSection";
 
 const quadrantData = [
   {
@@ -42,17 +43,15 @@ export default function Chart({
   mobile = false,
   verticalsData,
   svgCache,
+  language,
 }: {
   mode: ChartMode;
   selectedVertical: string | null;
   selectVertical: (vertical: string) => void;
   mobile?: boolean;
-  verticalsData: {
-    vertical: string;
-    consumerStrength: number;
-    aiDisruption: number;
-  }[];
+  verticalsData: VerticalData[];
   svgCache: { [key: string]: string };
+  language: string;
 }) {
   const [hoveredQuadrant, setHoveredQuadrant] = useState<{
     quadrant: string;
@@ -551,11 +550,12 @@ export default function Chart({
                       }
                     }}
                   >
-                    {
+                    {parseCopy(
                       quadrantTitles[
                         quadrant.position as keyof typeof quadrantTitles
-                      ]
-                    }
+                      ],
+                      true
+                    )}
                   </text>
                   {mode === "data-filled" && (
                     <image
@@ -618,7 +618,7 @@ export default function Chart({
               const x = xScale(d.consumerStrength || 0);
               const y = yScale(d.aiDisruption || 0);
 
-              const verticalInfo = verticalsMap[d.vertical] as any;
+              const verticalInfo = verticalsMap[d.verticalEnglish] as any;
               if (!verticalInfo) {
                 return (
                   <g key={i} transform={`translate(${x},${y})`}>
@@ -650,6 +650,7 @@ export default function Chart({
                   verticalInfo.quadrant;
               }
               const isDataMode = mode === "data-filled";
+              const verticalLabelInfo = verticalInfo[language];
 
               return (
                 <g
@@ -711,13 +712,13 @@ export default function Chart({
                     />
                   )}
 
-                  {!mobile && verticalInfo.labelFormatted && (
+                  {!mobile && verticalLabelInfo.labelFormatted && (
                     <text
                       className="text-[14px]"
                       fill="#9494AA"
                       y={
-                        verticalInfo.labelFormatted.position === "top"
-                          ? verticalInfo.labelFormatted.secondLine
+                        verticalLabelInfo.labelFormatted.position === "top"
+                          ? verticalLabelInfo.labelFormatted.secondLine
                             ? -40
                             : -24
                           : 32
@@ -725,21 +726,21 @@ export default function Chart({
                       textAnchor="middle"
                     >
                       <tspan x="0" dy="0">
-                        {verticalInfo.labelFormatted.firstLine}
+                        {verticalLabelInfo.labelFormatted.firstLine}
                       </tspan>
                       <tspan x="0" dy="1.2em">
-                        {verticalInfo.labelFormatted.secondLine}
+                        {verticalLabelInfo.labelFormatted.secondLine}
                       </tspan>
                     </text>
                   )}
-                  {!mobile && !verticalInfo.labelFormatted && (
+                  {!mobile && !verticalLabelInfo.labelFormatted && (
                     <text
                       className="text-[14px]"
                       fill="#9494AA"
                       y={32}
                       textAnchor="middle"
                     >
-                      {(verticalInfo as any).label}
+                      {(verticalLabelInfo as any).label}
                     </text>
                   )}
                 </g>

@@ -9,9 +9,12 @@ import { basePath, isMobile } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 import { fadeOut } from "@/helpers/scroll";
 import { csv } from "d3-fetch";
+import { mapLocaleToLanguage } from "@/contexts/LocaleProvider";
+import { useSearchParams } from "next/navigation";
 
-interface VerticalData {
+export interface VerticalData {
   vertical: string;
+  verticalEnglish: string;
   consumerStrength: number;
   aiDisruption: number;
 }
@@ -43,6 +46,8 @@ export default function QuadrantSection({
   const [sourceExpandedMobile, setSourceExpandedMobile] = useState(false);
   const [mobileExplanationExpanded, setMobileExplanationExpanded] =
     useState(false);
+  const searchParams = useSearchParams();
+  const language = mapLocaleToLanguage(searchParams?.get("locale"));
 
   // Detect mobile after hydration to avoid SSR mismatch
   useEffect(() => {
@@ -333,7 +338,10 @@ export default function QuadrantSection({
   useEffect(() => {
     csv(`${basePath}/data/verticalsData.csv`).then((data) => {
       const processedData = data.map((d) => ({
-        vertical: d["Vertical"],
+        verticalEnglish: d["Vertical_English"],
+        vertical: d["Vertical_" + language]
+          ? d["Vertical_" + language]
+          : d["Vertical_English"],
         consumerStrength: d["Strength of customer relationship"]
           ? +d["Strength of customer relationship"]
           : 0,
@@ -459,6 +467,7 @@ export default function QuadrantSection({
                     mobile={mobile}
                     verticalsData={verticalsData}
                     svgCache={svgCache}
+                    language={language}
                   />
                 </div>
                 <div ref={chartPanelRef} className="h-full overflow-hidden">
@@ -481,6 +490,7 @@ export default function QuadrantSection({
                       setMobileExplanationExpanded={
                         setMobileExplanationExpanded
                       }
+                      language={language}
                     />
                   </div>
                 </div>
@@ -501,6 +511,7 @@ export default function QuadrantSection({
                       setMobileExplanationExpanded={
                         setMobileExplanationExpanded
                       }
+                      language={language}
                     />
                   </div>
                 ) : null}
@@ -518,6 +529,7 @@ export default function QuadrantSection({
                     mobile={mobile}
                     mobileExplanationExpanded={mobileExplanationExpanded}
                     setMobileExplanationExpanded={setMobileExplanationExpanded}
+                    language={language}
                   />
                 </div>
                 <div ref={chartRef} className="h-full overflow-hidden">
@@ -527,6 +539,7 @@ export default function QuadrantSection({
                     selectVertical={(vertical) => setSelectedVertical(vertical)}
                     verticalsData={verticalsData}
                     svgCache={svgCache}
+                    language={language}
                   />
                 </div>
               </div>

@@ -47,6 +47,7 @@ export default function ChartPanel({
   mobile,
   mobileExplanationExpanded,
   setMobileExplanationExpanded,
+  language,
 }: {
   mode: ChartMode;
   selectedVertical: string | null;
@@ -57,6 +58,7 @@ export default function ChartPanel({
   mobile: boolean;
   mobileExplanationExpanded: boolean;
   setMobileExplanationExpanded: (expanded: boolean) => void;
+  language: string;
 }) {
   const [shownSide, setShownSide] = useState<"summary" | "details">("summary");
   const [isFlipping, setIsFlipping] = useState(false);
@@ -119,7 +121,6 @@ export default function ChartPanel({
 
   useEffect(() => {
     csv(`${basePath}/data/verticalsCopy.csv`).then((data) => {
-      const language = "English";
       const processedData = data.map((d) => ({
         vertical: d["Vertical_" + language],
         // summary side

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { MuseoModerno, Montserrat } from "next/font/google";
 import "./globals.css";
 import { DevLinkProvider } from "@/devlink/DevLinkProvider";
-import { LocaleProvider } from "@/components/LocaleProvider";
+import { LocaleProvider } from "@/contexts/LocaleProvider";
 import { Suspense } from "react";
 
 const museoModerno = MuseoModerno({

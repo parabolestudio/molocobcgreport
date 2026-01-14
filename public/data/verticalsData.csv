@@ -1,18 +1,18 @@
-Vertical,Strength of customer relationship,Risk of AI disruption
-Gaming,7.04,7.84
-Retail & eCommerce,7.11,4.28
-Media & Streaming,8.31,7.36
-Education,6.79,3.44
-Health & Fitness,6.41,4.36
-News,5.58,2.58
-FinTech,8.49,6.27
-Financial Services,8.42,7.34
-On-Demand Services,7.63,7.3
-Travel,5.36,3.99
-Dating,7.42,8.06
-Social,9.61,8.76
-Productivity,7.95,4.76
-Gen AI,6.51,8.53
-Casino & Sports betting (RMG),5.9,8.21
-Auto OEMs,7.59,8.3
-Auto Marketplaces,5.28,4.13
+Vertical_English,Vertical_Korean,Vertical_Japanese,Vertical_Chinese,Strength of customer relationship,Risk of AI disruption
+Gaming,vertical_ko_1,vertical_ja_1,vertical_zh_1,7.04,7.84
+Retail & eCommerce,vertical_ko_2,vertical_ja_2,vertical_zh_2,7.11,4.28
+Media & Streaming,vertical_ko_3,vertical_ja_3,vertical_zh_3,8.31,7.36
+Education,vertical_ko_4,vertical_ja_4,vertical_zh_4,6.79,3.44
+Health & Fitness,vertical_ko_5,vertical_ja_5,vertical_zh_5,6.41,4.36
+News,vertical_ko_6,vertical_ja_6,vertical_zh_6,5.58,2.58
+FinTech,vertical_ko_7,vertical_ja_7,vertical_zh_7,8.49,6.27
+Financial Services,vertical_ko_8,vertical_ja_8,vertical_zh_8,8.42,7.34
+On-Demand Services,vertical_ko_9,vertical_ja_9,vertical_zh_9,7.63,7.3
+Travel,vertical_ko_10,vertical_ja_10,vertical_zh_10,5.36,3.99
+Dating,vertical_ko_11,vertical_ja_11,vertical_zh_11,7.42,8.06
+Social,vertical_ko_12,vertical_ja_12,vertical_zh_12,9.61,8.76
+Productivity,vertical_ko_13,vertical_ja_13,vertical_zh_13,7.95,4.76
+Gen AI,vertical_ko_14,vertical_ja_14,vertical_zh_14,6.51,8.53
+Casino & Sports betting (RMG),vertical_ko_15,vertical_ja_15,vertical_zh_15,5.9,8.21
+Auto OEMs,vertical_ko_16,vertical_ja_16,vertical_zh_16,7.59,8.3
+Auto Marketplaces,vertical_ko_17,vertical_ja_17,vertical_zh_17,5.28,4.13

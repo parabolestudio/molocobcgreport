@@ -8,7 +8,7 @@ import { copyData, type CopyData } from "@/data/copyData";
 type LocaleCode = "JA" | "KO" | "ZH" | "EN";
 type LanguageName = "English" | "Japanese" | "Korean" | "Chinese";
 
-function mapLocaleToLanguage(locale: string | null): LanguageName {
+export function mapLocaleToLanguage(locale: string | null): LanguageName {
   if (!locale) return "English";
 
   const code = locale.toUpperCase() as LocaleCode;
