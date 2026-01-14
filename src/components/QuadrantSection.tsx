@@ -456,6 +456,7 @@ export default function QuadrantSection({
                       setSelectedVertical={setSelectedVertical}
                       verticalsData={verticalsData}
                       svgCache={svgCache}
+                      language={language}
                     />
                   </div>
                 </div>
@@ -556,19 +557,23 @@ function VerticalSelector({
   setSelectedVertical,
   verticalsData,
   svgCache,
+  language,
 }: {
   selectedVertical: string | null;
   setSelectedVertical: (vertical: string | null) => void;
   verticalsData: VerticalData[];
   svgCache: SVGCache;
+  language: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  let option = "All verticals";
+  const allVerticals = useCopy("qu_all_verticals");
+
+  let option = allVerticals;
   let iconName = "all_verticals";
   if (selectedVertical) {
     const verticalInfo = verticalsMap[selectedVertical] as any;
-    option = verticalInfo.label;
+    option = verticalInfo[language].label;
     iconName = verticalInfo.icon;
   }
   const svgContent = svgCache[iconName];
@@ -624,7 +629,7 @@ function VerticalSelector({
               setIsOpen(false);
             }}
           >
-            All verticals
+            {allVerticals}
           </div>
           {verticalsData
             .sort((a, b) => a.vertical.localeCompare(b.vertical))
@@ -633,7 +638,7 @@ function VerticalSelector({
                 key={vd.vertical}
                 className={`px-3 py-2 text-[14px] cursor-pointer text-black-blue border-b border-black-blue`}
                 onClick={() => {
-                  setSelectedVertical(vd.vertical);
+                  setSelectedVertical(vd.verticalEnglish);
                   setIsOpen(false);
                 }}
               >

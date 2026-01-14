@@ -660,7 +660,7 @@ export default function Chart({
                     e.stopPropagation();
                     if (isDataMode) {
                       setShowSelectionPrompt(false);
-                      selectVertical(d.vertical);
+                      selectVertical(d.verticalEnglish);
                     }
                   }}
                   onMouseEnter={(e) => {
