@@ -3,10 +3,10 @@ hooks_1_text,"Hook, screen 1","The biggest shifts in AI today aren’t technolog
 hooks_1_button,"Hook, screen 1 button",scroll,,,
 hooks_2_text,"Hook, screen 2","Consumer behavior is shifting faster than marketing budgets can follow, and this will only continue to accelerate.
 
-New research on AI/LLM disruption<info>Here AI/LLM refers to AI chatbots, assistants, and agents, which we’ll refer to as “AI” throughout the report for simplicity’s sake.</info>, done in partnership with BCG, dives deep into these behavioral shifts, the <green><b>current state of play for marketers</b></green>, and where we go from here.",,,
+New research on AI/LLM disruption<info>Here AI/LLM refers to generative AI chatbots, assistants, and agents, which we’ll refer to as “AI” throughout the report for simplicity’s sake.</info>, done in partnership with BCG, dives deep into these behavioral shifts, the <green><b>current state of play for marketers</b></green>, and where we go from here.",,,
 hooks_title,Title,<green>The <b>AI Disruption Index</b></green>,,,
 hooks_subline,Title sub-line,Report by,,,
-context_intro,Context paragraph 1,"<b>In partnership with BCG, we surveyed 283 marketing leaders across 15 verticals and 5 regions, interviewed 15 executives from leading companies, and analyzed first-party Moloco app performance data from 3,000+ apps representing 200 billion downloads.</b>",,,
+context_intro,Context paragraph 1,"<b>In partnership with BCG, we surveyed 283 marketing leaders across 15 verticals and 5 regions, interviewed 15 executives from leading companies, and analyzed first-party Moloco data from 3,000+ apps representing 200 billion downloads.</b>",,,
 context_buttons_text,Context paragraph 2,"We uncovered new insights on AI disruption, vertical strengths and opportunities, and the new customer journey, starting with inspiration.",,,
 context_button_method,Context button 2,methodology,,,
 context_button_method_tooltip,Methodology copy,"<b>About the Research</b>
@@ -35,7 +35,7 @@ journey_2_stat_source,"Consumer journey, step 2 source","Source: Similarweb, “
 journey_3_title,"Consumer journey, step 3 title",Consideration,,,
 journey_3_stat_headline,"Consumer journey, step 3 headline","<green>For shoppers, AI has gone from experimental to <b>essential</b></green>",,,
 journey_3_stat_number,"Consumer journey, step 3 stat",47%,,,
-journey_3_stat_text,"Consumer journey, step 3 body text",of consumers use GenAI to research purchases,,,
+journey_3_stat_text,"Consumer journey, step 3 body text",of consumers use AI to research purchases,,,
 journey_3_stat_source,"Consumer journey, step 3 source","Source: Attest, “2025 Consumer Adoption of AI Report” , July 2025. 
 5,000 Adults in US, UK, Canada and Australia using Attest platform",,,
 journey_4_title,"Consumer journey, step 4 title",Conversion,,,
@@ -129,7 +129,8 @@ closure_title,Closure title,"While journeys shift, <b>relationships endure</b>",
 closure_paragraph_1,Closure paragraph 1,"Every vertical and company will face a unique set of opportunities and challenges, but there’s one strategic principle that’s consistent. Customer relationships are the durable asset of the AI future.",,,
 closure_paragraph_2,Closure paragraph 3,<b>Here are the critical strategies forward-looking CMOs are using to drive connections:</b>,,,
 closure_card_1_title,Closure card 1 title,<b>Diversifying channel mix</b>,,,
-closure_card_1_summary,Closure card 1 summary,Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like in-app advertising and video where consumer attention is now concentrated and discovery is happening.,,,
+closure_card_1_summary,Closure card 1 summary,"Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels where discovery is happening, such as in-app advertising.
+",,,
 closure_card_1_text,Closure card 1 text,"<b>Highly disrupted</b> channels include paid and organic search, programmatic display (web), and affiliate channels.
 
 More <b>resilient channels</b> are ones with direct engagement and access to first-party data, allowing for personalization and closed-looped performance, including:
@@ -148,11 +149,11 @@ closure_card_3_title,Closure card 3 title,<b>Investing in the App Advantage</b>,
 closure_card_3_summary,Closure card 3 summary,"While everyone fights for visibility, forward-looking brands are building customer relationships on surfaces they own. Investing in a mobile app can mean access to actionable first-party data, closed-loop measurement, and most importantly, deeper connections with customers.",,,
 closure_card_3_text,Closure card 3 text,"Not every brand needs an app, but for brands who can offer frequent engagement, complex service, or community ecosystems, investing in a mobile app has huge upsides. 
 
-<b>Building your App Advantage</b> can include:        
+<b>Building your App Advantage</b>  means creating great experiences on the stickiest surface your customers can’t live without, including:        
 - Personalized content and discovery that learns from user behaviors and preferences
 - AI-driven browsing, comparison, and assistance 
 - Gamified interactions and exclusive access/rewards
-- Community ecosystems and interactions that increase stickiness",,,
+- Community ecosystems and interactions that increase loyalty",,,
 closure_explore,Label above buttons,Explore:,,,
 cta_text,CTA text,<green>Let’s <b>grow your app</b></green>,,,
 cta_text_button_1,CTA button 1,BCG report,,,
