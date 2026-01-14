@@ -837,7 +837,7 @@ export default function Chart({
         }
       </div>
       {/* Prompt to select a vertical on initial load */}
-      {showSelectionPrompt && mode === "data-filled" && mobile && (
+      {showSelectionPrompt && mode === "data-filled" && (
         <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-bright-green text-black-blue rounded-[10px]">
           <div className="w-full h-full relative">
             <div className="w-full h-full p-6 md:p-12 flex items-center gap-3 md:gap-8">

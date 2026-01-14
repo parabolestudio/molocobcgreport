@@ -72,7 +72,7 @@ export default function Home() {
           (currentSection === 0 && currentStep === 1)
             ? "opacity-50"
             : "opacity-0"
-        } w-[181px] h-[32px] md:w-[211px] md:h-[36px]`}
+        } w-[181px] h-8 md:w-[211px] md:h-9`}
         src={`${basePath}/logos/moloco_bcg.svg`}
         alt="Moloco logo and BCG logo"
       />

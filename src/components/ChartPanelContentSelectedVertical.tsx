@@ -24,22 +24,10 @@ export default function ChartPanelContentSelectedVertical({
   mobile: boolean;
 }) {
   if (!selectedVertical && !mobile) {
-    const promptOverlayText = useCopy("qu_select_vertical_prompt");
     return (
       <div>
         <h3 className="panel-heading">{useCopy("qu_expl_title")}</h3>
-        <div className="w-full h-full p-6 md:p-12 flex items-center gap-3 md:gap-8 border-[1.5px] border-dashed border-bright-green rounded-[10px]">
-          <img
-            src={`${basePath}/icons/cursor_green.svg`}
-            alt="Cursor Icon"
-            width={46}
-            height={51}
-            className="h-6 md:h-[51px] w-auto"
-          />
-          <span className="font-bold text-[14px] md:text-[18px] w-[200px] md:max-w-[180px]">
-            {promptOverlayText}
-          </span>
-        </div>
+        <p>{useCopy("qu_data_nudge")}</p>
       </div>
     );
   }
