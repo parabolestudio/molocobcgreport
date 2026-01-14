@@ -22,34 +22,6 @@ export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
 
-  // // Prevent toolbar hiding on iOS by forcing fixed viewport
-  // useEffect(() => {
-  //   // Force viewport to stay at initial size to prevent toolbar changes
-  //   const meta = document.querySelector('meta[name="viewport"]');
-  //   if (meta) {
-  //     meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
-  //   }
-
-  //   // Prevent default scroll behavior that could trigger toolbar
-  //   const preventToolbarHide = (e: Event) => {
-  //     // Only prevent if at the document level, not nested scrolls
-  //     const target = e.target as HTMLElement;
-  //     if (target === document.documentElement || target === document.body) {
-  //       if (window.scrollY === 0 || window.scrollY >= document.documentElement.scrollHeight - window.innerHeight - 1) {
-  //         e.preventDefault();
-  //       }
-  //     }
-  //   };
-
-  //   document.addEventListener('scroll', preventToolbarHide, { passive: false });
-  //   document.addEventListener('touchmove', preventToolbarHide, { passive: false });
-
-  //   return () => {
-  //     document.removeEventListener('scroll', preventToolbarHide);
-  //     document.removeEventListener('touchmove', preventToolbarHide);
-  //   };
-  // }, []);
-
   // Single ScrollTrigger for entire page
   const { scrollToSection } = useGlobalScrollTrigger({
     containerRef: mainContainerRef,
@@ -61,8 +33,6 @@ export default function Home() {
       setCurrentStep(localStep);
     },
   });
-
-  // console.log("Page: Current section", currentSection, "step", currentStep);
 
   function getBackgroundColorClass(
     currentSection: number,
@@ -96,6 +66,16 @@ export default function Home() {
           zIndex: 1,
         }}
       ></div>
+      <img
+        className={`fixed top-10 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:top-20 md:right-20 pointer-events-none transition-opacity ${
+          (currentSection === 0 && currentStep === 0) ||
+          (currentSection === 0 && currentStep === 1)
+            ? "opacity-50"
+            : "opacity-0"
+        } w-[181px] h-[32px] md:w-[211px] md:h-[36px]`}
+        src={`${basePath}/logos/moloco_bcg.svg`}
+        alt="Moloco logo and BCG logo"
+      />
       <img
         className={`fixed top-10 md:top-20 right-5 md:right-20 pointer-events-none transition-opacity ${
           currentSection === 1 ||
