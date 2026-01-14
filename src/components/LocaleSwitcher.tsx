@@ -11,7 +11,7 @@ export function LocaleSwitcher() {
     { code: "ko", name: "한국어", href: "?locale=ko" },
   ];
   return (
-    <div className="fixed top-10 md:top-20 right-5 md:right-20">
+    <div className="fixed top-10 md:top-20 right-5 md:left-20 md:right-auto">
       <button
         className="cursor-pointer"
         style={{ padding: 0 }}
@@ -27,7 +27,7 @@ export function LocaleSwitcher() {
         />
       </button>
       {showDropdown && (
-        <div className="absolute right-0 top-0 mt-10 bg-white shadow-lg rounded-[5px] w-fit">
+        <div className="absolute right-0 md:right-auto md:left-0 top-0 mt-10 bg-white shadow-lg rounded-[5px] w-fit">
           <div role="list" className="flex flex-col p-2 gap-2">
             {locales.map((locale) => (
               <div key={locale.code} role="listitem" className="">
