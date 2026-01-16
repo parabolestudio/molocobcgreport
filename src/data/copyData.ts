@@ -101,20 +101,21 @@ export const copyData: MultiLanguageCopy = {
     "closure_title": "While journeys shift, <b>relationships endure</b>",
     "closure_paragraph_1": "Every vertical and company will face a unique set of opportunities and challenges, but there’s one strategic principle that’s consistent. Customer relationships are the durable asset of the AI future.",
     "closure_paragraph_2": "<b>Here are the critical strategies forward-looking CMOs are using to drive connections:</b>",
-    "closure_card_1_title": "<b>Diversifying channel mix</b>",
-    "closure_card_1_summary": "Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels where discovery is happening, such as in-app advertising.",
-    "closure_card_1_text": "<b>Highly disrupted</b> channels include paid and organic search, programmatic display (web), and affiliate channels.\n\nMore <b>resilient channels</b> are ones with direct engagement and access to first-party data, allowing for personalization and closed-looped performance, including:\n- In-app marketing channels\n- E-commerce and retail media\n- Email and CRM",
-    "closure_card_2_title": "<b>Building a first-party data advantage</b>",
+    "closure_card_1_title": "<b>Investing in the best digital experience for customers: mobile apps</b>",
+    "closure_card_1_summary": "While everyone fights for visibility in the disrupted world, surfaces where brands own the direct relationship are now a primary competitive advantage. That’s why brands are doubling down on creating great experiences on mobile, the stickiest surface for consumers.",
+    "closure_card_1_text": "Brands can curate and control the end-to-end <b>mobile app experience</b>, and make the most of first-party data to offer:\n- Personalized content and discovery that learns from user behaviors and preferences\n- AI-driven browsing, comparison, and assistance \n- Gamified interactions and exclusive access/rewards\n- Community ecosystems and interactions that increase loyalty\n\nFor marketers, mobile apps are a <b>critical digital strategy</b>. Investing in mobile apps means access to actionable first-party data, closed-loop measurement, and most importantly, continually deepening connections with customers.",
+    "closure_card_2_title": "<b>Owning and activating customer signals</b>",
     "closure_card_2_summary": "Customer signals will continue to be a critical differentiator as third-party signals become less reliable. The more brands can understand their customers, the stickier connections and relationships they can build.",
-    "closure_card_2_text": "Customer expectations are higher than ever, and making the most of the customer signal can be the primary difference-maker in being able to understand and meet those needs. <b>Key strategies</b> include:\n\n- Embed data capture throughout the customer journey, not just at conversion.\n- Build unified profiles that connect web, app, and offline behavior.\n- Use AI to activate first-party data for personalization at scale.\n- Drive growth by effectively re-engaging lapsed users.",
-    "closure_card_3_title": "<b>Investing in the App Advantage</b>",
-    "closure_card_3_summary": "While everyone fights for visibility, forward-looking brands are building customer relationships on surfaces they own. Investing in a mobile app can mean access to actionable first-party data, closed-loop measurement, and most importantly, deeper connections with customers.",
-    "closure_card_3_text": "Not every brand needs an app, but for brands who can offer frequent engagement, complex service, or community ecosystems, investing in a mobile app has huge upsides. \n\n<b>Building your App Advantage</b>  means creating great experiences on the stickiest surface your customers can’t live without, including:        \n- Personalized content and discovery that learns from user behaviors and preferences\n- AI-driven browsing, comparison, and assistance \n- Gamified interactions and exclusive access/rewards\n- Community ecosystems and interactions that increase loyalty",
-    "closure_explore": "Explore:",
+    "closure_card_2_text": "<b>Customer expectations</b> are higher than ever, and making the most of the customer signal can be the primary difference-maker in being able to understand and meet those needs. Key strategies include:\n- Embed data capture throughout the customer journey, not just at conversion.\n- Build unified profiles that connect web, app, and offline behavior.\n- Use AI to activate first-party data for personalization at scale.\n- Drive growth by effectively re-engaging lapsed users.",
+    "closure_card_3_title": "<b>Rethinking channel mix in the new age of discovery</b>",
+    "closure_card_3_summary": "Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels where discovery is happening, such as in-app advertising.",
+    "closure_card_3_text": "<b>Highly disrupted channels</b> include paid and organic search, programmatic display (web), and affiliate channels\n\nMore <b>resilient channels</b> are ones with direct engagement and access to first-party data, allowing for personalization and closed-looped performance, including:\n- In-app marketing channels\n- E-commerce and retail media\n- Email and CRM",
+    "closure_explore": "Explore",
     "cta_text": "<green>Let’s <b>grow your app</b></green>",
-    "cta_text_button_1": "BCG report",
-    "cta_text_button_2": "methodology",
-    "cta_text_button_3": "contact us"
+    "cta_text_button_1": "BCG Report",
+    "cta_text_button_2": "Methodology",
+    "cta_text_button_3": "contact us",
+    "cta_text_button_4": "Download"
   },
   "Japanese": {
     "hooks_1_text": "",
@@ -219,7 +220,8 @@ export const copyData: MultiLanguageCopy = {
     "cta_text": "",
     "cta_text_button_1": "",
     "cta_text_button_2": "",
-    "cta_text_button_3": ""
+    "cta_text_button_3": "",
+    "cta_text_button_4": ""
   },
   "Korean": {
     "hooks_1_text": "",
@@ -324,7 +326,8 @@ export const copyData: MultiLanguageCopy = {
     "cta_text": "",
     "cta_text_button_1": "",
     "cta_text_button_2": "",
-    "cta_text_button_3": ""
+    "cta_text_button_3": "",
+    "cta_text_button_4": ""
   },
   "Chinese": {
     "hooks_1_text": "",
@@ -429,6 +432,7 @@ export const copyData: MultiLanguageCopy = {
     "cta_text": "",
     "cta_text_button_1": "",
     "cta_text_button_2": "",
-    "cta_text_button_3": ""
+    "cta_text_button_3": "",
+    "cta_text_button_4": ""
   }
 };

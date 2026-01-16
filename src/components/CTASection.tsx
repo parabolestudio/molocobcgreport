@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
@@ -24,6 +24,8 @@ export default function CTASection({ isActive }: { isActive: boolean }) {
       fadeIn(contentRef.current);
     }
   }, [isActive]);
+
+  const tooltipText = useCopy("context_button_method_tooltip");
 
   return (
     <div
@@ -53,22 +55,134 @@ export default function CTASection({ isActive }: { isActive: boolean }) {
               {useCopy("cta_text")}
             </h3>
 
-            <button
-              className="bg-grey-text flex items-center justify-center gap-2 hover:bg-grey-text/80 transition text-black-blue"
-              onClick={() => {
-                window.open(" https://www.moloco.com/contact-us", "_blank");
-              }}
-            >
-              <span>{useCopy("cta_text_button_3")}</span>
-              <img
-                src={`${basePath}/icons/paperplane.svg`}
-                alt="paperplane"
-                width={19}
-                height={19}
-              />
-            </button>
+            <div>
+              <CTAButtons tooltipText={tooltipText} />
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function CTAButtons({ tooltipText }: { tooltipText: React.ReactNode }) {
+  const [showExploreButtons, setShowExploreButtons] = useState<boolean>(false);
+  const [showMethodTooltip, setShowMethodTooltip] = useState<boolean>(false);
+
+  const methodButtonText = useCopy("cta_text_button_2");
+
+  return (
+    <div className="flex flex-col items-center gap-2 md:gap-4">
+      <button
+        className="bg-bright-green flex items-center justify-center gap-2 hover:bg-[#A8F7DD] transition text-black-blue"
+        onClick={() => {
+          window.open(" https://www.moloco.com/contact-us", "_blank");
+        }}
+      >
+        <span>{useCopy("cta_text_button_3")}</span>
+        <img
+          src={`${basePath}/icons/paperplane.svg`}
+          alt="paperplane"
+          width={19}
+          height={19}
+        />
+      </button>
+
+      <div className="border-b border-bright-green h-1 w-full border-dashed"></div>
+
+      <div className="flex gap-4 w-full ">
+        <div className="relative">
+          <button
+            className={`flex-1 ${
+              showExploreButtons ? "bg-[#D9D9D9]" : "bg-[#F2F2F2]"
+            } flex items-center justify-between gap-2 hover:bg-[#D9D9D9] transition text-black-blue relative z-20`}
+            onClick={() => {
+              setShowExploreButtons(!showExploreButtons);
+              setShowMethodTooltip(false);
+            }}
+          >
+            <span>{useCopy("closure_explore")}</span>
+            <img
+              src={`${basePath}/icons/compass.svg`}
+              alt="compass icon"
+              width={22}
+              height={22}
+            />
+          </button>
+          {showExploreButtons && (
+            <div className="absolute top-full left-0 right-0">
+              <div className="flex flex-col gap-0 rounded-[20px] -mt-5 relative bg-[#F2F2F2]">
+                <div className="h-5 bg-[#F2F2F2] w-full"></div>
+                <button
+                  className="collapsible bg-[#F2F2F2]  
+                   font-semibold leading-[108%] px-2 md:px-5 py-2.5 md:py-[17.5px]
+                  text-[12px] md:text-[14px] flex items-center justify-start gap-2 hover:bg-[#C4FFEB] transition text-black-blue rounded-none border-none"
+                  style={{
+                    borderRadius: "0px",
+                    textTransform: "none",
+                  }}
+                  onClick={() => {
+                    window.open("https://www.moloco.com/contact-us", "_blank");
+                  }}
+                >
+                  <img
+                    src={`${basePath}/icons/document.svg`}
+                    alt="document icon"
+                    className="w-3 h-3 md:w-5 md:h-5"
+                  />
+                  <span>{useCopy("cta_text_button_1")}</span>
+                </button>
+                <div className="border-b border-black-blue h-px w-full border-dashed"></div>
+                <button
+                  className={`collapsible ${
+                    showMethodTooltip ? "bg-[#C4FFEB]" : "bg-[#F2F2F2]"
+                  } 
+                  font-semibold leading-[108%] px-2 md:px-5 py-2.5 md:py-[17.5px]
+                  text-[12px] md:text-[14px] flex items-center justify-start gap-2 hover:bg-[#C4FFEB] transition text-black-blue rounded-none border-none`}
+                  style={{
+                    borderRadius: "0px 0px 20px 20px",
+                    textTransform: "none",
+                  }}
+                  onClick={() => {
+                    setShowMethodTooltip(!showMethodTooltip);
+                  }}
+                >
+                  <img
+                    src={`${basePath}/icons/eye.svg`}
+                    alt="eye icon"
+                    className="w-[15px] h-2 md:w-[23px] md:h-3"
+                  />
+                  <span>{methodButtonText}</span>
+                </button>
+
+                {showMethodTooltip && (
+                  <div
+                    className="copy-text fixed md:absolute -bottom-8 md:bottom-0 left-0 md:left-auto right-0 md:right-full mr-1 text-black-blue bg-grey-text 
+                  text-[18px] md:w-[380px] p-4 rounded-[20px] pointer-events-none normal-case text-left leading-[100%] z-50"
+                  >
+                    {tooltipText}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <button
+          className="flex-1 bg-[#F2F2F2] flex items-center justify-between gap-2 hover:bg-[#D9D9D9] transition text-black-blue"
+          onClick={() => {
+            // TODO: replace with real PDF download link
+            window.open(" https://www.moloco.com/contact-us", "_blank");
+          }}
+        >
+          <span>{useCopy("cta_text_button_4")}</span>
+          <img
+            src={`${basePath}/icons/file.svg`}
+            alt="file icon"
+            width={16}
+            height={19}
+          />
+        </button>
       </div>
     </div>
   );
