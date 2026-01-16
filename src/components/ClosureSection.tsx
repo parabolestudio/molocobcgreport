@@ -249,10 +249,10 @@ export default function ClosureSection({
           className="absolute left-1/2 top-1/2 w-full md:max-w-[calc(min(90%,1728px))] md:px-0 px-5  h-full md:max-h-[90%] py-8 opacity-0 invisible"
         >
           <div className="relative flex flex-col items-start h-full w-full gap-4">
-            <div className="text-[24px] md:text-[32px] max-w-[1000px] font-museo-moderno mb-0 md:mb-6">
+            <div className="text-[24px] md:text-[50px] md:text-center font-museo-moderno mb-0 md:mb-12">
               {useCopy("closure_paragraph_2")}
             </div>
-            <div className="hidden md:flex flex-row gap-8 items-start overflow-visible">
+            <div className="hidden md:flex flex-col gap-8 items-start overflow-visible w-full">
               <Card
                 cardIndex={1}
                 ref={(el) => {
@@ -392,11 +392,11 @@ const Card = React.forwardRef<
     return (
       <div
         ref={ref}
-        className={`card flex flex-col ${
-          !mobile && expandedCardIndex === null ? "h-full" : ""
-        } ${mobile && expandedCardIndex === null ? "self-stretch" : ""} ${
-          isExpanded ? "basis-[45%]" : "md:flex-1"
-        } ${mobile && isShownOnMobile ? "flex-1 min-h-0 mt-6" : ""}`}
+        className={`card flex flex-col cursor-pointer md:w-full
+          ${!mobile && expandedCardIndex === null ? "h-full" : ""} 
+          ${mobile && expandedCardIndex === null ? "self-stretch" : ""} 
+          ${isExpanded ? "" : ""}
+          ${mobile && isShownOnMobile ? "flex-1 min-h-0 mt-6" : ""} `}
         onClick={() => {
           if (onMobileCardCardContentShownChange) {
             onMobileCardCardContentShownChange(cardIndex);
@@ -404,37 +404,44 @@ const Card = React.forwardRef<
               setExpandedCardIndex(null);
             }
           }
+          if (!mobile) {
+            if (isExpanded) {
+              setExpandedCardIndex(null);
+            } else {
+              setExpandedCardIndex(cardIndex);
+            }
+          }
         }}
       >
         <div
-          className={`relative flex flex-col md:flex-1 md:min-h-0 ${
+          className={`relative flex flex-col md:flex-1 md:min-h-0 md:w-full ${
             isShownOnMobile ? "flex-1 min-h-0" : ""
           } ${
             isExpanded ? "bg-grey-text max-h-full" : "bg-bright-green"
-          } rounded-[20px] md:rounded-bl-none px-5 md:px-[30px] pb-5 md:pb-[30px] ${
+          } rounded-[20px] px-5 md:px-10 pb-5 md:pb-10 ${
             isShownOnMobile ? "pt-7" : "pt-5"
           } md:pt-10 transition-colors`}
         >
           <div
             className={`text-[24px] md:text-[32px] font-bold font-museo-moderno leading-[108%] ${
-              mobileCardContentShown === cardIndex ? "mb-2" : ""
-            } md:mb-5 shrink-0`}
+              mobileCardContentShown === cardIndex ? "mb-2 md:mb-2" : ""
+            }  shrink-0`}
             style={{ color: "var(--black-blue)" }}
           >
             {copy.title}
           </div>
           <div
-            className={`overflow-y-auto md:flex-1 md:min-h-0 ${
-              isShownOnMobile ? "flex-1 min-h-0" : ""
-            }`}
+            className={`overflow-y-auto md:flex ${
+              !mobile && isExpanded ? "md:mt-5" : ""
+            } `}
             style={{
               overscrollBehavior: "contain",
             }}
           >
-            {(!mobile && !isExpanded) ||
+            {(!mobile && isExpanded) ||
             (mobile && mobileCardContentShown === cardIndex && !isExpanded) ? (
               <p
-                className="text-[14px] md:text-[18px]"
+                className="text-[14px] md:text-[18px] md:flex-1 md:border-r border-black-blue border-dashed md:pr-6"
                 style={{ color: "var(--black-blue)" }}
               >
                 {copy.summary}
@@ -443,7 +450,7 @@ const Card = React.forwardRef<
             {(!mobile && isExpanded) ||
             (mobile && mobileCardContentShown === cardIndex && isExpanded) ? (
               <div
-                className="text-[14px] md:text-[18px] copy-text overflow-y-auto flex-1 pr-2"
+                className="text-[14px] md:text-[18px] copy-text overflow-y-auto pr-2 md:flex-1 md:pl-6"
                 style={{
                   color: "var(--black-blue)",
                   overscrollBehavior: "contain",
@@ -460,13 +467,17 @@ const Card = React.forwardRef<
                 isExpanded
                   ? "bg-bright-green text-black-blue"
                   : "bg-black-blue text-bright-green"
-              } font-museo-moderno text-[24px] font-bold top-[calc(-43px/2)] left-1/2 -translate-x-1/2 w-[43px] h-[43px] flex items-center justify-center`}
+              } font-museo-moderno text-[24px] font-bold
+              w-[43px] h-[43px] flex items-center justify-center
+              top-[calc(-43px/2)] left-1/2 -translate-x-1/2 
+              md:left-[calc(-43px/2)] md:translate-x-0 md:top-1/2 md:-translate-y-1/2
+              `}
             >
               0{cardIndex}
             </div>
           ) : null}
         </div>
-        {!mobile || (mobile && mobileCardContentShown === cardIndex) ? (
+        {mobile && mobile && mobileCardContentShown === cardIndex ? (
           <div
             className={`uppercase md:self-start self-center ${
               isExpanded

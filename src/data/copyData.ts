@@ -100,7 +100,7 @@ export const copyData: MultiLanguageCopy = {
     "qu_all_verticals": "All verticals",
     "closure_title": "While journeys shift, <b>relationships endure</b>",
     "closure_paragraph_1": "Every vertical and company will face a unique set of opportunities and challenges, but there’s one strategic principle that’s consistent. Customer relationships are the durable asset of the AI future.",
-    "closure_paragraph_2": "<b>Here are the critical strategies forward-looking CMOs are using to drive connections:</b>",
+    "closure_paragraph_2": "Here are <b>three critical strategies</b> forward-looking CMOs are using to drive connections:",
     "closure_card_1_title": "<b>Investing in the best digital experience for customers: mobile apps</b>",
     "closure_card_1_summary": "While everyone fights for visibility in the disrupted world, surfaces where brands own the direct relationship are now a primary competitive advantage. That’s why brands are doubling down on creating great experiences on mobile, the stickiest surface for consumers.",
     "closure_card_1_text": "Brands can curate and control the end-to-end <b>mobile app experience</b>, and make the most of first-party data to offer:\n- Personalized content and discovery that learns from user behaviors and preferences\n- AI-driven browsing, comparison, and assistance \n- Gamified interactions and exclusive access/rewards\n- Community ecosystems and interactions that increase loyalty\n\nFor marketers, mobile apps are a <b>critical digital strategy</b>. Investing in mobile apps means access to actionable first-party data, closed-loop measurement, and most importantly, continually deepening connections with customers.",
