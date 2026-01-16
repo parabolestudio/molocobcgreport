@@ -20,7 +20,7 @@ export const SECTION_STEPS: Record<SectionName, number> = {
   hook: 3,
   journey: 5,
   quadrant: 8,
-  closure: 3,
+  closure: 6,
   cta: 1,
 };
 

@@ -112,6 +112,7 @@ export default function Home() {
         <ClosureSection
           isActive={currentSection === 3}
           currentStep={currentStep}
+          scrollToSection={scrollToSection}
         />
         <CTASection isActive={currentSection === 4} />
       </div>

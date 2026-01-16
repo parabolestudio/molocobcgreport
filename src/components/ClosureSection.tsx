@@ -9,18 +9,23 @@ import { basePath, isMobile } from "@/helpers/general";
 export default function ClosureSection({
   isActive,
   currentStep,
+  scrollToSection,
 }: {
   isActive: boolean;
   currentStep: number;
+  scrollToSection: (sectionIndex: number, step?: number) => void;
 }) {
   const screen1Ref = useRef<HTMLDivElement>(null);
   const screen2Ref = useRef<HTMLDivElement>(null);
   const previousStepRef = useRef(-1);
   const previousActiveRef = useRef(false);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const desktopCardsContainerRef = useRef<HTMLDivElement>(null);
+  const mobileCardsContainerRef = useRef<HTMLDivElement>(null);
 
   const screenRefs = [screen1Ref, screen2Ref];
   const [mobile, setMobile] = useState(false);
+  const [cardsAnimatedIn, setCardsAnimatedIn] = useState(false);
 
   // Set initial visibility based on currentStep
   useEffect(() => {
@@ -47,12 +52,17 @@ export default function ClosureSection({
         yPercent: -50,
       });
     }
-    // Set cards initial state
+    // Set cards initial state - only show on step 2+
     cardsRef.current.forEach((card) => {
       if (card) {
         gsap.set(card, { autoAlpha: 0, y: 30 });
       }
     });
+    // Set card containers to invisible initially
+    gsap.set(
+      [desktopCardsContainerRef.current, mobileCardsContainerRef.current],
+      { opacity: 0 }
+    );
   }, []);
 
   // Handle step transitions
@@ -68,7 +78,9 @@ export default function ClosureSection({
       // Reset states when leaving the section
       setMobileCardContentShown(null);
       setExpandedCardIndex(null);
+      setCardsAnimatedIn(false);
       previousActiveRef.current = false;
+      previousStepRef.current = -1;
       return;
     }
 
@@ -88,7 +100,7 @@ export default function ClosureSection({
 
     const previousStep = previousStepRef.current;
 
-    // Map steps to screen indices (step 0 -> screen 0, steps 1-2 -> screen 1)
+    // Map steps to screen indices (step 0 -> screen 0, steps 1-5 -> screen 1)
     const getScreenIndex = (step: number) => (step === 0 ? 0 : 1);
     const currentScreenIndex = getScreenIndex(currentStep);
     const previousScreenIndex =
@@ -100,11 +112,19 @@ export default function ClosureSection({
       if (card) {
         gsap.killTweensOf(card);
         // Ensure cards are in a known state after killing tweens
-        if (!isActive || currentStep < 1) {
+        if (!isActive || currentStep < 2) {
           gsap.set(card, { autoAlpha: 0, y: 30, clearProps: "all" });
         }
       }
     });
+
+    // Ensure card containers are hidden when on step < 2
+    if (currentStep < 2) {
+      gsap.set(
+        [desktopCardsContainerRef.current, mobileCardsContainerRef.current],
+        { opacity: 0 }
+      );
+    }
 
     // Hide all screens immediately except current and previous
     screens.forEach((screen, i) => {
@@ -149,17 +169,25 @@ export default function ClosureSection({
         gsap.set(currentScreen, { autoAlpha: 1, xPercent: -50, yPercent: -50 });
       }
 
-      // Animate cards when entering screen2 (step 1 or 2)
-      // Only animate when transitioning from step 0 or when section just became active
+      // Animate cards when entering step 2 only
+      // Only animate when transitioning from step 0 or 1, or when section just became active on step 2
       const shouldAnimateCards =
-        (currentStep >= 1 && previousStep < 1) || // Scrolling forward from step 0
-        (justActivated && currentStep >= 1); // Section just became active on screen2
+        (currentStep >= 2 && previousStep < 2) || // Scrolling forward to step 2
+        (justActivated && currentStep >= 2); // Section just became active on step 2
 
       if (shouldAnimateCards) {
         // Determine which cards to animate based on mobile state
         const startIndex = mobile ? 3 : 0;
         const endIndex = mobile ? 6 : 3;
         const cardsToAnimate = [];
+
+        // Show the appropriate container
+        const containerToShow = mobile
+          ? mobileCardsContainerRef.current
+          : desktopCardsContainerRef.current;
+        if (containerToShow) {
+          gsap.set(containerToShow, { opacity: 1 });
+        }
 
         // Reset cards first to ensure clean state
         for (let i = startIndex; i < endIndex; i++) {
@@ -186,14 +214,20 @@ export default function ClosureSection({
             overwrite: "auto",
             force3D: true,
             onComplete: () => {
-              // After the last card animates in on mobile, show first card content
-              if (mobile) {
-                setTimeout(() => {
-                  setMobileCardContentShown(1);
-                }, 200);
-              }
+              // Mark cards as animated in
+              setCardsAnimatedIn(true);
             },
           });
+        }
+      } else if (currentStep >= 2) {
+        // If we're on step 2+ but not animating cards (e.g., scrolling between steps 2-5),
+        // mark cards as already animated in and show containers
+        setCardsAnimatedIn(true);
+        const containerToShow = mobile
+          ? mobileCardsContainerRef.current
+          : desktopCardsContainerRef.current;
+        if (containerToShow) {
+          gsap.set(containerToShow, { opacity: 1 });
         }
       }
     }
@@ -223,6 +257,31 @@ export default function ClosureSection({
     number | null
   >(null);
 
+  // Auto-expand cards based on step index
+  useEffect(() => {
+    if (!isActive) return;
+
+    // If we're on step 2+, cards should be visible
+    // Only auto-expand if cards have animated in, OR if we're scrolling backwards (previousStepRef > currentStep)
+    const isScrollingBackwards = previousStepRef.current > currentStep;
+    const shouldAutoExpand = cardsAnimatedIn || isScrollingBackwards;
+
+    if (!shouldAutoExpand && currentStep >= 2) {
+      // Cards are animating, wait for them to finish
+      return;
+    }
+
+    if (currentStep >= 2) {
+      if (!mobile) {
+        currentStep === 2 ? setExpandedCardIndex(null) : null;
+        setExpandedCardIndex(currentStep - 2);
+      } else {
+        currentStep === 2 ? setMobileCardContentShown(null) : null;
+        setMobileCardContentShown(currentStep - 2);
+      }
+    }
+  }, [currentStep, isActive, cardsAnimatedIn]);
+
   return (
     <div
       className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
@@ -248,11 +307,24 @@ export default function ClosureSection({
           ref={screen2Ref}
           className="absolute left-1/2 top-1/2 w-full md:max-w-[calc(min(90%,1728px))] md:px-0 px-5  h-full md:max-h-[90%] py-8 opacity-0 invisible"
         >
-          <div className="relative flex flex-col items-start h-full w-full gap-4">
-            <div className="text-[24px] md:text-[50px] md:text-center font-museo-moderno mb-0 md:mb-12">
+          <div
+            className={`relative flex flex-col items-start h-full w-full gap-4 ${
+              currentStep === 1 ? "justify-center" : "justify-start"
+            }`}
+          >
+            <div
+              className={`text-[24px] md:text-balance md:text-center font-museo-moderno mb-0 md:mb-12 transition-all duration-500 ${
+                currentStep === 1 ? "md:text-[56px]" : "md:text-[40px]"
+              }`}
+            >
               {useCopy("closure_paragraph_2")}
             </div>
-            <div className="hidden md:flex flex-col gap-8 items-start overflow-visible w-full">
+            <div
+              ref={desktopCardsContainerRef}
+              className={`hidden flex-col gap-8 items-start overflow-visible w-full ${
+                currentStep < 2 ? "md:hidden" : "md:flex"
+              }`}
+            >
               <Card
                 cardIndex={1}
                 ref={(el) => {
@@ -266,6 +338,7 @@ export default function ClosureSection({
                   text: useCopy("closure_card_1_text"),
                   summary: useCopy("closure_card_1_summary"),
                 }}
+                scrollToSection={scrollToSection}
               />
               <Card
                 cardIndex={2}
@@ -280,6 +353,7 @@ export default function ClosureSection({
                   text: useCopy("closure_card_2_text"),
                   summary: useCopy("closure_card_2_summary"),
                 }}
+                scrollToSection={scrollToSection}
               />
               <Card
                 cardIndex={3}
@@ -294,9 +368,15 @@ export default function ClosureSection({
                   text: useCopy("closure_card_3_text"),
                   summary: useCopy("closure_card_3_summary"),
                 }}
+                scrollToSection={scrollToSection}
               />
             </div>
-            <div className="md:hidden h-full w-full flex-1 overflow-hidden flex flex-col gap-4">
+            <div
+              ref={mobileCardsContainerRef}
+              className={`h-full w-full flex-1 overflow-hidden flex flex-col gap-4 ${
+                currentStep < 2 ? "hidden" : "md:hidden"
+              }`}
+            >
               <Card
                 cardIndex={1}
                 ref={(el) => {
@@ -314,6 +394,7 @@ export default function ClosureSection({
                   text: useCopy("closure_card_1_text"),
                   summary: useCopy("closure_card_1_summary"),
                 }}
+                scrollToSection={scrollToSection}
               />
               <Card
                 cardIndex={2}
@@ -332,6 +413,7 @@ export default function ClosureSection({
                   text: useCopy("closure_card_2_text"),
                   summary: useCopy("closure_card_2_summary"),
                 }}
+                scrollToSection={scrollToSection}
               />
               <Card
                 cardIndex={3}
@@ -350,6 +432,7 @@ export default function ClosureSection({
                   text: useCopy("closure_card_3_text"),
                   summary: useCopy("closure_card_3_summary"),
                 }}
+                scrollToSection={scrollToSection}
               />
             </div>
           </div>
@@ -373,6 +456,7 @@ const Card = React.forwardRef<
       text: React.ReactNode;
       summary: React.ReactNode;
     };
+    scrollToSection: (sectionIndex: number, step?: number) => void;
   }
 >(
   (
@@ -384,6 +468,7 @@ const Card = React.forwardRef<
       mobile,
       mobileCardContentShown,
       copy,
+      scrollToSection,
     },
     ref
   ) => {
@@ -392,7 +477,7 @@ const Card = React.forwardRef<
     return (
       <div
         ref={ref}
-        className={`card flex flex-col cursor-pointer md:w-full
+        className={`card flex flex-col md:w-full cursor-pointer
           ${!mobile && expandedCardIndex === null ? "h-full" : ""} 
           ${mobile && expandedCardIndex === null ? "self-stretch" : ""} 
           ${isExpanded ? "" : ""}
@@ -400,15 +485,17 @@ const Card = React.forwardRef<
         onClick={() => {
           if (onMobileCardCardContentShownChange) {
             onMobileCardCardContentShownChange(cardIndex);
+            scrollToSection(3, cardIndex + 2);
             if (expandedCardIndex !== cardIndex) {
               setExpandedCardIndex(null);
             }
           }
           if (!mobile) {
             if (isExpanded) {
-              setExpandedCardIndex(null);
+              // setExpandedCardIndex(null);
             } else {
               setExpandedCardIndex(cardIndex);
+              scrollToSection(3, cardIndex + 2);
             }
           }
         }}
