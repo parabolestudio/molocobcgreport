@@ -66,10 +66,15 @@ export default function CTASection({ isActive }: { isActive: boolean }) {
 }
 
 function CTAButtons({ tooltipText }: { tooltipText: React.ReactNode }) {
+  // Call all hooks at the top level
+  const contactButtonText = useCopy("cta_text_button_3");
+  const requestDemoButtonText = useCopy("cta_text_button_1");
+  const methodButtonText = useCopy("cta_text_button_2");
+  const downloadButtonText = useCopy("cta_text_button_4");
+  const exploreText = useCopy("closure_explore");
+
   const [showExploreButtons, setShowExploreButtons] = useState<boolean>(false);
   const [showMethodTooltip, setShowMethodTooltip] = useState<boolean>(false);
-
-  const methodButtonText = useCopy("cta_text_button_2");
 
   return (
     <div className="flex flex-col items-center gap-2 md:gap-4">
@@ -79,7 +84,7 @@ function CTAButtons({ tooltipText }: { tooltipText: React.ReactNode }) {
           window.open(" https://www.moloco.com/contact-us", "_blank");
         }}
       >
-        <span>{useCopy("cta_text_button_3")}</span>
+        <span>{contactButtonText}</span>
         <img
           src={`${basePath}/icons/paperplane.svg`}
           alt="paperplane"
@@ -101,7 +106,7 @@ function CTAButtons({ tooltipText }: { tooltipText: React.ReactNode }) {
               setShowMethodTooltip(false);
             }}
           >
-            <span>{useCopy("closure_explore")}</span>
+            <span>{exploreText}</span>
             <img
               src={`${basePath}/icons/compass.svg`}
               alt="compass icon"
@@ -130,7 +135,7 @@ function CTAButtons({ tooltipText }: { tooltipText: React.ReactNode }) {
                     alt="document icon"
                     className="w-3 h-3 md:w-5 md:h-5"
                   />
-                  <span>{useCopy("cta_text_button_1")}</span>
+                  <span>{requestDemoButtonText}</span>
                 </button>
                 <div className="border-b border-black-blue h-px w-full border-dashed"></div>
                 <button
@@ -175,7 +180,7 @@ function CTAButtons({ tooltipText }: { tooltipText: React.ReactNode }) {
             window.open(" https://www.moloco.com/contact-us", "_blank");
           }}
         >
-          <span>{useCopy("cta_text_button_4")}</span>
+          <span>{downloadButtonText}</span>
           <img
             src={`${basePath}/icons/file.svg`}
             alt="file icon"

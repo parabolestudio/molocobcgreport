@@ -27,6 +27,22 @@ export default function ClosureSection({
   const [mobile, setMobile] = useState(false);
   const [cardsAnimatedIn, setCardsAnimatedIn] = useState(false);
 
+  // Call all useCopy hooks at the top level
+  const closureTitle = useCopy("closure_title");
+  const closureParagraph1 = useCopy("closure_paragraph_1");
+  const closureParagraph2 = useCopy("closure_paragraph_2");
+  const closureCard1Title = useCopy("closure_card_1_title");
+  const closureCard1Text = useCopy("closure_card_1_text");
+  const closureCard1Summary = useCopy("closure_card_1_summary");
+  const closureCard2Title = useCopy("closure_card_2_title");
+  const closureCard2Text = useCopy("closure_card_2_text");
+  const closureCard2Summary = useCopy("closure_card_2_summary");
+  const closureCard3Title = useCopy("closure_card_3_title");
+  const closureCard3Text = useCopy("closure_card_3_text");
+  const closureCard3Summary = useCopy("closure_card_3_summary");
+  const quPanelButtonSummary = useCopy("qu_panel_button_summary");
+  const quPanelButtonDetails = useCopy("qu_panel_button_details");
+
   // Set initial visibility based on currentStep
   useEffect(() => {
     if (currentStep === 0) {
@@ -80,7 +96,6 @@ export default function ClosureSection({
       setExpandedCardIndex(null);
       setCardsAnimatedIn(false);
       previousActiveRef.current = false;
-      previousStepRef.current = -1;
       return;
     }
 
@@ -297,28 +312,35 @@ export default function ClosureSection({
           className="absolute left-1/2 top-1/2 w-full md:max-w-[1000px] px-8 h-full max-h-[1100px] py-8 opacity-0 invisible flex flex-col gap-16 justify-center items-center"
         >
           <h3 className="text-[40px] md:text-[96px] text-grey-text text-center font-museo-moderno font-light leading-[114%]">
-            {useCopy("closure_title")}
+            {closureTitle}
           </h3>
           <p className="text-[18px] md:text-[32px] text-center text-pretty">
-            {useCopy("closure_paragraph_1")}
+            {closureParagraph1}
           </p>
         </div>
         <div
           ref={screen2Ref}
-          className="absolute left-1/2 top-1/2 w-full md:max-w-[calc(min(90%,1728px))] md:px-0 px-5  h-full md:max-h-[90%] py-8 opacity-0 invisible"
+          className="absolute left-1/2 top-1/2 w-full md:max-w-[calc(min(90%,1728px))] md:px-0 px-5  h-full md:max-h-[95%] py-8 opacity-0 invisible"
         >
           <div
             className={`relative flex flex-col items-start h-full w-full gap-4 ${
               currentStep === 1 ? "justify-center" : "justify-start"
             }`}
           >
-            <div
-              className={`text-[24px] md:text-balance md:text-center font-museo-moderno mb-0 md:mb-12 transition-all duration-500 ${
-                currentStep === 1 ? "md:text-[56px]" : "md:text-[40px]"
-              }`}
-            >
-              {useCopy("closure_paragraph_2")}
-            </div>
+            {currentStep === 1 && (
+              <div
+                className={`text-[24px] md:text-balance md:text-center font-extralight font-museo-moderno mb-0 md:text-[96px]`}
+              >
+                {closureParagraph2}
+              </div>
+            )}
+            {currentStep >= 2 && (
+              <div
+                className={`text-[24px] md:text-[40px] leading-[115%] md:text-balance md:text-center font-museo-moderno mb-0 md:mb-4 `}
+              >
+                {closureParagraph2}
+              </div>
+            )}
             <div
               ref={desktopCardsContainerRef}
               className={`hidden flex-col gap-8 items-start overflow-visible w-full ${
@@ -334,9 +356,13 @@ export default function ClosureSection({
                 onMobileCardCardContentShownChange={() => {}}
                 expandedCardIndex={expandedCardIndex}
                 copy={{
-                  title: useCopy("closure_card_1_title"),
-                  text: useCopy("closure_card_1_text"),
-                  summary: useCopy("closure_card_1_summary"),
+                  title: closureCard1Title,
+                  text: closureCard1Text,
+                  summary: closureCard1Summary,
+                }}
+                buttonCopy={{
+                  summary: quPanelButtonSummary,
+                  details: quPanelButtonDetails,
                 }}
                 scrollToSection={scrollToSection}
               />
@@ -349,9 +375,13 @@ export default function ClosureSection({
                 onMobileCardCardContentShownChange={() => {}}
                 expandedCardIndex={expandedCardIndex}
                 copy={{
-                  title: useCopy("closure_card_2_title"),
-                  text: useCopy("closure_card_2_text"),
-                  summary: useCopy("closure_card_2_summary"),
+                  title: closureCard2Title,
+                  text: closureCard2Text,
+                  summary: closureCard2Summary,
+                }}
+                buttonCopy={{
+                  summary: quPanelButtonSummary,
+                  details: quPanelButtonDetails,
                 }}
                 scrollToSection={scrollToSection}
               />
@@ -364,9 +394,13 @@ export default function ClosureSection({
                 onMobileCardCardContentShownChange={() => {}}
                 expandedCardIndex={expandedCardIndex}
                 copy={{
-                  title: useCopy("closure_card_3_title"),
-                  text: useCopy("closure_card_3_text"),
-                  summary: useCopy("closure_card_3_summary"),
+                  title: closureCard3Title,
+                  text: closureCard3Text,
+                  summary: closureCard3Summary,
+                }}
+                buttonCopy={{
+                  summary: quPanelButtonSummary,
+                  details: quPanelButtonDetails,
                 }}
                 scrollToSection={scrollToSection}
               />
@@ -390,9 +424,13 @@ export default function ClosureSection({
                 mobile={mobile}
                 mobileCardContentShown={mobileCardContentShown}
                 copy={{
-                  title: useCopy("closure_card_1_title"),
-                  text: useCopy("closure_card_1_text"),
-                  summary: useCopy("closure_card_1_summary"),
+                  title: closureCard1Title,
+                  text: closureCard1Text,
+                  summary: closureCard1Summary,
+                }}
+                buttonCopy={{
+                  summary: quPanelButtonSummary,
+                  details: quPanelButtonDetails,
                 }}
                 scrollToSection={scrollToSection}
               />
@@ -409,9 +447,13 @@ export default function ClosureSection({
                 mobile={mobile}
                 mobileCardContentShown={mobileCardContentShown}
                 copy={{
-                  title: useCopy("closure_card_2_title"),
-                  text: useCopy("closure_card_2_text"),
-                  summary: useCopy("closure_card_2_summary"),
+                  title: closureCard2Title,
+                  text: closureCard2Text,
+                  summary: closureCard2Summary,
+                }}
+                buttonCopy={{
+                  summary: quPanelButtonSummary,
+                  details: quPanelButtonDetails,
                 }}
                 scrollToSection={scrollToSection}
               />
@@ -428,9 +470,13 @@ export default function ClosureSection({
                 mobile={mobile}
                 mobileCardContentShown={mobileCardContentShown}
                 copy={{
-                  title: useCopy("closure_card_3_title"),
-                  text: useCopy("closure_card_3_text"),
-                  summary: useCopy("closure_card_3_summary"),
+                  title: closureCard3Title,
+                  text: closureCard3Text,
+                  summary: closureCard3Summary,
+                }}
+                buttonCopy={{
+                  summary: quPanelButtonSummary,
+                  details: quPanelButtonDetails,
                 }}
                 scrollToSection={scrollToSection}
               />
@@ -456,6 +502,10 @@ const Card = React.forwardRef<
       text: React.ReactNode;
       summary: React.ReactNode;
     };
+    buttonCopy: {
+      summary: React.ReactNode;
+      details: React.ReactNode;
+    };
     scrollToSection: (sectionIndex: number, step?: number) => void;
   }
 >(
@@ -468,6 +518,7 @@ const Card = React.forwardRef<
       mobile,
       mobileCardContentShown,
       copy,
+      buttonCopy,
       scrollToSection,
     },
     ref
@@ -505,9 +556,9 @@ const Card = React.forwardRef<
             isShownOnMobile ? "flex-1 min-h-0" : ""
           } ${
             isExpanded ? "bg-grey-text max-h-full" : "bg-bright-green"
-          } rounded-[20px] px-5 md:px-10 pb-5 md:pb-10 ${
+          } rounded-[20px] px-5 md:px-10 pb-5 md:py-6 ${
             isShownOnMobile ? "pt-7" : "pt-5"
-          } md:pt-10 transition-colors`}
+          }  transition-colors`}
         >
           <div
             className={`text-[24px] md:text-[32px] font-bold font-museo-moderno leading-[108%] ${
@@ -519,7 +570,7 @@ const Card = React.forwardRef<
           </div>
           <div
             className={`overflow-y-auto md:flex ${
-              !mobile && isExpanded ? "md:mt-5" : ""
+              !mobile && isExpanded ? "md:mt-3" : ""
             } `}
             style={{
               overscrollBehavior: "contain",
@@ -580,11 +631,7 @@ const Card = React.forwardRef<
                   }
             }
           >
-            <span>
-              {isExpanded
-                ? useCopy("qu_panel_button_summary")
-                : useCopy("qu_panel_button_details")}
-            </span>
+            <span>{isExpanded ? buttonCopy.summary : buttonCopy.details}</span>
             {isExpanded ? (
               <img
                 src={`${basePath}/icons/minus.svg`}
