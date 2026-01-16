@@ -336,7 +336,7 @@ export default function ClosureSection({
             )}
             {currentStep >= 2 && (
               <div
-                className={`text-[24px] md:text-[40px] leading-[115%] md:text-balance md:text-center font-museo-moderno mb-0 md:mb-4 `}
+                className={`text-[24px] md:text-[40px] max-w-[900px] mx-auto leading-[115%] md:text-balance md:text-center font-museo-moderno mb-0 md:mb-4 `}
               >
                 {closureParagraph2}
               </div>
