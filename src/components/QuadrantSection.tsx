@@ -460,7 +460,7 @@ export default function QuadrantSection({
                     />
                   </div>
                 </div>
-                <div ref={chartRef} className="relative z-40">
+                <div ref={chartRef} className="relative z-40 max-h-[70%]">
                   <Chart
                     mode={chartMode}
                     selectedVertical={selectedVertical}

@@ -57,6 +57,9 @@
   --font-montserrat: var(--font-montserrat);
 
   --default-transition-duration: 300ms;
+
+  /* Breakpoints */
+  --breakpoint-md: 1000px;
 }
 
 .bg-panel-background-green {

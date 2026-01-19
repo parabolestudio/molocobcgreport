@@ -402,7 +402,7 @@ export default function P5Background({
             resolveResponsive: subsectionModule.resolveResponsive,
             resolveDistributedRingsConfig:
               subsectionModule.resolveDistributedRingsConfig,
-            mobile: window.innerWidth < 768,
+            mobile: window.innerWidth < 1000,
             fadeState: "normal",
             fadeProgress: 0,
             pendingFormation: null,

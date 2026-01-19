@@ -7,10 +7,10 @@ export const isMobile = (): boolean => {
 
   const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
   const smallViewport =
-    (typeof window.innerWidth === "number" && window.innerWidth <= 768) ||
+    (typeof window.innerWidth === "number" && window.innerWidth <= 1000) ||
     (window.screen &&
       typeof window.screen.width === "number" &&
-      window.screen.width <= 768);
+      window.screen.width <= 1000);
 
   const hasCoarsePointer =
     typeof window.matchMedia === "function"
