@@ -127,7 +127,10 @@ function CTAButtons({ tooltipText }: { tooltipText: React.ReactNode }) {
                     textTransform: "none",
                   }}
                   onClick={() => {
-                    window.open("https://www.moloco.com/contact-us", "_blank");
+                    window.open(
+                      "https://www.bcg.com/publications/2026/introducing-the-consumer-ai-disruption-index",
+                      "_blank"
+                    );
                   }}
                 >
                   <img
