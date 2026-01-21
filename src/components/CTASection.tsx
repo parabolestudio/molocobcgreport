@@ -129,7 +129,7 @@ function CTAButtons({ tooltipText }: { tooltipText: React.ReactNode }) {
                   onClick={() => {
                     window.open(
                       "https://www.bcg.com/publications/2026/introducing-the-consumer-ai-disruption-index",
-                      "_blank"
+                      "_blank",
                     );
                   }}
                 >
@@ -179,8 +179,10 @@ function CTAButtons({ tooltipText }: { tooltipText: React.ReactNode }) {
         <button
           className="flex-1 bg-[#F2F2F2] flex items-center justify-between gap-2 hover:bg-[#D9D9D9] transition text-black-blue"
           onClick={() => {
-            // TODO: replace with real PDF download link
-            window.open(" https://www.moloco.com/contact-us", "_blank");
+            window.open(
+              "https://www.moloco.cloud/hubfs/Gated%20Content/BCG%20Report%20Summary.pdf",
+              "_blank",
+            );
           }}
         >
           <span>{downloadButtonText}</span>
