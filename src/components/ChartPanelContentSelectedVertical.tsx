@@ -273,7 +273,7 @@ function LoopedAppLogos({
   const logosContent = apps.map((app) => (
     <img
       key={app}
-      src={`${basePath}/appLogos/${verticalFolderName}/${app
+      src={`${basePath}/appLogosAdjusted/${verticalFolderName}/${app
         .trim()
         .replaceAll(" ", "_")
         .replace("'", "_")}.svg`}
