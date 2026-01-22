@@ -4,6 +4,7 @@ import "./globals.css";
 import { DevLinkProvider } from "@/devlink/DevLinkProvider";
 import { LocaleProvider } from "@/contexts/LocaleProvider";
 import { Suspense } from "react";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const museoModerno = MuseoModerno({
   variable: "--font-museo-moderno",
@@ -30,29 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WM7MN68');`,
-          }}
-        />
-      </head>
+      <GoogleTagManager gtmId="GTM-WM7MN68" />
       <body
         className={`${museoModerno.variable} ${montserrat.variable} antialiased bg-[#0F0E45]`}
       >
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-WM7MN68"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
-        </noscript>
         <Suspense fallback={null}>
           <LocaleProvider>
             <DevLinkProvider>

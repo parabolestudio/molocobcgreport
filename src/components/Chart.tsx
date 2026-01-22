@@ -8,6 +8,7 @@ import { basePath } from "@/helpers/general";
 import { useCopy, useCopyRaw } from "@/contexts/CopyContext";
 import { parseCopy } from "@/helpers/parseCopy";
 import { VerticalData } from "./QuadrantSection";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 const quadrantData = [
   {
@@ -85,7 +86,7 @@ export default function Chart({
 
   useEffect(() => {
     const visContainer = document.querySelector(
-      `#chart-container`
+      `#chart-container`,
     ) as HTMLElement;
 
     if (!visContainer) return;
@@ -235,8 +236,8 @@ export default function Chart({
                 mode === "expl-x-axis"
                   ? "var(--bright-green)"
                   : mode.startsWith("expl-quadrant-")
-                  ? "var(--grey-text)"
-                  : "var(--grey-blue)"
+                    ? "var(--grey-text)"
+                    : "var(--grey-blue)"
               }
             />
             <g>
@@ -269,14 +270,14 @@ export default function Chart({
                         ? "14px"
                         : "18px"
                       : mobile
-                      ? "12px"
-                      : "14px",
+                        ? "12px"
+                        : "14px",
                   fill:
                     mode === "expl-x-axis"
                       ? "var(--black-blue)"
                       : mode.startsWith("expl-quadrant-")
-                      ? "var(--grey-text)"
-                      : "var(--grey-blue)",
+                        ? "var(--grey-text)"
+                        : "var(--grey-blue)",
                 }}
               >
                 {parseCopy(axisXTitle, true)}
@@ -291,8 +292,8 @@ export default function Chart({
                   mode === "expl-x-axis"
                     ? "var(--bright-green)"
                     : mode.startsWith("expl-quadrant-")
-                    ? "var(--grey-text)"
-                    : "var(--grey-blue)",
+                      ? "var(--grey-text)"
+                      : "var(--grey-blue)",
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
@@ -309,8 +310,8 @@ export default function Chart({
                   mode === "expl-x-axis"
                     ? "var(--bright-green)"
                     : mode.startsWith("expl-quadrant-")
-                    ? "var(--grey-text)"
-                    : "var(--grey-blue)",
+                      ? "var(--grey-text)"
+                      : "var(--grey-blue)",
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
@@ -327,8 +328,8 @@ export default function Chart({
                 mode === "expl-y-axis"
                   ? "var(--bright-green)"
                   : mode.startsWith("expl-quadrant-")
-                  ? "var(--grey-text)"
-                  : "var(--grey-blue)"
+                    ? "var(--grey-text)"
+                    : "var(--grey-blue)"
               }
               strokeWidth={1.5}
               strokeDasharray="5,5"
@@ -382,14 +383,14 @@ export default function Chart({
                         ? "14px"
                         : "18px"
                       : mobile
-                      ? "12px"
-                      : "14px",
+                        ? "12px"
+                        : "14px",
                   fill:
                     mode === "expl-y-axis"
                       ? "var(--black-blue)"
                       : mode.startsWith("expl-quadrant-")
-                      ? "var(--grey-text)"
-                      : "var(--grey-blue)",
+                        ? "var(--grey-text)"
+                        : "var(--grey-blue)",
                 }}
               >
                 {parseCopy(axisYTitle, true)}
@@ -406,8 +407,8 @@ export default function Chart({
                   mode === "expl-y-axis"
                     ? "var(--bright-green)"
                     : mode.startsWith("expl-quadrant-")
-                    ? "var(--grey-text)"
-                    : "var(--grey-blue)",
+                      ? "var(--grey-text)"
+                      : "var(--grey-blue)",
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
@@ -424,8 +425,8 @@ export default function Chart({
                   mode === "expl-y-axis"
                     ? "var(--bright-green)"
                     : mode.startsWith("expl-quadrant-")
-                    ? "var(--grey-text)"
-                    : "var(--grey-blue)",
+                      ? "var(--grey-text)"
+                      : "var(--grey-blue)",
                 fontSize: mobile ? "12px" : "14px",
               }}
             >
@@ -473,15 +474,15 @@ export default function Chart({
                   ? 26
                   : 8
                 : mode === "data-filled"
-                ? 32
-                : 12;
+                  ? 32
+                  : 12;
               const offsetY = mobile
                 ? mode === "data-filled"
                   ? 13
                   : 14
                 : mode === "data-filled"
-                ? 18
-                : 20;
+                  ? 18
+                  : 20;
               // mobile only
               const infoIconSize = mobile ? 12 : 18;
               const offsetXInfoIcon = mobile ? 14 : 16;
@@ -496,8 +497,8 @@ export default function Chart({
                       isQuadrantHovered || isQuadrantActive
                         ? 1
                         : isQuadrantActiveFromVertical
-                        ? 0.75
-                        : 0
+                          ? 0.75
+                          : 0
                     }
                     className="transition"
                   />
@@ -510,8 +511,8 @@ export default function Chart({
                           ? "text-[14px] font-bold"
                           : "text-[12px] font-medium"
                         : isQuadrantActive
-                        ? "text-[18px] font-bold"
-                        : "text-[14px] font-medium"
+                          ? "text-[18px] font-bold"
+                          : "text-[14px] font-medium"
                     }`}
                     x={innerWidth / 2}
                     dx={
@@ -554,7 +555,7 @@ export default function Chart({
                       quadrantTitles[
                         quadrant.position as keyof typeof quadrantTitles
                       ],
-                      true
+                      true,
                     )}
                   </text>
                   {mode === "data-filled" && (
@@ -661,6 +662,7 @@ export default function Chart({
                     if (isDataMode) {
                       setShowSelectionPrompt(false);
                       selectVertical(d.verticalEnglish);
+                      trackVerticalClick(d.verticalEnglish);
                     }
                   }}
                   onMouseEnter={(e) => {
@@ -873,3 +875,13 @@ export default function Chart({
     </div>
   );
 }
+
+export const trackVerticalClick = (vertical: string) => {
+  console.log("Tracking vertical click:", vertical);
+
+  sendGTMEvent({
+    event: "click",
+    event_category: "verticals",
+    event_label: vertical,
+  });
+};

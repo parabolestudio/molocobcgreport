@@ -179,7 +179,7 @@ function SummaryCopy({ copy }: { copy: Copy }) {
           height={22}
           onClick={() => {
             setShownQuoteIndex(
-              (shownQuoteIndex - 1 + copy.quotes.length) % copy.quotes.length
+              (shownQuoteIndex - 1 + copy.quotes.length) % copy.quotes.length,
             );
           }}
         />
@@ -198,10 +198,10 @@ function LoopedAppLogos({
   const [isScrolling, setIsScrolling] = useState(false);
   const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
   const [animationDistance, setAnimationDistance] = useState<number | null>(
-    null
+    null,
   );
   const [animationDuration, setAnimationDuration] = useState<number | null>(
-    null
+    null,
   );
 
   // Reset animation state when apps change
@@ -220,7 +220,7 @@ function LoopedAppLogos({
           if (entry.isIntersecting) {
             // Wait for all images to load before measuring
             const contentDiv = containerRef.querySelector(
-              ".logos-content"
+              ".logos-content",
             ) as HTMLElement;
             if (contentDiv) {
               const images = contentDiv.querySelectorAll("img");
@@ -259,7 +259,7 @@ function LoopedAppLogos({
       },
       {
         threshold: 0.3,
-      }
+      },
     );
 
     observer.observe(containerRef);
@@ -270,7 +270,6 @@ function LoopedAppLogos({
   }, [containerRef, apps]);
 
   const verticalFolderName = vertical.toLowerCase().replaceAll(" ", "_");
-  console.log("Vertical folder name:", vertical, verticalFolderName);
   const logosContent = apps.map((app) => (
     <img
       key={app}
@@ -416,7 +415,7 @@ function ScoreDisplay({
 
   useEffect(() => {
     const visContainer = document.querySelector(
-      `#${containerId}`
+      `#${containerId}`,
     ) as HTMLElement;
     const w = visContainer?.offsetWidth || 230;
     setWidth(w);
