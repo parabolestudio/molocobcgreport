@@ -46,8 +46,6 @@ export default function ChartPanelContentSelectedVertical({
     );
   }
 
-  console.log("Rendering content for vertical:", selectedVertical);
-
   let verticalDisplayName: React.ReactNode = "";
   if (selectedVertical && language === "English") {
     verticalDisplayName = replaceCertainGlyphs(selectedVertical);

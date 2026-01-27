@@ -628,8 +628,6 @@ function JourneyPath({ step, language }: { step: number; language: string }) {
     };
   }, [NUM_CIRCLES, ANIMATION_DURATION, CIRCLE_OPACITY, OPACITY_AFTER_CHANGE]);
 
-  console.log("Rendering JourneyPath with step:", step, "language:", language);
-
   return (
     // Desktop
     <>

@@ -49,8 +49,6 @@ export default function QuadrantSection({
   const searchParams = useSearchParams();
   const language = mapLocaleToLanguage(searchParams?.get("locale"));
 
-  console.log("quadrant section selected vertical", selectedVertical);
-
   // Detect mobile after hydration to avoid SSR mismatch
   useEffect(() => {
     if (typeof window === "undefined") return;

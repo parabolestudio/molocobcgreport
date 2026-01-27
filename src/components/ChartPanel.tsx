@@ -207,7 +207,6 @@ export default function ChartPanel({
       setVerticalsCopy(processedData);
     });
   }, []);
-  console.log("verticalsCopy loaded:", verticalsCopy);
 
   const copy = verticalsCopy.find(
     (v) => v.verticalEnglish === selectedVertical,
