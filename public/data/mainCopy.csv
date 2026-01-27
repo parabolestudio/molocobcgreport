@@ -65,16 +65,16 @@ Moloco app performance data from 3000+ apps representing 200B+ downloads, analyz
 "
 journey_1_title,"Consumer journey, step 1 title",Inspiration,Inspiration,灵感,インスピレーション
 journey_1_stat_headline,"Consumer journey, step 1 headline","<green>Inspiration now 
-starts <b>with AI</b></green>",고객 여정의 첫 단계인 ‘영감’은 AI에서 시작됩니다,灵感正从 AI 开始,インスピレーションは今、AIから始まる       
+starts <b>with AI</b></green>",영감(Inspiration):  고객 여정의 첫 단계인 ‘영감’은 AI에서 시작됩니다,灵感正从 AI 开始,インスピレーションは今、AIから始まる       
 journey_1_stat_number,"Consumer journey, step 1 stat",1/3,1/3,1/3,1/3
-journey_1_stat_text,"Consumer journey, step 1 body text",U.S. adults now discover brands via personal AI agents,영감(Inspiration): 미국 성인 3명 중 1명은 이미 퍼스널 AI 에이전트를 통해 브랜드를 처음 발견합니다.,的美国成年人如今通过个人 AI 智能体发现品牌,インスピレーション：現在、米国では成人の3分の1がパーソナルAIエージェントを通じてブランドを発見
+journey_1_stat_text,"Consumer journey, step 1 body text",U.S. adults now discover brands via personal AI agents,미국 성인 3명 중 1명은 이미 퍼스널 AI 에이전트를 통해 브랜드를 처음 발견합니다.,的美国成年人如今通过个人 AI 智能体发现品牌,インスピレーション：現在、米国では成人の3分の1がパーソナルAIエージェントを通じてブランドを発見
 journey_1_stat_source,"Consumer journey, step 1 source","Source: Cordial, “Brands Battle for Attention as AI Redefines the Funnel” conducted by Dynata, Aug 2025. 1,000 US Adults surveyed by Dynata","출처: Cordial, “Brands Battle for Attention as AI Redefines the Funnel”, Dynata, 2025년 8월, 미국 성인 1,000명 대상 조사","来源：Cordial，由 Dynata 执行的《品牌争夺注意力：AI 重塑营销漏斗》报告，2025 年 8 月。Dynata 调研的 1,000 名美国成年人。","出典：""Brands Battle for Attention as AI Redefines the Funnel"". Cordial. Dynataが2025年8月に米国の成人1,000人を対象に実施
 "
 journey_2_title,"Consumer journey, step 2 title",Discovery,Discovery ,发现,発見
 journey_2_stat_headline,"Consumer journey, step 2 headline","<green>Discovery has
- been <b>upended</b></green>",발견단계는 재편되고 있습니다,发现阶段已被彻底改写,発見プロセスが一変                                           
+ been <b>upended</b></green>",발견:(Discover): 발견단계는 재편되고 있습니다,发现阶段已被彻底改写,発見プロセスが一変                                           
 journey_2_stat_number,"Consumer journey, step 2 stat",80%,80%,80%,80%
-journey_2_stat_text,"Consumer journey, step 2 body text",of Google searches now end without a click when AI Overview is present,"발견:(Discover): AI Overview가 노출되는 경우, Google 검색의 80%는 클릭 없이 종료됩니다",的 Google 搜索不再有点击外链的行为,「AIによる概要」が表示される場合、80%のGoogle検索がクリックされずに終了
+journey_2_stat_text,"Consumer journey, step 2 body text",of Google searches now end without a click when AI Overview is present," AI Overview가 노출되는 경우, Google 검색의 80%는 클릭 없이 종료됩니다",的 Google 搜索不再有点击外链的行为,「AIによる概要」が表示される場合、80%のGoogle検索がクリックされずに終了
 journey_2_stat_source,"Consumer journey, step 2 source","Source: Similarweb, “Zero-Click Searched And How They Impact Traffic”, May 2025","출처: Similarweb, “Zero-Click Searches And How They Impact Traffic”, 2025년 5월",来源：Similarweb，《Zero-Click Searches And How They Impact Traffic》，2025 年 5 月。,"出典：""Zero-Click Searches And How They Impact Traffic"". Similarweb.（2025年5月）
 "
 journey_3_title,"Consumer journey, step 3 title",Consideration,Consideration,考虑,検討
@@ -88,9 +88,9 @@ Attestプラットフォームを使用している米国、英国、カナダ�
 "
 journey_4_title,"Consumer journey, step 4 title",Conversion,Conversion,转化,コンバージョン
 journey_4_stat_headline,"Consumer journey, step 4 headline","<green>AI is extending 
-from advice to <b>action</b></green>","AI의 역할은 조언을 넘어, 실제 소비자 행동까지 확장되고 있습니다",AI 正在从“给建议”走向“代执行”,AIの役割が「アドバイス」から「アクション」へと拡大
+from advice to <b>action</b></green>","전환(Conversion): AI의 역할은 조언을 넘어, 실제 소비자 행동까지 확장되고 있습니다",AI 正在从“给建议”走向“代执行”,AIの役割が「アドバイス」から「アクション」へと拡大
 journey_4_stat_number,"Consumer journey, step 4 stat",30%,30%,30%,30%
-journey_4_stat_text,"Consumer journey, step 4 body text",feel comfortable letting AI make purchases for them,전환(Conversion): 는 AI가 대신 구매 결정을 내려도 괜찮다고 느낍니다,的受访者表示，对让 AI 代其完成购买感到放心,の消費者が、AIに購入を代行させることに抵抗を感じていない
+journey_4_stat_text,"Consumer journey, step 4 body text",feel comfortable letting AI make purchases for them,는 AI가 대신 구매 결정을 내려도 괜찮다고 느낍니다,的受访者表示，对让 AI 代其完成购买感到放心,の消費者が、AIに購入を代行させることに抵抗を感じていない
 journey_4_stat_source,"Consumer journey, step 4 source","Source: Contentsquare/Morningstar, December 2025, n=1,300 US adults surveyed by Pollfish.","출처: Contentsquare/Morningstar, 2025년 12월, Pollfish를 통해 미국 성인 1,300명 설문","来源：Contentsquare / Morningstar，2025 年 12 月，由 Pollfish 调研的 1,300 名美国成年人。
 ","出典：Pollfish経由で米国成人1,300人を対象に実施されたContentsquare / Morningstarの調査（2025年12月）
 "
@@ -270,8 +270,8 @@ qu_data_nudge,Vertical selection nudge,Selected vertical details will appear her
 qu_data_nudge_mobile,Vertical selection nudge (on mobile without selection possibilities),The details for the selected vertical will appear here.,선택한 산업군에 대한 상세 내용이 여기에 표시됩니다.,所选垂直行业的详细信息将显示在此处。,選択した業界に関する詳細がこちらに表示されます。
 qu_select_vertical_prompt,Text in overlay over chart to get user to select a vertical,Select a vertical to explore details.,산업군을 선택해 상세 내용을 확인하세요.,请选择一个垂直行业以查看详细信息。,業界を選択すると詳細を確認できます。
 qu_vertical_dropdown,Label for vertical dropdown,Select vertical,산업군 선택,选择垂直行业,業界を選択
-qu_button_show_less,"On mobile, show less button in source display",Show less,접기,收起,
-qu_button_show_more,"On mobile, show more button in source display",Show more,더 보기,展开,
+qu_button_show_less,"On mobile, show less button in source display",Show less,접기,收起,一部を表示 
+qu_button_show_more,"On mobile, show more button in source display",Show more,더 보기,展开,さらに表示 
 qu_button_expand,"On mobile, expand content box",Expand,,,
 qu_button_reduce,"On mobile, reduce content box",Reduce,,,
 qu_button_next,Next button in chart panel,Next,다음,下一步, 次へ

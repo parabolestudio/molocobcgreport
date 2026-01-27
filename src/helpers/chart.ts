@@ -196,18 +196,18 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_On-Demand Services",
     },
     Japanese: {
-      label: "オンデマンドサービス（配送、ライドサービス、ファーストフード）",
-      labelFormatted: {
-        firstLine: "オンデマンドサービス",
-        secondLine: "（配送、ライドサービス、ファーストフード）",
-      },
+      label: "オンデマンドサービス",
+      // labelFormatted: {
+      //   firstLine: "オンデマンドサービス",
+      //   secondLine: "（配送、ライドサービス、ファーストフード）",
+      // },
     },
     Chinese: {
-      label: "即时需求服务（配送、出行、快餐）",
-      labelFormatted: {
-        firstLine: "即时需求服务",
-        secondLine: "（配送、出行、快餐）",
-      },
+      label: "即时需求服",
+      // labelFormatted: {
+      //   firstLine: "即时需求服务",
+      //   secondLine: "（配送、出行、快餐）",
+      // },
     },
     icon: "on_demand",
     quadrant: "top-right",
