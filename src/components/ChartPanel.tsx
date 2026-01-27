@@ -10,6 +10,7 @@ import { useCopy } from "@/contexts/CopyContext";
 
 export interface Copy {
   vertical: string;
+  verticalEnglish: string;
   intro: string;
   exampleApps: string[];
   quotes: Array<{ text: string; credit: string } | null>;
@@ -79,8 +80,8 @@ export default function ChartPanel({
       ? "bg-transparent"
       : "bg-panel-background-grey"
     : shownSide === "details"
-    ? "bg-panel-background-green"
-    : "bg-panel-background-blue";
+      ? "bg-panel-background-green"
+      : "bg-panel-background-blue";
 
   const backgroundColorInner = mobile
     ? isExplanation
@@ -123,6 +124,7 @@ export default function ChartPanel({
     csv(`${basePath}/data/verticalsCopy.csv`).then((data) => {
       const processedData = data.map((d) => ({
         vertical: d["Vertical_" + language],
+        verticalEnglish: d["Vertical_English"],
         // summary side
         intro: d["Vertical Intro_" + language] || "",
         exampleApps: d["Example Apps_" + language]
@@ -190,7 +192,7 @@ export default function ChartPanel({
         (d as any).avgAcquisitionScore =
           processedData.reduce(
             (sum, d) => sum + d.customer_acquisition_score,
-            0
+            0,
           ) / processedData.length;
         (d as any).avgLoyaltyScore =
           processedData.reduce((sum, d) => sum + d.customer_loyalty_score, 0) /
@@ -198,15 +200,18 @@ export default function ChartPanel({
         (d as any).avgEngagementScore =
           processedData.reduce(
             (sum, d) => sum + d.customer_engagement_score,
-            0
+            0,
           ) / processedData.length;
       });
 
       setVerticalsCopy(processedData);
     });
   }, []);
+  console.log("verticalsCopy loaded:", verticalsCopy);
 
-  const copy = verticalsCopy.find((v) => v.vertical === selectedVertical);
+  const copy = verticalsCopy.find(
+    (v) => v.verticalEnglish === selectedVertical,
+  );
 
   const contentMap = getContentMap(
     selectedVertical,
@@ -215,7 +220,7 @@ export default function ChartPanel({
     copy,
     handleSideChange,
     mobile,
-    copyTexts
+    copyTexts,
   );
 
   // Reset to summary side when mode changes
@@ -378,7 +383,7 @@ const getContentMap = (
     qu_bottom_right_x_level: React.ReactNode;
     qu_bottom_right_description: React.ReactNode;
     qu_info: React.ReactNode;
-  }
+  },
 ): Record<ChartMode, JSX.Element> => ({
   "expl-y-axis": (
     <div className="flex flex-col gap-4 text-grey-text">

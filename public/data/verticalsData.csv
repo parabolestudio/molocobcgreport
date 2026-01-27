@@ -1,18 +1,18 @@
 Vertical_English,Vertical_Korean,Vertical_Japanese,Vertical_Chinese,Strength of customer relationship,Risk of AI disruption
-Gaming,vertical_ko_1,vertical_ja_1,vertical_zh_1,7.04,7.84
-Retail & eCommerce,vertical_ko_2,vertical_ja_2,vertical_zh_2,7.11,4.28
-Media & Streaming,vertical_ko_3,vertical_ja_3,vertical_zh_3,8.31,7.36
-Education,vertical_ko_4,vertical_ja_4,vertical_zh_4,6.79,3.44
-Health & Fitness,vertical_ko_5,vertical_ja_5,vertical_zh_5,6.41,4.36
-News,vertical_ko_6,vertical_ja_6,vertical_zh_6,5.58,2.58
-FinTech,vertical_ko_7,vertical_ja_7,vertical_zh_7,8.49,6.27
-Financial Services,vertical_ko_8,vertical_ja_8,vertical_zh_8,8.42,7.34
-On-Demand Services,vertical_ko_9,vertical_ja_9,vertical_zh_9,7.63,7.3
-Travel,vertical_ko_10,vertical_ja_10,vertical_zh_10,5.36,3.99
-Dating,vertical_ko_11,vertical_ja_11,vertical_zh_11,7.42,8.06
-Social,vertical_ko_12,vertical_ja_12,vertical_zh_12,9.61,8.76
-Productivity,vertical_ko_13,vertical_ja_13,vertical_zh_13,7.95,4.76
-Gen AI,vertical_ko_14,vertical_ja_14,vertical_zh_14,6.51,8.53
-Casino & Sports betting (RMG),vertical_ko_15,vertical_ja_15,vertical_zh_15,5.9,8.21
-Auto OEMs,vertical_ko_16,vertical_ja_16,vertical_zh_16,7.59,8.3
-Auto Marketplaces,vertical_ko_17,vertical_ja_17,vertical_zh_17,5.28,4.13
+Gaming,vertical_ko_1,ゲーム,游戏,7.04,7.84
+Retail & eCommerce,vertical_ko_2,小売・Eコマース,零售与电商,7.11,4.28
+Media & Streaming,vertical_ko_3,メディア＆ストリーミング,媒体与流媒体,8.31,7.36
+Education,vertical_ko_4,教育,教育,6.79,3.44
+Health & Fitness,vertical_ko_5,ヘルス＆フィットネス,健康与健身,6.41,4.36
+News,vertical_ko_6,ニュース,新闻,5.58,2.58
+FinTech,vertical_ko_7,フィンテック,金融科技,8.49,6.27
+Financial Services,vertical_ko_8,ファイナンスサービス,金融服务,8.42,7.34
+On-Demand Services,vertical_ko_9,オンデマンドサービス（配送、ライドサービス、ファーストフード）,即时需求服务（配送、出行、快餐）,7.63,7.3
+Travel,vertical_ko_10,旅行,旅游,5.36,3.99
+Dating,vertical_ko_11,マッチング,交友,7.42,8.06
+Social,vertical_ko_12,SNS,社交媒体,9.61,8.76
+Productivity,vertical_ko_13,生産性ツール,效率工具,7.95,4.76
+Gen AI,vertical_ko_14,生成AI,生成式 AI,6.51,8.53
+Casino & Sports betting (RMG),vertical_ko_15,カジノ・スポーツベッティング（RMG）,赌场与体育博彩（真实货币博彩）,5.9,8.21
+Auto OEMs,vertical_ko_16,自動車メーカー,汽车主机厂,7.59,8.3
+Auto Marketplaces,vertical_ko_17,自動車マーケットプレイス,汽车交易平台,5.28,4.13

@@ -5,9 +5,14 @@ import { gsap } from "gsap";
 import { basePath } from "@/helpers/general";
 import { useCopy } from "@/contexts/CopyContext";
 import { fadeIn } from "@/helpers/scroll";
+import { mapLocaleToLanguage } from "@/contexts/LocaleProvider";
+import { useSearchParams } from "next/navigation";
 
 export default function CTASection({ isActive }: { isActive: boolean }) {
   const contentRef = useRef<HTMLDivElement>(null);
+
+  const searchParams = useSearchParams();
+  const language = mapLocaleToLanguage(searchParams?.get("locale"));
 
   // Set initial visibility
   useEffect(() => {
@@ -51,12 +56,12 @@ export default function CTASection({ isActive }: { isActive: boolean }) {
               height={40}
               className="max-w-[117px]"
             />
-            <h3 className="font-extralight text-[40px] md:text-[96px] font-museo-moderno leading-[115%] text-center max-w-[600px] text-balance">
+            <h3 className="font-extralight text-bright-green text-[40px] md:text-[96px] font-museo-moderno leading-[115%] text-center max-w-[600px] text-balance">
               {useCopy("cta_text")}
             </h3>
 
             <div>
-              <CTAButtons tooltipText={tooltipText} />
+              <CTAButtons tooltipText={tooltipText} language={language} />
             </div>
           </div>
         </div>
@@ -65,8 +70,13 @@ export default function CTASection({ isActive }: { isActive: boolean }) {
   );
 }
 
-function CTAButtons({ tooltipText }: { tooltipText: React.ReactNode }) {
-  // Call all hooks at the top level
+function CTAButtons({
+  tooltipText,
+  language,
+}: {
+  tooltipText: React.ReactNode;
+  language: string | null;
+}) {
   const contactButtonText = useCopy("cta_text_button_3");
   const requestDemoButtonText = useCopy("cta_text_button_1");
   const methodButtonText = useCopy("cta_text_button_2");
@@ -76,13 +86,24 @@ function CTAButtons({ tooltipText }: { tooltipText: React.ReactNode }) {
   const [showExploreButtons, setShowExploreButtons] = useState<boolean>(false);
   const [showMethodTooltip, setShowMethodTooltip] = useState<boolean>(false);
 
+  let contactURL = "https://www.moloco.com/contact-us";
+  switch (language) {
+    case "Korean":
+      contactURL = "https://www.moloco.com/ko/contact-us";
+      break;
+    case "Japanese":
+      contactURL = " https://www.moloco.com/ja/contact-us";
+      break;
+    case "Chinese":
+      contactURL = " https://www.moloco.com/zh/contact-us";
+      break;
+  }
+
   return (
     <div className="flex flex-col items-center gap-2 md:gap-4">
       <button
         className="bg-bright-green flex items-center justify-center gap-2 hover:bg-[#A8F7DD] transition text-black-blue"
-        onClick={() => {
-          window.open(" https://www.moloco.com/contact-us", "_blank");
-        }}
+        onClick={() => window.open(contactURL, "_blank")}
       >
         <span>{contactButtonText}</span>
         <img

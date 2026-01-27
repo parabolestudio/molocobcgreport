@@ -25,10 +25,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_News",
     },
     Japanese: {
-      label: "JA_News",
+      label: "ニュース",
     },
     Chinese: {
-      label: "ZH_News",
+      label: "新闻",
     },
     icon: "news",
     quadrant: "bottom-left",
@@ -41,10 +41,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Gaming",
     },
     Japanese: {
-      label: "JA_Gaming",
+      label: "ゲーム",
     },
     Chinese: {
-      label: "ZH_Gaming",
+      label: "游戏",
     },
     icon: "gaming",
     quadrant: "top-left",
@@ -57,10 +57,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Gen AI",
     },
     Japanese: {
-      label: "JA_Gen AI",
+      label: "生成AI",
     },
     Chinese: {
-      label: "ZH_Gen AI",
+      label: "生成式 AI",
     },
     icon: "gen_ai",
     quadrant: "top-left",
@@ -73,10 +73,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Education",
     },
     Japanese: {
-      label: "JA_Education",
+      label: "教育",
     },
     Chinese: {
-      label: "ZH_Education",
+      label: "教育",
     },
     icon: "education",
     quadrant: "bottom-left",
@@ -89,10 +89,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Travel",
     },
     Japanese: {
-      label: "JA_Travel",
+      label: "旅行",
     },
     Chinese: {
-      label: "ZH_Travel",
+      label: "旅游",
     },
     icon: "travel",
     quadrant: "bottom-left",
@@ -110,10 +110,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Auto Marketplace",
     },
     Japanese: {
-      label: "JA_Auto Marketplace",
+      label: "自動車マーケットプレイス",
     },
     Chinese: {
-      label: "ZH_Auto Marketplace",
+      label: "汽车交易平台",
     },
     icon: "auto_marketplace",
     quadrant: "bottom-left",
@@ -130,10 +130,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Retail & eCommerce",
     },
     Japanese: {
-      label: "JA_Retail & eCommerce",
+      label: "小売・Eコマース",
     },
     Chinese: {
-      label: "ZH_Retail & eCommerce",
+      label: "零售与电商",
     },
     icon: "ecommerce_retail",
     quadrant: "bottom-left",
@@ -150,10 +150,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Health & Fitness",
     },
     Japanese: {
-      label: "JA_Health & Fitness",
+      label: "ヘルス＆フィットネス",
     },
     Chinese: {
-      label: "ZH_Health & Fitness",
+      label: "健康与健身",
     },
     icon: "health_fitness",
     quadrant: "bottom-left",
@@ -166,10 +166,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_FinTech",
     },
     Japanese: {
-      label: "JA_FinTech",
+      label: "フィンテック",
     },
     Chinese: {
-      label: "ZH_FinTech",
+      label: "金融科技",
     },
     icon: "fintech",
     quadrant: "top-right",
@@ -186,10 +186,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_On-Demand Services",
     },
     Japanese: {
-      label: "JA_On-Demand Services",
+      label: "オンデマンドサービス（配送、ライドサービス、ファーストフード）",
     },
     Chinese: {
-      label: "ZH_On-Demand Services",
+      label: "即时需求服务（配送、出行、快餐）",
     },
     icon: "on_demand",
     quadrant: "top-right",
@@ -206,10 +206,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Financial Services",
     },
     Japanese: {
-      label: "JA_Financial Services",
+      label: "ファイナンスサービス",
     },
     Chinese: {
-      label: "ZH_Financial Services",
+      label: "金融服务",
     },
     icon: "finance",
     quadrant: "top-right",
@@ -227,10 +227,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Media & Streaming",
     },
     Japanese: {
-      label: "JA_Media & Streaming",
+      label: "メディア＆ストリーミング",
     },
     Chinese: {
-      label: "ZH_Media & Streaming",
+      label: "媒体与流媒体",
     },
     icon: "media_streaming",
     quadrant: "top-right",
@@ -243,10 +243,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Dating",
     },
     Japanese: {
-      label: "JA_Dating",
+      label: "マッチング",
     },
     Chinese: {
-      label: "ZH_Dating",
+      label: "交友",
     },
     icon: "dating",
     quadrant: "top-left",
@@ -264,10 +264,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Auto OEMs",
     },
     Japanese: {
-      label: "JA_Auto OEMs",
+      label: "自動車メーカー",
     },
     Chinese: {
-      label: "ZH_Auto OEMs",
+      label: "汽车主机厂",
     },
     icon: "auto_oems",
     quadrant: "top-right",
@@ -280,10 +280,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Social",
     },
     Japanese: {
-      label: "JA_Social",
+      label: "SNS",
     },
     Chinese: {
-      label: "ZH_Social",
+      label: "社交媒体",
     },
     icon: "social",
     quadrant: "top-right",
@@ -296,10 +296,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Productivity",
     },
     Japanese: {
-      label: "JA_Productivity",
+      label: "生産性ツール",
     },
     Chinese: {
-      label: "ZH_Productivity",
+      label: "效率工具",
     },
     icon: "productivity",
     quadrant: "bottom-right",
@@ -316,10 +316,10 @@ export const verticalsMap: Record<string, Object> = {
       label: "KO_Casino & Sports betting (RMG)",
     },
     Japanese: {
-      label: "JA_Casino & Sports betting (RMG)",
+      label: "カジノ・スポーツベッティング（RMG）",
     },
     Chinese: {
-      label: "ZH_Casino & Sports betting (RMG)",
+      label: "赌场与体育博彩（真实货币博彩）",
     },
     icon: "rmg",
     quadrant: "top-left",
@@ -329,13 +329,13 @@ export const verticalsMap: Record<string, Object> = {
       label: "All verticals",
     },
     Korean: {
-      label: "KO_All verticals",
+      label: "전체 산업군",
     },
     Japanese: {
-      label: "JA_All verticals",
+      label: "すべての業界",
     },
     Chinese: {
-      label: "ZH_All verticals",
+      label: "所有垂直行业",
     },
     icon: "all_verticals",
     // quadrant: "center",

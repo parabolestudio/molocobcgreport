@@ -49,6 +49,8 @@ export default function QuadrantSection({
   const searchParams = useSearchParams();
   const language = mapLocaleToLanguage(searchParams?.get("locale"));
 
+  console.log("quadrant section selected vertical", selectedVertical);
+
   // Detect mobile after hydration to avoid SSR mismatch
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -123,7 +125,7 @@ export default function QuadrantSection({
           const iconName = (value as any).icon;
           try {
             const response = await fetch(
-              `${basePath}/verticals/${iconName}.svg`
+              `${basePath}/verticals/${iconName}.svg`,
             );
             const svgText = await response.text();
             return [iconName, svgText];
@@ -131,7 +133,7 @@ export default function QuadrantSection({
             console.error(`Failed to load SVG for ${iconName}:`, error);
             return [iconName, ""];
           }
-        }
+        },
       );
 
       const results = await Promise.all(svgPromises);
@@ -251,7 +253,7 @@ export default function QuadrantSection({
           ease: "power2.out",
           delay: 0.4,
           overwrite: true,
-        }
+        },
       );
     } else {
       // Steps 1-7: Hide intro text, show charts (charts stay visible, only mode changes)
@@ -274,7 +276,7 @@ export default function QuadrantSection({
             ease: "power2.out",
             delay: 0.4,
             overwrite: true,
-          }
+          },
         );
 
         // Fade in chart panel with additional delay
@@ -288,7 +290,7 @@ export default function QuadrantSection({
             ease: "power2.out",
             delay: 0.8, // 0.2s more delay than chart
             overwrite: true,
-          }
+          },
         );
 
         // Fade in mobile header
@@ -303,7 +305,7 @@ export default function QuadrantSection({
               ease: "power2.out",
               delay: 0.4, // Same timing as chart
               overwrite: true,
-            }
+            },
           );
         }
         if (mobileVerticalSelect) {
@@ -317,7 +319,7 @@ export default function QuadrantSection({
               ease: "power2.out",
               delay: 0.4, // Same timing as chart
               overwrite: true,
-            }
+            },
           );
         }
       } else {
@@ -583,7 +585,7 @@ function VerticalSelector({
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
       const selectorElement = document.querySelector(
-        ".vertical-selector-icon"
+        ".vertical-selector-icon",
       )?.parentElement;
 
       if (selectorElement && !selectorElement.contains(target)) {

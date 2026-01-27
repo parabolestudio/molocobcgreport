@@ -7,6 +7,8 @@ import { scaleLinear } from "d3-scale";
 import { useCopy } from "@/contexts/CopyContext";
 import { useCopyRaw } from "@/contexts/CopyContext";
 import { parseCopy } from "@/helpers/parseCopy";
+import { mapLocaleToLanguage } from "@/contexts/LocaleProvider";
+import { useSearchParams } from "next/navigation";
 
 export default function ChartPanelContentSelectedVertical({
   selectedVertical,
@@ -23,6 +25,9 @@ export default function ChartPanelContentSelectedVertical({
   copy: Copy | undefined;
   mobile: boolean;
 }) {
+  const searchParams = useSearchParams();
+  const language = mapLocaleToLanguage(searchParams?.get("locale"));
+
   if (!selectedVertical && !mobile) {
     return (
       <div>
@@ -40,9 +45,14 @@ export default function ChartPanelContentSelectedVertical({
       </div>
     );
   }
+
+  console.log("Rendering content for vertical:", selectedVertical);
+
   let verticalDisplayName: React.ReactNode = "";
-  if (selectedVertical) {
+  if (selectedVertical && language === "English") {
     verticalDisplayName = replaceCertainGlyphs(selectedVertical);
+  } else {
+    verticalDisplayName = copy?.vertical || selectedVertical;
   }
   return (
     <div className="flex flex-col h-full">
