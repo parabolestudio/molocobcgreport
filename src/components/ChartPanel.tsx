@@ -127,9 +127,7 @@ export default function ChartPanel({
         verticalEnglish: d["Vertical_English"],
         // summary side
         intro: d["Vertical Intro_" + language] || "",
-        exampleApps: d["Example Apps_" + language]
-          ? d["Example Apps_" + language].split(",")
-          : [],
+        exampleApps: d["Example Apps"] ? d["Example Apps"].split(",") : [],
         quotes: [
           d["Quote 1 (text)_" + language] && d["Quote 1 (credit)_" + language]
             ? {
@@ -241,6 +239,9 @@ export default function ChartPanel({
     }
   }, [mode]);
 
+  const mobileExpandText = useCopy("qu_button_expand");
+  const mobileReduceText = useCopy("qu_button_reduce");
+
   if (mobile && selectedVertical === null) {
     return (
       <div className="panel-content-expl-mobile h-full flex flex-col justify-end overflow-hidden">
@@ -251,7 +252,9 @@ export default function ChartPanel({
               setMobileExplanationExpanded(!mobileExplanationExpanded)
             }
           >
-            <span>{mobileExplanationExpanded ? "Reduce" : "Expand"}</span>
+            <span>
+              {mobileExplanationExpanded ? mobileReduceText : mobileExpandText}
+            </span>
             <img
               src={`${basePath}/icons/arrow.svg`}
               alt="arrow"

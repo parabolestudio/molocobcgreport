@@ -111,6 +111,11 @@ export const verticalsMap: Record<string, Object> = {
     },
     Japanese: {
       label: "自動車マーケットプレイス",
+      labelFormatted: {
+        firstLine: "自動車マーケットプレイス",
+        secondLine: "",
+        position: "top",
+      },
     },
     Chinese: {
       label: "汽车交易平台",
@@ -187,6 +192,10 @@ export const verticalsMap: Record<string, Object> = {
     },
     Japanese: {
       label: "オンデマンドサービス（配送、ライドサービス、ファーストフード）",
+      labelFormatted: {
+        firstLine: "オンデマンドサービス",
+        secondLine: "（配送、ライドサービス、ファーストフード）",
+      },
     },
     Chinese: {
       label: "即时需求服务（配送、出行、快餐）",
@@ -228,6 +237,11 @@ export const verticalsMap: Record<string, Object> = {
     },
     Japanese: {
       label: "メディア＆ストリーミング",
+      labelFormatted: {
+        firstLine: "メディア＆ストリーミング",
+        secondLine: "",
+        position: "top",
+      },
     },
     Chinese: {
       label: "媒体与流媒体",
@@ -265,6 +279,11 @@ export const verticalsMap: Record<string, Object> = {
     },
     Japanese: {
       label: "自動車メーカー",
+      labelFormatted: {
+        firstLine: "自動車メーカー",
+        secondLine: "",
+        position: "top",
+      },
     },
     Chinese: {
       label: "汽车主机厂",

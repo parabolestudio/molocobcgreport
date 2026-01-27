@@ -272,6 +272,8 @@ qu_select_vertical_prompt,Text in overlay over chart to get user to select a ver
 qu_vertical_dropdown,Label for vertical dropdown,Select vertical,산업군 선택,选择垂直行业,業界を選択
 qu_button_show_less,"On mobile, show less button in source display",Show less,접기,收起,
 qu_button_show_more,"On mobile, show more button in source display",Show more,더 보기,展开,
+qu_button_expand,"On mobile, expand content box",Expand,,,
+qu_button_reduce,"On mobile, reduce content box",Reduce,,,
 qu_button_next,Next button in chart panel,Next,다음,下一步, 次へ
 qu_button_back,Back button in chart panel,Back,이전,返回,戻る
 qu_button_index,Button in chart panel to go to verticals screen,Skip to index,인덱스로 이동,跳转至索引, インデックスへスキップ

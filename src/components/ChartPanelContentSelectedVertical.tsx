@@ -152,7 +152,10 @@ function SummaryCopy({ copy }: { copy: Copy }) {
           <p className="text-[12px] md:text-[14px]">
             {useCopy("qu_chart_logo_text")}
           </p>
-          <LoopedAppLogos apps={copy.exampleApps} vertical={copy.vertical} />
+          <LoopedAppLogos
+            apps={copy.exampleApps}
+            vertical={copy.verticalEnglish}
+          />
         </div>
 
         {/* Intro */}
@@ -169,28 +172,33 @@ function SummaryCopy({ copy }: { copy: Copy }) {
           “{copy.quotes[shownQuoteIndex]?.text}”
         </p>
         <p>— {copy.quotes[shownQuoteIndex]?.credit}</p>
-        <img
-          className="absolute bottom-0 left-0 cursor-pointer"
-          src={`${basePath}/icons/arrow_pill.svg`}
-          alt="Arrow with background"
-          width={34}
-          height={22}
-          onClick={() => {
-            setShownQuoteIndex((shownQuoteIndex + 1) % copy.quotes.length);
-          }}
-        />
-        <img
-          className="absolute bottom-0 right-0 cursor-pointer rotate-180"
-          src={`${basePath}/icons/arrow_pill.svg`}
-          alt="Arrow with background"
-          width={34}
-          height={22}
-          onClick={() => {
-            setShownQuoteIndex(
-              (shownQuoteIndex - 1 + copy.quotes.length) % copy.quotes.length,
-            );
-          }}
-        />
+        {copy.quotes.length > 1 && (
+          <>
+            <img
+              className="absolute bottom-0 left-0 cursor-pointer"
+              src={`${basePath}/icons/arrow_pill.svg`}
+              alt="Arrow with background"
+              width={34}
+              height={22}
+              onClick={() => {
+                setShownQuoteIndex((shownQuoteIndex + 1) % copy.quotes.length);
+              }}
+            />
+            <img
+              className="absolute bottom-0 right-0 cursor-pointer rotate-180"
+              src={`${basePath}/icons/arrow_pill.svg`}
+              alt="Arrow with background"
+              width={34}
+              height={22}
+              onClick={() => {
+                setShownQuoteIndex(
+                  (shownQuoteIndex - 1 + copy.quotes.length) %
+                    copy.quotes.length,
+                );
+              }}
+            />
+          </>
+        )}
       </div>
     </div>
   );
