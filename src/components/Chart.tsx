@@ -68,12 +68,27 @@ export default function Chart({
     "bottom-left": useCopy("qu_bottom_left_headline"),
     "bottom-right": useCopy("qu_bottom_right_headline"),
   };
-  const quadrantTitles = {
+  let quadrantTitles = {
     "top-left": useCopyRaw("qu_top_left_title"),
     "top-right": useCopyRaw("qu_top_right_title"),
     "bottom-left": useCopyRaw("qu_bottom_left_title"),
     "bottom-right": useCopyRaw("qu_bottom_right_title"),
   };
+
+  // for Korean, replace some quadrant titles with formatted versions (<b>경쟁이 심화된 영역 (Contested)</b> --> Contested )
+  if (language === "Korean") {
+    let topLeft = useCopyRaw("qu_top_left_title");
+    let topRight = useCopyRaw("qu_top_right_title");
+    let bottomLeft = useCopyRaw("qu_bottom_left_title");
+    let bottomRight = useCopyRaw("qu_bottom_right_title");
+    quadrantTitles["top-left"] = topLeft.match(/\(([^)]*)\)/)?.[1] || topLeft;
+    quadrantTitles["top-right"] =
+      topRight.match(/\(([^)]*)\)/)?.[1] || topRight;
+    quadrantTitles["bottom-left"] =
+      bottomLeft.match(/\(([^)]*)\)/)?.[1] || bottomLeft;
+    quadrantTitles["bottom-right"] =
+      bottomRight.match(/\(([^)]*)\)/)?.[1] || bottomRight;
+  }
 
   // Get axis copy
   const axisXTitle = useCopyRaw("qu_axis_x_title");

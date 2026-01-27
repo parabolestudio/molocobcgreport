@@ -119,6 +119,11 @@ export const verticalsMap: Record<string, Object> = {
     },
     Chinese: {
       label: "汽车交易平台",
+      labelFormatted: {
+        firstLine: "汽车交易平台",
+        secondLine: "",
+        position: "top",
+      },
     },
     icon: "auto_marketplace",
     quadrant: "bottom-left",
@@ -199,6 +204,10 @@ export const verticalsMap: Record<string, Object> = {
     },
     Chinese: {
       label: "即时需求服务（配送、出行、快餐）",
+      labelFormatted: {
+        firstLine: "即时需求服务",
+        secondLine: "（配送、出行、快餐）",
+      },
     },
     icon: "on_demand",
     quadrant: "top-right",
@@ -245,6 +254,11 @@ export const verticalsMap: Record<string, Object> = {
     },
     Chinese: {
       label: "媒体与流媒体",
+      labelFormatted: {
+        firstLine: "媒体与流媒体",
+        secondLine: "",
+        position: "top",
+      },
     },
     icon: "media_streaming",
     quadrant: "top-right",
@@ -287,6 +301,11 @@ export const verticalsMap: Record<string, Object> = {
     },
     Chinese: {
       label: "汽车主机厂",
+      labelFormatted: {
+        firstLine: "汽车主机厂",
+        secondLine: "",
+        position: "top",
+      },
     },
     icon: "auto_oems",
     quadrant: "top-right",
@@ -339,6 +358,10 @@ export const verticalsMap: Record<string, Object> = {
     },
     Chinese: {
       label: "赌场与体育博彩（真实货币博彩）",
+      labelFormatted: {
+        firstLine: "赌场与体育博彩",
+        secondLine: "（真实货币博彩）",
+      },
     },
     icon: "rmg",
     quadrant: "top-left",
