@@ -67,7 +67,7 @@ journey_1_title,"Consumer journey, step 1 title",Inspiration,Inspiration,灵感,
 journey_1_stat_headline,"Consumer journey, step 1 headline","<green>Inspiration now 
 starts <b>with AI</b></green>",영감(Inspiration):  고객 여정의 첫 단계인 ‘영감’은 AI에서 시작됩니다,灵感正从 AI 开始,インスピレーションは今、AIから始まる       
 journey_1_stat_number,"Consumer journey, step 1 stat",1/3,1/3,1/3,1/3
-journey_1_stat_text,"Consumer journey, step 1 body text",U.S. adults now discover brands via personal AI agents,미국 성인 3명 중 1명은 이미 퍼스널 AI 에이전트를 통해 브랜드를 처음 발견합니다.,的美国成年人如今通过个人 AI 智能体发现品牌,インスピレーション：現在、米国では成人の3分の1がパーソナルAIエージェントを通じてブランドを発見
+journey_1_stat_text,"Consumer journey, step 1 body text",U.S. adults now discover brands via personal AI agents,미국 성인 3명 중 1명은 이미 퍼스널 AI 에이전트를 통해 브랜드를 처음 발견합니다.,的美国成年人如今通过个人 AI 智能体发现品牌,現在、米国では成人の3分の1がパーソナルAIエージェントを通じてブランドを発見
 journey_1_stat_source,"Consumer journey, step 1 source","Source: Cordial, “Brands Battle for Attention as AI Redefines the Funnel” conducted by Dynata, Aug 2025. 1,000 US Adults surveyed by Dynata","출처: Cordial, “Brands Battle for Attention as AI Redefines the Funnel”, Dynata, 2025년 8월, 미국 성인 1,000명 대상 조사","来源：Cordial，由 Dynata 执行的《品牌争夺注意力：AI 重塑营销漏斗》报告，2025 年 8 月。Dynata 调研的 1,000 名美国成年人。","出典：""Brands Battle for Attention as AI Redefines the Funnel"". Cordial. Dynataが2025年8月に米国の成人1,000人を対象に実施
 "
 journey_2_title,"Consumer journey, step 2 title",Discovery,Discovery ,发现,発見
@@ -160,7 +160,7 @@ qu_top_left_headline,"Quadrant, step 2 headline","Low AI disruption today, but w
 qu_top_left_y_level,"Quadrant, step 2, y axis description","<b>AI disruption | <green>Moderate to Low</green></b>
 Discovery disruption is moderate to low due to reliance on paid channels that are most disrupted, including search, programmatic web, and affiliate channels. There’s a low risk of service disruption as core functionalities can’t easily be replicated.","<b>AI로 인한 변화 | <green>중간~낮음</green></b>
 해당 산업군은 검색, 프로그래머틱 웹, 제휴 채널 등 이미 변화의 영향이 크게 나타난 유료 중심 채널에 대한 의존도가 높아, 발견(Discovery) 단계에서의 변화 수준은 중간에서 낮은 편에 머물러 있습니다. 다만, 핵심 기능이 AI로 쉽게 대체되기 어려운 만큼 서비스 자체가 직접적인 영향을 받을 가능성은 상대적으로 낮은 상황입니다.
-","<b>AI 颠覆 | <green>中等至低</b></green>
+","<b>AI 颠覆 | <green>中等至低</green></b>
 由于高度依赖搜索、程序化 Web 和联盟等易受冲击的付费渠道，发现阶段的颠覆风险处于中低水平。与此同时，核心功能不易被复制，使服务颠覆风险相对有限。
 ","<b>AIディスラプション｜<green>中程度〜低い</green></b>
 有料検索やプログラマティックディスプレイ広告（Web）、アフィリエイトを含む、AIの影響を最も大きく受けている有料チャネルへの依存により、発見プロセスにおいてディスラプションリスクが中〜低程度あります。一方、コア機能は容易に代替されないため、サービスのディスラプションリスクは低いといえます。
