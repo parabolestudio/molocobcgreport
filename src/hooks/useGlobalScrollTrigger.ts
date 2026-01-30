@@ -10,6 +10,11 @@ import {
   type SectionDefinition,
 } from "@/helpers/scroll";
 
+// Register ScrollTrigger plugin
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 interface GlobalScrollTriggerOptions {
   containerRef: RefObject<HTMLElement | null>;
   sectionSteps: number[]; // Array of step counts for each section
@@ -54,7 +59,7 @@ export function useGlobalScrollTrigger({
   });
 
   const sectionsRef = useRef<SectionDefinition[]>(
-    calculateSectionDefinitions(sectionSteps, sectionNames)
+    calculateSectionDefinitions(sectionSteps, sectionNames),
   );
 
   // Store callback in ref to avoid recreating ScrollTrigger
@@ -75,6 +80,12 @@ export function useGlobalScrollTrigger({
 
     const container = containerRef.current;
     if (!container) return;
+
+    // Ensure the container is actually in the DOM
+    if (!document.body.contains(container)) {
+      console.warn("Container not in DOM yet");
+      return;
+    }
 
     const sections = sectionsRef.current;
     const totalSteps = sectionSteps.reduce((sum, steps) => sum + steps, 0);
@@ -114,7 +125,7 @@ export function useGlobalScrollTrigger({
 
         const { sectionIndex, localStep } = getActiveSectionAndStep(
           progress,
-          sections
+          sections,
         );
 
         // If we have a programmatic target, ignore any updates that don't match it
@@ -148,8 +159,21 @@ export function useGlobalScrollTrigger({
 
     return () => {
       //   console.log("Killing ScrollTrigger");
-      trigger.kill();
-      ScrollTrigger.normalizeScroll(false); // Clean up normalizeScroll
+      if (trigger) {
+        trigger.kill();
+      }
+      // Kill all ScrollTriggers associated with this container
+      ScrollTrigger.getAll().forEach((st) => {
+        if (st.trigger === container) {
+          st.kill();
+        }
+      });
+
+      try {
+        ScrollTrigger.normalizeScroll(false);
+      } catch (error) {
+        // Silently handle - element may already be gone
+      }
     };
   }, [containerRef, enabled]);
 
@@ -167,8 +191,14 @@ export function useGlobalScrollTrigger({
     const globalStep = section.startStep + clampedStep;
     const targetProgress = globalStep / totalSteps;
 
+    // Ensure container exists before finding trigger
+    if (!containerRef.current) {
+      console.warn("Container ref not available for scrollToSection");
+      return;
+    }
+
     const trigger = ScrollTrigger.getAll().find(
-      (t) => t.trigger === containerRef.current
+      (t) => t.trigger === containerRef.current,
     );
 
     if (trigger) {
