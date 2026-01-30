@@ -390,7 +390,7 @@ export default function QuadrantSection({
     >
       <div className="relative w-full h-full flex items-center justify-center">
         {/* Intro text - only visible on step 0 - Outer wrapper for positioning (Tailwind), inner wrapper for animation (GSAP) */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[900px] px-8 h-full max-h-[1000px] py-8">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:max-w-[80%] px-8 h-full max-h-[1000px] py-8">
           <div
             ref={introTextRef}
             className="flex flex-col justify-center items-center gap-12 h-full"
