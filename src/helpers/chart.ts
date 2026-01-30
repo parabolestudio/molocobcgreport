@@ -23,12 +23,27 @@ export const verticalsMap: Record<string, Object> = {
     },
     Korean: {
       label: "뉴스",
+      labelFormatted: {
+        firstLine: "뉴스",
+        secondLine: null,
+        position: "top",
+      },
     },
     Japanese: {
       label: "ニュース",
+      labelFormatted: {
+        firstLine: "ニュース",
+        secondLine: null,
+        position: "top",
+      },
     },
     Chinese: {
       label: "新闻",
+      labelFormatted: {
+        firstLine: "新闻",
+        secondLine: null,
+        position: "top",
+      },
     },
     icon: "news",
     quadrant: "bottom-left",
@@ -108,6 +123,11 @@ export const verticalsMap: Record<string, Object> = {
     },
     Korean: {
       label: "자동차 마켓플레이스",
+      labelFormatted: {
+        firstLine: "자동차 마켓플레이스",
+        secondLine: "",
+        position: "top",
+      },
     },
     Japanese: {
       label: "自動車マーケットプレイス",
@@ -243,6 +263,11 @@ export const verticalsMap: Record<string, Object> = {
     },
     Korean: {
       label: "미디어 및 스트리밍",
+      labelFormatted: {
+        firstLine: "미디어 및 스트리밍",
+        secondLine: "",
+        position: "top",
+      },
     },
     Japanese: {
       label: "メディア＆ストリーミング",
@@ -290,6 +315,11 @@ export const verticalsMap: Record<string, Object> = {
     },
     Korean: {
       label: "자동차 OEM",
+      labelFormatted: {
+        firstLine: "자동차 OEM",
+        secondLine: "",
+        position: "top",
+      },
     },
     Japanese: {
       label: "自動車メーカー",
