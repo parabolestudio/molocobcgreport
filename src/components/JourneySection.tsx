@@ -426,6 +426,7 @@ export default function JourneySection({
                 key={step}
                 step={step}
                 passRef={statRefs[step - 1]}
+                language={language}
               />
             ))}
           </div>
@@ -500,10 +501,27 @@ function MethodologyButton({
 function StatDisplay({
   step,
   passRef,
+  language,
 }: {
   step: number;
   passRef: React.RefObject<HTMLDivElement | null>;
+  language: string;
 }) {
+  let widthStatText =
+    step === 1
+      ? "clamp(200px, 100%, 235px)"
+      : step === 2
+        ? "clamp(200px, 100%, 310px)"
+        : step === 3
+          ? "clamp(200px, 100%, 240px)"
+          : step === 4
+            ? "clamp(200px, 100%, 240px)"
+            : "clamp(200px, 100%, 380px)";
+
+  if (language === "Korean" || language === "Japanese") {
+    widthStatText = "320px";
+  }
+
   return (
     <div ref={passRef} style={{ display: "contents" }}>
       <div
@@ -524,16 +542,7 @@ function StatDisplay({
           <div
             className="text-bright-green text-[18px] md:text-[24px] text-center text-balance md:text-left leading-[100%]"
             style={{
-              width:
-                step === 1
-                  ? "clamp(200px, 100%, 235px)"
-                  : step === 2
-                    ? "clamp(200px, 100%, 310px)"
-                    : step === 3
-                      ? "clamp(200px, 100%, 240px)"
-                      : step === 4
-                        ? "clamp(200px, 100%, 240px)"
-                        : "clamp(200px, 100%, 380px)",
+              width: widthStatText,
             }}
           >
             {useCopy(`journey_${step}_stat_text`)}

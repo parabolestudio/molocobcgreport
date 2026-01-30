@@ -72,7 +72,7 @@ Moloco app performance data from 3000+ apps representing 200B+ downloads, analyz
 journey_1_title,"Consumer journey, step 1 title",Inspiration,灵感,インスピレーション,Inspiration,,
 journey_1_stat_headline,"Consumer journey, step 1 headline","<green>Inspiration now 
 starts <b>with AI</b></green>",灵感正从 AI 开始,<green>インスピレーションは今、<b>AIから</b>始まる </green>      ,"<green>영감(Inspiration): 고객 여정의
- 첫 단계인 ‘영감’은 <b>AI에서<b> 시작됩니다.</green>",,
+ 첫 단계인 ‘영감’은 <b>AI에서</b> 시작됩니다.</green>",,
 journey_1_stat_number,"Consumer journey, step 1 stat",1/3,1/3,1/3,1/3,,
 journey_1_stat_text,"Consumer journey, step 1 body text",U.S. adults now discover brands via personal AI agents,的美国成年人如今通过个人 AI 智能体发现品牌,現在、米国では成人の3分の1がパーソナルAIエージェントを通じてブランドを発見,미국 성인 3명 중 1명은 이미 퍼스널 AI 에이전트를 통해 브랜드를 처음 발견합니다.,,
 journey_1_stat_source,"Consumer journey, step 1 source","Source: Cordial, “Brands Battle for Attention as AI Redefines the Funnel” conducted by Dynata, Aug 2025. 1,000 US Adults surveyed by Dynata","来源：Cordial，由 Dynata 执行的《品牌争夺注意力：AI 重塑营销漏斗》报告，2025 年 8 月。Dynata 调研的 1,000 名美国成年人。","出典：""Brands Battle for Attention as AI Redefines the Funnel"". Cordial. Dynataが2025年8月に米国の成人1,000人を対象に実施
@@ -130,6 +130,7 @@ climax_1_paragraph,Climax intro paragraph,"The traditional marketer’s toolkit 
 고객 관계의 강도를 정량적으로 분석했습니다.",,
 qu_expl_title,Quadrant title,The <b>AI Disruption Index</b>,<b>AI 颠覆指数</b>,"<b>AIディスラプション
 インデックス</b>",<b>AI Disruption Index</b>,,
+,,,,,,,
 qu_expl_subline,Quadrant intro,AI Disruption scores verticals on their level of exposure to:,AI 颠覆指数从两个核心维度，对不同垂直行业进行评估：,AIディスラプションインデックスは、以下の2つの軸に基づいて各業界への影響を評価します。,"AI Disruption Index는 <b>AI로 인한 변화 수준을 나타내는 지표로</b>
 산업별로 AI로 인한 변화가 얼마나 크며, 어떤 방식으로 나타나는지를 보여줍니다.",,
 qu_expl_y_description,Quadrant X axis description,"<b>AI Disruption</b> <green>(y-axis)</green>  indexes verticals from high to low based on their level of exposure to:
@@ -194,7 +195,8 @@ qu_bottom_left_description,"Quadrant, step 1 body text","Breached companies need
 qu_top_left_title,"Quadrant, step 2 title",<b>Undefended</b>,<b>Undefended（未设防）</b>,<b>無防備</b>,<b>대응 미흡 영역 (Undefended)</b>,,
 qu_top_left_headline,"Quadrant, step 2 headline","Low AI disruption today, but weak customer ties mean these verticals need to pivot strategies for the long term.","当前 AI 颠覆程度相对较低，但薄弱的客户关系使这些行业在长期发展上面临隐忧。
 ","現時点ではAIディスラプションの影響をあまり受けていないものの、顧客との結びつきが弱い業界は、長期的な戦略転換が求められます。
-","현재로서는 AI로 인한 변화에 상대적으로 크게 노출되지 않았지만,<br> 고객 관계가 약해 장기적으로 전략적 전환이 필요한 산업군입니다.
+","현재로서는 AI로 인한 변화에 상대적으로 크게 노출되지 않았지만,
+고객 관계가 약해 장기적으로 전략적 전환이 필요한 산업군입니다.
 ",,
 qu_top_left_y_level,"Quadrant, step 2, y axis description","<b>AI disruption | <green>Moderate to Low</green></b>
 Discovery disruption is moderate to low due to reliance on paid channels that are most disrupted, including search, programmatic web, and affiliate channels. There’s a low risk of service disruption as core functionalities can’t easily be replicated.","<b>AI 颠覆 | <green>中等至低</green></b>
@@ -263,14 +265,16 @@ qu_bottom_right_description,"Quadrant, step 3 body text","Contested companies ne
 3. 有料検索やプログラマティックディスプレイ広告（Web）といった、AIディスラプションの影響を受けている発見チャネルから、モバイルアプリなど、影響を受けにくいチャネルへとメディア投資を分散させることによって、新たな成長機会を見つけ、既存ユーザーのリエンゲージメントを図る。
 ","경쟁 심화 영역의 기업이 고려해야 할 전략 (remove)
 
-경쟁이 심화된 영역에 속한 기업들은 이미 확보한 <b>경쟁력을 지켜내는 동시에,<br> AI 환경에서도 차별화된 위치를 유지</b>할 수 있는 전략이 필요합니다.
+경쟁이 심화된 영역에 속한 기업들은 이미 확보한 <b>경쟁력을 지켜내는 동시에, 
+AI 환경에서도 차별화된 위치를 유지</b>할 수 있는 전략이 필요합니다.
 
 1. 고객 이탈 방지 요소 강화: AI 기반 기능을 서비스 전반에 깊이 통합하고 고객이 생태계 안에서 대체하기 어려운 서비스로 자리 잡아야 합니다.
 2. 산업 내 AI 활용 방식 선도: 규모와 신뢰를 바탕으로 데이터 파트너십을 확대하거나 독자적인 AI 기능·에이전트를 구축해, 해당 산업에서 AI가 어떻게 활용되어야 하는지에 대한 기준과 방향을 주도적으로 제시해야 합니다.
 3. 미디어 전략 다각화와 재성장 기회 발굴: 유료 검색이나 프로그래매틱 디스플레이(웹)처럼 발견 단계에서 이미 변화가 크게 나타난 채널에 대한 의존을 줄이고, 모바일 앱과 같이 상대적으로 회복력이 높은 채널로 미디어 전략을 확장함으로써 새로운 성장 기회를 발굴하고 기존 유저와의 접점을 다시 강화할 수 있습니다.
 ",,
 qu_top_right_title,"Quadrant, step 4 title",<b>Secured</b>,<b>Secured（已稳固）</b>,<b>安泰</b>,<b>안정 영역 (Secured)</b>,,
-qu_top_right_headline,"Quadrant, step 4 headline",Low AI disruption and strong customer relationships combine to create resilience.,较低的 AI 颠覆风险与强大的客户关系相结合，使这些行业具备高度韧性。,AIディスラプションによる影響の少なさに加え、顧客関係の強さが、高いレジリエンスにつながっています。,"AI로 인한 변화 리스크 수준이 상대적으로 낮고, 견고한 고객 관계를 바탕으로<br> 높은 회복력과 안정성을 갖춘 산업군입니다.
+qu_top_right_headline,"Quadrant, step 4 headline",Low AI disruption and strong customer relationships combine to create resilience.,较低的 AI 颠覆风险与强大的客户关系相结合，使这些行业具备高度韧性。,AIディスラプションによる影響の少なさに加え、顧客関係の強さが、高いレジリエンスにつながっています。,"AI로 인한 변화 리스크 수준이 상대적으로 낮고, 견고한 고객 관계를 바탕으로
+높은 회복력과 안정성을 갖춘 산업군입니다.
 ",,@eleonora@parabole.studio
 qu_top_right_y_level,"Quadrant, step 4, y axis description","<b>AI disruption | <green>Moderate to Low</green></b>
 Discovery disruption is moderate due to a mix of reliance on disrupted and more resilient channels. There’s a low risk of service disruption as core functionalities can’t easily be replicated.","<b>AI 颠覆 | <green>中等至低</green></b>

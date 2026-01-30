@@ -22,7 +22,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      label: "KO_News",
+      label: "뉴스",
     },
     Japanese: {
       label: "ニュース",
@@ -38,7 +38,7 @@ export const verticalsMap: Record<string, Object> = {
       label: "Gaming",
     },
     Korean: {
-      label: "KO_Gaming",
+      label: "게임",
     },
     Japanese: {
       label: "ゲーム",
@@ -54,7 +54,7 @@ export const verticalsMap: Record<string, Object> = {
       label: "Gen AI",
     },
     Korean: {
-      label: "KO_Gen AI",
+      label: "Gen AI",
     },
     Japanese: {
       label: "生成AI",
@@ -70,7 +70,7 @@ export const verticalsMap: Record<string, Object> = {
       label: "Education",
     },
     Korean: {
-      label: "KO_Education",
+      label: "교육",
     },
     Japanese: {
       label: "教育",
@@ -86,7 +86,7 @@ export const verticalsMap: Record<string, Object> = {
       label: "Travel",
     },
     Korean: {
-      label: "KO_Travel",
+      label: "여행",
     },
     Japanese: {
       label: "旅行",
@@ -107,7 +107,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      label: "KO_Auto Marketplace",
+      label: "자동차 마켓플레이스",
     },
     Japanese: {
       label: "自動車マーケットプレイス",
@@ -137,7 +137,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      label: "KO_Retail & eCommerce",
+      label: "리테일 및 이커머스",
     },
     Japanese: {
       label: "小売・Eコマース",
@@ -157,7 +157,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      label: "KO_Health & Fitness",
+      label: "헬스 및 피트니스",
     },
     Japanese: {
       label: "ヘルス＆フィットネス",
@@ -173,7 +173,7 @@ export const verticalsMap: Record<string, Object> = {
       label: "FinTech",
     },
     Korean: {
-      label: "KO_FinTech",
+      label: "핀테크",
     },
     Japanese: {
       label: "フィンテック",
@@ -193,7 +193,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      label: "KO_On-Demand Services",
+      label: "온디맨드 서비스",
     },
     Japanese: {
       label: "オンデマンドサービス",
@@ -221,7 +221,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      label: "KO_Financial Services",
+      label: "금융 서비스",
     },
     Japanese: {
       label: "ファイナンスサービス",
@@ -242,7 +242,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      label: "KO_Media & Streaming",
+      label: "미디어 및 스트리밍",
     },
     Japanese: {
       label: "メディア＆ストリーミング",
@@ -268,7 +268,7 @@ export const verticalsMap: Record<string, Object> = {
       label: "Dating",
     },
     Korean: {
-      label: "KO_Dating",
+      label: "데이팅",
     },
     Japanese: {
       label: "マッチング",
@@ -289,7 +289,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      label: "KO_Auto OEMs",
+      label: "자동차 OEM",
     },
     Japanese: {
       label: "自動車メーカー",
@@ -315,7 +315,7 @@ export const verticalsMap: Record<string, Object> = {
       label: "Social",
     },
     Korean: {
-      label: "KO_Social",
+      label: "소셜 미디어",
     },
     Japanese: {
       label: "SNS",
@@ -331,7 +331,7 @@ export const verticalsMap: Record<string, Object> = {
       label: "Productivity",
     },
     Korean: {
-      label: "KO_Productivity",
+      label: "생산성",
     },
     Japanese: {
       label: "生産性ツール",
@@ -351,7 +351,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      label: "KO_Casino & Sports betting (RMG)",
+      label: "카지노 및 스포츠 베팅(RMG)",
     },
     Japanese: {
       label: "カジノ・スポーツベッティング（RMG）",
