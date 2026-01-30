@@ -121,7 +121,10 @@ function CTAButtons({
           <button
             className={`flex-1 ${
               showExploreButtons ? "bg-[#D9D9D9]" : "bg-[#F2F2F2]"
-            } flex items-center justify-between gap-2 hover:bg-[#D9D9D9] transition text-black-blue relative z-20`}
+            } flex items-center justify-between gap-2 
+            hover:bg-[#D9D9D9] transition text-black-blue relative z-20
+            min-w-[175px]
+            `}
             onClick={() => {
               setShowExploreButtons(!showExploreButtons);
               setShowMethodTooltip(false);
