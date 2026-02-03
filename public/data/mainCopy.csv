@@ -1,12 +1,12 @@
 Key,Description for humans,English,Chinese,Japanese,Korean,,
-hooks_1_text,"Hook, screen 1","The biggest shifts in AI today aren’t technological, <b><green>they’re behavioral</green></b>.",当今 AI 领域最深刻的变革，并非源自技术本身，而是来自用户行为的改变。,"AIによる今日最大の変革はテクノロジーではなく
+hooks_1_text,"Hook, screen 1","The biggest shifts in AI today aren’t technological, <b><green>they’re behavioral</green></b>.",当今 AI 领域最深刻的变革，并非源自技术本身，<b><green>而是来自用户行为的改变</green></b>.。,"AIによる今日最大の変革はテクノロジーではなく
 <b><green>「行動」にあります</green></b>",오늘날 AI 분야의 가장 큰 변화는 기술이 아니라 <b><green>소비자의 행동 변화</green></b>에서 나타나고 있습니다.,,
-hooks_1_button,"Hook, screen 1 button",scroll,滚动,,스크롤,,
+hooks_1_button,"Hook, screen 1 button",scroll,滚动,スクロール,스크롤,,
 hooks_2_text,"Hook, screen 2","Consumer behavior is shifting faster than marketing budgets can follow, and this will only continue to accelerate.
 
 New research on AI/LLM disruption<info>Here AI/LLM refers to generative AI chatbots, assistants, and agents, which we’ll refer to as “AI” throughout the report for simplicity’s sake.</info>, done in partnership with BCG, dives deep into these behavioral shifts, the <green><b>current state of play for marketers</b></green>, and where we go from here.","消费者行为的演变速度，已远远快于营销预算调整的节奏，而且这一差距仍在持续扩大。
 
-我们与波士顿咨询（BCG）围绕 AI/LLM 带来的颠覆性影响开展了最新研究，深入解析这些行为变化、营销人员当前所处的现实格局，以及未来的演进方向。<info>此处的 AI/LLM 指 AI 聊天机器人、助手和智能体。为便于理解，报告中将统一简称为 “AI”。</info>
+我们与波士顿咨询（BCG）围绕 AI/LLM 带来的颠覆性影响开展了最新研究，深入解析这些行为变化、 <green><b>营销人员当前所处的现实格局</b></green>，以及未来的演进方向。<info>此处的 AI/LLM 指 AI 聊天机器人、助手和智能体。为便于理解，报告中将统一简称为 “AI”。</info>
 ","消費者の行動は、マーケティング予算が追い付かない速さで変化しており、今後さらに加速することが予想されます。
 
 BCGの協力を得て実施した、AI/LLMがもたらす
@@ -17,7 +17,7 @@ BCGの協力を得て実施した、AI/LLMがもたらす
 ","소비자 행동은 기존의 마케팅 예산 집행 방식으로는 따라가기 어려울 만큼 빠르게 변화하고 있으며, 앞으로도 더욱 가속화될 것입니다.
 
 몰로코와 BCG가 공동으로 진행한 이번 연구는 AI/LLM이 만들어내는 이러한 행동 변화부터, <green><b>마케터가 직면한 현실</b></green>, 그리고 앞으로 나아가야 할 방향까지 심층적으로 분석합니다.<info>본 보고서에서 AI/LLM은 AI 챗봇, 어시스턴트, 에이전트를 의미하며, 간결성을 위해 전반적으로 “AI”로 통칭합니다.</info>",,
-hooks_title,Title,<green>The <b>AI Disruption Index</b></green>,AI 颠覆指数报告,"<green><b>AIディスラプション
+hooks_title,Title,<green>The <b>AI Disruption Index</b></green>,<green> <b>AI 颠覆指数报告</b></green> ,"<green><b>AIディスラプション
 インデックス</b></green>","AI 시대, 변화하는 고객 여정과 새로운 기회",,
 hooks_subline,Title sub-line,Report by,联合发布,Report by,리포트,,
 context_intro,Context paragraph 1,"<b>In partnership with BCG, we surveyed 283 marketing leaders across 15 verticals and 5 regions, interviewed 15 executives from leading companies, and analyzed first-party Moloco data from 3,000+ apps representing 200 billion downloads.</b>","<b>我们与 BCG 合作，对来自 15 个垂直行业和 5 个地区的 283 位营销领导者进行了调研，并对 15 位来自领先企业的高管进行了深度访谈。同时，我们还分析了来自 3,000+ 个 App、覆盖 2,000 亿次以上下载量的 Moloco 一手 App 效果数据。</b>","<b>MolocoはBCGと共同で、5つの地域、15の業界にわたる283名のマーケティングリーダーを対象に調査を行い、主要企業の幹部15名にインタビューを実施しました。さらに、合計ダウンロード数が2,000億件に上る3,000以上のアプリから取得したファーストパーティデータを分析しました。</b>","<b>몰로코는 BCG와의 공동 연구를 통해 15개 산업군, 5개 지역에 걸친
@@ -71,7 +71,7 @@ Moloco app performance data from 3000+ apps representing 200B+ downloads, analyz
 3,000개 이상의 앱(누적 다운로드 2,000억 건 이상)에 대한 몰로코 앱 퍼포먼스 데이터 분석(리텐션, 참여 패턴, 유저 확보 채널 (Moloco/Sensor Tower/Semrush)",,
 journey_1_title,"Consumer journey, step 1 title",Inspiration,灵感,インスピレーション,Inspiration,,
 journey_1_stat_headline,"Consumer journey, step 1 headline","<green>Inspiration now 
-starts <b>with AI</b></green>",灵感正从 AI 开始,<green>インスピレーションは今、<b>AIから</b>始まる </green>      ,"<green>영감(Inspiration): 고객 여정의
+starts <b>with AI</b></green>",<green>灵感正从<b> AI </b>开始</green>,<green>インスピレーションは今、<b>AIから</b>始まる </green>      ,"<green>영감(Inspiration): 고객 여정의
  첫 단계인 ‘영감’은 <b>AI에서</b> 시작됩니다.</green>",,
 journey_1_stat_number,"Consumer journey, step 1 stat",1/3,1/3,1/3,1/3,,
 journey_1_stat_text,"Consumer journey, step 1 body text",U.S. adults now discover brands via personal AI agents,的美国成年人如今通过个人 AI 智能体发现品牌,現在、米国では成人の3分の1がパーソナルAIエージェントを通じてブランドを発見,미국 성인 3명 중 1명은 이미 퍼스널 AI 에이전트를 통해 브랜드를 처음 발견합니다.,,
@@ -79,7 +79,7 @@ journey_1_stat_source,"Consumer journey, step 1 source","Source: Cordial, “Bra
 ","출처: Cordial, “Brands Battle for Attention as AI Redefines the Funnel”, Dynata, 2025년 8월, 미국 성인 1,000명 대상 조사",,
 journey_2_title,"Consumer journey, step 2 title",Discovery,发现,発見,Discovery ,,
 journey_2_stat_headline,"Consumer journey, step 2 headline","<green>Discovery has
- been <b>upended</b></green>",发现阶段已被彻底改写,<green>発見プロセスが<b>一変</b></green>                ,<green>발견(Discovery): 발견 단계는 <b>완전히 바뀌고 있습니다.</b></green>,,
+ been <b>upended</b></green>",<green>发现阶段已被彻底 <b>改写</b></green>,<green>発見プロセスが<b>一変</b></green>                ,<green>발견(Discovery): 발견 단계는 <b>완전히 바뀌고 있습니다.</b></green>,,
 journey_2_stat_number,"Consumer journey, step 2 stat",80%,80%,80%,80%,,
 journey_2_stat_text,"Consumer journey, step 2 body text",of Google searches now end without a click when AI Overview is present,的 Google 搜索不再有点击外链的行为,「AIによる概要」が表示される場合、80%のGoogle検索がクリックされずに終了," AI Overview가 노출되는 경우,
 Google 검색의 80%는
@@ -87,13 +87,12 @@ Google 검색의 80%는
 journey_2_stat_source,"Consumer journey, step 2 source","Source: Similarweb, “Zero-Click Searched And How They Impact Traffic”, May 2025",来源：Similarweb，《Zero-Click Searches And How They Impact Traffic》，2025 年 5 月。,"出典：""Zero-Click Searches And How They Impact Traffic"". Similarweb.（2025年5月）
 ","출처: Similarweb, “Zero-Click Searches And How They Impact Traffic”, 2025년 5월",,
 journey_3_title,"Consumer journey, step 3 title",Consideration,考虑,検討,Consideration,,
-journey_3_stat_headline,"Consumer journey, step 3 headline","<green>For shoppers, AI has gone from experimental to <b>essential</b></green>",对消费者而言，AI 已从尝试阶段走向不可或缺,"<green>買い物客にとってAIは
+journey_3_stat_headline,"Consumer journey, step 3 headline","<green>For shoppers, AI has gone from experimental to <b>essential</b></green>",<green>对消费者而言，AI 已从尝试阶段走向 <b>不可或缺</b></green>,"<green>買い物客にとってAIは
 実験的なものから<b>不可欠</b>なものに</green>","<green>고려(Consideration):  쇼핑 과정에서 AI는
 실험적인 툴을 넘어 <b>필수로</b> 자리 잡았습니다.</green>",,
 journey_3_stat_number,"Consumer journey, step 3 stat",47%,47%,47%,47%,,
-journey_3_stat_text,"Consumer journey, step 3 body text",of consumers use AI to research purchases,的消费者使用 GenAI 来辅助其购买决策,"の消費者が購入の
-際に生成AIを
-使用して調査　　","소비자의 47%는
+journey_3_stat_text,"Consumer journey, step 3 body text",of consumers use AI to research purchases,的消费者使用 GenAI 来辅助其购买决策,"の消費者が購入の際に
+生成AIを使用して調査　　","소비자의 47%는
 구매 전 조사를 위해
 생성형 AI(Gen AI)를 활용합니다",,
 journey_3_stat_source,"Consumer journey, step 3 source","Source: Attest, “2025 Consumer Adoption of AI Report” , July 2025. 
@@ -103,19 +102,19 @@ Attestプラットフォームを使用している米国、英国、カナダ�
 ","출처: Attest, “2025 Consumer Adoption of AI Report”, 2025년 7월, Attest 플랫폼을 활용한 미국, 영국, 캐나다, 호주 성인 5,000명 대상 조사",,
 journey_4_title,"Consumer journey, step 4 title",Conversion,转化,コンバージョン,Conversion,,
 journey_4_stat_headline,"Consumer journey, step 4 headline","<green>AI is extending 
-from advice to <b>action</b></green>",AI 正在从“给建议”走向“代执行”,"<green>AIの役割が「アドバイス」から
+from advice to <b>action</b></green>",<green>AI 正在从“给建议”走向<b>“代执行”</b></green>,"<green>AIの役割が「アドバイス」から
 <b>「アクション」</b>へと拡大</green>","<green>전환(Conversion): AI의 역할은 조언을 넘어, 
 <b>실제 소비자 행동까지</b> 확장되고 있습니다.</green>",,
 journey_4_stat_number,"Consumer journey, step 4 stat",30%,30%,30%,30%,,
 journey_4_stat_text,"Consumer journey, step 4 body text",feel comfortable letting AI make purchases for them,的受访者表示，对让 AI 代其完成购买感到放心,"の消費者がAIに購入を
-代行させることに
-抵抗を感じていない","는 AI가 대신
+代行させることに抵抗
+を感じていない","는 AI가 대신
 구매 결정을 내려도 
 괜찮다고 느낍니다.",,
 journey_4_stat_source,"Consumer journey, step 4 source","Source: Contentsquare/Morningstar, December 2025, n=1,300 US adults surveyed by Pollfish.","来源：Contentsquare / Morningstar，2025 年 12 月，由 Pollfish 调研的 1,300 名美国成年人。
 ","出典：Pollfish経由で米国成人1,300人を対象に実施されたContentsquare / Morningstarの調査（2025年12月）
 ","출처: Contentsquare/Morningstar, 2025년 12월, Pollfish를 통해 미국 성인 1,300명 설문",,
-climax_1_title,Climax intro title,<green>Understanding disruption on the <b>vertical level</b></green>,理解垂直行业层面的颠覆,"<green><b>業界別</b>に
+climax_1_title,Climax intro title,<green>Understanding disruption on the <b>vertical level</b></green>,<green>理解<b>垂直行业层面</b>的颠覆</green>,"<green><b>業界別</b>に
 ディスラプションを
 理解する</green>","<green><b>산업별로</b> 살펴보는 
 AI 전환의 영향</green>",,
@@ -130,19 +129,18 @@ climax_1_paragraph,Climax intro paragraph,"The traditional marketer’s toolkit 
 고객 관계의 강도를 정량적으로 분석했습니다.",,
 qu_expl_title,Quadrant title,The <b>AI Disruption Index</b>,<b>AI 颠覆指数</b>,"<b>AIディスラプション
 インデックス</b>",<b>AI Disruption Index</b>,,
-,,,,,,,
 qu_expl_subline,Quadrant intro,AI Disruption scores verticals on their level of exposure to:,AI 颠覆指数从两个核心维度，对不同垂直行业进行评估：,AIディスラプションインデックスは、以下の2つの軸に基づいて各業界への影響を評価します。,"AI Disruption Index는 <b>AI로 인한 변화 수준을 나타내는 지표로</b>
 산업별로 AI로 인한 변화가 얼마나 크며, 어떤 방식으로 나타나는지를 보여줍니다.",,
 qu_expl_y_description,Quadrant X axis description,"<b>AI Disruption</b> <green>(y-axis)</green>  indexes verticals from high to low based on their level of exposure to:
 - Service Disruption: The risk that AI can replace services that a brand offers 
-- Discovery Disruption: Consumers going to AI for discovery rather than using traditional channels","AI 颠覆风险（Y 轴）：根据行业受到 AI 影响的程度，从高到低衡量，主要包括：
+- Discovery Disruption: Consumers going to AI for discovery rather than using traditional channels","<b>AI 颠覆风险</b> <green>（Y 轴）</green> ：根据行业受到 AI 影响的程度，从高到低衡量，主要包括：
 – 服务颠覆：AI 替代品牌所提供服务的风险
 – 发现颠覆：消费者转向使用 AI 进行发现，而非依赖传统渠道","<b>AIディスラプション</b><green>（縦軸）</green>は、各業界が以下の影響をどの程度受けているかを基準に、ディスラプションのレベルを「高」から「低」で指数化します。
 - サービスのディスラプション：ブランドが提供するサービスがAIに代替されるリスク
 - 発見のディスラプション：消費者が従来のチャネルではなく、AIを利用して商品やサービスを発見する傾向","<b>AI로 인한 변화 수준</b> <green>(AI Disruption, Y축)</green>: 세로축은 각 산업이 AI로 인한 변화 리스크에 노출된 수준을 높음에서 낮음까지 지수화해 보여줍니다. 이 지수는 다음 두 가지 측면을 종합해 산정됩니다.
 - 서비스 측면의 변화(Service Disruption): AI가 브랜드가 제공하는 기존 서비스를 대체할 가능성
 - 발견 단계의 변화(Discovery Disruption): 소비자가 기존 채널이 아닌 AI를 주요 탐색 및 발견 수단으로 활용하는 변화",,
-qu_expl_x_description,Quadrant Y axis description,"<b>Customer Relationship Strength</b> <green>(x-axis)</green> indexes strength from high to low based on a variety of factors including ability to drive long-term loyalty, reliance on paid user acquisition, and how much customers engage on platforms like apps (higher engagement) vs. the web (lower).","客户关系强度（X 轴）：从高到低衡量客户关系的稳固程度，综合考虑多项因素，包括长期忠诚度的建立能力、对付费获客的依赖程度，以及客户主要是在 App 等高参与度平台，还是在 Web 等低参与度环境中互动。
+qu_expl_x_description,Quadrant Y axis description,"<b>Customer Relationship Strength</b> <green>(x-axis)</green> indexes strength from high to low based on a variety of factors including ability to drive long-term loyalty, reliance on paid user acquisition, and how much customers engage on platforms like apps (higher engagement) vs. the web (lower).","<b>客户关系强度</b> <green>（X 轴）</green> ：从高到低衡量客户关系的稳固程度，综合考虑多项因素，包括长期忠诚度的建立能力、对付费获客的依赖程度，以及客户主要是在 App 等高参与度平台，还是在 Web 等低参与度环境中互动。
 ",<b>顧客関係の強度</b><green>（横軸）</green>は、長期的なロイヤルティの創出力、有料ユーザー獲得（UA）への依存度、 アプリ（高エンゲージメント）やWebサイト（低エンゲージメント）などのプラットフォーム上での顧客エンゲージメントのレベルなど、さまざまな要因に基づいて顧客関係の強度を「高」から「低」で指数化します。,"<b>고객 관계 강도</b> <green>(Customer Relationship Strength, X축)</green>: 가로축은 고객 관계의 견고함을 높음에서 낮음까지 나타내며, 장기적인 고객 충성도를 형성할 수 있는 역량, 구매 유저 확보에 대한 의존도, 그리고 모바일 앱(높은 참여도) 대비 웹(낮은 참여도)에서의 고객 참여 수준 등 다양한 요인을 종합해 
 평가합니다.",,
 qu_info,"Info message (is now the source, to remain the same throughout)","Moloco and BCG. Based on surveys and interviews with 250 senior marketing leaders (CMOs & VPs) across 15 verticals, plus first-party Moloco app performance data from 3,000+ apps representing 200B+ downloads.","Moloco 和 BCG。
@@ -178,7 +176,7 @@ qu_bottom_left_description,"Quadrant, step 1 body text","Breached companies need
 
 1. Build stronger customer relationships by investing in owned services like mobile apps, creating loyalty programs, personalized experiences, and community ecosystems
 2. Make the most of first-party data and integrate AI-like offerings to create personalized deals, contextually relevant product comparisons, and AI-driven customer assistance
-3. Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps","已失守行业的企业，需要从根本上重建客户关系层：
+3. Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps","已失守行业的企业，需要从根本上<b>重建客户关系层</b>：
 
 1. 投资自有阵地（如移动 App），打造忠诚度计划、个性化体验和社区生态，强化客户连接
 2. 充分利用一手数据，并整合类 AI 能力，提供个性化优惠、情境化比价，以及 AI 驱动的客户支持
@@ -217,16 +215,14 @@ Low customer relationship strength is due to a combination of weak loyalty, high
 qu_top_left_description,"Quadrant, step 2 body text","Undefended companies need to <b>build future-proof foundations</b>: 
 
 1. Build stronger customer relationships by investing in owned services like mobile apps, creating loyalty programs, personalized experiences, and community ecosystems
-2. Make the most of first-party data and integrate AI-like offerings to create personalized deals, contextually relevant product comparisons, and AI-driven customer assistance","未设防行业的企业，需要尽早夯实面向未来的基础：
+2. Make the most of first-party data and integrate AI-like offerings to create personalized deals, contextually relevant product comparisons, and AI-driven customer assistance","未设防行业的企业，需要<b>尽早夯实面向未来的基础</b>：
 
 1. 投资自有服务（如移动 App），建立更稳固的客户关系
 2. 借助一手数据和类 AI 能力，打造更具相关性的优惠、比价体验和智能客户支持","「無防備」の領域に属する企業は、以下によって<b>将来を見据えた基盤を構築</b>する必要があります。
 
 1. モバイルアプリなどの自社が運営するサービスへの投資、ロイヤルティプログラムの導入、パーソナライズされたユーザー体験の創出、コミュニティエコシステムの構築などへの投資を通じて顧客関係を強化する。
 2. AIベースのソリューションを統合すると同時にファーストパーティデータを最大限に活用し、パーソナライズされたオファーや、コンテキストに即した商品比較、AI主導のカスタマーサポートを提供する。
-","대응이 미흡한 영역의 기업이 고려해야 할 전략 (remove)
-
-대응이 미흡한 영역에 속한 기업들은 장기적인 AI 환경을 대비해 <b>고객 관계의 기반을 지금부터 강화</b>해야 합니다.
+","대응이 미흡한 영역에 속한 기업들은 장기적인 AI 환경을 대비해 <b>고객 관계의 기반을 지금부터 강화</b>해야 합니다.
 
 1. 자사 보유 서비스 강화: 모바일 앱과 같은 자사 채널에 대한 투자를 확대하고, 로열티 프로그램과 개인화된 경험, 커뮤니티 중심의 생태계를 구축해 보다 지속 가능한 고객 관계를 형성할 수 있습니다.
 2. 퍼스트 파티 데이터와 AI 활용 고도화: 퍼스트 파티 데이터를 적극 활용하고 AI 기반 기능을 서비스에 통합해, 개인화된 혜택 제공, 소비자 맥락에 맞는 제품 비교, 그리고 AI 기반 고객 지원 경험을 구현할 수 있습니다.
@@ -255,7 +251,7 @@ qu_bottom_right_description,"Quadrant, step 3 body text","Contested companies ne
 
 1. Elevate existing switching costs by integrating AI capabilities that will be indispensable to customers.
 2. Shape industry standards by leveraging scale and trust to define how AI integrates into this vertical (i.e., data partnerships, proprietary agents)
-3. Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps","处于争夺中的企业，需要同时防守并拉开差异：
+3. Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps","处于争夺中的企业，需要<b>同时防守并拉开差异</b>：
 1. 将 AI 增强型能力打造为生态体系中不可或缺的一环，进一步提高转换成本
 2. 借助规模和信任优势，参与甚至主导行业标准，定义 AI 在该垂直行业中的应用方式（如数据合作、专有智能体）
 3. 调整媒体策略，将投入从受冲击的发现渠道，转向更具韧性的渠道（如移动 App），以实现持续增长","「激戦」の領域に属する企業は、以下によって<b>防御し、差別化</b>する必要があります。
@@ -293,7 +289,7 @@ Habitual engagements, organic pull, and trust all drive high customer loyalty. "
 qu_top_right_description,"Quadrant, step 4 body text","Secured companies can <b>accelerate their advantage</b>:
 
 1. Reimagine customer connection with AI-powered experiences, shifting from generic engagement to personalized, proactive relationships 
-2. Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps","已稳固行业的企业，可以进一步放大自身优势：
+2. Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels like mobile apps","已稳固行业的企业，可以<b>进一步放大自身优势</b>：
 
 1. 通过 AI 驱动的体验，重新定义客户连接方式，从泛化忠诚度转向更个性化、更主动的关系
 2. 优化媒体结构，将预算从受冲击的发现渠道，转向更具韧性的触点，以持续激活用户价值","「安泰」の領域に属する企業は、以下によって <b>優位性を高める</b>ことができます。
@@ -311,8 +307,8 @@ qu_select_vertical_prompt,Text in overlay over chart to get user to select a ver
 qu_vertical_dropdown,Label for vertical dropdown,Select vertical,选择垂直行业,業界を選択,산업군 선택,,
 qu_button_show_less,"On mobile, show less button in source display",Show less,收起,一部を表示 ,접기,,
 qu_button_show_more,"On mobile, show more button in source display",Show more,展开,さらに表示 ,더 보기,,
-qu_button_expand,"On mobile, expand content box",Expand,,,,,
-qu_button_reduce,"On mobile, reduce content box",Reduce,,,,,
+qu_button_expand,"On mobile, expand content box",Expand,扩大,さらに表示 ,,,
+qu_button_reduce,"On mobile, reduce content box",Reduce,减少,一部を表示 ,,,
 qu_button_next,Next button in chart panel,Next,下一步, 次へ,다음,,
 qu_button_back,Back button in chart panel,Back,返回,戻る,이전,,
 qu_button_index,Button in chart panel to go to verticals screen,Skip to index,跳转至索引," インデックスへ
@@ -337,14 +333,13 @@ qu_panel_customer_engagement,Chart Panel Label,Platform Engagement,平台参与�
 qu_panel_customer_engagement_note,Chart Panel Label,share of time spent on app vs. web,App 与 Web 的使用时长占比,アプリとWebサイトの利用時間比率,앱 vs. 웹 사용 시간 비중,,
 qu_score_display_average,Average note at little lollipop chart,avg.,平均值,平均値,평균,,
 qu_all_verticals,Used in mobile vertical selector,All verticals,所有垂直行业,すべての業界,전체 산업군,,
-closure_title,Closure title,"While journeys shift, <b>relationships endure</b>",旅程在变化，关系却能延续,"ジャーニーは
+closure_title,Closure title,"While journeys shift, <b>relationships endure</b>",旅程在变化，<b>关系却能延续</b>,"ジャーニーは
 変化しても
 <b>関係は存続する</b>","여정은 변화하지만, <b>관계는 지속</b>됩니다",,
 closure_paragraph_1,Closure paragraph 1,"Every vertical and company will face a unique set of opportunities and challenges, but there’s one strategic principle that’s consistent. Customer relationships are the durable asset of the AI future.","尽管不同行业和企业面临的机遇与挑战各不相同，但有一个战略共识始终成立：在 AI 时代，客户关系才是最具持久价值的资产。
 ",業界や企業によって、恵まれる機会や直面する課題は異なりますが、変わることのない共通する戦略原則があります。それは、顧客関係こそが、AI主導の未来において持続的に価値を生み続ける資産であるということです。,"산업과 기업마다 마주하는 기회와 과제는 서로 다르지만, 하나의 전략적 원칙만큼은 변하지 않습니다. AI 시대에도 가장 오래 지속되는 경쟁력은 고객 관계입니다.
 ",,
-closure_paragraph_2,Closure paragraph 2,Here are <b>three critical strategies</b> forward-looking CMOs are using to drive connections:,"以下是前瞻型 CMO 正在采取的关键策略，用于构建更深层次的客户连接：
-",以下は先見性のあるCMOが実践している顧客関係の構築を推進する<b>3つの主要戦略</b>です。,"미래를 준비하는 CMO들은 <b>3가지 핵심 전략</b>을 통해 고객과의 연결을 강화하고 있습니다.
+closure_paragraph_2,Closure paragraph 2,Here are <b>three critical strategies</b> forward-looking CMOs are using to drive connections:,以下是前瞻型 CMO 正在采取的<b>三个关键策略</b> ，用于构建更深层次的客户连接：,以下は先見性のあるCMOが実践している顧客関係の構築を推進する<b>3つの主要戦略</b>です。,"미래를 준비하는 CMO들은 <b>3가지 핵심 전략</b>을 통해 고객과의 연결을 강화하고 있습니다.
 ",,
 closure_card_1_title,Closure card 1 title,<b>Investing in the best digital experience for customers: mobile apps</b>,<b>投资于卓越的数字化客户体验：移动 App</b>,<b>モバイルアプリへの投資を通じて顧客に最高のデジタル体験を</b>,<b>고객을 위한 최고의 디지털 경험에 투자: 모바일 앱</b>,,
 closure_card_1_summary,Closure card 1 summary,"While everyone fights for visibility in the disrupted world, surfaces where brands own the direct relationship are now a primary competitive advantage. That’s why brands are doubling down on creating great experiences on mobile, the stickiest surface for consumers. 
@@ -372,7 +367,6 @@ closure_card_1_text,Closure card 1 text,"Brands can curate and control the end-t
 - AI 기반 탐색, 비교, 어시스턴트
 - 게임화된 인터랙션과 독점 접근 권한 및 리워드
 - 고객 충성도를 강화하는 커뮤니티 중심의 참여 경험",,
-,,,,,,,
 closure_card_2_title,Closure card 2 title,<b>Owning and activating customer signals</b>,<b>掌控并激活客户信号</b>,<b>顧客のシグナルを保有して活用</b>,<b>고객 행동 데이터의 확보와 활용</b>,,
 closure_card_2_summary,Closure card 2 summary,"Customer signals will continue to be a critical differentiator as third-party signals become less reliable. The more brands can understand their customers, the stickier connections and relationships they can build.",随着第三方信号的可靠性不断下降，客户信号将持续成为关键差异化要素。品牌对客户理解得越深入，就越能建立更具黏性的连接与关系。,サードパーティシグナルの信頼性が低下する中、顧客シグナルは今後も重要な差別化要因であり続けます。顧客に対する理解が深まるほど、より粘着性の高いつながりと関係を構築できます。,"서드 파티 데이터의 한계가 커지는 가운데, 고객 행동 데이터는 앞으로도 브랜드 경쟁력을 좌우하는 핵심 차별 요소로 자리 잡고 있습니다. 브랜드가 고객을 더 깊이 이해할수록, 관계는 더욱 견고해지고 지속적으로 강화됩니다.",,
 closure_card_2_text,Closure card 2 text,"<b>Customer expectations</b> are higher than ever, and making the most of the customer signal can be the primary difference-maker in being able to understand and meet those needs. Key strategies include:
@@ -392,7 +386,6 @@ closure_card_2_text,Closure card 2 text,"<b>Customer expectations</b> are higher
 - 웹, 앱, 오프라인 행동을 연결하는 통합 프로필 구축
 - AI를 활용해 퍼스트 파티 데이터를 대규모 개인화에 적용
 - 이탈한 유저를 효과적으로 재유입해 성장 가속화",,
-,,,,,,,
 closure_card_3_title,Closure card 3 title,<b>Rethinking channel mix in the new age of discovery</b>,<b>在全新的发现时代重新思考渠道组合</b>,<b>新しい「発見」の時代におけるチャネルミックスの再考</b>,<b>새로운 발견 환경에서의 채널 믹스 재정의</b>,,
 closure_card_3_summary,Closure card 3 summary,"Find new pockets of growth and re-engage existing users by diversifying media spend away from disrupted discovery channels like paid search and programmatic display (web) to more resilient channels where discovery is happening, such as in-app advertising.",通过将媒体预算从已被颠覆的发现渠道（如付费搜索和程序化展示 Web），转向发现正在发生、且更具韧性的渠道（如 App 内广告），寻找新的增长空间并重新激活现有用户。,有料検索やプログラマティックディスプレイ広告（Web）といった、AIディスラプションの影響を受けている発見チャネルから、アプリ内広告など、発見が実際に起きている、よりレジリエンスの高いチャネルへとメディア投資を分散させることによって、新たな成長機会を見つけ、既存ユーザーのリエンゲージメントを図ります。,"유료 검색이나 프로그래매틱 디스플레이(웹)처럼 이미 변화의 영향을 크게 받고 있는 발견 채널에서 벗어나, 인앱 광고와 같이 실제 발견이 이루어지는 보다 안정적인 채널로 미디어 전략을 다각화함으로써 새로운 성장 기회를 발굴하고 기존 유저를 활성화할 수 있습니다.",,
 closure_card_3_text,Closure card 3 text,"<b>Highly disrupted channels</b> include paid and organic search, programmatic display (web), and affiliate channels
@@ -415,9 +408,8 @@ More <b>resilient channels</b> are ones with direct engagement and access to fir
 - 인앱 마케팅 채널
 - 이커머스 및 리테일 미디어
 - 이메일 및 CRM",,
-,,,,,,,
 closure_explore,Label above buttons,Explore,探索更多,詳細,살펴보기,,
-cta_text,CTA text,<green>Let’s <b>grow your app</b></green>,让我们一起推动您的 App 增长,"アプリの
+cta_text,CTA text,<green>Let’s <b>grow your app</b></green>,<green>让我们一起<b>推动您的 App 增长</b></green>,"アプリの
 成長を加速",앱 성장을 함께 만들어 보세요,,
 cta_text_button_1,CTA button 1,BCG Report,获取 BCG 报告,BCGレポート,BCG 리포트,,
 cta_text_button_2,CTA button 2,Methodology,方法论,調査方法,방법론,,
