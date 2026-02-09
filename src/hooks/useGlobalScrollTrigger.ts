@@ -93,12 +93,18 @@ export function useGlobalScrollTrigger({
     // ScrollTrigger.config({ ignoreMobileResize: true });
 
     // Enable ScrollTrigger's normalizeScroll for better mobile handling
-    // Allow nested scroll so users can scroll within containers like chart panels
-    ScrollTrigger.normalizeScroll({
-      allowNestedScroll: true, // Allow scrolling within nested containers
-      lockAxis: true,
-      type: "touch,wheel,pointer",
-    });
+    // Only on touch devices — on desktop the scrollbar can trigger a
+    // "getComputedStyle on non-Element" crash inside _nestedScroll.
+    const isTouchDevice =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+    if (isTouchDevice) {
+      ScrollTrigger.normalizeScroll({
+        allowNestedScroll: true,
+        lockAxis: true,
+        type: "touch,wheel,pointer",
+      });
+    }
 
     // Create a single ScrollTrigger for the entire page
     const trigger = ScrollTrigger.create({
@@ -170,7 +176,9 @@ export function useGlobalScrollTrigger({
       });
 
       try {
-        ScrollTrigger.normalizeScroll(false);
+        if (isTouchDevice) {
+          ScrollTrigger.normalizeScroll(false);
+        }
       } catch (error) {
         // Silently handle - element may already be gone
       }
