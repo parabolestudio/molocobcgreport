@@ -203,10 +203,21 @@ function CTAButtons({
         <button
           className="flex-1 bg-[#F2F2F2] flex items-center justify-between gap-2 hover:bg-[#D9D9D9] transition text-black-blue"
           onClick={() => {
-            window.open(
-              "https://www.moloco.cloud/hubfs/Gated%20Content/BCG%20Report%20Summary.pdf",
-              "_blank",
-            );
+            let pdfURL =
+              "https://www.moloco.cloud/hubfs/Gated%20Content/BCG%20Report%20Summary.pdf";
+            switch (language) {
+              case "Korean":
+                // pdfURL = "";
+                break;
+              case "Japanese":
+                pdfURL =
+                  "https://www.moloco.cloud/hubfs/Gated%20Content/BCG%20Report%20Summary%20JA.pdf";
+                break;
+              case "Chinese":
+                // pdfURL = "";
+                break;
+            }
+            window.open(pdfURL, "_blank");
           }}
         >
           <span>{downloadButtonText}</span>
