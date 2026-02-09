@@ -46,12 +46,9 @@ export default function ChartPanelContentSelectedVertical({
     );
   }
 
-  let verticalDisplayName: React.ReactNode = "";
-  if (selectedVertical && language === "English") {
-    verticalDisplayName = replaceCertainGlyphs(selectedVertical);
-  } else {
-    verticalDisplayName = copy?.vertical || selectedVertical;
-  }
+  const verticalDisplayName: React.ReactNode = replaceCertainGlyphs(
+    copy?.vertical || "",
+  );
   return (
     <div className="flex flex-col h-full">
       {mobile && (

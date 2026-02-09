@@ -204,6 +204,11 @@ export const verticalsMap: Record<string, Object> = {
     },
     Chinese: {
       label: "金融科技",
+      labelFormatted: {
+        firstLine: "金融科技",
+        secondLine: "",
+        position: "top",
+      },
     },
     icon: "fintech",
     quadrant: "top-right",
