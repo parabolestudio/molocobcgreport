@@ -349,7 +349,16 @@ export default function QuadrantSection({
           ? +d["Risk of AI disruption"]
           : 0,
       }));
-      setVerticalsData(processedData as VerticalData[]);
+
+      // For China, filter out RMG vertical
+      if (language === "Chinese") {
+        const filteredData = processedData.filter(
+          (d) => d.verticalEnglish !== "Casino & Sports betting (RMG)",
+        );
+        setVerticalsData(filteredData);
+      } else {
+        setVerticalsData(processedData as VerticalData[]);
+      }
     });
   }, []);
 
