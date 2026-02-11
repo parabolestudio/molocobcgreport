@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { MuseoModerno, Montserrat } from "next/font/google";
 import "./globals.css";
 import { DevLinkProvider } from "@/devlink/DevLinkProvider";
@@ -17,12 +16,6 @@ const montserrat = Montserrat({
   weight: ["200", "300", "400", "500", "600", "700"],
   display: "swap",
 });
-
-export const metadata: Metadata = {
-  metadataBase: new URL("https://www.moloco.com/"),
-  title: "The AI Disruption Index",
-  description: "Report by Moloco and BCG",
-};
 
 export default function RootLayout({
   children,
