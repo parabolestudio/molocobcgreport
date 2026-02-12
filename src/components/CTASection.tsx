@@ -214,7 +214,8 @@ function CTAButtons({
                   "https://www.moloco.cloud/hubfs/Gated%20Content/BCG%20Report%20Summary%20JA.pdf";
                 break;
               case "Chinese":
-                // pdfURL = "";
+                pdfURL =
+                  "https://www.moloco.cloud/hubfs/Gated%20Content/bcg_report_pdf_cn.pdf";
                 break;
             }
             window.open(pdfURL, "_blank");
