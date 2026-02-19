@@ -48,6 +48,13 @@ export default function ChartPanelContentSelectedVertical({
 
   const verticalDisplayName: React.ReactNode = replaceCertainGlyphs(
     copy?.vertical || "",
+    language,
+  );
+
+  console.log(
+    "Displaying content for vertical:",
+    copy?.vertical,
+    verticalDisplayName,
   );
   return (
     <div className="flex flex-col h-full">
@@ -69,7 +76,9 @@ export default function ChartPanelContentSelectedVertical({
           onClick={() => selectVertical(null)}
         />
       </div>
-      <h3 className="text-grey-text font-museo-moderno mb-0 text-[18px] md:text-[40px] mr-[150px] md:mr-10 shrink-0 font-bold">
+      <h3
+        className={`text-grey-text font-museo-moderno mb-0 text-[18px] md:text-[40px] mr-[150px] shrink-0 font-bold`}
+      >
         {verticalDisplayName}
       </h3>
       <div

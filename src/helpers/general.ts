@@ -19,32 +19,59 @@ export const isMobile = (): boolean => {
 
   const mobileUa =
     /Mobi|Android|iPhone|iPad|iPod|Mobile|BlackBerry|IEMobile|Opera Mini/i.test(
-      ua
+      ua,
     );
 
   return smallViewport || !!hasCoarsePointer || mobileUa;
 };
 
-export const replaceCertainGlyphs = (text: string): React.ReactElement => {
+export const replaceCertainGlyphs = (
+  text: string,
+  language = "English",
+): React.ReactElement => {
   const parts: (string | React.ReactElement)[] = [];
 
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
+  // First, split on <customBreak /> to handle custom line breaks
+  const customBreakTag = "<customBreak />";
+  const segments = text.split(customBreakTag);
 
-    if (char === "G" || char === "&") {
-      parts.push(
-        React.createElement(
-          "span",
-          { key: i, style: { fontFamily: "Montserrat" } },
-          char
-        )
-      );
-    } else {
-      // Append to the last part if it's a string, otherwise create a new string part
-      if (parts.length > 0 && typeof parts[parts.length - 1] === "string") {
-        parts[parts.length - 1] = (parts[parts.length - 1] as string) + char;
+  for (let segIdx = 0; segIdx < segments.length; segIdx++) {
+    // Insert a <br> between segments (i.e. where <customBreak /> was)
+    if (segIdx > 0) {
+      parts.push(React.createElement("br", { key: `cb-${segIdx}` }));
+    }
+
+    const segment = segments[segIdx];
+    for (let i = 0; i < segment.length; i++) {
+      const char = segment[i];
+      // Use a composite key to ensure uniqueness across segments
+      const key = `${segIdx}-${i}`;
+
+      if ((char === "&" || char === "＆") && language === "Japanese") {
+        // For Japanese, replace '&'/'＆' with '＆' and apply the font style and add a line break after it
+        parts.push(
+          React.createElement(
+            "span",
+            { key, style: { fontFamily: "Montserrat" } },
+            "＆",
+          ),
+        );
+        parts.push(React.createElement("br", { key: `${key}-br` }));
+      } else if (char === "G" || char === "&" || char === "＆") {
+        parts.push(
+          React.createElement(
+            "span",
+            { key, style: { fontFamily: "Montserrat" } },
+            char,
+          ),
+        );
       } else {
-        parts.push(char);
+        // Append to the last part if it's a string, otherwise create a new string part
+        if (parts.length > 0 && typeof parts[parts.length - 1] === "string") {
+          parts[parts.length - 1] = (parts[parts.length - 1] as string) + char;
+        } else {
+          parts.push(char);
+        }
       }
     }
   }
@@ -72,7 +99,7 @@ export const runSiteGate = (): void => {
     "hs_form_submitted",
   ];
   const hasRequiredParamsOrStorage = requiredParamsAndStorage.some(
-    (param) => hasQueryParam(param) || hasLocalStorageItem(param)
+    (param) => hasQueryParam(param) || hasLocalStorageItem(param),
   );
 
   // Check for the utm_medium=email parameter
