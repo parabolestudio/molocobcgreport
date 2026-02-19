@@ -456,7 +456,7 @@ export default function QuadrantSection({
                     chartMode === "data-filled" ? "block" : "hidden"
                   }`}
                 >
-                  <div className={`max-w-[300px]`}>
+                  <div className={`max-w-[350px]`}>
                     <p className="font-bold text-[14px] leading-[125%]">
                       {verticalDropdownLabel}
                     </p>

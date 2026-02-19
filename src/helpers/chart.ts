@@ -114,7 +114,7 @@ export const verticalsMap: Record<string, Object> = {
   },
   "Auto Marketplaces": {
     English: {
-      // label: "Auto Marketplace",
+      label: "Auto Marketplaces",
       labelFormatted: {
         firstLine: "Auto",
         secondLine: "Marketplaces",
@@ -122,7 +122,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      // label: "자동차 마켓플레이스",
+      label: "자동차 마켓플레이스",
       labelFormatted: {
         firstLine: "자동차 마켓플레이스",
         secondLine: "",
@@ -130,7 +130,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Japanese: {
-      // label: "自動車マーケットプレイス",
+      label: "自動車マーケットプレイス",
       labelFormatted: {
         firstLine: "自動車",
         secondLine: "マーケットプレイス",
@@ -138,7 +138,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Chinese: {
-      // label: "汽车交易平台",
+      label: "汽车交易平台",
       labelFormatted: {
         firstLine: "汽车交易平台",
         secondLine: "",
@@ -180,7 +180,7 @@ export const verticalsMap: Record<string, Object> = {
       label: "건강 및 피트니스",
     },
     Japanese: {
-      // label: "ヘルス＆フィットネス",
+      label: "ヘルス＆フィットネス",
       labelFormatted: {
         firstLine: "ヘルス＆",
         secondLine: "フィットネス",
@@ -259,7 +259,7 @@ export const verticalsMap: Record<string, Object> = {
   },
   "Media & Streaming": {
     English: {
-      // label: "Media & Streaming",
+      label: "Media & Streaming",
       labelFormatted: {
         firstLine: "Media &",
         secondLine: "Streaming",
@@ -267,7 +267,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      // label: "미디어 및 스트리밍",
+      label: "미디어 및 스트리밍",
       labelFormatted: {
         firstLine: "미디어 및 스트리밍",
         secondLine: "",
@@ -275,7 +275,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Japanese: {
-      // label: "メディア＆ストリーミング",
+      label: "メディア＆ストリーミング",
       labelFormatted: {
         firstLine: "メディア＆",
         secondLine: "ストリーミング",
@@ -283,7 +283,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Chinese: {
-      // label: "媒体与流媒体",
+      label: "媒体与流媒体",
       labelFormatted: {
         firstLine: "媒体与流媒体",
         secondLine: "",
@@ -379,7 +379,7 @@ export const verticalsMap: Record<string, Object> = {
   },
   "Casino & Sports betting (RMG)": {
     English: {
-      // label: "Casino & Sports betting (RMG)",
+      label: "Casino & Sports betting (RMG)",
       labelFormatted: {
         firstLine: "Casino & Sports",
         secondLine: "betting (RMG)",
@@ -389,14 +389,14 @@ export const verticalsMap: Record<string, Object> = {
       label: "카지노 및 스포츠 베팅(RMG)",
     },
     Japanese: {
-      // label: "カジノ・スポーツベッティング（RMG）",
+      label: "カジノ・スポーツベッティング（RMG）",
       labelFormatted: {
         firstLine: "カジノ・スポーツ",
         secondLine: "ベッティング（RMG）",
       },
     },
     Chinese: {
-      // label: "赌场与体育博彩（真实货币博彩）",
+      label: "赌场与体育博彩（真实货币博彩）",
       labelFormatted: {
         firstLine: "赌场与体育博彩",
         secondLine: "（真实货币博彩）",
