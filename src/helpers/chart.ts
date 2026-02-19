@@ -177,7 +177,7 @@ export const verticalsMap: Record<string, Object> = {
       },
     },
     Korean: {
-      label: "헬스 및 피트니스",
+      label: "건강 및 피트니스",
     },
     Japanese: {
       // label: "ヘルス＆フィットネス",
